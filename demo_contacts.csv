@@ -1,0 +1,11 @@
+first_name,last_name,company,title,email,source
+Joey,Prindle,Acme,Director,joey.prindle@acme.com,ZoomInfo
+Sarah,Lee,Acme,Manager,sarah.lee@acme,ZoomInfo
+Mike,Stone,Globex,VP,,Manual Import
+Anna,Fields,Innotech,HR,anna.fields@gmail.com,ZoomInfo
+Chris,Wong,Innotech,HR,chris.wong@innotech.com,ZoomInfo
+David,King,Vertex,Ops,david.king@vertex..com,Trade Show
+Emily,Ross,Vertex,Ops,emily.ross@vertex.com,ZoomInfo
+Tom,Baker,Northstar,CEO,tom.baker@northstar.com,ZoomInfo
+Lisa,Grant,Northstar,CEO,lisa.grant@northstar.com,ZoomInfo
+Fake,Contact,TestCo,Manager,test@@test.com,ZoomInfo
