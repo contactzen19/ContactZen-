@@ -338,7 +338,17 @@ st.markdown(
 Identify decayed contacts, quantify GTM waste, and prevent bad data from entering your CRM.
 """
 )
+st.title("ContactZen")
 
+st.markdown(
+"""
+**Revenue Data Health Platform**
+
+Identify decayed contacts, quantify GTM waste, and prevent bad data from entering your CRM.
+"""
+)
+
+st.caption("Upload a CRM contact export (HubSpot, Salesforce, etc.) to scan for bad data, quantify impact, and uncover wasted spend.")
 with st.sidebar:
     st.header("ROI Assumptions (Editable)")
     rep_hourly_cost = st.number_input("Fully Loaded Rep Cost per Hour ($)", min_value=10.0, max_value=250.0, value=50.0, step=5.0)
@@ -352,6 +362,7 @@ with st.sidebar:
     new_contacts_per_rep_per_week = st.number_input("New Contacts per Rep per Week", min_value=0, max_value=2000, value=50, step=5)
     annual_data_cost = st.number_input("Annual Data Provider Cost ($)", min_value=0.0, max_value=5000000.0, value=18000.0, step=500.0)
 st.subheader("1) Upload Contacts CSV")
+st.caption("Tip: Include an email column and optionally a source column (e.g. ZoomInfo, manual import).")
 uploaded = st.file_uploader("Upload a CSV export from HubSpot/Salesforce/any CRM.", type=["csv"])
 
 if uploaded is not None:
