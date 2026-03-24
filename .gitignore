@@ -1,7 +1,26 @@
+# Python
 __pycache__/
-*.pyc
-test_env/
-venv/
-*.csv
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+.next/
+.vercel/
+out/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Mac
 .DS_Store
-.streamlit/
+
+# Editors
+.vscode/
+*.swp
