@@ -1,0 +1,48 @@
+# ContactZen Project Overview
+
+## What ContactZen Does
+ContactZen helps sales and RevOps teams identify bad contact data inside CRM exports and prospecting lists.
+
+The MVP currently focuses on email data hygiene first, with phone health planned next.
+
+The goal is to help teams:
+- find invalid and risky contact records
+- understand the source of bad data
+- estimate lost productivity and wasted spend
+- export records for cleanup
+- support vendor accountability and possible credit recapture
+
+## Target Users
+- RevOps leaders
+- Sales ops teams
+- sales leaders
+- teams using ZoomInfo, Apollo, or CRM imports heavily
+
+## MVP Scope
+Current MVP is designed to:
+1. Upload a CSV
+2. Detect or select email column
+3. Optionally map source/vendor column
+4. Run email validation
+5. Classify records by risk
+6. Show executive summary metrics
+7. Show source breakdown
+8. Estimate ROI and GTM waste
+9. Export scanned records
+
+## What Matters Most Right Now
+The top goal is a stable, impressive demo.
+
+The demo should clearly answer:
+- How much bad data do we have?
+- How risky is it?
+- Where is it coming from?
+- What is this costing us?
+- What can we do next?
+
+## Near-Term Roadmap
+1. Stabilize current email scan workflow
+2. Improve source attribution and reporting
+3. Improve error handling and CSV mapping UX
+4. Add phone number health scoring
+5. Prepare for simple hosted demo deployment

@@ -1,11 +1,2561 @@
-first_name,last_name,company,title,email,source
-Joey,Prindle,Acme,Director,joey.prindle@acme.com,ZoomInfo
-Sarah,Lee,Acme,Manager,sarah.lee@acme,ZoomInfo
-Mike,Stone,Globex,VP,,Manual Import
-Anna,Fields,Innotech,HR,anna.fields@gmail.com,ZoomInfo
-Chris,Wong,Innotech,HR,chris.wong@innotech.com,ZoomInfo
-David,King,Vertex,Ops,david.king@vertex..com,Trade Show
-Emily,Ross,Vertex,Ops,emily.ross@vertex.com,ZoomInfo
-Tom,Baker,Northstar,CEO,tom.baker@northstar.com,ZoomInfo
-Lisa,Grant,Northstar,CEO,lisa.grant@northstar.com,ZoomInfo
-Fake,Contact,TestCo,Manager,test@@test.com,ZoomInfo
+first_name,last_name,company,title,email,phone,source
+David,Garcia,ZoomInfo,SDR,dgarcia@zoominfo.com,,Website Form
+Stephanie,Sanchez,RingCentral,Sales Enablement Manager,stephanie.sanchez@ringcentral.com,,Manual Import
+Gregory,Sanchez,Constant Contact,,gregory.sanchez@constantcontact.com,,Legacy CRM
+Monica,Harris,LinkedIn,,N/A,7132457733,ZoomInfo
+Sean,Brown,ActiveCampaign,Account Executive,sean.brown@activecampaign,,Legacy CRM
+Adam,White,Constant Contact,,awhite@constantcontact.com,2124946591,Referral
+Daniel,Taylor,Qualtrics,Chief Revenue Officer,daniel.taylor@qualtrics.com,7136533598,Referral
+Daniel,Nelson,Mandrill,VP of Marketing,unknown@unknown,4042783940,ZoomInfo
+Jonathan,Williams,Insightly,,,,Legacy CRM
+James,Smith,Intercom,National Sales Manager,unknown@unknown,2065491525,Apollo
+Brian,Lopez,Sendgrid,Sales Development Manager,brian.lopez@gmail.com,5124308679,Legacy CRM
+Courtney,Gonzalez,Jira,Chief Revenue Officer,cgonzalez@jira.com,2126634672,Manual Import
+Brian,Jones,Salesloft,National Sales Manager,brian.jones@salesloft.com,,Manual Import
+Stephanie,Adams,Asana,,sadams@asana.com,,Trade Show
+Matthew,Nguyen,Slack,,matthew.nguyen@slack.com,,Website Form
+Tyler,Miller,Mailchimp,Sales Operations Manager,tmiller@mailchimp.com,,Manual Import
+Natalie,Davis,Chorus,,natalie.davis@guerrillamail.com,3124125134,Apollo
+Jeffrey,Lopez,Mandrill,RevOps Manager,jlopez@mandrill.com,2124010709,Legacy CRM
+Brian,Mitchell,Iterable,VP of Marketing,bmitchell@iterable.com,,Apollo
+Jeffrey,Nelson,Medallia,Chief Revenue Officer,jeffrey.nelson@medallia,,Apollo
+Stephanie,Green,Asana,,stephanie.green@asana,,Website Form
+Stephanie,Moore,Zendesk,Demand Generation Manager,stephanie@zendesk.com,5122325331,ZoomInfo
+Joshua,Nelson,Mixpanel,Revenue Operations Lead,jnelson@mixpanel.com,,Website Form
+David,Hill,Qualtrics,Account Executive,david@qualtrics.com,,Legacy CRM
+Matthew,Smith,Mailchimp,,matthew.smith@mailchimp,7133228861,Manual Import
+Victoria,Nelson,Braze,,vnelson@braze.com,5123446363,Manual Import
+Crystal,Martin,Intercom,Director of Revenue Operations,crystal.martin@intercom.com,,Referral
+James,Green,Mixpanel,Customer Success Manager,james.green@mixpanel.com,8559722505,Legacy CRM
+Rebecca,Garcia,Mandrill,,rebecca.garcia@mandrill.com,,Website Form
+Rachel,Johnson,Braze,,rachel@braze.com,,Legacy CRM
+Sarah,Brown,Gong,,sarah.brown@gong.com,,Website Form
+Ashley,Roberts,Mailchimp,Sales Director,ashley@mailchimp.com,5122454058,Apollo
+Matthew,Lopez,Freshworks,Regional Sales Manager,matthew@freshworks.com,5128729636,ZoomInfo
+Nicole,Johnson,Teams,Inside Sales Rep,njohnson@teams.com,,Website Form
+Kyle,Young,Outreach,Sales Enablement Manager,kyoung@outreach.com,,Legacy CRM
+Samantha,Hernandez,Webex,,samantha@webex.com,3124609183,ZoomInfo
+Stephanie,Nelson,Mailgun,Enterprise AE,snelson@mailgun.com,,ZoomInfo
+Matthew,Hill,RingCentral,Customer Success Manager,matthew@ringcentral.com,4155617351,Referral
+Megan,Moore,ActiveCampaign,,megan.moore@activecampaign.com,7138198906,Apollo
+Derek,Thomas,Salesloft,,N/A,3037710593,ZoomInfo
+Chris,Thomas,Drift,Sales Director,cthomas@drift.com,7135941569,Manual Import
+Victoria,Roberts,Pipedrive,,victoria.roberts@pipedrive.com,,Manual Import
+Heather,Campbell,ActiveCampaign,National Sales Manager,heather.campbell@activecampaign.com,2068148311,ZoomInfo
+Jennifer,Nguyen,Iterable,Regional Sales Manager,jennifer.nguyen@iterable.com,,Manual Import
+Derek,Thomas,Postmark,,derek.thomas@postmark.com,,ZoomInfo
+Patrick,Gonzalez,Monday.com,Director of Marketing,pgonzalez@mondaycom.com,7136135282,Manual Import
+Justin,Robinson,Marketo,,justin.robinson@10minutemail.com,,Manual Import
+Victoria,Martinez,Pardot,Customer Success Manager,victoria.martinez@pardot.com,,Trade Show
+Megan,Rivera,Salesloft,Chief Revenue Officer,mrivera@salesloft.com,555,Referral
+Lauren,Moore,Asana,BDR,unknown@unknown,,ZoomInfo
+Victoria,Lopez,Apollo,Enterprise AE,victoria.lopez@apollo.com,3126164213,ZoomInfo
+Heather,Flores,LinkedIn,Director of Revenue Operations,hflores@linkedin.com,4047237508,Legacy CRM
+Brian,Hill,Mailgun,,brian.hill@mailgun.com,,Trade Show
+Sarah,Young,Notion,Revenue Operations Lead,sarah.young@notion.com,7136863394,Apollo
+Adam,Rivera,HubSpot,RevOps Manager,adam@hubspot.com,,ZoomInfo
+Lauren,Robinson,Braze,,lauren@braze.com,,Legacy CRM
+Tiffany,Davis,Freshworks,SDR,tiffany@freshworks.com,4155446771,Referral
+Rachel,Baker,Mandrill,,rachel.baker@,2128976717,Apollo
+Amber,Wright,Salesloft,,amber.wright@salesloft.com,8779862003,Manual Import
+Courtney,Hall,Salesforce,,chall@salesforce.com,7022078545,Legacy CRM
+Tiffany,Walker,Mandrill,,tiffany.walker@icloud.com,,Apollo
+Ashley,Mitchell,Amplitude,Mid-Market AE,ashley.mitchell@amplitude.com,6175327190,ZoomInfo
+Lauren,Moore,Insightly,VP of Marketing,lmoore@insightly.com,7135954392,Manual Import
+Kyle,Williams,Intercom,Inside Sales Rep,kyle@intercom.com,,ZoomInfo
+Ashley,Perez,Totango,Director of Marketing,ashley@totango.com,8003328657,Legacy CRM
+Justin,Robinson,Qualtrics,,justin.robinson@gmail.com,,Trade Show
+Sean,Rodriguez,Medallia,,srodriguez@medallia.com,,Trade Show
+Emily,Lee,Insightly,Sales Operations Manager,emily.lee@insightly.com,,Legacy CRM
+Amanda,Jackson,Outreach,Director of Revenue Operations,amanda@outreach.com,,ZoomInfo
+Ryan,Garcia,Monday.com,Sales Operations Manager,ryan@mondaycom.com,,ZoomInfo
+Lauren,Campbell,Monday.com,,lauren@@mondaycom.com,555,Legacy CRM
+Stephanie,Campbell,Asana,Regional Sales Manager,stephanie.campbell@asana.com,4159976163,Manual Import
+Courtney,Harris,LinkedIn,SDR,courtney@@linkedin.com,,ZoomInfo
+Kyle,Baker,Clearbit,Revenue Operations Lead,kyle@clearbit.com,4154750179,Legacy CRM
+Rachel,Adams,ZoomInfo,VP of Marketing,rachel.adams@guerrillamail.com,4043343315,ZoomInfo
+Emily,Sanchez,Notion,,esanchez@notion.com,3033883567,ZoomInfo
+Nathan,Green,Mailchimp,VP of Sales,nathan.green@mailchimp.com,5124961986,Apollo
+Amanda,Martin,Clearbit,,amartin@clearbit.com,,Trade Show
+Megan,Green,Jira,National Sales Manager,megan.green@jira.com,6179623034,Legacy CRM
+Timothy,Mitchell,Mailgun,VP of Customer Success,timothy.mitchell@mailgun,4048694933,Apollo
+Chris,Smith,LinkedIn,,chris.smith@linkedin.com,123,Manual Import
+Heather,Sanchez,Insightly,VP of Customer Success,heather.sanchez@insightly.com,,Website Form
+Timothy,Williams,Webex,Sales Operations Manager,timothy@webex.com,8555156755,Referral
+Matthew,Perez,Iterable,VP of Sales,matthew@iterable.com,,Legacy CRM
+Amber,Adams,Outreach,,aadams@outreach.com,,Apollo
+Timothy,Mitchell,Klaviyo,,timothy.mitchell@klaviyo.com,,Apollo
+Rachel,Perez,Medallia,Director of Revenue Operations,rachel@medallia.com,4048909599,Apollo
+Nicole,Nelson,ZoomInfo,Sales Operations Manager,nicole@zoominfo.com,5127206486,ZoomInfo
+Timothy,Wilson,Freshworks,Chief Revenue Officer,twilson@freshworks.com,2067761756,Apollo
+Sean,Wright,Intercom,Director of Revenue Operations,swright@intercom.com,7135648854,Apollo
+Nathan,Smith,Iterable,Account Executive,N/A,7135091569,Referral
+Amber,Mitchell,Constant Contact,,amitchell@constantcontact.com,7139937740,Apollo
+Megan,Rodriguez,Teams,,megan.rodriguez@teams.com,2069411910,Manual Import
+Derek,Rivera,mParticle,,drivera@mparticle.com,,Legacy CRM
+Patrick,Wilson,Pardot,Field Sales Director,pwilson@pardot.com,7138123042,Apollo
+Gregory,Johnson,Mailgun,Marketing Manager,gjohnson@mailgun.com,,Website Form
+Victoria,Clark,Slack,Account Executive,vclark@slack.com,,Referral
+Adam,Roberts,Apollo,Regional Sales Manager,adam@apollo.com,,Referral
+Eric,Rivera,Clearbit,,eric.rivera@clearbit.com,,Website Form
+Gregory,Ramirez,Drift,,gregory.ramirez@drift.com,6176080816,Legacy CRM
+Tiffany,Adams,LinkedIn,,tiffany.adams@yopmail.com,,ZoomInfo
+Matthew,Lopez,Apollo,Sales Development Manager,mlopez@apollo.com,,Referral
+Lauren,Young,LinkedIn,Sales Director,lauren@linkedin.com,,Referral
+Sarah,Flores,Mixpanel,,sarah.flores@mixpanel.com,,Website Form
+Stephanie,Lopez,Marketo,,stephanie@marketo.com,,Legacy CRM
+Andrew,Rivera,Salesforce,Field Sales Director,andrew.rivera@gmail.com,,Trade Show
+Jennifer,Campbell,Mixpanel,,jennifer.campbell@mixpanel.com,,Website Form
+Patrick,Robinson,Gainsight,VP of Customer Success,probinson@gainsight.com,7027704093,Legacy CRM
+Chris,Baker,Klaviyo,VP of Sales,N/A,3129791056,ZoomInfo
+David,Rodriguez,Confluence,VP of Marketing,drodriguez@confluence.com,000,Legacy CRM
+Tiffany,Campbell,ZoomInfo,,tcampbell@zoominfo.com,2123349590,Manual Import
+Kyle,Taylor,ZoomInfo,,ktaylor@zoominfo.com,6179970931,Manual Import
+Sarah,Allen,Twilio,Mid-Market AE,sarah@twilio.com,7133784765,Apollo
+Stephanie,Gonzalez,ZoomInfo,,stephanie.gonzalez@zoominfo.com,,Website Form
+Crystal,Roberts,Totango,National Sales Manager,crystal.roberts@totango.com,4048787204,Website Form
+Alexandra,Thomas,Drift,Director of Revenue Operations,athomas@drift.com,3032190585,Manual Import
+Kyle,Ramirez,Constant Contact,Sales Director,kramirez@constantcontact.com,,Legacy CRM
+Amanda,Carter,Gong,,amanda.carter@gong.com,,Trade Show
+Brian,Brown,Twilio,Sales Enablement Manager,brian.brown@mailinator.com,5124383597,ZoomInfo
+Sarah,Thompson,Chorus,Inside Sales Rep,sthompson@chorus.com,,Apollo
+Amanda,Gonzalez,Webex,,amanda@webex.com,,ZoomInfo
+Jennifer,Hall,Postmark,BDR,jennifer.hall@gmail.com,2067224406,ZoomInfo
+Alexandra,White,Amplitude,Sales Enablement Manager,N/A,,Apollo
+Jessica,Miller,ActiveCampaign,,jessica.miller@activecampaign.com,5124595189,Apollo
+Jennifer,Hill,Salesforce,Sales Operations Manager,jennifer.hill@icloud.com,,Legacy CRM
+Lauren,Lopez,Mailchimp,,lauren@mailchimp.com,,Trade Show
+Brian,Allen,Confluence,,brian@confluence.com,,Apollo
+Chris,Nelson,Salesloft,Account Executive,,,ZoomInfo
+Crystal,Rodriguez,Intercom,Sales Operations Manager,crodriguez@intercom.com,6173171992,Website Form
+Jessica,Anderson,Salesloft,Sales Enablement Manager,jessica@salesloft.com,000,Website Form
+Daniel,Johnson,ZoomInfo,Sales Enablement Manager,daniel.johnson@zoominfo.com,2123502363,Apollo
+James,Torres,Webex,Regional Sales Manager,james@webex.com,2063762051,Apollo
+Amanda,Martin,Salesforce,VP of Sales,amanda.martin@salesforce.com,,Apollo
+Amanda,Wright,Teams,Revenue Operations Lead,unknown@unknown,,Trade Show
+Ryan,Mitchell,HubSpot,National Sales Manager,ryan.mitchell@hubspot.com,8008471822,ZoomInfo
+Crystal,Rivera,Gong,Mid-Market AE,crystal.rivera@gong.com,,Apollo
+Andrew,Martinez,Freshworks,Demand Generation Manager,andrew.martinez@freshworks.com,3128397322,Apollo
+Natalie,Nelson,Confluence,Mid-Market AE,,,Legacy CRM
+Tiffany,Torres,Constant Contact,Chief Revenue Officer,tiffany.torres@constantcontact.com,,Trade Show
+Gregory,Miller,ZoomInfo,National Sales Manager,gmiller@zoominfo.com,,ZoomInfo
+Chris,Hernandez,Salesforce,Field Sales Director,chris@salesforce.com,2062273802,ZoomInfo
+Amber,White,Intercom,Field Sales Director,amber.white@intercom.com,000,Legacy CRM
+Kayla,Harris,RingCentral,,kharris@ringcentral.com,,Apollo
+Sarah,Thomas,Outreach,Sales Director,sarah@outreach.com,,Apollo
+Andrew,Davis,Clearbit,Account Executive,,,ZoomInfo
+Rebecca,Flores,Freshworks,Sales Development Manager,rebecca.flores@,,ZoomInfo
+Matthew,Rodriguez,Totango,,matthew.rodriguez@guerrillamail.com,,Legacy CRM
+Chris,Moore,Mixpanel,,cmoore@mixpanel.com,,Apollo
+James,Hall,Drift,SDR,jhall@drift.com,3036746749,ZoomInfo
+Brittany,Anderson,Marketo,,brittany@marketo.com,3035396556,Website Form
+Rachel,Rivera,Chorus,Sales Development Manager,rachel.rivera@chorus.com,,ZoomInfo
+Tyler,Robinson,Apollo,Sales Enablement Manager,tyler.robinson@apollo.com,2127411566,Manual Import
+Nicole,Sanchez,Drift,Sales Operations Manager,nsanchez@drift.com,6178998859,Manual Import
+Joshua,Sanchez,Asana,RevOps Manager,jsanchez@asana.com,7023316741,Manual Import
+Victoria,Miller,Mixpanel,,vmiller@mixpanel.com,5129405664,Apollo
+Tiffany,Thompson,ChurnZero,,tthompson@churnzero.com,2064594791,Legacy CRM
+Amber,Thompson,Mailgun,,amber.thompson@mailgun,,Legacy CRM
+Courtney,Nelson,Qualtrics,,courtney@qualtrics.com,145,Manual Import
+Emily,Allen,Insightly,RevOps Manager,emily@insightly.com,4152746777,Referral
+Kayla,Lopez,Qualtrics,,kayla@qualtrics.com,2066793444,Legacy CRM
+Megan,Torres,Salesloft,RevOps Manager,mtorres@salesloft.com,555,Manual Import
+Justin,Allen,Gong,Marketing Manager,jallen@gong.com,,ZoomInfo
+Tyler,Thompson,Totango,Sales Development Manager,tthompson@totango.com,4153809382,Apollo
+Sean,Rivera,LinkedIn,,sean.rivera@linkedin.com,5125117913,Legacy CRM
+Heather,Harris,Slack,Inside Sales Rep,hharris@slack.com,6177132797,ZoomInfo
+Crystal,Moore,Chorus,Enterprise AE,crystal@chorus.com,4159601261,Manual Import
+Michael,Thomas,Slack,,mthomas@slack.com,,Manual Import
+Matthew,Lee,Postmark,VP of Sales,matthew.lee@postmark.com,,Legacy CRM
+Lauren,Hill,Iterable,Sales Enablement Manager,lhill@iterable.com,3038747630,Legacy CRM
+Jennifer,Davis,Twilio,,jennifer@twilio.com,7023464494,Trade Show
+Kayla,Adams,Freshworks,,,,Manual Import
+Andrew,Hall,Klaviyo,,ahall@klaviyo.com,,Website Form
+Timothy,Robinson,Amplitude,Account Executive,trobinson@amplitude.com,,Legacy CRM
+Nathan,Adams,Intercom,Inside Sales Rep,nadams@intercom.com,,Manual Import
+Chris,Lee,Intercom,VP of Customer Success,chris@intercom.com,000,Referral
+Michael,Thompson,Copper,Chief Revenue Officer,michael@copper.com,6178227809,ZoomInfo
+Courtney,Martin,Mandrill,Inside Sales Rep,cmartin@mandrill.com,8883838183,ZoomInfo
+James,Baker,Notion,,james@notion.com,,Legacy CRM
+Ashley,Nelson,Slack,,ashley.nelson@slack.com,,Manual Import
+Jessica,Thomas,Gong,,jthomas@gong.com,,Apollo
+Monica,Nguyen,Zendesk,,monica@zendesk.com,7138463399,Apollo
+Jennifer,White,Jira,Marketing Manager,jennifer.white@jira.com,5129211877,Manual Import
+Rebecca,Robinson,Amplitude,VP of Customer Success,rebecca@amplitude.com,7137393806,ZoomInfo
+Brian,Thomas,Gong,Account Executive,brian@gong.com,,Legacy CRM
+Timothy,Mitchell,Webex,Enterprise AE,timothy.mitchell@webex.com,3035179660,Website Form
+Patrick,Hill,Gainsight,Demand Generation Manager,patrick.hill@gainsight.com,,Legacy CRM
+Natalie,Lewis,Mandrill,,natalie.lewis@mandrill,,Trade Show
+Victoria,Hill,Teams,VP of Sales,vhill@teams.com,,Trade Show
+Tyler,Flores,Salesloft,SDR,tyler.flores@salesloft.com,8662758672,Apollo
+Amber,Lopez,Freshworks,,amber@freshworks.com,,Legacy CRM
+Amber,Mitchell,Outreach,,amber.mitchell@outreach.com,,Website Form
+David,Thompson,Postmark,,david@postmark.com,,Manual Import
+Justin,Smith,ZoomInfo,BDR,justin.smith@zoominfo.com,,Legacy CRM
+Kyle,Martinez,Segment,BDR,kyle@segment.com,555,Website Form
+Tyler,Gonzalez,LinkedIn,VP of Customer Success,tyler@linkedin.com,,Legacy CRM
+Jessica,Lewis,HubSpot,Marketing Manager,jessica@hubspot.com,,Referral
+Joshua,Roberts,Freshworks,Director of Revenue Operations,joshua@freshworks.com,5125238663,ZoomInfo
+James,Robinson,Braze,Enterprise AE,jrobinson@braze.com,,Legacy CRM
+Courtney,Robinson,Slack,Sales Development Manager,courtney.robinson@slack.com,4154941160,Legacy CRM
+Timothy,Johnson,Zendesk,Director of Marketing,tjohnson@zendesk.com,3038858296,Referral
+Brandon,Campbell,Qualtrics,,brandon@qualtrics.com,,Trade Show
+Chris,Hill,Mandrill,,chris.hill@mandrill.com,6173828115,Trade Show
+Crystal,Brown,Postmark,VP of Sales,crystal.brown@postmark.com,,Manual Import
+Gregory,Torres,RingCentral,Sales Enablement Manager,gregory@@ringcentral.com,,Apollo
+Kayla,Brown,LinkedIn,,kayla@linkedin.com,,Apollo
+Jennifer,Moore,Salesloft,,jennifer.moore@salesloft.com,7026173456,Apollo
+Jeffrey,Brown,Medallia,,jeffrey.brown@medallia.com,8668120325,Website Form
+Matthew,Lopez,Mailchimp,,matthew.lopez@mailchimp.com,,Trade Show
+Jessica,Moore,LinkedIn,SDR,N/A,,Legacy CRM
+Rebecca,Carter,Zendesk,Sales Enablement Manager,rebecca@zendesk.com,4042259606,Legacy CRM
+Lauren,Rivera,Notion,,lauren@notion.com,2123457414,ZoomInfo
+Tyler,Ramirez,Webex,Regional Sales Manager,tyler.ramirez@yopmail.com,7136719718,Apollo
+Daniel,Carter,Freshworks,,daniel@freshworks.com,,Website Form
+Alexandra,Harris,Qualtrics,,alexandra@qualtrics.com,,Website Form
+Brittany,Taylor,LinkedIn,,brittany@linkedin.com,,Manual Import
+Tiffany,Lee,Mailgun,RevOps Manager,tiffany.lee@mailgun.com,2069477032,ZoomInfo
+Joshua,Rodriguez,RingCentral,,joshua.rodriguez@ringcentral.com,5129931336,Manual Import
+Sarah,Taylor,Jira,RevOps Manager,staylor@jira.com,,Referral
+Andrew,Clark,Intercom,Chief Revenue Officer,andrew@intercom.com,,Manual Import
+Chris,Hill,ZoomInfo,Sales Enablement Manager,chris@zoominfo.com,5124746499,Apollo
+Daniel,Rivera,Pardot,Head of Growth,daniel@pardot.com,2066874227,Referral
+Andrew,Flores,mParticle,,andrew.flores@mparticle.com,,Referral
+Courtney,Hernandez,Salesforce,Director of Revenue Operations,chernandez@salesforce.com,000,Manual Import
+Amanda,Wilson,Asana,Sales Operations Manager,amanda.wilson@asana.com,,Referral
+Andrew,Brown,Constant Contact,Sales Development Manager,andrew.brown@constantcontact.com,6174298289,ZoomInfo
+Crystal,Garcia,Totango,Demand Generation Manager,crystal.garcia@totango.com,,Legacy CRM
+James,Young,Pardot,,jyoung@pardot.com,,Website Form
+Brandon,Rivera,Mailchimp,,brandon@mailchimp.com,4154102229,ZoomInfo
+Derek,Wright,ZoomInfo,BDR,derek.wright@zoominfo.com,3127919333,Manual Import
+Patrick,Miller,Twilio,Sales Operations Manager,patrick@twilio.com,2069144621,Legacy CRM
+Jessica,Anderson,Freshworks,Enterprise AE,janderson@freshworks.com,,Manual Import
+Sarah,Allen,Copper,RevOps Manager,sarah.allen@copper.com,,Manual Import
+Justin,Lee,Segment,,justin@segment.com,4043345058,Apollo
+Victoria,Rodriguez,Sendgrid,,vrodriguez@sendgrid.com,,Trade Show
+Eric,Hall,Totango,,unknown@unknown,,Legacy CRM
+Stephanie,Robinson,Zoom,Director of Revenue Operations,stephanie@@zoom.com,4154097842,Apollo
+Tiffany,Ramirez,Chorus,,tiffany.ramirez@chorus.com,2122834330,Website Form
+Joshua,Carter,Campaign Monitor,,joshua@campaignmonitor.com,,Manual Import
+Brian,Walker,Drift,,brian@drift.com,3036881976,Website Form
+Patrick,Harris,Marketo,,pharris@marketo.com,000,Legacy CRM
+Victoria,Adams,Salesforce,BDR,victoria@salesforce.com,,Legacy CRM
+James,Williams,Qualtrics,,james@qualtrics.com,,Manual Import
+Natalie,Taylor,Intercom,Enterprise AE,natalie.taylor@intercom.com,6176969351,Referral
+Amanda,Adams,Twilio,Chief Revenue Officer,amanda.adams@twilio.com,2063271775,Apollo
+Heather,Clark,Jira,,heather.clark@icloud.com,7024506953,ZoomInfo
+Daniel,Green,Teams,Marketing Manager,daniel.green@teams.com,,Manual Import
+Alexandra,Nelson,RingCentral,,alexandra.nelson@ringcentral.com,3036538190,Legacy CRM
+David,Lee,Gainsight,Inside Sales Rep,david.lee@gainsight.com,123,Website Form
+Courtney,Baker,Zoom,Account Executive,courtney.baker@mailinator.com,2065489454,ZoomInfo
+Jonathan,Robinson,Klaviyo,RevOps Manager,jonathan.robinson@klaviyo.com,8667438211,ZoomInfo
+Jeffrey,Nelson,Mailgun,,jeffrey@mailgun.com,555,Referral
+Eric,Lee,Klaviyo,,eric@klaviyo.com,,Manual Import
+Eric,Mitchell,ChurnZero,VP of Marketing,emitchell@churnzero.com,2126369398,Legacy CRM
+Gregory,Mitchell,mParticle,SDR,gregory.mitchell@gmail.com,3037227406,ZoomInfo
+Victoria,Robinson,Qualtrics,,victoria@qualtrics.com,,Website Form
+Megan,Rivera,Confluence,Customer Success Manager,megan@confluence.com,,Website Form
+Ashley,Torres,Braze,National Sales Manager,ashley.torres@braze.com,5126614324,Manual Import
+Danielle,Hernandez,Copper,,,6174041418,Legacy CRM
+Eric,Green,Jira,,eric.green@jira.com,,Website Form
+Lauren,Hill,mParticle,Chief Revenue Officer,lauren.hill@,7027777049,ZoomInfo
+Courtney,Garcia,Sendgrid,VP of Marketing,courtney@sendgrid.com,2129660726,ZoomInfo
+Monica,Nelson,Mailgun,Inside Sales Rep,monica@mailgun.com,,Website Form
+Monica,Robinson,ChurnZero,,monica.robinson@churnzero.com,4152934521,Referral
+Ryan,Harris,Salesforce,Sales Development Manager,ryan@salesforce.com,,Apollo
+Jennifer,Campbell,Gainsight,RevOps Manager,jennifer.campbell@gainsight.com,3039209904,Manual Import
+Emily,Johnson,Totango,Enterprise AE,emily.johnson@,3128945336,Legacy CRM
+James,Taylor,Slack,,james.taylor@slack.com,3036103539,Trade Show
+Chris,Flores,Gong,,chris@gong.com,,Manual Import
+Lauren,Mitchell,Copper,,lauren.mitchell@,555,ZoomInfo
+Andrew,Johnson,Intercom,Chief Revenue Officer,andrew.johnson@intercom,,Legacy CRM
+David,Lee,LinkedIn,Director of Marketing,dlee@linkedin.com,7025808893,Legacy CRM
+Nathan,Wilson,Insightly,,nathan@insightly.com,7135095228,Legacy CRM
+Tyler,Baker,Segment,,tyler@segment.com,,Manual Import
+Eric,Taylor,Postmark,Field Sales Director,eric@postmark.com,,Legacy CRM
+Alexandra,Green,Freshworks,VP of Customer Success,alexandra@freshworks.com,8778964911,Website Form
+Rachel,Moore,Salesloft,Sales Development Manager,rachel@salesloft.com,5128854359,ZoomInfo
+Brian,Campbell,Asana,Head of Growth,brian.campbell@asana.com,,Trade Show
+Justin,Anderson,mParticle,Marketing Manager,,3035117898,ZoomInfo
+Kayla,Lee,Medallia,Director of Revenue Operations,kayla@medallia.com,2124704252,Manual Import
+Lauren,Anderson,Braze,Inside Sales Rep,landerson@braze.com,5127015063,Manual Import
+Jonathan,Nelson,Medallia,,jonathan@medallia.com,2067741273,ZoomInfo
+Nicole,Young,Qualtrics,Sales Development Manager,nicole@qualtrics.com,7026479013,Apollo
+Jennifer,Brown,Zoom,Enterprise AE,jennifer.brown@yopmail.com,,ZoomInfo
+Danielle,Clark,Freshworks,Account Executive,danielle@freshworks.com,,Legacy CRM
+Joshua,Gonzalez,Slack,SDR,joshua@slack.com,4047891024,Apollo
+Patrick,Robinson,Notion,Customer Success Manager,probinson@notion.com,5128743644,Referral
+Jessica,Martin,Salesforce,,jessica.martin@,4043634803,Legacy CRM
+Jessica,Roberts,Asana,SDR,jroberts@asana.com,3038017870,Legacy CRM
+Lauren,Brown,Pardot,,lauren@pardot.com,7025894589,Manual Import
+Sarah,Anderson,Mailchimp,Director of Revenue Operations,sarah.anderson@mailinator.com,3123033157,ZoomInfo
+Eric,Walker,ChurnZero,RevOps Manager,ewalker@churnzero.com,,Trade Show
+Kevin,Robinson,Mandrill,Sales Development Manager,krobinson@mandrill.com,7026273282,Apollo
+Kevin,Green,Gong,BDR,kevin.green@10minutemail.com,8007637242,Website Form
+James,Davis,Mailgun,Sales Director,james.davis@mailgun.com,7139705836,Apollo
+Adam,Martinez,Zendesk,,amartinez@zendesk.com,113,Website Form
+Kayla,Martin,Segment,Director of Revenue Operations,unknown@unknown,,ZoomInfo
+Gregory,Martin,Zoom,Head of Growth,gregory@zoom.com,3125745911,ZoomInfo
+Adam,Anderson,Mailgun,,adam.anderson@mailgun.com,8555811510,Manual Import
+Matthew,White,ChurnZero,National Sales Manager,matthew@churnzero.com,2122302618,Manual Import
+Eric,Robinson,ActiveCampaign,SDR,erobinson@activecampaign.com,3128310205,ZoomInfo
+Sean,Gonzalez,Marketo,VP of Customer Success,sean@marketo.com,555,Manual Import
+Stephanie,Williams,Zendesk,,stephanie@@zendesk.com,2069354654,ZoomInfo
+Andrew,Campbell,Mailgun,VP of Marketing,acampbell@mailgun.com,4049234660,Trade Show
+Jeffrey,Mitchell,Gainsight,VP of Marketing,jmitchell@gainsight.com,,Legacy CRM
+Patrick,Carter,Insightly,Account Executive,pcarter@insightly.com,,Website Form
+David,Scott,Jira,,david.scott@jira.com,5123718764,Trade Show
+Megan,Roberts,Pipedrive,VP of Marketing,megan@pipedrive.com,,Apollo
+Michael,Williams,Copper,Head of Growth,michael@copper.com,,Website Form
+Monica,Jackson,Asana,VP of Marketing,monica@asana.com,4154346931,ZoomInfo
+Jessica,Martin,Gong,VP of Customer Success,jessica.martin@gong.com,000,Referral
+Natalie,Carter,Asana,Marketing Manager,natalie.carter@asana,6177294562,ZoomInfo
+Kayla,Martinez,Teams,Sales Operations Manager,kmartinez@teams.com,3122040532,Apollo
+Kayla,King,Mandrill,Customer Success Manager,kayla@mandrill.com,,Legacy CRM
+Monica,Williams,Medallia,,monica.williams@medallia.com,,Website Form
+James,Gonzalez,Copper,,james.gonzalez@copper.com,,Manual Import
+Alexandra,Flores,Marketo,Marketing Manager,alexandra@marketo.com,8668032308,Website Form
+Patrick,Hill,Twilio,Sales Director,patrick.hill@twilio,3033395348,ZoomInfo
+Brittany,Allen,Pipedrive,,brittany.allen@pipedrive.com,7026691716,Apollo
+Emily,Allen,Medallia,VP of Sales,N/A,000,Website Form
+Sarah,Sanchez,Copper,BDR,sarah@copper.com,,ZoomInfo
+Joshua,Martin,Twilio,,joshua.martin@,,Legacy CRM
+Michael,Lewis,Totango,Regional Sales Manager,N/A,,Legacy CRM
+Justin,Thomas,Postmark,Director of Marketing,jthomas@postmark.com,,Legacy CRM
+Stephanie,Baker,Pipedrive,,stephanie@pipedrive.com,7138858211,Legacy CRM
+Rebecca,Johnson,Asana,National Sales Manager,rebecca@asana.com,000,Manual Import
+Amber,Perez,Amplitude,Inside Sales Rep,amber.perez@amplitude.com,,Legacy CRM
+Brandon,Garcia,Confluence,,brandon@confluence.com,2062561411,Trade Show
+Amber,Green,Asana,RevOps Manager,,8774693231,ZoomInfo
+Gregory,Smith,Salesloft,Chief Revenue Officer,gregory@salesloft.com,3129420159,ZoomInfo
+Chris,Thompson,Chorus,Sales Operations Manager,chris@chorus.com,555,Legacy CRM
+Jeffrey,Wilson,Amplitude,Field Sales Director,jeffrey@amplitude.com,4156408269,ZoomInfo
+Danielle,Clark,Insightly,Regional Sales Manager,danielle.clark@insightly.com,,Referral
+Brittany,Scott,Jira,Revenue Operations Lead,brittany.scott@gmail.com,555,Legacy CRM
+Rebecca,Wilson,Clearbit,,rwilson@clearbit.com,2129401963,Website Form
+Victoria,Adams,ActiveCampaign,Customer Success Manager,victoria@activecampaign.com,4042569961,Referral
+Jonathan,White,HubSpot,Revenue Operations Lead,jonathan.white@hubspot.com,3039949617,ZoomInfo
+Jonathan,Miller,Clearbit,VP of Customer Success,jmiller@clearbit.com,,Legacy CRM
+Tiffany,Wilson,Qualtrics,Sales Operations Manager,twilson@qualtrics.com,123,Apollo
+Victoria,Allen,Confluence,Revenue Operations Lead,victoria@confluence.com,,Manual Import
+Ashley,Lopez,Confluence,,ashley.lopez@outlook.com,,Legacy CRM
+Amber,Moore,Braze,SDR,amber@@braze.com,,Website Form
+Megan,Walker,RingCentral,Head of Growth,megan.walker@ringcentral.com,6175515606,Apollo
+Nathan,Baker,Iterable,Enterprise AE,nathan@@iterable.com,2128247202,Apollo
+Amanda,Roberts,Sendgrid,Inside Sales Rep,amanda.roberts@sendgrid.com,,Legacy CRM
+Adam,Nelson,Asana,Director of Marketing,adam@asana.com,2122140309,ZoomInfo
+Ashley,Mitchell,Gong,VP of Customer Success,amitchell@gong.com,4155791696,ZoomInfo
+Nathan,Miller,mParticle,Sales Development Manager,nmiller@mparticle.com,4154716535,Manual Import
+Jennifer,Smith,Mailgun,,jsmith@mailgun.com,,Legacy CRM
+Kyle,Ramirez,Clearbit,Enterprise AE,,3125381607,Legacy CRM
+Heather,Baker,Webex,,hbaker@webex.com,4049581612,Legacy CRM
+Derek,Ramirez,Constant Contact,,derek@constantcontact.com,,Website Form
+Emily,Lewis,Zoom,VP of Sales,elewis@zoom.com,,Referral
+James,Baker,Clearbit,,james@clearbit.com,4045728148,Trade Show
+Kevin,Wright,Jira,,kwright@jira.com,,Apollo
+Brian,Hernandez,Freshworks,,brian.hernandez@,5125178795,Legacy CRM
+Daniel,Hernandez,Salesloft,Head of Growth,daniel.hernandez@salesloft.com,,Trade Show
+Brittany,Jackson,Salesforce,Chief Revenue Officer,bjackson@salesforce.com,3127732370,Manual Import
+Ryan,Mitchell,Monday.com,,ryan@mondaycom.com,000,ZoomInfo
+Nicole,Adams,Salesforce,Chief Revenue Officer,nicole.adams@salesforce,5124962249,Apollo
+Alexandra,Young,Intercom,BDR,ayoung@intercom.com,,Manual Import
+Lauren,Moore,Slack,Sales Development Manager,lmoore@slack.com,555,Manual Import
+Nicole,Sanchez,Pardot,BDR,nsanchez@pardot.com,000,Legacy CRM
+Brandon,Jackson,ChurnZero,Sales Enablement Manager,brandon.jackson@churnzero.com,7028612770,ZoomInfo
+Rebecca,Torres,Monday.com,,rebecca.torres@gmail.com,,Trade Show
+Alexandra,Torres,Copper,Sales Enablement Manager,alexandra@copper.com,2066783825,Apollo
+Tyler,Ramirez,Mandrill,,N/A,7023298529,ZoomInfo
+Eric,Green,Gainsight,,unknown@unknown,,Legacy CRM
+Brian,Gonzalez,Insightly,,N/A,,Apollo
+Rachel,Flores,Insightly,,rflores@insightly.com,,Trade Show
+Brian,Green,Salesforce,,bgreen@salesforce.com,2063075407,Manual Import
+Heather,Williams,ChurnZero,VP of Marketing,heather@@churnzero.com,3129026417,Apollo
+Adam,Rodriguez,mParticle,,adam@mparticle.com,,Manual Import
+Kyle,Nelson,Campaign Monitor,VP of Marketing,kyle@campaignmonitor.com,4044398537,ZoomInfo
+Tiffany,Garcia,Klaviyo,National Sales Manager,tgarcia@klaviyo.com,7025474425,ZoomInfo
+Monica,Nelson,Campaign Monitor,,monica.nelson@campaignmonitor.com,,Legacy CRM
+Sarah,Johnson,Zoom,,sjohnson@zoom.com,,Website Form
+Sean,Wright,ZoomInfo,Director of Revenue Operations,sean.wright@zoominfo.com,,Apollo
+Jessica,Carter,LinkedIn,Revenue Operations Lead,jcarter@linkedin.com,,Apollo
+Sean,Baker,Klaviyo,,sean@klaviyo.com,2065463688,Apollo
+Monica,Lopez,Slack,Sales Development Manager,mlopez@slack.com,,ZoomInfo
+Eric,Walker,ActiveCampaign,Sales Enablement Manager,eric@activecampaign.com,7026202305,Referral
+Daniel,Lee,Confluence,Demand Generation Manager,dlee@confluence.com,2128631429,Website Form
+David,Lopez,Braze,,david@braze.com,,Legacy CRM
+Kayla,Davis,Mandrill,,kayla.davis@mandrill.com,2069160138,Trade Show
+James,Mitchell,Confluence,,james.mitchell@hotmail.com,5127254641,Manual Import
+Megan,Martinez,Segment,,megan@segment.com,2063835912,Legacy CRM
+Sean,Perez,Apollo,Account Executive,,7022594150,ZoomInfo
+Jennifer,Miller,HubSpot,,jennifer.miller@hubspot.com,,Trade Show
+Amanda,Baker,Copper,,amanda.baker@,4156814404,ZoomInfo
+Sarah,Moore,Slack,Director of Revenue Operations,unknown@unknown,,Legacy CRM
+Jeffrey,Thompson,Monday.com,,jeffrey.thompson@mondaycom.com,3123015112,Trade Show
+Amber,Scott,Teams,,amber.scott@teams.com,,Website Form
+Adam,Hall,ChurnZero,Field Sales Director,adam.hall@churnzero.com,4048202229,Manual Import
+Natalie,Perez,Jira,Sales Enablement Manager,natalie.perez@jira,5126460320,Manual Import
+Tyler,Hill,Jira,VP of Sales,tyler.hill@jira.com,,Apollo
+Jeffrey,Gonzalez,Mixpanel,Head of Growth,jeffrey.gonzalez@mixpanel.com,2063593550,Trade Show
+Joshua,Wilson,ZoomInfo,VP of Sales,joshua.wilson@zoominfo.com,,Legacy CRM
+Ryan,Taylor,Pipedrive,Head of Growth,ryan@pipedrive.com,,Referral
+Alexandra,Thompson,Teams,Sales Operations Manager,alexandra.thompson@teams.com,2066667752,Manual Import
+Justin,Robinson,Mandrill,,justin@mandrill.com,7135845502,Legacy CRM
+Heather,Hernandez,Medallia,VP of Customer Success,heather@medallia.com,,Manual Import
+Tiffany,Young,Apollo,Head of Growth,tyoung@apollo.com,8777174079,Website Form
+Michael,Jackson,Marketo,Chief Revenue Officer,michael.jackson@marketo.com,3039829683,ZoomInfo
+Emily,Jackson,Asana,,emily@asana.com,2066502088,ZoomInfo
+Jessica,Sanchez,Intercom,,jessica.sanchez@intercom.com,,Apollo
+Sarah,Brown,Mandrill,BDR,sbrown@mandrill.com,4044120122,ZoomInfo
+Amber,Garcia,Webex,,amber.garcia@webex.com,,Trade Show
+Stephanie,Garcia,Jira,Director of Marketing,stephanie@jira.com,,Manual Import
+Michael,Taylor,Freshworks,Head of Growth,mtaylor@freshworks.com,4155900054,Manual Import
+Alexandra,Lee,ZoomInfo,,alexandra.lee@zoominfo.com,,Manual Import
+Gregory,Robinson,Campaign Monitor,VP of Marketing,grobinson@campaignmonitor.com,4158869981,ZoomInfo
+James,Lee,Mandrill,Demand Generation Manager,jlee@mandrill.com,,Legacy CRM
+Monica,Robinson,ChurnZero,,monica.robinson@churnzero.com,4152934521,Legacy CRM
+Courtney,Gonzalez,Confluence,National Sales Manager,cgonzalez@confluence.com,4154113346,Website Form
+Nathan,Lee,Pardot,VP of Marketing,nlee@pardot.com,5124334185,ZoomInfo
+Monica,Taylor,Twilio,Demand Generation Manager,monica@twilio.com,,Legacy CRM
+Rebecca,Anderson,Salesforce,Sales Operations Manager,rebecca@salesforce.com,,Legacy CRM
+Eric,Thomas,Medallia,Revenue Operations Lead,eric@medallia.com,8772507930,ZoomInfo
+Natalie,Hall,Mailgun,BDR,natalie.hall@mailinator.com,,Apollo
+Jeffrey,Lewis,mParticle,National Sales Manager,jeffrey.lewis@mparticle.com,2126798240,Legacy CRM
+Tyler,Green,Qualtrics,,tgreen@qualtrics.com,123,Website Form
+Stephanie,Thomas,Clearbit,Marketing Manager,stephanie.thomas@yopmail.com,8557466897,Legacy CRM
+Megan,Lee,Mixpanel,Sales Operations Manager,megan.lee@yopmail.com,4154961259,Legacy CRM
+Emily,Torres,Slack,Director of Marketing,emily@slack.com,159,ZoomInfo
+Sean,Jones,Totango,VP of Customer Success,sean.jones@totango,,Apollo
+Nicole,Hall,Zoom,Enterprise AE,nicole@zoom.com,,Referral
+Stephanie,Roberts,Zoom,VP of Sales,unknown@unknown,5125469186,Apollo
+Nathan,Wright,Clearbit,,nathan.wright@clearbit.com,,Manual Import
+Joshua,Campbell,Postmark,,joshua@postmark.com,,Website Form
+Samantha,Nelson,Drift,,N/A,4152993994,Legacy CRM
+Daniel,Lee,HubSpot,,dlee@hubspot.com,,Trade Show
+Derek,Nelson,Mailchimp,Field Sales Director,dnelson@mailchimp.com,2066594361,ZoomInfo
+David,Sanchez,Freshworks,,david@freshworks.com,,ZoomInfo
+Samantha,Allen,ActiveCampaign,Mid-Market AE,samantha@activecampaign.com,8002051332,Referral
+Brandon,Jones,Campaign Monitor,VP of Sales,N/A,,Legacy CRM
+Nicole,Taylor,Pardot,Revenue Operations Lead,nicole.taylor@pardot.com,3032775644,ZoomInfo
+Tiffany,Campbell,Sendgrid,,tiffany.campbell@sendgrid.com,4043185929,Apollo
+Patrick,Robinson,Notion,Customer Success Manager,probinson@notion.com,5128743644,ZoomInfo
+Matthew,Allen,Monday.com,Sales Operations Manager,matthew@@mondaycom.com,,ZoomInfo
+Victoria,Wilson,Salesforce,,vwilson@salesforce.com,8887955832,Manual Import
+Tyler,Taylor,Pardot,Director of Revenue Operations,tyler@pardot.com,000,Legacy CRM
+Courtney,Johnson,Outreach,,courtney.johnson@gmail.com,,Website Form
+Ashley,Campbell,LinkedIn,Inside Sales Rep,acampbell@linkedin.com,6176371428,ZoomInfo
+Eric,Smith,LinkedIn,,eric.smith@linkedin.com,,Referral
+Tyler,Campbell,Slack,Sales Operations Manager,tyler.campbell@,,Apollo
+Tyler,Flores,Gong,Field Sales Director,tyler.flores@,3037170255,Apollo
+Alexandra,Carter,Insightly,RevOps Manager,alexandra@insightly.com,,Apollo
+Emily,Hill,Postmark,,ehill@postmark.com,,Manual Import
+James,Taylor,Qualtrics,VP of Sales,jtaylor@qualtrics.com,2066886034,ZoomInfo
+Amanda,Perez,mParticle,Account Executive,aperez@mparticle.com,3127336721,ZoomInfo
+Sarah,Clark,Mailchimp,SDR,sclark@mailchimp.com,,Referral
+Tiffany,Wilson,Klaviyo,,tiffany.wilson@gmail.com,3127430546,ZoomInfo
+Justin,Wright,Pipedrive,Inside Sales Rep,justin.wright@yopmail.com,,ZoomInfo
+Nicole,White,Medallia,,nicole.white@medallia.com,5129672103,Manual Import
+Stephanie,Garcia,Campaign Monitor,Revenue Operations Lead,stephanie.garcia@campaignmonitor,,Trade Show
+Rachel,Garcia,Teams,Revenue Operations Lead,rachel.garcia@yahoo.com,5122624451,Legacy CRM
+Jennifer,Allen,Outreach,,jennifer.allen@outreach.com,7025197364,Legacy CRM
+Brittany,Flores,Intercom,,brittany.flores@intercom.com,5125840540,Legacy CRM
+Michael,Baker,Jira,Enterprise AE,michael@jira.com,,Legacy CRM
+Victoria,Wilson,mParticle,,vwilson@mparticle.com,,Legacy CRM
+David,Williams,Drift,Revenue Operations Lead,david@drift.com,5122897258,ZoomInfo
+Kayla,Nelson,Clearbit,,knelson@clearbit.com,,Manual Import
+Emily,Nguyen,Slack,Sales Enablement Manager,emily@slack.com,,ZoomInfo
+Ryan,Baker,Apollo,Sales Development Manager,rbaker@apollo.com,3122212194,Manual Import
+Matthew,Young,Chorus,BDR,myoung@chorus.com,2122501430,Apollo
+Samantha,Torres,Sendgrid,Director of Marketing,storres@sendgrid.com,000,Manual Import
+Chris,Martinez,Teams,,chris.martinez@teams.com,2128065862,Trade Show
+Joshua,Rodriguez,Constant Contact,,joshua@constantcontact.com,4049419061,Website Form
+Samantha,Thompson,Marketo,VP of Customer Success,samantha@marketo.com,2063419816,Apollo
+Michael,Young,Campaign Monitor,Mid-Market AE,myoung@campaignmonitor.com,7023591955,Apollo
+Sean,Young,Amplitude,,sean.young@amplitude.com,2067008030,Apollo
+Stephanie,Martin,Clearbit,Director of Marketing,stephanie@clearbit.com,6176223351,Referral
+Eric,Lopez,Monday.com,Account Executive,elopez@mondaycom.com,8778282741,ZoomInfo
+Samantha,Smith,Gainsight,Director of Revenue Operations,N/A,,ZoomInfo
+Timothy,Clark,Braze,Sales Development Manager,timothy.clark@braze.com,3128721977,ZoomInfo
+Alexandra,Gonzalez,Clearbit,,alexandra.gonzalez@clearbit.com,3032499591,ZoomInfo
+Emily,Nguyen,Jira,,enguyen@jira.com,3038469973,Legacy CRM
+Danielle,Lewis,Totango,Director of Marketing,dlewis@totango.com,3127415279,Apollo
+Rebecca,Johnson,Qualtrics,Sales Enablement Manager,rebecca.johnson@qualtrics.com,,Manual Import
+Jonathan,Gonzalez,Mixpanel,,jonathan@mixpanel.com,3123981966,ZoomInfo
+Danielle,Garcia,Salesforce,,dgarcia@salesforce.com,5127761735,Legacy CRM
+Lauren,Sanchez,Clearbit,Sales Development Manager,lsanchez@clearbit.com,,Referral
+Crystal,Clark,Constant Contact,,crystal.clark@constantcontact.com,,Legacy CRM
+Patrick,Brown,Mailgun,Enterprise AE,unknown@unknown,6177100803,Legacy CRM
+Michael,Miller,Webex,SDR,michael@webex.com,5127085248,ZoomInfo
+Sarah,Harris,ChurnZero,Chief Revenue Officer,sarah.harris@yahoo.com,3127219869,ZoomInfo
+Ryan,Campbell,Braze,VP of Marketing,ryan@braze.com,,Website Form
+Sean,Wright,Notion,Marketing Manager,sean@notion.com,,Website Form
+Eric,Smith,Intercom,,esmith@intercom.com,,Website Form
+Rachel,Johnson,Apollo,Director of Marketing,rachel.johnson@,,ZoomInfo
+Gregory,Clark,Pardot,VP of Sales,gclark@pardot.com,,Apollo
+Heather,Nguyen,Apollo,,hnguyen@apollo.com,,Website Form
+Heather,Miller,Notion,,hmiller@notion.com,,Manual Import
+James,Hernandez,Gainsight,BDR,,,Legacy CRM
+Tyler,Roberts,Mailchimp,,troberts@mailchimp.com,,ZoomInfo
+Brandon,White,Outreach,Regional Sales Manager,brandon@outreach.com,4155203718,ZoomInfo
+Sean,White,Postmark,Chief Revenue Officer,sean.white@postmark.com,5122065985,Legacy CRM
+James,Rodriguez,Mailgun,Head of Growth,james.rodriguez@outlook.com,2069369186,ZoomInfo
+Gregory,King,Drift,,gregory.king@drift.com,,Manual Import
+Brian,Green,ChurnZero,Mid-Market AE,brian@churnzero.com,5125511971,Legacy CRM
+Eric,Wright,Drift,BDR,eric.wright@drift.com,5129810372,Apollo
+David,Brown,Zendesk,,david.brown@gmail.com,,ZoomInfo
+Amber,Hall,Amplitude,RevOps Manager,,4046842845,Referral
+Crystal,Baker,Zendesk,,cbaker@zendesk.com,7027924237,Manual Import
+Ashley,Carter,Gainsight,Marketing Manager,ashley.carter@gainsight.com,7028394415,Apollo
+James,Gonzalez,Drift,VP of Customer Success,jgonzalez@drift.com,,Website Form
+Lauren,Ramirez,Teams,Sales Director,lramirez@teams.com,,Manual Import
+Emily,Green,Salesforce,,emily@@salesforce.com,2063482562,Legacy CRM
+Eric,Baker,ZoomInfo,VP of Marketing,ebaker@zoominfo.com,5123797460,Apollo
+Tiffany,Rivera,ActiveCampaign,VP of Marketing,tiffany@activecampaign.com,3122999841,Manual Import
+Kevin,Nguyen,Slack,Director of Marketing,knguyen@slack.com,,Referral
+Crystal,Rivera,Mailchimp,Head of Growth,crystal@mailchimp.com,2062135209,Manual Import
+Brandon,Rodriguez,Qualtrics,,N/A,4047728933,ZoomInfo
+Amber,Taylor,Mandrill,,amber@mandrill.com,5126916393,Legacy CRM
+Ashley,Rodriguez,Zendesk,Account Executive,ashley.rodriguez@zendesk.com,5122148154,Legacy CRM
+Tyler,Hill,ChurnZero,Revenue Operations Lead,tyler@churnzero.com,,Trade Show
+Amber,Thompson,Clearbit,,amber@clearbit.com,,Manual Import
+Michael,Roberts,Marketo,Revenue Operations Lead,,7029591319,Apollo
+Gregory,Flores,ChurnZero,RevOps Manager,gregory@churnzero.com,,Website Form
+Heather,Brown,Zendesk,Sales Development Manager,heather@zendesk.com,,Referral
+Brandon,Green,Teams,Sales Operations Manager,brandon@@teams.com,8553988250,Trade Show
+Andrew,Johnson,Copper,VP of Customer Success,andrew.johnson@copper.com,6175442495,ZoomInfo
+Daniel,Robinson,Webex,VP of Sales,drobinson@webex.com,7137654520,ZoomInfo
+Amber,Allen,Zendesk,Field Sales Director,amber.allen@,,Legacy CRM
+Monica,King,Copper,Chief Revenue Officer,monica@copper.com,2129966368,Manual Import
+Emily,Harris,Freshworks,,emily@freshworks.com,6173860385,Legacy CRM
+Monica,Martin,Drift,Account Executive,monica.martin@,,ZoomInfo
+Joshua,Lopez,Amplitude,Enterprise AE,joshua.lopez@amplitude.com,,Referral
+Brian,White,Teams,,bwhite@teams.com,3126255781,Manual Import
+Alexandra,Harris,HubSpot,,aharris@hubspot.com,,Manual Import
+Justin,Nguyen,Amplitude,BDR,justin@amplitude.com,,Referral
+Lauren,Thomas,Slack,,lauren.thomas@slack.com,3037480442,Website Form
+Sean,Martinez,Slack,,sean.martinez@slack.com,,Trade Show
+David,Allen,Mixpanel,Sales Director,david@mixpanel.com,7026918729,Legacy CRM
+Nathan,Adams,Drift,Mid-Market AE,nathan.adams@drift.com,5129886963,Legacy CRM
+Danielle,Clark,Jira,Mid-Market AE,danielle.clark@jira,,Website Form
+Tiffany,Perez,Twilio,,tiffany@twilio.com,,Legacy CRM
+Tyler,Lee,Intercom,Head of Growth,tyler.lee@intercom.com,7137029355,Website Form
+Nicole,Anderson,ActiveCampaign,Sales Development Manager,nicole@activecampaign.com,,Manual Import
+Daniel,Clark,Salesloft,,daniel.clark@salesloft.com,4154478146,Trade Show
+Crystal,Young,Outreach,Sales Development Manager,crystal.young@icloud.com,,Apollo
+Tiffany,Robinson,Confluence,Field Sales Director,tiffany@confluence.com,,Website Form
+Patrick,Gonzalez,Salesforce,,patrick.gonzalez@salesforce.com,,Manual Import
+Jonathan,Johnson,Apollo,Field Sales Director,jonathan.johnson@yahoo.com,2122698691,Legacy CRM
+Kyle,Hall,Pipedrive,Demand Generation Manager,khall@pipedrive.com,2068068087,Manual Import
+Natalie,Walker,Marketo,Regional Sales Manager,natalie.walker@marketo.com,,Legacy CRM
+Jeffrey,Sanchez,Klaviyo,Inside Sales Rep,jeffrey@klaviyo.com,2129638808,ZoomInfo
+Emily,Perez,Jira,VP of Marketing,eperez@jira.com,8666814769,Apollo
+Kevin,Jones,Qualtrics,Sales Director,kevin@qualtrics.com,3032052403,Referral
+Nathan,Martin,Segment,National Sales Manager,nathan.martin@mailinator.com,7135284990,ZoomInfo
+Jessica,Johnson,Freshworks,,jessica.johnson@freshworks.com,,Legacy CRM
+Andrew,Hill,LinkedIn,Sales Development Manager,andrew.hill@,4048977393,Manual Import
+Gregory,Lewis,Mixpanel,VP of Sales,gregory@mixpanel.com,7138337954,Manual Import
+Megan,Carter,Drift,Mid-Market AE,unknown@unknown,000,ZoomInfo
+Monica,Thomas,Mailchimp,Director of Marketing,mthomas@mailchimp.com,,Manual Import
+Tiffany,Miller,Clearbit,Field Sales Director,,2069273322,ZoomInfo
+Rebecca,Nelson,Teams,,rnelson@teams.com,3032577891,Trade Show
+Jennifer,Nguyen,LinkedIn,Customer Success Manager,jennifer.nguyen@outlook.com,2063362731,ZoomInfo
+Ryan,Harris,HubSpot,Chief Revenue Officer,ryan.harris@,,Apollo
+Emily,Scott,Gong,SDR,N/A,,Legacy CRM
+Kayla,Williams,Clearbit,Account Executive,kayla@clearbit.com,3122131116,Apollo
+Eric,Flores,LinkedIn,National Sales Manager,eric.flores@linkedin.com,,Apollo
+Daniel,Jackson,Outreach,Inside Sales Rep,daniel.jackson@outreach,6178213569,Legacy CRM
+Matthew,Nelson,RingCentral,Account Executive,matthew.nelson@icloud.com,,ZoomInfo
+Nicole,Taylor,Monday.com,SDR,nicole.taylor@mondaycom.com,2065873405,Referral
+Brittany,Smith,Gong,Customer Success Manager,bsmith@gong.com,7029841259,Trade Show
+Crystal,Green,Gong,,crystal.green@gong.com,2129999255,Website Form
+Ashley,Mitchell,Jira,Inside Sales Rep,unknown@unknown,,ZoomInfo
+Brittany,Gonzalez,Zendesk,Demand Generation Manager,bgonzalez@zendesk.com,,Legacy CRM
+Justin,Hall,Gong,Marketing Manager,justin.hall@gong.com,4159833077,ZoomInfo
+Amber,Wilson,RingCentral,,amber.wilson@ringcentral.com,8774887928,Website Form
+Natalie,Martinez,Salesforce,VP of Customer Success,nmartinez@salesforce.com,8557349655,ZoomInfo
+Monica,Sanchez,Clearbit,Field Sales Director,msanchez@clearbit.com,4152619836,Manual Import
+Stephanie,Davis,Outreach,Regional Sales Manager,stephanie.davis@outreach.com,6173678918,Trade Show
+Ryan,Nelson,Braze,Inside Sales Rep,ryan.nelson@braze.com,,ZoomInfo
+Rachel,Lopez,Apollo,Director of Revenue Operations,rlopez@apollo.com,159,ZoomInfo
+Tiffany,Clark,Confluence,Director of Marketing,,,Manual Import
+Joshua,Torres,Klaviyo,,joshua@klaviyo.com,,Website Form
+Matthew,Wilson,Teams,Demand Generation Manager,matthew.wilson@teams.com,000,Referral
+Megan,Adams,mParticle,Inside Sales Rep,megan.adams@mparticle.com,555,Referral
+Emily,Martin,Teams,SDR,emily.martin@teams.com,4158020561,Apollo
+Courtney,Robinson,Slack,Sales Development Manager,courtney.robinson@slack.com,4154941160,Apollo
+Andrew,Baker,HubSpot,Sales Development Manager,unknown@unknown,7134121655,Legacy CRM
+Natalie,Martinez,Insightly,Chief Revenue Officer,N/A,5126674860,ZoomInfo
+Jessica,Carter,Iterable,,jessica.carter@iterable.com,000,Legacy CRM
+Timothy,Davis,Pardot,Regional Sales Manager,timothy@@pardot.com,7028391823,Legacy CRM
+Ryan,Perez,Mandrill,,rperez@mandrill.com,,Legacy CRM
+Kyle,Garcia,Chorus,Mid-Market AE,kyle.garcia@icloud.com,3127534391,ZoomInfo
+Jonathan,Rodriguez,LinkedIn,SDR,jonathan.rodriguez@linkedin.com,5124368102,ZoomInfo
+Tiffany,Miller,Zendesk,Field Sales Director,tiffany@zendesk.com,4153202654,Apollo
+Samantha,Ramirez,Monday.com,,samantha.ramirez@mondaycom.com,5124263650,Legacy CRM
+Jonathan,Young,Drift,,jonathan@drift.com,7136740739,Legacy CRM
+Alexandra,Wilson,Braze,,alexandra.wilson@braze.com,3123453671,Legacy CRM
+Alexandra,Green,Monday.com,Regional Sales Manager,alexandra@mondaycom.com,,Website Form
+Kevin,Lopez,Asana,,unknown@unknown,,Apollo
+Gregory,Robinson,Campaign Monitor,VP of Marketing,grobinson@campaignmonitor.com,4158869981,Apollo
+Jennifer,Lopez,ChurnZero,,jennifer@churnzero.com,,Trade Show
+Kyle,Moore,Webex,,kyle.moore@webex.com,,Manual Import
+Matthew,Torres,Jira,,mtorres@jira.com,8555673631,Website Form
+Sean,Wright,Notion,,swright@notion.com,7136078605,Manual Import
+Crystal,Moore,Clearbit,BDR,crystal.moore@gmail.com,3126964449,ZoomInfo
+Danielle,Martinez,Monday.com,,danielle.martinez@mondaycom.com,,Legacy CRM
+Brandon,Garcia,Campaign Monitor,Demand Generation Manager,brandon.garcia@,5129535786,Legacy CRM
+Rebecca,Anderson,Totango,National Sales Manager,randerson@totango.com,7137542117,ZoomInfo
+Brandon,Thompson,HubSpot,SDR,bthompson@hubspot.com,5128315933,Trade Show
+Rachel,King,Freshworks,,rachel@freshworks.com,,Apollo
+Andrew,Martinez,Freshworks,Demand Generation Manager,andrew.martinez@freshworks.com,3128397322,Trade Show
+Adam,Campbell,Salesloft,Enterprise AE,acampbell@salesloft.com,2125048195,Manual Import
+Nathan,Lewis,Gong,Head of Growth,nathan.lewis@gmail.com,2067827596,ZoomInfo
+Nicole,Harris,Pipedrive,,nicole.harris@pipedrive.com,,Trade Show
+Jessica,Green,Chorus,,jessica.green@chorus.com,3126826106,Legacy CRM
+James,Rodriguez,Marketo,BDR,james.rodriguez@marketo.com,,Website Form
+Brian,Davis,Amplitude,,bdavis@amplitude.com,2065471789,Apollo
+Rebecca,Taylor,Medallia,,rtaylor@medallia.com,,Legacy CRM
+Alexandra,Green,Iterable,Field Sales Director,alexandra.green@10minutemail.com,2124355155,Legacy CRM
+James,Martin,Mailchimp,Field Sales Director,jmartin@mailchimp.com,,Apollo
+Stephanie,Thompson,mParticle,Director of Marketing,stephanie@mparticle.com,161,Legacy CRM
+Nicole,Johnson,RingCentral,Customer Success Manager,njohnson@ringcentral.com,,Manual Import
+Jonathan,Miller,Slack,Inside Sales Rep,jmiller@slack.com,,Website Form
+Nicole,Clark,Twilio,Inside Sales Rep,,,ZoomInfo
+Heather,King,RingCentral,Sales Enablement Manager,hking@ringcentral.com,5125429006,ZoomInfo
+Monica,Martin,ActiveCampaign,Enterprise AE,monica.martin@activecampaign.com,,Manual Import
+Brian,Roberts,Amplitude,Regional Sales Manager,brian@@amplitude.com,,Manual Import
+Monica,Lee,mParticle,Account Executive,mlee@mparticle.com,3129086023,Manual Import
+Daniel,Gonzalez,Chorus,VP of Sales,daniel@chorus.com,3035725282,Referral
+Alexandra,Jackson,Klaviyo,National Sales Manager,alexandra@klaviyo.com,,Trade Show
+Ashley,Robinson,Gong,Head of Growth,ashley.robinson@gong.com,5129094618,ZoomInfo
+Amber,Hernandez,RingCentral,Director of Marketing,amber.hernandez@ringcentral.com,2126782130,ZoomInfo
+James,Lee,Qualtrics,,james@qualtrics.com,8003446136,Manual Import
+Jessica,Perez,Constant Contact,National Sales Manager,jessica.perez@constantcontact.com,8556503768,Website Form
+Victoria,Smith,Clearbit,,victoria@clearbit.com,3129711153,Website Form
+Brian,Hill,Gainsight,Mid-Market AE,brian.hill@gainsight,555,ZoomInfo
+Chris,Gonzalez,Clearbit,,N/A,,ZoomInfo
+Andrew,Garcia,Totango,Inside Sales Rep,andrew@totango.com,,Legacy CRM
+Timothy,Hernandez,Pardot,VP of Marketing,timothy.hernandez@pardot.com,,Referral
+Crystal,Gonzalez,Intercom,VP of Customer Success,crystal.gonzalez@intercom.com,,Website Form
+Sean,Nelson,Zendesk,Demand Generation Manager,sean@zendesk.com,2066688578,ZoomInfo
+Gregory,Jones,Chorus,VP of Sales,gjones@chorus.com,2066359460,ZoomInfo
+Patrick,Johnson,Amplitude,Chief Revenue Officer,pjohnson@amplitude.com,4155218120,Apollo
+David,Flores,Apollo,Account Executive,david.flores@apollo.com,,Trade Show
+Ryan,Anderson,Monday.com,Sales Development Manager,randerson@mondaycom.com,2123244352,Apollo
+Natalie,Harris,Freshworks,RevOps Manager,unknown@unknown,3038677102,Legacy CRM
+Andrew,White,Postmark,Enterprise AE,,2068527377,ZoomInfo
+Alexandra,Davis,Webex,,adavis@webex.com,,Legacy CRM
+Jeffrey,Perez,Klaviyo,Customer Success Manager,jeffrey.perez@klaviyo.com,,Website Form
+Derek,Campbell,ChurnZero,SDR,derek.campbell@churnzero.com,,Manual Import
+Patrick,Anderson,Zendesk,VP of Marketing,patrick@zendesk.com,,Trade Show
+Jeffrey,Flores,Gong,Sales Development Manager,jflores@gong.com,4045139571,Legacy CRM
+Timothy,Jones,Notion,,timothy@notion.com,,Apollo
+Amanda,Campbell,Apollo,Regional Sales Manager,amanda.campbell@apollo.com,,Referral
+Rebecca,Smith,Confluence,RevOps Manager,rebecca.smith@outlook.com,7029754184,ZoomInfo
+Michael,Martinez,Iterable,Account Executive,michael.martinez@iterable.com,,Website Form
+Courtney,Wright,Insightly,,cwright@insightly.com,,Website Form
+Lauren,Roberts,Confluence,,lroberts@confluence.com,,Referral
+Tyler,Flores,Slack,,tflores@slack.com,,Legacy CRM
+Derek,Thomas,Medallia,Regional Sales Manager,derek@medallia.com,5128839094,Manual Import
+Emily,Jones,Marketo,,emily@marketo.com,,Manual Import
+David,Williams,Gong,Inside Sales Rep,david@gong.com,,Apollo
+Heather,Clark,Teams,VP of Customer Success,heather.clark@guerrillamail.com,,ZoomInfo
+Heather,Roberts,Mandrill,,hroberts@mandrill.com,5126821250,Manual Import
+Jeffrey,Scott,Pardot,Regional Sales Manager,jscott@pardot.com,123,ZoomInfo
+Tiffany,King,Salesforce,Head of Growth,tiffany.king@salesforce.com,,Website Form
+James,Wilson,Campaign Monitor,Customer Success Manager,james@campaignmonitor.com,,Referral
+Adam,Young,Constant Contact,,adam@constantcontact.com,3128479886,Trade Show
+Heather,Nguyen,ActiveCampaign,Regional Sales Manager,hnguyen@activecampaign.com,5127724456,Referral
+Courtney,Robinson,Monday.com,Director of Marketing,courtney.robinson@mondaycom.com,,Apollo
+Courtney,Harris,Zoom,Enterprise AE,courtney.harris@zoom.com,4049661174,Manual Import
+Jeffrey,Ramirez,Apollo,BDR,jramirez@apollo.com,3037846596,Manual Import
+Jessica,Ramirez,Apollo,Sales Enablement Manager,jessica@apollo.com,,ZoomInfo
+Chris,Williams,HubSpot,Inside Sales Rep,chris.williams@hubspot.com,,Manual Import
+Kyle,King,Apollo,BDR,kking@apollo.com,3035429641,Apollo
+Gregory,Mitchell,mParticle,,gregory.mitchell@10minutemail.com,7029250285,Legacy CRM
+Sean,Mitchell,Salesloft,Sales Enablement Manager,sean@@salesloft.com,5124509047,Legacy CRM
+Chris,Perez,HubSpot,Regional Sales Manager,chris@hubspot.com,,Legacy CRM
+Sarah,Flores,Klaviyo,SDR,sarah@@klaviyo.com,,Website Form
+Brian,Lopez,Jira,Marketing Manager,brian.lopez@jira.com,,ZoomInfo
+Natalie,Carter,Zoom,Enterprise AE,natalie@zoom.com,,Manual Import
+Ryan,Nelson,Salesforce,,,4043325195,ZoomInfo
+Brandon,Roberts,Braze,Inside Sales Rep,brandon@braze.com,2064194137,ZoomInfo
+Andrew,Young,mParticle,,andrew@mparticle.com,,Apollo
+Lauren,Torres,Sendgrid,,ltorres@sendgrid.com,4154017984,Legacy CRM
+Kevin,Johnson,ChurnZero,Customer Success Manager,kjohnson@churnzero.com,2126134124,Website Form
+Brittany,Rodriguez,Pipedrive,Demand Generation Manager,brittany.rodriguez@pipedrive.com,,Referral
+Heather,Anderson,Freshworks,RevOps Manager,heather.anderson@freshworks.com,7139379574,ZoomInfo
+Crystal,Brown,Pipedrive,,crystal.brown@pipedrive.com,6178587270,Legacy CRM
+Brian,Nelson,Salesforce,Regional Sales Manager,brian.nelson@salesforce.com,7024725588,Legacy CRM
+Rebecca,Harris,Apollo,Head of Growth,rebecca@apollo.com,4049455161,ZoomInfo
+Andrew,Ramirez,Mixpanel,Mid-Market AE,,,Legacy CRM
+Joshua,Rodriguez,Pipedrive,VP of Sales,jrodriguez@pipedrive.com,4048665649,Legacy CRM
+Stephanie,Martinez,Outreach,Customer Success Manager,stephanie@outreach.com,6175611611,Manual Import
+Samantha,Scott,mParticle,Enterprise AE,,2128909217,Apollo
+Tiffany,Hill,Copper,,tiffany@@copper.com,4047380279,Manual Import
+Rebecca,Miller,Mandrill,Head of Growth,rmiller@mandrill.com,3033397770,Apollo
+Andrew,Perez,Mailchimp,Inside Sales Rep,andrew.perez@mailchimp.com,3034158613,ZoomInfo
+Rebecca,King,Twilio,Inside Sales Rep,rebecca.king@twilio.com,,Legacy CRM
+Michael,Rodriguez,Medallia,,michael@medallia.com,3035192480,Apollo
+Brittany,Moore,Constant Contact,VP of Sales,brittany.moore@constantcontact.com,,Trade Show
+Sean,Sanchez,Chorus,Customer Success Manager,sean.sanchez@chorus.com,4042352140,Trade Show
+Natalie,Williams,Notion,,natalie@notion.com,7133236880,ZoomInfo
+Kyle,Walker,Gong,,kyle.walker@gong.com,,Trade Show
+Amanda,Nguyen,HubSpot,Enterprise AE,amanda.nguyen@hubspot.com,4048004296,Manual Import
+Courtney,Roberts,Gong,National Sales Manager,courtney@gong.com,3039159117,Manual Import
+Lauren,Lee,Zoom,Customer Success Manager,lauren.lee@zoom.com,3129991302,Legacy CRM
+Kayla,Hall,HubSpot,National Sales Manager,N/A,2129908290,ZoomInfo
+Nathan,Williams,Webex,,nathan@webex.com,7132796192,Manual Import
+Tyler,Taylor,Mandrill,,tyler.taylor@mandrill.com,000,Manual Import
+Andrew,Williams,Outreach,,awilliams@outreach.com,555,Referral
+Adam,Nelson,Iterable,Sales Development Manager,anelson@iterable.com,7132204795,Apollo
+David,Ramirez,Clearbit,,unknown@unknown,8665069705,ZoomInfo
+Matthew,Gonzalez,Mixpanel,,matthew.gonzalez@mixpanel.com,7137558214,Manual Import
+Amber,Thomas,Braze,Customer Success Manager,amber.thomas@braze.com,,Website Form
+Lauren,Mitchell,ChurnZero,Sales Enablement Manager,lauren@churnzero.com,,Legacy CRM
+Eric,Carter,Marketo,Account Executive,eric@marketo.com,,Manual Import
+Matthew,Thompson,Notion,Enterprise AE,matthew@notion.com,,Manual Import
+Ashley,Adams,Monday.com,Sales Operations Manager,ashley@mondaycom.com,6178318077,Apollo
+Monica,Davis,ChurnZero,,monica.davis@,,Legacy CRM
+Ryan,Anderson,Constant Contact,,ryan@constantcontact.com,,Legacy CRM
+Samantha,Davis,Notion,,samantha.davis@guerrillamail.com,2125363201,ZoomInfo
+Megan,White,Freshworks,,mwhite@freshworks.com,,Apollo
+Kevin,Nelson,Clearbit,,knelson@clearbit.com,3032814933,Manual Import
+Ashley,Flores,Segment,Sales Operations Manager,ashley.flores@segment.com,4048374939,Referral
+Heather,Williams,Mailchimp,,heather@mailchimp.com,7024274110,ZoomInfo
+Justin,Lee,Monday.com,,justin@mondaycom.com,4045731629,Apollo
+Courtney,Nelson,Totango,Regional Sales Manager,courtney.nelson@totango.com,6175208285,Manual Import
+Kyle,Williams,Amplitude,Customer Success Manager,,7029684575,ZoomInfo
+Matthew,Brown,Zendesk,,matthew@zendesk.com,,Legacy CRM
+Lauren,Martinez,Clearbit,,lmartinez@clearbit.com,4045588074,Legacy CRM
+David,Garcia,Intercom,,david.garcia@outlook.com,6175368197,Legacy CRM
+Natalie,Mitchell,Sendgrid,Inside Sales Rep,nmitchell@sendgrid.com,,Apollo
+Megan,Clark,Confluence,,megan.clark@confluence.com,3037222307,Referral
+Patrick,Anderson,Salesforce,Head of Growth,patrick@salesforce.com,7023016729,Apollo
+Ashley,Brown,Totango,,ashley.brown@totango.com,,Legacy CRM
+Eric,Sanchez,Salesforce,Marketing Manager,esanchez@salesforce.com,4043133181,Apollo
+Heather,Taylor,Qualtrics,National Sales Manager,N/A,,Website Form
+Kevin,Hernandez,Marketo,Head of Growth,kevin@@marketo.com,2127378599,ZoomInfo
+Tiffany,Moore,Chorus,Sales Director,N/A,,Manual Import
+Rachel,Brown,ChurnZero,SDR,rachel.brown@churnzero.com,7137197300,Legacy CRM
+James,Sanchez,Insightly,,james.sanchez@insightly.com,,Referral
+Ashley,Rodriguez,Segment,Demand Generation Manager,arodriguez@segment.com,6177120786,Legacy CRM
+Brian,Hill,Apollo,Marketing Manager,brian.hill@apollo.com,6176391454,Trade Show
+Nicole,Davis,LinkedIn,VP of Marketing,nicole.davis@linkedin.com,2065893653,Apollo
+Heather,Roberts,Medallia,Revenue Operations Lead,heather@medallia.com,8004486668,Apollo
+Chris,Taylor,Medallia,Head of Growth,chris@medallia.com,,Apollo
+Kyle,Jackson,Slack,Chief Revenue Officer,kyle.jackson@slack.com,3124667547,Legacy CRM
+Emily,Anderson,Apollo,,emily.anderson@apollo.com,7026864475,Manual Import
+Rebecca,Lee,Klaviyo,,rebecca.lee@klaviyo.com,,Apollo
+Andrew,Lee,HubSpot,Marketing Manager,andrew@hubspot.com,,Apollo
+Lauren,Moore,Gainsight,,lauren.moore@icloud.com,7027136517,Legacy CRM
+Matthew,Thomas,Confluence,Demand Generation Manager,matthew@confluence.com,7137752516,Legacy CRM
+Amanda,Nelson,Monday.com,,amanda.nelson@mondaycom.com,8555083325,ZoomInfo
+Jeffrey,Nguyen,Webex,Account Executive,jeffrey@webex.com,7135741889,Referral
+Lauren,Lee,Zoom,RevOps Manager,lauren.lee@outlook.com,8774863320,Legacy CRM
+Monica,Roberts,Mandrill,Sales Director,mroberts@mandrill.com,,Website Form
+Jonathan,Flores,Qualtrics,,jonathan@qualtrics.com,,Trade Show
+Michael,Jones,ChurnZero,Inside Sales Rep,michael@churnzero.com,,Legacy CRM
+Jessica,Gonzalez,Notion,,jgonzalez@notion.com,,Referral
+Rebecca,Wilson,Jira,VP of Marketing,rebecca@jira.com,6178581864,ZoomInfo
+Jonathan,Davis,Totango,Marketing Manager,jdavis@totango.com,7136082171,ZoomInfo
+Patrick,Green,Segment,,patrick@segment.com,,ZoomInfo
+Jonathan,Harris,Freshworks,Field Sales Director,jonathan@freshworks.com,3126082485,ZoomInfo
+Daniel,Gonzalez,Marketo,Director of Revenue Operations,daniel@marketo.com,,Legacy CRM
+Danielle,Harris,HubSpot,BDR,danielle.harris@hubspot.com,,Referral
+Victoria,Johnson,Pipedrive,,victoria.johnson@pipedrive.com,,Trade Show
+Chris,Perez,Klaviyo,,chris.perez@hotmail.com,2063580078,ZoomInfo
+Brian,Perez,Drift,,brian@drift.com,2128279783,Legacy CRM
+Jessica,Roberts,Campaign Monitor,Enterprise AE,jroberts@campaignmonitor.com,4042532381,Manual Import
+Ryan,Hill,Jira,Regional Sales Manager,ryan@jira.com,8556538587,Referral
+Jessica,Roberts,Salesloft,VP of Marketing,jessica.roberts@,,Apollo
+Brittany,Lewis,Pipedrive,Demand Generation Manager,brittany.lewis@pipedrive.com,,Manual Import
+Brittany,Perez,RingCentral,Director of Revenue Operations,bperez@ringcentral.com,5128840704,ZoomInfo
+Samantha,Nelson,Sendgrid,Field Sales Director,snelson@sendgrid.com,6175600650,ZoomInfo
+Matthew,Campbell,Postmark,BDR,mcampbell@postmark.com,4153927817,Apollo
+Nathan,Carter,Freshworks,Account Executive,nathan.carter@freshworks,4152313887,Manual Import
+Amanda,Hernandez,Freshworks,Director of Revenue Operations,amanda@freshworks.com,,Trade Show
+Michael,Thomas,Outreach,Revenue Operations Lead,mthomas@outreach.com,6173125818,Legacy CRM
+Stephanie,Ramirez,Copper,Account Executive,stephanie@copper.com,2122751777,ZoomInfo
+Gregory,Adams,mParticle,,gregory.adams@mparticle.com,3033419903,ZoomInfo
+Kyle,Campbell,Twilio,Field Sales Director,kyle.campbell@twilio.com,7139834051,Apollo
+Samantha,Hernandez,Teams,,samantha@teams.com,168,Legacy CRM
+Michael,Campbell,Gong,Mid-Market AE,michael.campbell@guerrillamail.com,4152849137,Apollo
+Eric,Rodriguez,HubSpot,,eric@hubspot.com,,Website Form
+Crystal,Hall,Asana,,crystal@asana.com,2124403479,Trade Show
+David,White,ActiveCampaign,,david.white@activecampaign.com,2127429259,Manual Import
+Ashley,Gonzalez,Zoom,Mid-Market AE,ashley@zoom.com,4044484736,Manual Import
+Alexandra,Moore,Medallia,,amoore@medallia.com,7132103508,Manual Import
+Ashley,Gonzalez,Webex,SDR,ashley.gonzalez@webex.com,123,Legacy CRM
+Jessica,Thompson,Chorus,,jthompson@chorus.com,8559926737,Website Form
+Amber,Hall,Zoom,,ahall@zoom.com,7022229244,Trade Show
+Kayla,Martin,Segment,Director of Revenue Operations,unknown@unknown,,ZoomInfo
+Rebecca,Rivera,mParticle,,rebecca.rivera@mparticle.com,,Manual Import
+Alexandra,Carter,ActiveCampaign,National Sales Manager,acarter@activecampaign.com,3038181307,Legacy CRM
+James,Martin,Copper,,james@copper.com,4152449107,Trade Show
+David,Jackson,HubSpot,Revenue Operations Lead,djackson@hubspot.com,,Website Form
+Tiffany,Ramirez,Webex,Mid-Market AE,tramirez@webex.com,7026438532,ZoomInfo
+Gregory,Anderson,Salesloft,,ganderson@salesloft.com,555,Legacy CRM
+Kevin,Clark,Notion,VP of Sales,N/A,123,Manual Import
+Patrick,Hall,mParticle,VP of Sales,patrick@mparticle.com,4158265374,Apollo
+Natalie,Nelson,Twilio,SDR,natalie.nelson@gmail.com,555,ZoomInfo
+Timothy,Adams,Copper,National Sales Manager,timothy.adams@copper.com,,Manual Import
+Brandon,Jackson,mParticle,Chief Revenue Officer,brandon.jackson@icloud.com,3035154580,ZoomInfo
+Sarah,Scott,Zoom,Chief Revenue Officer,sarah.scott@zoom.com,,Trade Show
+Jeffrey,Allen,HubSpot,Mid-Market AE,jeffrey.allen@hubspot.com,5129500787,Referral
+Brandon,Thompson,Klaviyo,,bthompson@klaviyo.com,,Apollo
+Tiffany,Sanchez,Iterable,,tiffany.sanchez@iterable.com,,Legacy CRM
+Amanda,Martin,Twilio,,amanda.martin@twilio.com,7137769472,Manual Import
+Nicole,Jackson,ActiveCampaign,Sales Operations Manager,,3034668061,ZoomInfo
+Jeffrey,Brown,Apollo,National Sales Manager,jeffrey.brown@apollo.com,3122491472,Referral
+Stephanie,Taylor,ChurnZero,,staylor@churnzero.com,7027563728,Manual Import
+Justin,Lewis,Asana,Marketing Manager,justin.lewis@asana.com,8557690062,Apollo
+Monica,Roberts,Qualtrics,Revenue Operations Lead,monica@qualtrics.com,7137607758,Manual Import
+Chris,Rodriguez,Marketo,,chris@marketo.com,,Website Form
+Derek,Smith,Postmark,,dsmith@postmark.com,,Legacy CRM
+Brandon,King,Copper,Sales Development Manager,brandon.king@copper.com,7022762873,ZoomInfo
+Danielle,Flores,Braze,Inside Sales Rep,danielle.flores@braze.com,,Legacy CRM
+Patrick,Torres,Totango,,patrick.torres@totango.com,,Website Form
+Courtney,Scott,Zendesk,Director of Revenue Operations,cscott@zendesk.com,,Referral
+Emily,Miller,ChurnZero,Mid-Market AE,emily.miller@churnzero.com,4048056894,ZoomInfo
+Timothy,Johnson,Asana,Sales Enablement Manager,N/A,148,ZoomInfo
+Megan,Adams,Chorus,Field Sales Director,megan@chorus.com,7134390088,ZoomInfo
+Kyle,Williams,Salesforce,,kyle.williams@salesforce.com,4152475253,Manual Import
+Tiffany,Hill,Clearbit,Chief Revenue Officer,tiffany.hill@clearbit.com,4043676641,Legacy CRM
+Gregory,Thomas,Drift,National Sales Manager,gthomas@drift.com,4043842265,ZoomInfo
+Nicole,King,ChurnZero,Regional Sales Manager,,,Legacy CRM
+Tiffany,Young,Clearbit,VP of Customer Success,tiffany.young@guerrillamail.com,5122620464,ZoomInfo
+Alexandra,Jackson,Constant Contact,Head of Growth,alexandra.jackson@guerrillamail.com,8888204678,ZoomInfo
+Sean,Flores,Zoom,,sflores@zoom.com,,ZoomInfo
+Timothy,Hill,Constant Contact,SDR,timothy.hill@gmail.com,4153884925,ZoomInfo
+Tyler,Wilson,ChurnZero,Revenue Operations Lead,tyler@churnzero.com,8772761329,Manual Import
+Justin,Nguyen,Iterable,Inside Sales Rep,justin.nguyen@hotmail.com,2063671153,ZoomInfo
+Kayla,Hill,Qualtrics,,kayla.hill@qualtrics.com,,Trade Show
+Heather,Walker,Sendgrid,Inside Sales Rep,hwalker@sendgrid.com,2063918672,Manual Import
+Brandon,Martinez,Iterable,Sales Development Manager,brandon.martinez@iterable.com,4048438861,Apollo
+Nathan,Green,ZoomInfo,Director of Marketing,unknown@unknown,7029349199,Legacy CRM
+Courtney,Gonzalez,Mixpanel,Inside Sales Rep,courtney.gonzalez@mixpanel.com,,Trade Show
+Natalie,Roberts,Insightly,SDR,nroberts@insightly.com,7027455045,Legacy CRM
+Natalie,Carter,Asana,Marketing Manager,natalie.carter@asana,6177294562,ZoomInfo
+Timothy,Lewis,Zoom,Field Sales Director,timothy.lewis@zoom.com,5124627978,Legacy CRM
+Emily,Green,Monday.com,Regional Sales Manager,emily@mondaycom.com,,Apollo
+Kayla,Miller,mParticle,Demand Generation Manager,kayla@@mparticle.com,,Apollo
+Jeffrey,Moore,Marketo,,jeffrey.moore@marketo.com,,Website Form
+Emily,Allen,Insightly,RevOps Manager,emily@insightly.com,4152746777,Legacy CRM
+Kevin,Anderson,Teams,Sales Enablement Manager,kevin.anderson@teams.com,6178513320,Manual Import
+David,Williams,Pardot,,david.williams@guerrillamail.com,8884919953,Legacy CRM
+Michael,Clark,Amplitude,Revenue Operations Lead,michael.clark@,6178227422,Apollo
+Sarah,Allen,Copper,RevOps Manager,sarah.allen@copper.com,,Legacy CRM
+Crystal,Garcia,Braze,Sales Operations Manager,cgarcia@braze.com,2062517676,Referral
+Heather,Miller,Chorus,Sales Enablement Manager,N/A,3034024108,Manual Import
+Rebecca,Martinez,Gong,,rmartinez@gong.com,7028565483,ZoomInfo
+Timothy,Martinez,Drift,Account Executive,tmartinez@drift.com,188,Apollo
+Michael,Harris,Twilio,Director of Revenue Operations,michael@twilio.com,7132402320,ZoomInfo
+Amber,Flores,RingCentral,Customer Success Manager,amber@ringcentral.com,2125809071,Legacy CRM
+Nicole,Moore,Drift,Revenue Operations Lead,nicole.moore@drift,2129202402,ZoomInfo
+Alexandra,Flores,Intercom,,alexandra.flores@yahoo.com,7134856049,Referral
+Natalie,Martin,Slack,Enterprise AE,natalie@slack.com,555,Legacy CRM
+Sean,King,Pipedrive,Regional Sales Manager,sking@pipedrive.com,5124940356,Apollo
+Tyler,Hall,Clearbit,Sales Development Manager,tyler.hall@gmail.com,7134385211,ZoomInfo
+Matthew,Baker,Braze,Sales Development Manager,matthew@braze.com,7138604414,Apollo
+Amber,Allen,Slack,Inside Sales Rep,amber@slack.com,,Website Form
+Rachel,Clark,Sendgrid,,rclark@sendgrid.com,3125089540,Manual Import
+Alexandra,Sanchez,Mailchimp,Regional Sales Manager,alexandra.sanchez@mailchimp.com,,Referral
+Brittany,Green,Qualtrics,VP of Customer Success,brittany@qualtrics.com,,Referral
+Sean,Campbell,Notion,Sales Operations Manager,sean.campbell@notion.com,7137275661,Legacy CRM
+Adam,Hall,ZoomInfo,Field Sales Director,adam.hall@zoominfo.com,,Apollo
+Matthew,White,Outreach,,matthew@outreach.com,5122910368,Website Form
+Nathan,Baker,Jira,Regional Sales Manager,nathan@jira.com,,ZoomInfo
+Brandon,Lopez,Copper,,brandon.lopez@copper.com,4159999889,Legacy CRM
+Rachel,Campbell,Apollo,VP of Marketing,rcampbell@apollo.com,8553352631,Apollo
+Danielle,Robinson,Gainsight,Sales Development Manager,,,Trade Show
+Victoria,Lopez,Postmark,,vlopez@postmark.com,,Website Form
+Monica,Lopez,Notion,Customer Success Manager,monica@notion.com,000,ZoomInfo
+Brandon,Sanchez,Zoom,,brandon.sanchez@gmail.com,123,ZoomInfo
+Kayla,Gonzalez,Mandrill,Director of Revenue Operations,kgonzalez@mandrill.com,4158798669,Referral
+Derek,Thomas,Amplitude,Director of Marketing,dthomas@amplitude.com,3038604971,Manual Import
+Eric,Anderson,Jira,Sales Operations Manager,eric.anderson@jira.com,,ZoomInfo
+Jeffrey,Williams,Salesloft,,jwilliams@salesloft.com,,Apollo
+Monica,Jones,Mixpanel,VP of Customer Success,monica.jones@mixpanel,6173672358,ZoomInfo
+Michael,Perez,Sendgrid,Regional Sales Manager,mperez@sendgrid.com,,Legacy CRM
+Monica,Smith,Webex,Field Sales Director,monica.smith@webex.com,5126662309,ZoomInfo
+Jessica,Rodriguez,LinkedIn,VP of Marketing,jessica@linkedin.com,,ZoomInfo
+Andrew,Adams,Confluence,Inside Sales Rep,andrew@confluence.com,5128559184,ZoomInfo
+Eric,Carter,Medallia,Chief Revenue Officer,eric.carter@medallia.com,3032903125,Manual Import
+Daniel,Thomas,LinkedIn,VP of Marketing,daniel.thomas@outlook.com,7137304972,ZoomInfo
+Kyle,Garcia,Twilio,Enterprise AE,kgarcia@twilio.com,,Manual Import
+Michael,Thomas,Mandrill,Director of Marketing,mthomas@mandrill.com,2126185139,Manual Import
+Tiffany,Lee,Slack,National Sales Manager,tiffany@slack.com,,Apollo
+Nicole,Nelson,ChurnZero,Sales Director,,3039697249,Manual Import
+Gregory,Wilson,Klaviyo,Customer Success Manager,gregory@klaviyo.com,,Manual Import
+Timothy,Brown,Marketo,,tbrown@marketo.com,2065870060,Apollo
+Jeffrey,Torres,Jira,BDR,jtorres@jira.com,,Legacy CRM
+Jessica,Flores,Salesloft,VP of Marketing,jessica@salesloft.com,,Trade Show
+Kayla,Lee,Campaign Monitor,,kayla@campaignmonitor.com,,Website Form
+Sarah,Rivera,Gainsight,Sales Development Manager,sarah@gainsight.com,,Manual Import
+Brian,Williams,Copper,,brian@copper.com,6178212108,ZoomInfo
+Heather,Torres,Mixpanel,,heather@mixpanel.com,,Legacy CRM
+Alexandra,Ramirez,Klaviyo,Head of Growth,alexandra.ramirez@gmail.com,,ZoomInfo
+Amber,Wright,Pardot,Head of Growth,awright@pardot.com,,Apollo
+Megan,Torres,Mailchimp,Mid-Market AE,N/A,7137147025,ZoomInfo
+Heather,Roberts,Teams,SDR,heather.roberts@teams.com,,Legacy CRM
+Derek,Wilson,Freshworks,Director of Marketing,derek@freshworks.com,3036690018,Apollo
+Amber,Williams,Notion,Director of Revenue Operations,awilliams@notion.com,7024371010,Manual Import
+Courtney,Roberts,Marketo,VP of Sales,courtney.roberts@yahoo.com,,ZoomInfo
+Kyle,King,Confluence,National Sales Manager,kking@confluence.com,,Manual Import
+Alexandra,Baker,Drift,Sales Enablement Manager,alexandra.baker@drift.com,8886750948,Apollo
+Derek,Walker,ChurnZero,Sales Director,dwalker@churnzero.com,5129267876,Referral
+Tiffany,Scott,Mixpanel,,tscott@mixpanel.com,,Manual Import
+Crystal,Young,Jira,Inside Sales Rep,crystal@jira.com,,Manual Import
+Sean,Walker,Twilio,Sales Development Manager,sean.walker@twilio.com,,ZoomInfo
+Jessica,Jones,ActiveCampaign,VP of Customer Success,jessica.jones@activecampaign.com,5129807151,Apollo
+Daniel,Gonzalez,Salesforce,Inside Sales Rep,dgonzalez@salesforce.com,,Apollo
+Victoria,Rodriguez,mParticle,Sales Development Manager,vrodriguez@mparticle.com,,Legacy CRM
+Justin,Lee,Postmark,Sales Development Manager,justin@postmark.com,8005196655,Apollo
+Jessica,Jackson,Amplitude,Mid-Market AE,,555,Apollo
+Nicole,Torres,Confluence,Director of Marketing,ntorres@confluence.com,,ZoomInfo
+Nathan,Harris,Mailchimp,VP of Customer Success,nharris@mailchimp.com,4048413412,Apollo
+Chris,Roberts,Mixpanel,,croberts@mixpanel.com,4044204518,Website Form
+Gregory,Flores,Pipedrive,,gregory@pipedrive.com,2128772934,Manual Import
+David,Roberts,Pipedrive,SDR,david@pipedrive.com,2126675858,ZoomInfo
+Samantha,Sanchez,Klaviyo,Sales Operations Manager,samantha@klaviyo.com,,Apollo
+Kayla,Jones,Freshworks,Revenue Operations Lead,kayla.jones@freshworks,,Legacy CRM
+Michael,Rodriguez,Gong,VP of Customer Success,michael@gong.com,8669964707,ZoomInfo
+Kevin,Hill,Mandrill,BDR,kevin.hill@,3034467706,ZoomInfo
+Jonathan,Nguyen,Gong,Director of Marketing,jonathan@gong.com,2068048237,Referral
+Lauren,Thompson,Freshworks,SDR,lauren.thompson@freshworks.com,,Apollo
+Joshua,Flores,Outreach,,joshua.flores@outreach.com,5126022535,Referral
+Rachel,Williams,Copper,Revenue Operations Lead,rwilliams@copper.com,,Referral
+Victoria,Clark,Marketo,Sales Director,victoria.clark@marketo.com,,Apollo
+Kayla,Hill,Chorus,,khill@chorus.com,8554813679,Apollo
+Michael,Ramirez,HubSpot,Field Sales Director,michael.ramirez@hubspot.com,7135601097,ZoomInfo
+Sarah,Wright,Klaviyo,Marketing Manager,swright@klaviyo.com,,Manual Import
+Gregory,Nguyen,Asana,SDR,gregory.nguyen@,,Apollo
+Megan,Nelson,Slack,,megan.nelson@slack.com,7028561852,Apollo
+Lauren,Allen,Drift,Director of Marketing,lauren.allen@drift.com,,Trade Show
+Brittany,Ramirez,Notion,Sales Operations Manager,bramirez@notion.com,3123179537,ZoomInfo
+Justin,Jones,Campaign Monitor,RevOps Manager,justin.jones@campaignmonitor.com,4042571905,Apollo
+Amanda,Garcia,Campaign Monitor,RevOps Manager,agarcia@campaignmonitor.com,2127680625,ZoomInfo
+Nathan,Sanchez,Webex,Account Executive,nathan.sanchez@webex.com,,Website Form
+Emily,Scott,Intercom,,emily.scott@intercom.com,,Website Form
+Stephanie,Jones,Salesforce,,stephanie@salesforce.com,,Website Form
+Megan,Allen,Teams,,mallen@teams.com,,Trade Show
+Gregory,Hill,Campaign Monitor,Demand Generation Manager,gregory@campaignmonitor.com,3124500956,Website Form
+Ashley,Perez,Chorus,Field Sales Director,aperez@chorus.com,8668752107,Manual Import
+Natalie,Martin,Zendesk,,unknown@unknown,8555787340,ZoomInfo
+Gregory,Clark,Medallia,Sales Development Manager,gregory@medallia.com,156,Manual Import
+Tyler,Johnson,Qualtrics,Sales Operations Manager,tyler@qualtrics.com,6179189969,ZoomInfo
+Kayla,Mitchell,Teams,,kayla@teams.com,,Manual Import
+Daniel,Green,Zendesk,BDR,daniel@zendesk.com,,ZoomInfo
+Sean,Smith,Freshworks,,sean.smith@freshworks.com,,Website Form
+Tyler,Anderson,Mailchimp,,tanderson@mailchimp.com,,Website Form
+Nathan,Walker,Insightly,Enterprise AE,nathan.walker@insightly,3032865914,Apollo
+Jeffrey,Jones,Mailchimp,,jeffrey.jones@mailchimp,3128073448,Legacy CRM
+Adam,Garcia,Pipedrive,National Sales Manager,adam.garcia@pipedrive.com,,Referral
+Crystal,Perez,Totango,Demand Generation Manager,crystal.perez@yopmail.com,,ZoomInfo
+Sean,Young,Segment,,sean@@segment.com,,Legacy CRM
+David,Moore,Asana,,dmoore@asana.com,4158617404,Legacy CRM
+Jennifer,Thompson,Twilio,,jennifer@twilio.com,,Legacy CRM
+Lauren,Allen,Iterable,Director of Marketing,lauren@iterable.com,,Apollo
+Tyler,Hernandez,LinkedIn,Revenue Operations Lead,tyler.hernandez@linkedin.com,4159992819,Legacy CRM
+Andrew,Thompson,Zendesk,,andrew@zendesk.com,7022089266,Website Form
+Andrew,Rivera,Asana,Customer Success Manager,andrew.rivera@asana.com,,Trade Show
+Alexandra,Roberts,Pipedrive,BDR,unknown@unknown,4043683157,Apollo
+Lauren,Robinson,Postmark,Director of Marketing,lauren.robinson@outlook.com,6175864004,ZoomInfo
+Jessica,Thomas,Drift,,jessica@drift.com,,Website Form
+Brittany,Smith,Pipedrive,Mid-Market AE,brittany.smith@pipedrive.com,8776490066,Website Form
+Alexandra,Rodriguez,Outreach,National Sales Manager,alexandra@outreach.com,,Website Form
+Amber,Davis,Medallia,Sales Director,adavis@medallia.com,,Referral
+Megan,Clark,Amplitude,Customer Success Manager,megan@amplitude.com,8884641252,Referral
+Michael,Nelson,Gong,VP of Sales,michael.nelson@,8663700359,Trade Show
+Patrick,Clark,Monday.com,,patrick.clark@yahoo.com,,Legacy CRM
+Tyler,Wright,Totango,Sales Director,tyler.wright@,7026798478,ZoomInfo
+Ashley,Martinez,ZoomInfo,,ashley@@zoominfo.com,,Website Form
+Adam,Lopez,ChurnZero,Sales Operations Manager,adam@churnzero.com,,Website Form
+Tyler,Roberts,Chorus,,troberts@chorus.com,,Website Form
+Gregory,Thomas,Mailchimp,Marketing Manager,gregory.thomas@yahoo.com,,ZoomInfo
+Sarah,Torres,Postmark,SDR,sarah@@postmark.com,123,Legacy CRM
+Amanda,Davis,Totango,,adavis@totango.com,,Legacy CRM
+Courtney,Walker,Insightly,Account Executive,courtney@insightly.com,3039144687,ZoomInfo
+Joshua,Nelson,Amplitude,Sales Enablement Manager,joshua.nelson@amplitude.com,,Referral
+Jessica,Thomas,Gong,,jthomas@gong.com,,Legacy CRM
+Nicole,Sanchez,Apollo,VP of Customer Success,N/A,,ZoomInfo
+Daniel,Smith,Zendesk,,dsmith@zendesk.com,,Legacy CRM
+Jeffrey,Hall,ZoomInfo,Field Sales Director,jeffrey.hall@guerrillamail.com,4049350383,Legacy CRM
+Andrew,Nelson,Monday.com,Demand Generation Manager,anelson@mondaycom.com,8779147166,Legacy CRM
+Timothy,Wright,Zendesk,,timothy.wright@gmail.com,,Website Form
+Michael,Anderson,Confluence,,manderson@confluence.com,4156871857,ZoomInfo
+Samantha,Walker,Teams,Account Executive,swalker@teams.com,,Manual Import
+Emily,Jackson,Qualtrics,RevOps Manager,,,ZoomInfo
+Samantha,Perez,Salesforce,,samantha@salesforce.com,,Website Form
+Timothy,Lewis,Mailgun,Inside Sales Rep,timothy@mailgun.com,,Legacy CRM
+Patrick,Lewis,Salesloft,Account Executive,plewis@salesloft.com,2122888579,Apollo
+Jonathan,Martin,Asana,Director of Marketing,,,Website Form
+Patrick,Smith,Webex,Sales Development Manager,patrick@@webex.com,,Apollo
+Amanda,Wright,Medallia,,amanda@medallia.com,6173232553,Website Form
+Lauren,Thomas,Amplitude,,lauren.thomas@amplitude.com,,Trade Show
+David,Garcia,Salesforce,,,8772857579,ZoomInfo
+Samantha,Sanchez,Gainsight,,samantha.sanchez@mailinator.com,,ZoomInfo
+Rebecca,Campbell,Twilio,VP of Customer Success,rcampbell@twilio.com,3126743098,Website Form
+Daniel,Moore,Monday.com,Demand Generation Manager,N/A,,Referral
+Samantha,Perez,Salesforce,,samantha@salesforce.com,,ZoomInfo
+Derek,Ramirez,ActiveCampaign,Director of Revenue Operations,derek.ramirez@hotmail.com,000,Legacy CRM
+Courtney,Perez,Mandrill,,courtney.perez@mandrill.com,165,Website Form
+Natalie,Wright,Slack,,nwright@slack.com,,Trade Show
+Andrew,Nelson,Mailgun,,anelson@mailgun.com,5122410483,Website Form
+Timothy,Williams,Webex,Sales Operations Manager,timothy@webex.com,,Manual Import
+Kayla,Wright,Intercom,VP of Marketing,kayla.wright@intercom.com,,Website Form
+Andrew,Garcia,RingCentral,,agarcia@ringcentral.com,,Website Form
+Crystal,Campbell,Webex,,crystal.campbell@webex.com,6174526239,ZoomInfo
+David,Nelson,Zoom,,david@zoom.com,2123232174,Legacy CRM
+Nathan,Thomas,Pardot,,N/A,,Legacy CRM
+Natalie,Davis,Chorus,,natalie.davis@guerrillamail.com,3124125134,ZoomInfo
+Brian,Flores,Twilio,Sales Director,brian@twilio.com,7029972156,ZoomInfo
+Andrew,Jackson,Slack,Chief Revenue Officer,andrew@slack.com,7137216288,Referral
+Amanda,Johnson,Braze,Director of Revenue Operations,amanda@@braze.com,8885100746,Legacy CRM
+Andrew,Harris,Teams,Sales Enablement Manager,andrew@teams.com,,Referral
+Kevin,Clark,LinkedIn,Marketing Manager,kevin.clark@linkedin.com,7024021387,ZoomInfo
+Emily,Ramirez,Clearbit,Chief Revenue Officer,eramirez@clearbit.com,,Legacy CRM
+Amanda,Sanchez,Mailchimp,,amanda@mailchimp.com,,Legacy CRM
+Michael,Adams,Mixpanel,VP of Customer Success,michael@mixpanel.com,,ZoomInfo
+James,Miller,Qualtrics,,james@@qualtrics.com,,Legacy CRM
+Rachel,Roberts,Insightly,,rachel@insightly.com,7022975329,Apollo
+Justin,Wright,Qualtrics,Sales Operations Manager,jwright@qualtrics.com,7137460728,ZoomInfo
+Brian,Thompson,Monday.com,,bthompson@mondaycom.com,7022917596,Legacy CRM
+Kevin,Davis,Apollo,,kdavis@apollo.com,,Legacy CRM
+Amber,Carter,Slack,Director of Marketing,amber.carter@slack.com,,Website Form
+Brian,Roberts,LinkedIn,Field Sales Director,brian@linkedin.com,000,Manual Import
+Amanda,Walker,Salesforce,Director of Revenue Operations,awalker@salesforce.com,,Apollo
+Natalie,Anderson,ChurnZero,Director of Marketing,natalie.anderson@churnzero.com,2065029303,Referral
+Crystal,Smith,LinkedIn,Account Executive,crystal.smith@,,Legacy CRM
+Amanda,Nelson,Postmark,,amanda@postmark.com,,Website Form
+Nicole,Ramirez,Zendesk,VP of Customer Success,nicole@zendesk.com,5128041483,Apollo
+Jennifer,Nguyen,Mandrill,Enterprise AE,jennifer@mandrill.com,,Legacy CRM
+James,Campbell,ZoomInfo,RevOps Manager,N/A,7025074114,Apollo
+Natalie,Torres,Marketo,Inside Sales Rep,natalie@marketo.com,,ZoomInfo
+Andrew,Miller,Jira,SDR,andrew@jira.com,555,Manual Import
+Ashley,Taylor,Mandrill,SDR,ataylor@mandrill.com,,Legacy CRM
+Jeffrey,Harris,Confluence,,jharris@confluence.com,,Trade Show
+Stephanie,Thompson,Monday.com,,sthompson@mondaycom.com,000,Website Form
+Brittany,Robinson,Teams,Account Executive,brittany@teams.com,,ZoomInfo
+Timothy,Miller,Copper,VP of Marketing,tmiller@copper.com,000,Apollo
+Derek,Hill,mParticle,Marketing Manager,derek@mparticle.com,555,Website Form
+Chris,Young,Medallia,VP of Sales,chris@@medallia.com,,Legacy CRM
+Andrew,Jackson,Intercom,RevOps Manager,ajackson@intercom.com,3039109632,Legacy CRM
+Alexandra,Rivera,Segment,Customer Success Manager,arivera@segment.com,,Website Form
+Jessica,Baker,Pipedrive,Demand Generation Manager,jessica@pipedrive.com,,ZoomInfo
+Jonathan,Allen,Chorus,,jonathan@chorus.com,,Apollo
+Jeffrey,Adams,mParticle,Sales Director,unknown@unknown,,Legacy CRM
+Stephanie,Carter,Braze,,stephanie.carter@braze.com,,Website Form
+Andrew,Green,Zoom,,andrew.green@,,Legacy CRM
+Emily,Lewis,Intercom,,emily.lewis@intercom.com,,Trade Show
+Jeffrey,Walker,Mailgun,Field Sales Director,jwalker@mailgun.com,,Referral
+Matthew,Rivera,Constant Contact,,mrivera@constantcontact.com,3032680808,Trade Show
+Justin,Smith,Drift,RevOps Manager,jsmith@drift.com,,Manual Import
+Rebecca,Smith,Salesloft,,rebecca@salesloft.com,8778769552,Referral
+Derek,Ramirez,Klaviyo,VP of Customer Success,derek.ramirez@klaviyo.com,,Manual Import
+Amber,Adams,Zoom,Chief Revenue Officer,amber@zoom.com,000,Apollo
+Jessica,Mitchell,Mailchimp,,jmitchell@mailchimp.com,,Manual Import
+Eric,Roberts,Marketo,Mid-Market AE,eric.roberts@marketo.com,,Website Form
+Danielle,Baker,Pardot,VP of Sales,danielle@pardot.com,123,Website Form
+Jonathan,Taylor,Jira,National Sales Manager,jonathan.taylor@outlook.com,7136056981,Apollo
+David,Smith,Pardot,VP of Sales,david.smith@pardot.com,4047704108,ZoomInfo
+Eric,Martin,Zoom,SDR,eric.martin@,2127113954,ZoomInfo
+Michael,Campbell,Gong,SDR,N/A,000,Website Form
+Brittany,Hill,Amplitude,Sales Enablement Manager,bhill@amplitude.com,,Trade Show
+Nathan,Carter,Pipedrive,,nathan@pipedrive.com,123,Website Form
+Derek,Sanchez,Slack,Head of Growth,dsanchez@slack.com,7027430392,Trade Show
+Nathan,Thompson,Twilio,,nthompson@twilio.com,123,Website Form
+Derek,Brown,Outreach,RevOps Manager,dbrown@outreach.com,,ZoomInfo
+Samantha,Lewis,RingCentral,,slewis@ringcentral.com,123,Legacy CRM
+Joshua,Mitchell,Clearbit,Marketing Manager,joshua@clearbit.com,3124024511,Trade Show
+Eric,Mitchell,Pardot,Revenue Operations Lead,emitchell@pardot.com,,Manual Import
+Andrew,Baker,Teams,Enterprise AE,andrew.baker@,2124532893,Legacy CRM
+Daniel,Hall,Gainsight,Chief Revenue Officer,daniel@gainsight.com,,Manual Import
+Nicole,Thomas,Teams,,nicole.thomas@teams.com,4046194045,Referral
+Andrew,Scott,Jira,Director of Revenue Operations,andrew.scott@jira.com,7024966465,Referral
+Monica,Nguyen,Campaign Monitor,,monica.nguyen@campaignmonitor.com,,Website Form
+Kevin,Torres,Insightly,,kevin@insightly.com,,ZoomInfo
+Natalie,Wilson,Marketo,BDR,natalie.wilson@,,Legacy CRM
+Adam,Nguyen,Mandrill,Sales Enablement Manager,anguyen@mandrill.com,,Referral
+Jeffrey,Scott,Iterable,,jeffrey.scott@iterable,3124218500,ZoomInfo
+Eric,Martinez,Mixpanel,,eric@mixpanel.com,4154837896,Legacy CRM
+Rebecca,Taylor,Medallia,,rtaylor@medallia.com,,Apollo
+Crystal,Walker,Clearbit,Sales Operations Manager,crystal.walker@clearbit.com,,Manual Import
+Jonathan,Young,ActiveCampaign,Director of Marketing,jonathan.young@activecampaign,,ZoomInfo
+Brandon,Perez,Webex,Mid-Market AE,brandon@webex.com,4154335179,Legacy CRM
+Brandon,Green,Gainsight,Sales Director,brandon.green@gainsight.com,2068680097,ZoomInfo
+Timothy,Walker,Klaviyo,,timothy@klaviyo.com,6179565314,Trade Show
+Stephanie,Garcia,LinkedIn,Sales Development Manager,sgarcia@linkedin.com,,Legacy CRM
+Megan,Flores,Mailchimp,Field Sales Director,megan.flores@mailchimp.com,2122300009,Referral
+Justin,Lee,Slack,Regional Sales Manager,justin.lee@,5128410443,Apollo
+Jonathan,Moore,Confluence,Sales Director,jonathan.moore@confluence,,Trade Show
+Kyle,Rodriguez,Salesloft,Chief Revenue Officer,krodriguez@salesloft.com,8552273155,Apollo
+Jennifer,Clark,Webex,Chief Revenue Officer,jclark@webex.com,3036213636,Manual Import
+Jessica,Lee,Webex,Sales Enablement Manager,jessica.lee@webex.com,5129522679,Apollo
+Megan,Martinez,Amplitude,,megan@amplitude.com,131,Apollo
+Michael,Anderson,Zendesk,Revenue Operations Lead,michael.anderson@zendesk,,ZoomInfo
+Kevin,Carter,Segment,,kevin.carter@segment,3038830239,Legacy CRM
+Kevin,Davis,Asana,Head of Growth,kevin@asana.com,,Legacy CRM
+Eric,Hernandez,mParticle,Enterprise AE,,000,ZoomInfo
+Jessica,Ramirez,Mandrill,National Sales Manager,jessica.ramirez@mandrill.com,,Apollo
+Brian,Perez,Drift,,brian@drift.com,2128279783,Manual Import
+Jonathan,Martinez,Monday.com,Regional Sales Manager,jmartinez@mondaycom.com,4153788597,Referral
+Kyle,Rodriguez,Twilio,Sales Development Manager,krodriguez@twilio.com,,Legacy CRM
+Alexandra,Lewis,Outreach,,alexandra.lewis@yahoo.com,000,Manual Import
+Kayla,Thompson,Klaviyo,Director of Marketing,kayla@klaviyo.com,,Legacy CRM
+Rachel,Taylor,Iterable,BDR,rachel.taylor@hotmail.com,,Legacy CRM
+Kevin,Nelson,Qualtrics,Marketing Manager,kevin.nelson@icloud.com,5126596430,ZoomInfo
+Natalie,Wright,Apollo,,natalie@apollo.com,4047995876,Manual Import
+Emily,Roberts,Twilio,Mid-Market AE,emily@twilio.com,,Apollo
+Adam,Taylor,LinkedIn,Sales Development Manager,ataylor@linkedin.com,,Apollo
+Jennifer,Rodriguez,Confluence,BDR,jennifer@confluence.com,8005123833,Manual Import
+Nathan,Walker,RingCentral,Head of Growth,nathan.walker@ringcentral.com,,Website Form
+James,Robinson,Outreach,Customer Success Manager,,4043827395,Manual Import
+Sean,Garcia,Postmark,Demand Generation Manager,sean.garcia@postmark.com,3123528747,Referral
+Rebecca,Hernandez,Pipedrive,,rebecca@pipedrive.com,,Referral
+Timothy,Lewis,mParticle,Customer Success Manager,timothy.lewis@mparticle.com,,Apollo
+Brian,Hill,Totango,VP of Marketing,brian.hill@totango.com,,Referral
+Gregory,Adams,Insightly,Marketing Manager,gadams@insightly.com,,Website Form
+Amber,Rivera,Mailgun,Sales Enablement Manager,amber@mailgun.com,123,Legacy CRM
+Eric,Hernandez,Iterable,Director of Marketing,eric.hernandez@iterable.com,,Legacy CRM
+Timothy,Davis,RingCentral,Chief Revenue Officer,timothy.davis@ringcentral.com,2129971514,Manual Import
+Amber,Wilson,Segment,Field Sales Director,amber.wilson@segment.com,000,Website Form
+Crystal,Roberts,Clearbit,Sales Operations Manager,crystal@clearbit.com,7136436416,Legacy CRM
+Monica,Moore,Pardot,SDR,monica.moore@pardot.com,3127281120,Legacy CRM
+Heather,Jones,RingCentral,RevOps Manager,heather.jones@ringcentral.com,,Website Form
+Brian,Young,ZoomInfo,,brian.young@outlook.com,,Legacy CRM
+Jonathan,Campbell,mParticle,VP of Sales,,,Legacy CRM
+Patrick,Mitchell,Salesloft,RevOps Manager,patrick@@salesloft.com,5124976316,ZoomInfo
+David,Campbell,Klaviyo,Regional Sales Manager,david.campbell@outlook.com,,Apollo
+Victoria,Hill,Segment,Field Sales Director,victoria@segment.com,7135026012,Legacy CRM
+Chris,Martinez,Klaviyo,RevOps Manager,chris.martinez@outlook.com,3126789741,Apollo
+Sean,Thomas,Salesloft,Marketing Manager,sean.thomas@hotmail.com,,ZoomInfo
+Patrick,Jackson,HubSpot,Enterprise AE,patrick@hubspot.com,3122897718,ZoomInfo
+Rebecca,Roberts,Gong,Field Sales Director,rebecca.roberts@gong.com,,Trade Show
+Kyle,Nelson,Campaign Monitor,VP of Marketing,kyle@campaignmonitor.com,4044398537,ZoomInfo
+Brittany,Lopez,Postmark,,brittany.lopez@postmark.com,,Manual Import
+Monica,Hall,Jira,Field Sales Director,mhall@jira.com,2128365337,ZoomInfo
+Joshua,Gonzalez,Constant Contact,,joshua.gonzalez@gmail.com,,Apollo
+Chris,Nelson,Intercom,,chris.nelson@intercom.com,,Trade Show
+Ashley,Roberts,Constant Contact,Director of Revenue Operations,ashley@constantcontact.com,3039222999,ZoomInfo
+Jonathan,Hall,Apollo,Field Sales Director,jonathan@apollo.com,123,Legacy CRM
+Joshua,Lopez,Outreach,Inside Sales Rep,joshua.lopez@outreach.com,5122973280,Legacy CRM
+Gregory,Johnson,Zendesk,,gregory.johnson@zendesk.com,7132612616,ZoomInfo
+Andrew,Jackson,Teams,Inside Sales Rep,unknown@unknown,7025089303,ZoomInfo
+Andrew,Campbell,Amplitude,SDR,andrew@amplitude.com,2124018855,ZoomInfo
+Timothy,Young,Asana,,timothy.young@yahoo.com,6172013261,Apollo
+Courtney,Jones,Outreach,Sales Enablement Manager,courtney.jones@outreach.com,,Referral
+Joshua,Martin,Mixpanel,Mid-Market AE,joshua.martin@mixpanel.com,7024659530,ZoomInfo
+Emily,Sanchez,Braze,,emily@braze.com,7025925903,Manual Import
+Natalie,Baker,Confluence,Enterprise AE,N/A,6177619061,ZoomInfo
+Crystal,Allen,Sendgrid,Director of Marketing,crystal.allen@yopmail.com,,Website Form
+Jonathan,Clark,LinkedIn,BDR,jonathan.clark@linkedin.com,,Legacy CRM
+Brandon,Nguyen,Qualtrics,Customer Success Manager,brandon.nguyen@qualtrics.com,,Legacy CRM
+Megan,Thompson,Campaign Monitor,,mthompson@campaignmonitor.com,3122343002,Legacy CRM
+Matthew,Mitchell,Postmark,,mmitchell@postmark.com,,Website Form
+Kevin,Adams,Monday.com,Sales Director,kevin.adams@mondaycom.com,2064694149,ZoomInfo
+Rachel,Hernandez,Qualtrics,VP of Customer Success,rachel.hernandez@qualtrics.com,4154834934,ZoomInfo
+James,Flores,Postmark,,jflores@postmark.com,,Website Form
+Tiffany,Thompson,Totango,Demand Generation Manager,tiffany@@totango.com,,Manual Import
+Ryan,Thomas,Segment,,ryan.thomas@yahoo.com,3124555656,ZoomInfo
+Jessica,Sanchez,Segment,Enterprise AE,jessica.sanchez@mailinator.com,7139966447,Apollo
+Amanda,Taylor,Constant Contact,Director of Revenue Operations,amanda@constantcontact.com,2122979207,Legacy CRM
+Amanda,Perez,Braze,RevOps Manager,aperez@braze.com,2127760772,Referral
+Danielle,Smith,Segment,Director of Revenue Operations,danielle.smith@,3126258742,ZoomInfo
+Danielle,Young,HubSpot,,danielle.young@hubspot.com,123,Apollo
+Tyler,Lopez,Twilio,Director of Marketing,tyler.lopez@twilio.com,,Website Form
+Jennifer,Garcia,Notion,VP of Sales,jennifer@notion.com,,Legacy CRM
+Patrick,Brown,Webex,Revenue Operations Lead,patrick@@webex.com,,Website Form
+David,Williams,Asana,SDR,dwilliams@asana.com,7132853261,Referral
+Brittany,Allen,Braze,Mid-Market AE,brittany.allen@outlook.com,5122691454,ZoomInfo
+James,Harris,Freshworks,Account Executive,james.harris@freshworks.com,,Manual Import
+Stephanie,Hall,Mixpanel,Regional Sales Manager,stephanie.hall@outlook.com,,ZoomInfo
+Jeffrey,Wright,Webex,Field Sales Director,jwright@webex.com,,Legacy CRM
+Nathan,Robinson,mParticle,,nathan@@mparticle.com,,Manual Import
+Gregory,Ramirez,Mailchimp,VP of Sales,gregory.ramirez@mailchimp.com,3038846342,Legacy CRM
+James,Johnson,Gong,Sales Director,jjohnson@gong.com,,Referral
+Jessica,White,Zendesk,Regional Sales Manager,jwhite@zendesk.com,,Legacy CRM
+Amanda,Ramirez,Chorus,,amanda@@chorus.com,3039805364,ZoomInfo
+Derek,Thompson,Copper,,derek.thompson@copper.com,3038076700,Apollo
+Brian,Carter,ChurnZero,Demand Generation Manager,brian.carter@,7133816503,Manual Import
+Samantha,Smith,Apollo,Enterprise AE,samantha.smith@apollo.com,,Legacy CRM
+Ashley,Taylor,Monday.com,Sales Operations Manager,ashley.taylor@mondaycom.com,123,Apollo
+Samantha,Martin,Braze,RevOps Manager,smartin@braze.com,2123307788,Manual Import
+Samantha,Martin,Medallia,,smartin@medallia.com,,Legacy CRM
+Chris,Scott,Webex,,cscott@webex.com,,Legacy CRM
+Kyle,Baker,Segment,Sales Operations Manager,kyle@segment.com,2129203205,ZoomInfo
+Jennifer,King,LinkedIn,Director of Revenue Operations,jking@linkedin.com,,Manual Import
+Eric,Roberts,Medallia,,eric@medallia.com,5123403566,Apollo
+Rebecca,Davis,Zoom,Chief Revenue Officer,rdavis@zoom.com,7023477854,Apollo
+Jessica,Torres,Intercom,Inside Sales Rep,jtorres@intercom.com,000,Trade Show
+Kevin,Lewis,Chorus,VP of Customer Success,kevin.lewis@chorus.com,,Apollo
+Sean,Anderson,Constant Contact,,sanderson@constantcontact.com,6173219508,Manual Import
+Ashley,Robinson,Chorus,BDR,ashley.robinson@icloud.com,2128600111,ZoomInfo
+Natalie,Jones,Salesforce,Sales Director,natalie@@salesforce.com,4155926364,Apollo
+Jonathan,Adams,Asana,,jadams@asana.com,7026099508,ZoomInfo
+Andrew,Adams,RingCentral,Customer Success Manager,aadams@ringcentral.com,3039530759,Manual Import
+Amanda,Campbell,LinkedIn,Field Sales Director,amanda.campbell@linkedin.com,,Referral
+Sean,Rodriguez,ChurnZero,Inside Sales Rep,sean@churnzero.com,,Legacy CRM
+Daniel,Lopez,Mixpanel,VP of Marketing,dlopez@mixpanel.com,,Legacy CRM
+Gregory,Rivera,Campaign Monitor,,gregory.rivera@campaignmonitor.com,3123271460,Trade Show
+Michael,Baker,Webex,Sales Enablement Manager,michael.baker@,8002864889,Apollo
+Chris,Miller,Postmark,,chris.miller@postmark.com,,Legacy CRM
+Sarah,Wright,Webex,Demand Generation Manager,sarah.wright@webex,4044923594,Manual Import
+Monica,Jackson,Amplitude,VP of Customer Success,monica.jackson@amplitude.com,,Website Form
+Kyle,Lewis,Notion,,kyle.lewis@notion.com,,Referral
+Lauren,Thomas,mParticle,,lauren.thomas@mparticle.com,8003153899,Legacy CRM
+Kevin,Miller,Notion,National Sales Manager,kevin.miller@mailinator.com,7023666368,ZoomInfo
+Adam,Allen,Totango,Chief Revenue Officer,adam@totango.com,4155681576,Manual Import
+Natalie,Mitchell,Sendgrid,Inside Sales Rep,nmitchell@sendgrid.com,,Legacy CRM
+Monica,Perez,Iterable,,monica@iterable.com,,Trade Show
+Kevin,Allen,ZoomInfo,SDR,kevin.allen@yahoo.com,8555314036,Legacy CRM
+Nathan,Campbell,Postmark,,nathan@postmark.com,000,Manual Import
+David,Mitchell,Sendgrid,Sales Development Manager,david.mitchell@mailinator.com,3039232654,ZoomInfo
+Samantha,Lewis,ActiveCampaign,VP of Marketing,samantha.lewis@activecampaign.com,,Referral
+Megan,Thomas,LinkedIn,Marketing Manager,megan.thomas@linkedin.com,,Website Form
+Megan,Sanchez,ZoomInfo,Regional Sales Manager,megan@zoominfo.com,,Legacy CRM
+Amanda,Lewis,Twilio,SDR,amanda.lewis@twilio.com,,Trade Show
+Jonathan,Torres,Confluence,,jonathan.torres@confluence.com,000,Website Form
+Heather,Scott,Copper,RevOps Manager,heather@copper.com,,Apollo
+Rebecca,Lee,Klaviyo,,rebecca.lee@klaviyo.com,,Legacy CRM
+Gregory,Torres,Gainsight,Sales Enablement Manager,gregory@gainsight.com,6174531383,ZoomInfo
+Timothy,Davis,Apollo,RevOps Manager,tdavis@apollo.com,,Manual Import
+Megan,Martinez,Mixpanel,Director of Revenue Operations,megan.martinez@mixpanel.com,,Apollo
+Rachel,Clark,Mandrill,Demand Generation Manager,rachel@mandrill.com,4042307837,ZoomInfo
+Joshua,Anderson,RingCentral,,janderson@ringcentral.com,3039052873,Trade Show
+Adam,Walker,Constant Contact,BDR,adam.walker@constantcontact.com,7136263433,ZoomInfo
+Stephanie,Robinson,Zoom,Director of Revenue Operations,stephanie@@zoom.com,4154097842,Legacy CRM
+Matthew,Martin,ChurnZero,,matthew@churnzero.com,,Website Form
+Joshua,Brown,Webex,Director of Marketing,joshua.brown@webex.com,,Manual Import
+Adam,Taylor,Teams,Enterprise AE,adam@teams.com,,Website Form
+Monica,Thompson,Pipedrive,,monica.thompson@pipedrive.com,,Manual Import
+Tiffany,Young,RingCentral,Head of Growth,tiffany@ringcentral.com,129,Manual Import
+Brian,Jones,Mandrill,,bjones@mandrill.com,5128939506,Legacy CRM
+Derek,Rodriguez,Clearbit,Head of Growth,derek.rodriguez@clearbit.com,2068651020,Manual Import
+Tyler,Moore,Jira,,tmoore@jira.com,2063252593,Apollo
+Amanda,Thomas,Clearbit,National Sales Manager,amanda.thomas@clearbit.com,6175900987,ZoomInfo
+Timothy,Anderson,Teams,,timothy.anderson@yahoo.com,,Trade Show
+Alexandra,Lopez,Insightly,,alexandra.lopez@insightly.com,4154642272,Referral
+Eric,Torres,Copper,VP of Sales,etorres@copper.com,4156172270,ZoomInfo
+Nicole,Wright,Zoom,,nicole@zoom.com,4044629700,Manual Import
+Megan,Martinez,ZoomInfo,Mid-Market AE,megan@zoominfo.com,2127019672,Manual Import
+Nathan,Ramirez,Postmark,RevOps Manager,nathan.ramirez@postmark,,Legacy CRM
+Derek,King,Gong,,dking@gong.com,,Website Form
+Jonathan,Wilson,Freshworks,,jwilson@freshworks.com,,Manual Import
+Amber,Green,Asana,RevOps Manager,amber.green@yopmail.com,,ZoomInfo
+Kevin,Miller,Confluence,,kmiller@confluence.com,000,Apollo
+Heather,Martinez,mParticle,SDR,heather@mparticle.com,,Manual Import
+Andrew,Lopez,Salesforce,VP of Sales,andrew.lopez@salesforce.com,6173357991,Manual Import
+Brittany,Lopez,Webex,Sales Enablement Manager,brittany@webex.com,,Legacy CRM
+Alexandra,Davis,Webex,,adavis@webex.com,,Trade Show
+Justin,Jackson,Braze,Director of Marketing,justin@braze.com,2068098280,Apollo
+Emily,Davis,Qualtrics,Director of Revenue Operations,emily@qualtrics.com,,Apollo
+Gregory,Taylor,RingCentral,Account Executive,gtaylor@ringcentral.com,,Referral
+Heather,Roberts,Mailgun,,N/A,,Legacy CRM
+Ashley,Hill,Freshworks,,ahill@freshworks.com,,Trade Show
+Patrick,Mitchell,Marketo,,patrick.mitchell@marketo.com,,Trade Show
+Adam,Jones,Chorus,,adam.jones@chorus,3038809614,ZoomInfo
+Timothy,Young,ZoomInfo,,timothy.young@yopmail.com,121,Legacy CRM
+Timothy,Williams,Iterable,,timothy.williams@iterable.com,8886496403,Manual Import
+Derek,Ramirez,Slack,Director of Marketing,dramirez@slack.com,,Apollo
+Matthew,Flores,Drift,,mflores@drift.com,,Apollo
+Jessica,Baker,Amplitude,Head of Growth,jessica.baker@gmail.com,,Trade Show
+Sarah,Anderson,Twilio,Chief Revenue Officer,sarah.anderson@twilio.com,,Manual Import
+Ryan,Garcia,Confluence,,,,Trade Show
+Adam,Walker,Outreach,Mid-Market AE,awalker@outreach.com,,Apollo
+Brandon,Rivera,RingCentral,SDR,brandon@ringcentral.com,,Website Form
+Danielle,Rodriguez,Chorus,,danielle@chorus.com,,Legacy CRM
+Victoria,Lee,Insightly,Director of Revenue Operations,victoria.lee@insightly.com,3127286134,Legacy CRM
+Rachel,Green,Intercom,National Sales Manager,rachel.green@intercom.com,,ZoomInfo
+Jessica,Davis,Chorus,VP of Sales,jessica.davis@chorus.com,,Manual Import
+Kayla,Williams,Pardot,Customer Success Manager,kwilliams@pardot.com,,Trade Show
+Tyler,White,RingCentral,Sales Enablement Manager,,,Legacy CRM
+Ryan,Gonzalez,Intercom,Director of Revenue Operations,ryan@intercom.com,,ZoomInfo
+Lauren,Ramirez,Campaign Monitor,Enterprise AE,lauren.ramirez@,7132068109,Apollo
+Kevin,Thompson,Sendgrid,Revenue Operations Lead,kthompson@sendgrid.com,2128866353,Manual Import
+Eric,Rodriguez,Pipedrive,Sales Development Manager,erodriguez@pipedrive.com,,ZoomInfo
+Brittany,Harris,Mandrill,VP of Sales,bharris@mandrill.com,,Manual Import
+Matthew,Torres,Pardot,Revenue Operations Lead,N/A,2127970094,Referral
+Eric,Perez,Qualtrics,,eric@qualtrics.com,3128391710,Legacy CRM
+Joshua,Johnson,Zoom,SDR,joshua@zoom.com,,Legacy CRM
+David,Flores,Amplitude,Sales Development Manager,david@amplitude.com,7132088974,Legacy CRM
+Kyle,Walker,Monday.com,Revenue Operations Lead,kyle.walker@mondaycom.com,7135402896,Manual Import
+Sean,Green,Chorus,,sean@chorus.com,,Website Form
+Amber,Nguyen,Confluence,Demand Generation Manager,amber.nguyen@confluence.com,7132511041,Referral
+Amber,Scott,Salesforce,Customer Success Manager,amber@salesforce.com,4042302225,ZoomInfo
+Sarah,Perez,HubSpot,VP of Customer Success,sarah.perez@guerrillamail.com,2126525443,Manual Import
+Justin,Martin,Copper,Enterprise AE,justin.martin@copper.com,4043531863,Manual Import
+Nathan,Lopez,Chorus,Sales Development Manager,nathan.lopez@chorus.com,,Manual Import
+Natalie,Roberts,Insightly,SDR,nroberts@insightly.com,7027455045,Apollo
+Joshua,Nguyen,Postmark,Customer Success Manager,joshua@postmark.com,123,Manual Import
+Rebecca,Wilson,ChurnZero,Demand Generation Manager,rwilson@churnzero.com,7027846312,Apollo
+Natalie,Harris,Zendesk,,natalie.harris@zendesk.com,134,Legacy CRM
+Jennifer,Sanchez,Salesloft,Sales Development Manager,jennifer.sanchez@salesloft.com,2069772196,ZoomInfo
+James,Anderson,ActiveCampaign,Head of Growth,janderson@activecampaign.com,2065555149,ZoomInfo
+Tiffany,Walker,Gainsight,Regional Sales Manager,tiffany@gainsight.com,4159548021,Manual Import
+Jeffrey,Rivera,ActiveCampaign,Chief Revenue Officer,jrivera@activecampaign.com,,Manual Import
+Crystal,Green,Pardot,Field Sales Director,crystal@pardot.com,3039727516,ZoomInfo
+Samantha,Garcia,Outreach,,samantha.garcia@outreach.com,,Legacy CRM
+Courtney,Lopez,Twilio,,courtney@twilio.com,5127259469,Website Form
+Patrick,Young,Campaign Monitor,VP of Marketing,pyoung@campaignmonitor.com,3034778639,ZoomInfo
+Brian,Wright,Salesforce,Sales Director,unknown@unknown,4045528953,Apollo
+Joshua,Rodriguez,mParticle,Marketing Manager,joshua@mparticle.com,,Apollo
+Victoria,Taylor,Campaign Monitor,Sales Operations Manager,vtaylor@campaignmonitor.com,2065618129,Manual Import
+Kevin,Scott,Campaign Monitor,SDR,kevin@campaignmonitor.com,3035762141,Legacy CRM
+Ashley,Lewis,Teams,VP of Marketing,ashley.lewis@mailinator.com,6174175601,Legacy CRM
+Samantha,Sanchez,Intercom,Demand Generation Manager,samantha@intercom.com,,Apollo
+Jeffrey,Roberts,Slack,BDR,jeffrey@slack.com,,Website Form
+Amber,Clark,Salesloft,Sales Development Manager,N/A,,Website Form
+Rebecca,Sanchez,Constant Contact,National Sales Manager,rebecca@constantcontact.com,,ZoomInfo
+Nathan,Gonzalez,Marketo,VP of Marketing,nathan.gonzalez@marketo.com,3126684395,Apollo
+Ashley,Williams,Clearbit,National Sales Manager,ashley@clearbit.com,,Legacy CRM
+Amber,Nelson,Klaviyo,Sales Enablement Manager,amber@klaviyo.com,187,Manual Import
+Jessica,Hernandez,ChurnZero,Director of Marketing,jhernandez@churnzero.com,2067078337,Apollo
+Kevin,King,Pardot,,kking@pardot.com,,Legacy CRM
+Matthew,Rodriguez,Outreach,VP of Marketing,matthew.rodriguez@outreach.com,6177555888,Website Form
+Timothy,Ramirez,Chorus,BDR,tramirez@chorus.com,6177432551,Legacy CRM
+Nathan,Torres,Iterable,Demand Generation Manager,nathan.torres@iterable.com,,Referral
+Nicole,Robinson,Sendgrid,VP of Sales,nicole.robinson@sendgrid,3128096543,Legacy CRM
+Matthew,Hall,ActiveCampaign,Mid-Market AE,mhall@activecampaign.com,,Legacy CRM
+Emily,White,Sendgrid,,ewhite@sendgrid.com,,Legacy CRM
+Brittany,Green,Qualtrics,VP of Customer Success,brittany@qualtrics.com,,ZoomInfo
+Natalie,Perez,Freshworks,,natalie.perez@freshworks.com,,Referral
+Andrew,Lee,Clearbit,Sales Operations Manager,andrew.lee@clearbit.com,,Manual Import
+Danielle,Flores,ActiveCampaign,,danielle.flores@activecampaign.com,4049750114,Manual Import
+Rebecca,Perez,Jira,Director of Marketing,rebecca@jira.com,,Trade Show
+Rachel,Mitchell,Mailgun,Head of Growth,rachel@mailgun.com,,Website Form
+Nicole,White,Copper,,nicole.white@icloud.com,,Apollo
+Eric,Baker,Apollo,,ebaker@apollo.com,3035244302,Legacy CRM
+Alexandra,Johnson,Braze,,alexandra.johnson@braze.com,2064114356,Apollo
+Natalie,Green,ZoomInfo,Inside Sales Rep,natalie@zoominfo.com,,Trade Show
+Samantha,Adams,Iterable,Sales Development Manager,samantha.adams@iterable.com,,Trade Show
+Chris,Wilson,Mailgun,,chris.wilson@mailgun.com,5129010066,Apollo
+Andrew,Garcia,Constant Contact,Account Executive,andrew.garcia@yahoo.com,7025759560,ZoomInfo
+Brandon,Perez,Monday.com,,brandon.perez@mondaycom.com,,Website Form
+Tiffany,Clark,ActiveCampaign,Customer Success Manager,tiffany.clark@activecampaign.com,3127320835,Legacy CRM
+Amber,Wilson,Webex,,awilson@webex.com,6175509214,Legacy CRM
+Jessica,Hernandez,Notion,,jessica@notion.com,2068639275,Referral
+Timothy,Mitchell,ZoomInfo,Enterprise AE,timothy@zoominfo.com,7025977631,Referral
+Derek,Ramirez,Segment,Revenue Operations Lead,dramirez@segment.com,3032869064,ZoomInfo
+Monica,Nelson,Confluence,Sales Operations Manager,monica@confluence.com,4043249513,Apollo
+Justin,Robinson,RingCentral,Account Executive,justin@ringcentral.com,2069706468,ZoomInfo
+Tyler,Garcia,Mailchimp,,,000,ZoomInfo
+Danielle,Nelson,Segment,National Sales Manager,dnelson@segment.com,,Legacy CRM
+Eric,Mitchell,LinkedIn,Sales Development Manager,eric.mitchell@linkedin.com,,Manual Import
+Kevin,Martinez,Braze,,unknown@unknown,,Apollo
+Jessica,Clark,Medallia,,jclark@medallia.com,7133883134,Legacy CRM
+Kyle,Nelson,Asana,Director of Marketing,kyle.nelson@asana.com,4158069691,ZoomInfo
+Michael,Nelson,ChurnZero,RevOps Manager,N/A,,ZoomInfo
+Sean,White,Chorus,Enterprise AE,sean.white@chorus.com,,ZoomInfo
+Danielle,Davis,Monday.com,Revenue Operations Lead,danielle@mondaycom.com,7132597400,ZoomInfo
+Sean,Nguyen,Intercom,Chief Revenue Officer,sean.nguyen@10minutemail.com,7139404589,ZoomInfo
+Jonathan,Jones,Constant Contact,VP of Marketing,jonathan@constantcontact.com,,Manual Import
+Amber,Perez,Medallia,,aperez@medallia.com,6179893605,Legacy CRM
+Ashley,Hall,Asana,,ahall@asana.com,,Legacy CRM
+Amanda,Martinez,Webex,Sales Enablement Manager,amanda@webex.com,,Manual Import
+Joshua,Allen,Zoom,SDR,joshua.allen@zoom.com,,Legacy CRM
+James,Adams,Zendesk,Sales Operations Manager,jadams@zendesk.com,4157906248,Referral
+Jeffrey,Walker,Pipedrive,VP of Sales,jeffrey.walker@pipedrive.com,4153432146,Legacy CRM
+Andrew,Mitchell,Amplitude,RevOps Manager,amitchell@amplitude.com,,Manual Import
+Crystal,Rivera,Gainsight,Sales Development Manager,crystal.rivera@gainsight.com,3128689485,Referral
+Gregory,White,Confluence,Sales Enablement Manager,gregory@confluence.com,,Manual Import
+Brian,Roberts,Constant Contact,,brian.roberts@constantcontact.com,,Website Form
+Brandon,Roberts,Zendesk,,brandon@zendesk.com,8775278068,Trade Show
+Adam,Hall,Klaviyo,,adam.hall@klaviyo.com,3129626795,Trade Show
+Rebecca,Johnson,Mailgun,,rjohnson@mailgun.com,,Trade Show
+Kyle,Miller,Jira,,kmiller@jira.com,,ZoomInfo
+Danielle,Taylor,Pardot,VP of Sales,danielle@pardot.com,7135331556,ZoomInfo
+Chris,Mitchell,Gong,Account Executive,chris@gong.com,4043327278,Manual Import
+Megan,Nguyen,Qualtrics,Chief Revenue Officer,megan.nguyen@qualtrics.com,,Manual Import
+Kayla,Carter,Qualtrics,,kcarter@qualtrics.com,2065477195,Apollo
+Joshua,Lewis,ActiveCampaign,,jlewis@activecampaign.com,8779401968,Trade Show
+Kyle,Moore,Insightly,National Sales Manager,kyle.moore@insightly.com,8883359683,Trade Show
+Stephanie,Allen,Mandrill,Sales Operations Manager,stephanie@mandrill.com,,Legacy CRM
+Joshua,White,Intercom,Mid-Market AE,joshua@intercom.com,2062381813,ZoomInfo
+Rebecca,Wilson,Qualtrics,,rebecca.wilson@qualtrics.com,3124398043,Referral
+Lauren,Miller,Insightly,SDR,lauren@insightly.com,,Apollo
+Sean,Allen,Confluence,Sales Development Manager,sallen@confluence.com,,Website Form
+Tyler,Wilson,Pipedrive,Revenue Operations Lead,N/A,7025705969,ZoomInfo
+Natalie,Lewis,Copper,Director of Marketing,nlewis@copper.com,5122193161,Trade Show
+Tiffany,Adams,LinkedIn,,tiffany.adams@yopmail.com,,Legacy CRM
+Jennifer,Jones,Confluence,,jennifer.jones@confluence.com,123,Website Form
+Courtney,King,Monday.com,Demand Generation Manager,cking@mondaycom.com,6176789965,Manual Import
+Megan,Wilson,Zoom,,mwilson@zoom.com,,Legacy CRM
+Heather,Robinson,Salesforce,Director of Marketing,heather.robinson@yahoo.com,,ZoomInfo
+Chris,Harris,HubSpot,Account Executive,chris.harris@hubspot.com,,Referral
+Courtney,White,Insightly,Account Executive,courtney@insightly.com,,Legacy CRM
+Samantha,Brown,Amplitude,Sales Director,samantha@amplitude.com,4157162768,Trade Show
+Eric,Nguyen,Postmark,RevOps Manager,enguyen@postmark.com,,Referral
+Emily,Gonzalez,Constant Contact,Director of Marketing,emily.gonzalez@outlook.com,174,Legacy CRM
+Danielle,Lopez,Copper,Field Sales Director,,145,Legacy CRM
+Ashley,Thompson,Postmark,Marketing Manager,ashley@@postmark.com,4043464137,Apollo
+Rachel,Baker,Iterable,Demand Generation Manager,rachel@iterable.com,4155064822,Apollo
+James,Hill,Gainsight,,james.hill@gainsight.com,2064008671,ZoomInfo
+Andrew,Miller,ZoomInfo,Revenue Operations Lead,andrew@zoominfo.com,,Legacy CRM
+Andrew,Green,Zendesk,,andrew@zendesk.com,,Website Form
+Joshua,Mitchell,LinkedIn,BDR,joshua@linkedin.com,7138039897,ZoomInfo
+Kyle,Nguyen,Zoom,,kyle.nguyen@zoom,7138539294,ZoomInfo
+Samantha,Davis,Iterable,,sdavis@iterable.com,5126936051,Website Form
+Rachel,Flores,Gong,Sales Enablement Manager,rachel@gong.com,7027293236,Trade Show
+Derek,Flores,RingCentral,,derek@ringcentral.com,7133947688,Apollo
+Heather,Hernandez,Salesloft,,heather.hernandez@salesloft,4156991516,ZoomInfo
+Eric,Hernandez,Outreach,Director of Revenue Operations,eric.hernandez@,8777065730,Legacy CRM
+Justin,Hill,Teams,Account Executive,justin.hill@teams.com,000,Apollo
+Nicole,Ramirez,Twilio,,N/A,,Legacy CRM
+Rebecca,Sanchez,Drift,,rebecca@drift.com,,Trade Show
+Nicole,Young,HubSpot,Account Executive,nicole@hubspot.com,8553088599,ZoomInfo
+Ryan,Anderson,Constant Contact,,ryan@constantcontact.com,,Trade Show
+Nathan,Brown,ChurnZero,Sales Operations Manager,nathan@churnzero.com,,Legacy CRM
+Kayla,Ramirez,Qualtrics,Account Executive,kayla.ramirez@qualtrics.com,,ZoomInfo
+Emily,Hernandez,Qualtrics,VP of Marketing,emily.hernandez@qualtrics,3125956643,Apollo
+Heather,Campbell,Twilio,Sales Operations Manager,hcampbell@twilio.com,3124996363,Legacy CRM
+Danielle,Moore,Marketo,VP of Customer Success,danielle.moore@marketo.com,,Legacy CRM
+Michael,Lee,Iterable,,michael@iterable.com,6177148233,Trade Show
+Brian,Wright,Drift,Enterprise AE,brian@drift.com,000,ZoomInfo
+Kevin,Campbell,ZoomInfo,,kcampbell@zoominfo.com,3039999313,ZoomInfo
+Alexandra,Hall,Salesloft,Sales Director,ahall@salesloft.com,,Website Form
+Courtney,Roberts,Amplitude,,courtney.roberts@gmail.com,555,Website Form
+Jennifer,Clark,Iterable,,jennifer.clark@gmail.com,7133438303,Legacy CRM
+Ashley,Anderson,Clearbit,,ashley.anderson@guerrillamail.com,,Apollo
+Ryan,Perez,Totango,,ryan.perez@icloud.com,,Legacy CRM
+Justin,Sanchez,Zendesk,National Sales Manager,unknown@unknown,,Legacy CRM
+Timothy,Johnson,Chorus,Demand Generation Manager,timothy.johnson@10minutemail.com,3125104230,ZoomInfo
+Brandon,Wright,Totango,Field Sales Director,brandon@totango.com,,Manual Import
+Brian,Taylor,Asana,National Sales Manager,brian.taylor@asana.com,123,Referral
+Andrew,Carter,Monday.com,RevOps Manager,andrew.carter@mondaycom.com,,Legacy CRM
+James,Davis,Confluence,,james@confluence.com,,Trade Show
+Gregory,Hernandez,Confluence,,gregory@confluence.com,,Website Form
+Derek,Clark,Twilio,Sales Director,derek.clark@twilio.com,5122500573,Trade Show
+Jennifer,Campbell,Intercom,VP of Customer Success,jcampbell@intercom.com,7134177931,Referral
+Andrew,Martinez,Campaign Monitor,Inside Sales Rep,andrew.martinez@,7138420221,Referral
+Andrew,Mitchell,Salesforce,Sales Enablement Manager,andrew@salesforce.com,123,Legacy CRM
+Gregory,Martin,Salesforce,VP of Customer Success,gregory@salesforce.com,8773751162,Manual Import
+Megan,Lewis,Clearbit,Account Executive,,3127356915,Referral
+Megan,Taylor,Asana,Director of Revenue Operations,megan@asana.com,,Manual Import
+Jessica,Clark,Apollo,Director of Marketing,jessica@apollo.com,3032817683,Manual Import
+Derek,Jones,Asana,Chief Revenue Officer,derek.jones@asana.com,,Trade Show
+Justin,Thompson,Freshworks,,justin@freshworks.com,,Apollo
+Victoria,Campbell,Campaign Monitor,,victoria@campaignmonitor.com,,Website Form
+Adam,Moore,Teams,,adam.moore@teams.com,3037149496,Legacy CRM
+Eric,Baker,ZoomInfo,VP of Marketing,ebaker@zoominfo.com,5123797460,ZoomInfo
+Jeffrey,Hall,Totango,Director of Marketing,N/A,5128919323,ZoomInfo
+Kyle,Davis,Constant Contact,Head of Growth,kdavis@constantcontact.com,,Website Form
+Gregory,Moore,Braze,National Sales Manager,gregory@braze.com,5128865047,Apollo
+Nicole,Hill,Confluence,Sales Director,nicole.hill@confluence.com,,Manual Import
+Ashley,Garcia,Drift,Demand Generation Manager,ashley.garcia@,7132338310,ZoomInfo
+Brandon,Scott,Slack,,brandon.scott@slack.com,7029184032,Manual Import
+Megan,Carter,Gainsight,VP of Customer Success,megan.carter@gainsight.com,555,Manual Import
+Gregory,Baker,Sendgrid,Marketing Manager,gregory.baker@,6174067952,ZoomInfo
+Ryan,Wilson,Insightly,Sales Development Manager,ryan.wilson@insightly.com,123,Manual Import
+Monica,Carter,Sendgrid,Marketing Manager,mcarter@sendgrid.com,,Legacy CRM
+Sarah,Taylor,Gong,Sales Director,sarah.taylor@gong.com,,Referral
+Brian,Rodriguez,Iterable,Chief Revenue Officer,brian@iterable.com,,ZoomInfo
+Rachel,Lee,Salesforce,,rachel@salesforce.com,,Referral
+Ryan,Martin,RingCentral,Revenue Operations Lead,ryan.martin@ringcentral.com,2125139322,Manual Import
+Timothy,Lewis,Drift,Sales Director,timothy.lewis@drift.com,7137295001,Legacy CRM
+Derek,Davis,ZoomInfo,,derek.davis@gmail.com,2126255588,Legacy CRM
+Heather,Martin,ChurnZero,Head of Growth,heather@churnzero.com,,Apollo
+Courtney,Sanchez,Chorus,Marketing Manager,courtney.sanchez@chorus.com,,Legacy CRM
+Samantha,Brown,Asana,,samantha@@asana.com,8778487153,ZoomInfo
+Kayla,Gonzalez,Confluence,,kayla@confluence.com,,Apollo
+Sarah,Carter,Klaviyo,,sarah@klaviyo.com,,Legacy CRM
+Rachel,Hall,Apollo,Marketing Manager,rachel.hall@apollo.com,,Apollo
+Sarah,Wright,Zoom,Head of Growth,swright@zoom.com,4042926453,Legacy CRM
+Heather,White,Gong,,heather@gong.com,,Website Form
+Amber,Robinson,Drift,,amber.robinson@drift.com,000,Website Form
+Tyler,Green,Webex,,tyler@webex.com,,Website Form
+Victoria,Martinez,Copper,National Sales Manager,victoria.martinez@copper.com,4048432302,Manual Import
+Sean,Martinez,Asana,Sales Enablement Manager,sean.martinez@asana.com,2124459283,Apollo
+Nathan,Rivera,Totango,Enterprise AE,nathan.rivera@totango.com,4156483071,Manual Import
+Rebecca,Hill,RingCentral,Sales Enablement Manager,rebecca.hill@ringcentral.com,196,Apollo
+James,Johnson,LinkedIn,,james.johnson@icloud.com,7134663139,Legacy CRM
+Justin,Robinson,Mandrill,,justin@mandrill.com,7135845502,Manual Import
+Samantha,Smith,Gong,,samantha@gong.com,,Legacy CRM
+Matthew,Wilson,Gong,RevOps Manager,matthew.wilson@gong.com,,Website Form
+Samantha,Wright,Drift,,samantha.wright@outlook.com,4045789486,Legacy CRM
+Brittany,Rodriguez,Zendesk,Account Executive,brodriguez@zendesk.com,4045860611,Manual Import
+Chris,Anderson,Intercom,Account Executive,canderson@intercom.com,7022212312,Manual Import
+Patrick,Scott,Chorus,,patrick@chorus.com,,Website Form
+Brian,Clark,Notion,Regional Sales Manager,brian.clark@notion.com,,Trade Show
+Kayla,White,Segment,Mid-Market AE,kwhite@segment.com,123,ZoomInfo
+Nicole,Martinez,mParticle,Account Executive,nmartinez@mparticle.com,5124673056,Apollo
+Jeffrey,King,Iterable,SDR,jeffrey.king@iterable.com,,Website Form
+Tiffany,Carter,Pipedrive,,tcarter@pipedrive.com,,Legacy CRM
+Lauren,Clark,Postmark,Marketing Manager,lauren@postmark.com,3122227928,Legacy CRM
+Daniel,Adams,Postmark,,daniel@postmark.com,7137452764,ZoomInfo
+Sarah,Moore,Pardot,,sarah@pardot.com,7135726466,Legacy CRM
+Gregory,Lopez,Segment,Customer Success Manager,gregory@segment.com,,Manual Import
+Jessica,King,Campaign Monitor,Sales Director,jessica@campaignmonitor.com,3125176586,Apollo
+Tiffany,Nelson,Chorus,VP of Customer Success,,,Apollo
+Amanda,Wright,Teams,Sales Enablement Manager,amanda@teams.com,,Manual Import
+Victoria,Smith,Insightly,Director of Revenue Operations,victoria.smith@insightly.com,7136744573,Legacy CRM
+Amber,Jones,Monday.com,,amber@mondaycom.com,3127026065,Legacy CRM
+Brandon,Mitchell,Pardot,,brandon.mitchell@pardot.com,000,Website Form
+Nicole,Nguyen,Gainsight,Enterprise AE,nnguyen@gainsight.com,,ZoomInfo
+Daniel,Ramirez,Notion,RevOps Manager,daniel.ramirez@notion,4043283586,ZoomInfo
+Adam,Carter,Constant Contact,VP of Sales,acarter@constantcontact.com,,Website Form
+Natalie,Young,Totango,,nyoung@totango.com,3123413842,Manual Import
+Sean,Anderson,Pipedrive,,sean@pipedrive.com,8777395096,Website Form
+Sean,Sanchez,Outreach,Account Executive,ssanchez@outreach.com,,Manual Import
+Rachel,Martinez,Outreach,National Sales Manager,rachel@outreach.com,2124249362,Manual Import
+Natalie,Green,Salesloft,Sales Enablement Manager,natalie.green@salesloft.com,4156313054,ZoomInfo
+Victoria,Martin,HubSpot,,vmartin@hubspot.com,6174691739,Apollo
+Ryan,Davis,Braze,Revenue Operations Lead,ryan.davis@braze.com,,Legacy CRM
+Daniel,Rivera,Outreach,,daniel.rivera@outreach.com,119,Website Form
+Amber,Rodriguez,Iterable,Mid-Market AE,arodriguez@iterable.com,7137662516,Apollo
+James,Lee,Freshworks,Marketing Manager,jlee@freshworks.com,,Manual Import
+Natalie,Lee,Pardot,,natalie.lee@outlook.com,,ZoomInfo
+Nathan,Williams,Mandrill,,nathan@mandrill.com,,Trade Show
+Patrick,Brown,Gong,Director of Revenue Operations,pbrown@gong.com,2124138507,Referral
+David,Robinson,Intercom,VP of Customer Success,david.robinson@gmail.com,7023734235,Manual Import
+Jessica,Adams,HubSpot,VP of Customer Success,jadams@hubspot.com,,Legacy CRM
+Amber,Flores,Sendgrid,Director of Marketing,amber.flores@,,Apollo
+Michael,Gonzalez,ZoomInfo,Chief Revenue Officer,michael.gonzalez@zoominfo.com,,Apollo
+Sarah,Smith,Salesloft,Revenue Operations Lead,sarah.smith@salesloft.com,,Trade Show
+Andrew,Moore,Braze,Chief Revenue Officer,amoore@braze.com,2065080924,Manual Import
+Jessica,Sanchez,Salesforce,Director of Revenue Operations,jessica.sanchez@salesforce.com,2066903645,ZoomInfo
+Samantha,Miller,Jira,Head of Growth,samantha.miller@jira.com,,Apollo
+David,Lewis,Segment,VP of Sales,david.lewis@hotmail.com,,ZoomInfo
+Sean,White,Copper,,sean.white@copper.com,,Trade Show
+Kayla,Clark,Zoom,Field Sales Director,kayla.clark@zoom.com,,Website Form
+Brittany,Campbell,Totango,Enterprise AE,unknown@unknown,3035416567,Legacy CRM
+Jessica,Miller,Insightly,VP of Sales,jmiller@insightly.com,,Referral
+James,Baker,Segment,RevOps Manager,james@segment.com,3032935767,ZoomInfo
+Brittany,Davis,Salesforce,Sales Enablement Manager,bdavis@salesforce.com,,Legacy CRM
+Chris,Martin,Zendesk,Customer Success Manager,unknown@unknown,5128452219,ZoomInfo
+Sarah,Scott,Postmark,VP of Sales,sarah@postmark.com,,Referral
+Ryan,Harris,Intercom,,rharris@intercom.com,,Website Form
+Michael,Garcia,Apollo,Sales Enablement Manager,mgarcia@apollo.com,3125548811,Legacy CRM
+Danielle,Hall,Twilio,Mid-Market AE,danielle.hall@twilio.com,,Manual Import
+Ashley,Taylor,Mandrill,SDR,ataylor@mandrill.com,,Apollo
+Kayla,Moore,Amplitude,Enterprise AE,kayla.moore@outlook.com,195,Apollo
+Chris,Torres,Mailchimp,VP of Sales,,190,Apollo
+Victoria,Jackson,Copper,,victoria.jackson@copper.com,3122239673,Apollo
+Jonathan,Scott,HubSpot,Head of Growth,jscott@hubspot.com,,ZoomInfo
+Victoria,Wilson,Zendesk,Mid-Market AE,victoria.wilson@zendesk.com,,Legacy CRM
+Patrick,Young,Intercom,,N/A,2126395164,ZoomInfo
+Sarah,Hall,Marketo,,sarah@@marketo.com,,Legacy CRM
+Samantha,Carter,Klaviyo,Marketing Manager,samantha@klaviyo.com,2064562745,Referral
+Andrew,Johnson,HubSpot,Sales Enablement Manager,andrew.johnson@hubspot.com,,Trade Show
+Tyler,Smith,Copper,Customer Success Manager,tyler.smith@copper.com,,Referral
+Nicole,Martin,Braze,Inside Sales Rep,nicole@braze.com,,Legacy CRM
+Jeffrey,Torres,Jira,BDR,jtorres@jira.com,,Website Form
+David,Johnson,Marketo,,david@marketo.com,3127079394,Apollo
+Courtney,Torres,Webex,Sales Director,courtney.torres@webex.com,,ZoomInfo
+Jeffrey,Taylor,Chorus,Director of Marketing,jeffrey.taylor@hotmail.com,3033565171,ZoomInfo
+Brandon,Williams,Clearbit,Director of Marketing,bwilliams@clearbit.com,5124373351,Legacy CRM
+Rebecca,Hall,Pipedrive,Regional Sales Manager,rebecca@pipedrive.com,,Manual Import
+Heather,Hall,Mandrill,Sales Enablement Manager,hhall@mandrill.com,6176042719,ZoomInfo
+Eric,Green,RingCentral,,eric@ringcentral.com,,Apollo
+Timothy,Perez,ZoomInfo,Head of Growth,tperez@zoominfo.com,7029125535,Manual Import
+Heather,Campbell,Teams,,heather.campbell@teams.com,2065454920,Manual Import
+Patrick,Campbell,Apollo,Enterprise AE,patrick@apollo.com,7135962184,Manual Import
+Derek,Hall,Teams,Account Executive,derek.hall@teams.com,,Apollo
+Daniel,Walker,Asana,,daniel@asana.com,4155401341,Legacy CRM
+Monica,Lewis,Clearbit,Sales Director,mlewis@clearbit.com,,ZoomInfo
+Kyle,Moore,Asana,,kyle@asana.com,,Apollo
+Derek,King,Copper,Account Executive,derek.king@copper.com,,Referral
+Jessica,Smith,ZoomInfo,Customer Success Manager,jsmith@zoominfo.com,,Manual Import
+Rachel,Lee,ActiveCampaign,Marketing Manager,rachel.lee@mailinator.com,,Referral
+Eric,Taylor,Medallia,,eric@medallia.com,3034884397,Apollo
+Nathan,Scott,Notion,Field Sales Director,nathan.scott@notion.com,123,Apollo
+Ashley,Miller,Jira,BDR,ashley.miller@jira.com,,Legacy CRM
+Lauren,Hernandez,Intercom,,lauren.hernandez@yahoo.com,,Legacy CRM
+Heather,Davis,Mandrill,BDR,hdavis@mandrill.com,,Website Form
+Kevin,Thomas,Teams,Revenue Operations Lead,kthomas@teams.com,3035767904,Apollo
+Nicole,Rodriguez,Sendgrid,,nicole.rodriguez@sendgrid.com,8772580848,Website Form
+Michael,Campbell,Mailgun,Chief Revenue Officer,mcampbell@mailgun.com,2122510240,ZoomInfo
+Brandon,Torres,Zendesk,,N/A,4046954586,Website Form
+Chris,Jones,ActiveCampaign,,chris.jones@activecampaign.com,,Trade Show
+Jessica,Nelson,Totango,Chief Revenue Officer,,7133908515,ZoomInfo
+Kyle,Smith,Freshworks,Chief Revenue Officer,kyle.smith@freshworks,4042282029,Apollo
+Emily,Ramirez,Zendesk,Demand Generation Manager,emily.ramirez@zendesk.com,,Website Form
+Timothy,Ramirez,Gainsight,,tramirez@gainsight.com,5128619817,Apollo
+Kevin,Adams,Campaign Monitor,,kevin.adams@hotmail.com,4044379046,Legacy CRM
+Monica,Adams,Amplitude,,madams@amplitude.com,8555993020,ZoomInfo
+Michael,Garcia,Salesloft,Demand Generation Manager,michael.garcia@salesloft.com,,ZoomInfo
+Rachel,Lopez,Salesloft,,rlopez@salesloft.com,,ZoomInfo
+Courtney,Hall,Mixpanel,,courtney@mixpanel.com,,Website Form
+James,Wilson,Campaign Monitor,Customer Success Manager,james@campaignmonitor.com,,ZoomInfo
+Monica,Jones,Twilio,,unknown@unknown,555,ZoomInfo
+Stephanie,Gonzalez,Mixpanel,Demand Generation Manager,stephanie.gonzalez@mixpanel.com,,Manual Import
+Emily,Lewis,Teams,Field Sales Director,emily.lewis@teams.com,,Manual Import
+Sarah,Scott,Copper,Account Executive,sarah.scott@copper.com,7029277764,Manual Import
+Emily,Moore,Sendgrid,,emily@sendgrid.com,,Manual Import
+Ryan,Smith,Zoom,Revenue Operations Lead,rsmith@zoom.com,,Website Form
+Amber,Anderson,Jira,Demand Generation Manager,amber.anderson@jira.com,3126559307,Website Form
+Jennifer,Jones,Twilio,Enterprise AE,jennifer.jones@yahoo.com,7137513983,Legacy CRM
+Matthew,Walker,Qualtrics,VP of Marketing,matthew.walker@qualtrics.com,7135616735,Apollo
+Tiffany,Ramirez,Twilio,SDR,tiffany@twilio.com,4152735011,Legacy CRM
+Gregory,Nelson,Medallia,Sales Development Manager,gregory.nelson@medallia.com,000,Referral
+Stephanie,Wright,Zendesk,,stephanie@zendesk.com,2128343292,ZoomInfo
+Tyler,Johnson,HubSpot,,tjohnson@hubspot.com,,Trade Show
+Patrick,Robinson,Chorus,,patrick.robinson@chorus.com,8889556717,Website Form
+Megan,Thomas,Gong,Field Sales Director,mthomas@gong.com,,Legacy CRM
+Nathan,Rivera,Pipedrive,Inside Sales Rep,nathan.rivera@mailinator.com,000,Legacy CRM
+Matthew,Johnson,Asana,,mjohnson@asana.com,2067216989,Manual Import
+Jeffrey,Taylor,Iterable,Sales Director,,2129551317,Legacy CRM
+Sarah,Jackson,Salesforce,Customer Success Manager,sjackson@salesforce.com,4153195009,Website Form
+Rebecca,Davis,ZoomInfo,,rdavis@zoominfo.com,,Trade Show
+Emily,Sanchez,ZoomInfo,,emily.sanchez@zoominfo.com,,Apollo
+Brian,Torres,Campaign Monitor,,btorres@campaignmonitor.com,4049859036,Trade Show
+Nathan,Martin,Segment,National Sales Manager,nathan.martin@mailinator.com,7135284990,Apollo
+Danielle,Jackson,Mixpanel,Head of Growth,danielle.jackson@,,ZoomInfo
+Alexandra,Brown,Totango,Mid-Market AE,,,ZoomInfo
+Brandon,Lee,Qualtrics,Marketing Manager,brandon@qualtrics.com,,Trade Show
+Danielle,Scott,Totango,Enterprise AE,unknown@unknown,,Referral
+Rachel,Perez,Gainsight,Inside Sales Rep,rperez@gainsight.com,,Manual Import
+Timothy,Martinez,Pardot,VP of Marketing,timothy.martinez@pardot.com,8883982313,Legacy CRM
+Stephanie,Jackson,Outreach,,stephanie@outreach.com,6174452935,Manual Import
+Nicole,Walker,Pardot,Inside Sales Rep,nwalker@pardot.com,4155844012,Manual Import
+Sarah,Scott,Sendgrid,,sarah.scott@sendgrid.com,7023663177,Legacy CRM
+Michael,Thomas,Mandrill,,michael.thomas@mandrill.com,,Apollo
+Jonathan,Davis,HubSpot,,jonathan.davis@hubspot.com,,Trade Show
+Jeffrey,Young,Confluence,Head of Growth,jeffrey.young@,7135292897,ZoomInfo
+Heather,Thompson,Zendesk,,heather.thompson@zendesk.com,5128634519,Legacy CRM
+Ryan,Anderson,Notion,Sales Development Manager,ryan.anderson@icloud.com,,ZoomInfo
+Monica,Davis,Medallia,,mdavis@medallia.com,,Website Form
+Jonathan,Young,Chorus,,jonathan.young@chorus,,ZoomInfo
+Ashley,Lee,Jira,,ashley@jira.com,,Apollo
+Chris,Adams,Chorus,Regional Sales Manager,chris@chorus.com,7136649942,ZoomInfo
+Amanda,Robinson,mParticle,Mid-Market AE,amanda.robinson@,4049657095,ZoomInfo
+Crystal,Adams,Constant Contact,,cadams@constantcontact.com,8556682417,Referral
+Michael,Nelson,Teams,RevOps Manager,michael.nelson@mailinator.com,,Apollo
+Ryan,Martin,Chorus,RevOps Manager,ryan@@chorus.com,,Legacy CRM
+Ryan,Adams,Medallia,Field Sales Director,ryan.adams@mailinator.com,3125400881,ZoomInfo
+Courtney,Young,Freshworks,,courtney.young@freshworks.com,,Apollo
+Jeffrey,Ramirez,Slack,Customer Success Manager,jeffrey.ramirez@slack.com,,Referral
+Rachel,Roberts,LinkedIn,BDR,N/A,,ZoomInfo
+Danielle,Sanchez,Drift,Marketing Manager,danielle@drift.com,,Manual Import
+Kyle,Adams,Postmark,,kyle.adams@hotmail.com,5122888727,ZoomInfo
+James,Perez,Mandrill,,james.perez@outlook.com,,Apollo
+Jonathan,Young,Clearbit,Marketing Manager,jonathan.young@clearbit.com,,Trade Show
+Gregory,Scott,Jira,Head of Growth,gregory@jira.com,123,Trade Show
+Lauren,Torres,Totango,,ltorres@totango.com,4158273120,Apollo
+Daniel,Wright,ActiveCampaign,,daniel.wright@activecampaign,2123105645,ZoomInfo
+Amanda,Young,Outreach,SDR,amanda@outreach.com,8009333240,ZoomInfo
+Daniel,Wright,Marketo,,daniel@marketo.com,,Apollo
+Jennifer,Perez,Webex,,jennifer@webex.com,154,ZoomInfo
+Lauren,Wright,Insightly,,lwright@insightly.com,,Apollo
+Derek,Mitchell,Monday.com,Field Sales Director,derek@mondaycom.com,,Referral
+Jennifer,Martin,Slack,,jennifer.martin@icloud.com,,Website Form
+Daniel,Wilson,Slack,Customer Success Manager,dwilson@slack.com,2123976500,Manual Import
+Danielle,Anderson,Zendesk,,danielle.anderson@10minutemail.com,7139407957,ZoomInfo
+Matthew,Ramirez,Mailchimp,Director of Revenue Operations,matthew.ramirez@mailchimp.com,190,Legacy CRM
+Kyle,Hall,Intercom,,kyle.hall@intercom.com,5122781955,Website Form
+Kyle,Nelson,Gainsight,,kyle.nelson@gainsight.com,,Manual Import
+Eric,Johnson,RingCentral,Marketing Manager,eric@ringcentral.com,4158771324,Manual Import
+Jessica,Wilson,Postmark,Director of Revenue Operations,jessica.wilson@postmark.com,123,Referral
+Megan,Martinez,Campaign Monitor,Demand Generation Manager,megan.martinez@yahoo.com,,Apollo
+Kevin,Robinson,Gong,Head of Growth,kevin.robinson@gong.com,7024920996,Apollo
+Brian,Wright,HubSpot,VP of Marketing,brian.wright@yahoo.com,000,ZoomInfo
+Daniel,Jackson,Medallia,Sales Director,daniel@medallia.com,,Website Form
+Sean,Taylor,Constant Contact,RevOps Manager,staylor@constantcontact.com,3032637775,Apollo
+Jennifer,Lopez,Chorus,,jennifer.lopez@gmail.com,,Legacy CRM
+Jonathan,Davis,Qualtrics,Director of Marketing,jdavis@qualtrics.com,3123349969,Apollo
+Joshua,White,Teams,Customer Success Manager,jwhite@teams.com,,Manual Import
+Gregory,King,ZoomInfo,,gking@zoominfo.com,,Website Form
+Brian,Taylor,ChurnZero,Sales Development Manager,btaylor@churnzero.com,,Trade Show
+Eric,Carter,Webex,,eric.carter@webex.com,,Apollo
+Amber,Perez,Klaviyo,Head of Growth,aperez@klaviyo.com,,ZoomInfo
+Justin,Scott,Sendgrid,VP of Sales,justin.scott@sendgrid.com,,Referral
+Adam,Perez,Constant Contact,,adam@constantcontact.com,,ZoomInfo
+Joshua,Scott,Gong,,joshua@gong.com,,Legacy CRM
+Tyler,Green,RingCentral,National Sales Manager,tyler.green@,4152384402,ZoomInfo
+Gregory,Ramirez,Medallia,,gramirez@medallia.com,,Legacy CRM
+Alexandra,Harris,Iterable,Mid-Market AE,unknown@unknown,,Legacy CRM
+Adam,Hernandez,Mailchimp,Director of Marketing,adam.hernandez@icloud.com,3127227878,Apollo
+Rebecca,Johnson,Chorus,Sales Director,N/A,6173804762,ZoomInfo
+Megan,Nguyen,Zendesk,Sales Development Manager,megan@zendesk.com,6173841519,Legacy CRM
+Jennifer,Martinez,Intercom,,jennifer@intercom.com,4157545789,Apollo
+Heather,Harris,Gainsight,National Sales Manager,,3036582471,ZoomInfo
+Amanda,White,Monday.com,VP of Customer Success,awhite@mondaycom.com,,Apollo
+Nicole,King,Salesforce,Account Executive,nicole@salesforce.com,,Trade Show
+Tiffany,Rodriguez,Confluence,,tiffany@confluence.com,,Legacy CRM
+Rachel,Johnson,Mandrill,Account Executive,rjohnson@mandrill.com,5125540678,Referral
+Nicole,King,Marketo,,nicole.king@marketo.com,,Website Form
+Nicole,Williams,Monday.com,Regional Sales Manager,nicole@mondaycom.com,,Website Form
+Nathan,Johnson,Outreach,Customer Success Manager,njohnson@outreach.com,,Trade Show
+Derek,Hernandez,Jira,Field Sales Director,dhernandez@jira.com,2064277162,Apollo
+Brittany,Sanchez,Zendesk,,brittany@zendesk.com,2066153800,Legacy CRM
+Matthew,Smith,Iterable,Mid-Market AE,msmith@iterable.com,,Referral
+Stephanie,Lee,RingCentral,Sales Director,stephanie.lee@ringcentral.com,555,Trade Show
+Jonathan,Scott,mParticle,,jonathan.scott@mparticle,5127865780,Manual Import
+Jennifer,Wright,Mandrill,,jwright@mandrill.com,,Manual Import
+Timothy,Baker,Pipedrive,Field Sales Director,timothy.baker@pipedrive.com,5128591806,ZoomInfo
+Justin,Green,Iterable,,justin@iterable.com,,Apollo
+Brittany,Smith,Mandrill,,bsmith@mandrill.com,,Trade Show
+Emily,Adams,ChurnZero,Chief Revenue Officer,eadams@churnzero.com,5128235316,Legacy CRM
+Andrew,Williams,Qualtrics,BDR,andrew.williams@qualtrics.com,,Referral
+Lauren,Gonzalez,ChurnZero,Sales Enablement Manager,lgonzalez@churnzero.com,,Trade Show
+Samantha,Davis,Teams,VP of Sales,samantha@teams.com,,ZoomInfo
+Chris,Adams,Pipedrive,Head of Growth,chris.adams@pipedrive.com,,Manual Import
+Nicole,Jones,Pardot,,njones@pardot.com,,Legacy CRM
+Daniel,Lee,Constant Contact,,daniel.lee@yahoo.com,171,Trade Show
+Victoria,Nguyen,Medallia,Account Executive,victoria.nguyen@medallia,3035091784,Apollo
+Jeffrey,Walker,Gainsight,National Sales Manager,jeffrey.walker@gainsight.com,,Manual Import
+Nicole,Mitchell,Outreach,Inside Sales Rep,nicole@outreach.com,4047586879,Apollo
+Derek,Lewis,Intercom,,derek@@intercom.com,6173058524,ZoomInfo
+David,Harris,Clearbit,,david.harris@clearbit.com,,Manual Import
+Sarah,Rodriguez,Segment,,srodriguez@segment.com,4153766401,Apollo
+Jeffrey,Scott,Pardot,Regional Sales Manager,jscott@pardot.com,123,ZoomInfo
+Kevin,Johnson,Notion,Sales Director,kevin@notion.com,8778450007,Website Form
+Amanda,Lewis,Braze,Chief Revenue Officer,amanda.lewis@outlook.com,,Apollo
+Sarah,Williams,Amplitude,Regional Sales Manager,sarah.williams@amplitude.com,555,Website Form
+Natalie,Davis,Copper,Head of Growth,natalie.davis@gmail.com,2068137388,Manual Import
+Sean,Anderson,ChurnZero,,sean@churnzero.com,,Website Form
+Brandon,Torres,Segment,Marketing Manager,brandon.torres@segment.com,4045915929,ZoomInfo
+Derek,Walker,Salesforce,,derek.walker@salesforce.com,,Website Form
+Daniel,Lewis,Mandrill,Revenue Operations Lead,daniel.lewis@mandrill.com,,Legacy CRM
+Chris,Moore,Mixpanel,Marketing Manager,,8554241206,ZoomInfo
+Emily,Jones,Iterable,,emily.jones@iterable.com,7134406156,Website Form
+Nathan,Clark,Jira,Inside Sales Rep,nathan.clark@icloud.com,7023840642,ZoomInfo
+Adam,Harris,Monday.com,Director of Marketing,adam.harris@mondaycom.com,8558504509,Manual Import
+Nathan,Perez,Pardot,Sales Enablement Manager,nathan@pardot.com,,Referral
+Andrew,Miller,ZoomInfo,Director of Revenue Operations,andrew.miller@outlook.com,2127648591,ZoomInfo
+Tiffany,Wright,Notion,Mid-Market AE,tiffany@@notion.com,,Legacy CRM
+Victoria,Hall,Jira,,victoria.hall@jira,,Website Form
+Brian,Martinez,Gong,VP of Customer Success,brian@gong.com,4047973970,ZoomInfo
+Amanda,Mitchell,Segment,Sales Operations Manager,amitchell@segment.com,,Apollo
+Eric,Flores,Medallia,Account Executive,eric.flores@gmail.com,,Apollo
+Andrew,Green,Gainsight,Inside Sales Rep,andrew.green@gainsight.com,,Trade Show
+Nicole,Rodriguez,Zoom,,nicole.rodriguez@zoom.com,2065943613,Manual Import
+Megan,Campbell,Zoom,,N/A,4158984592,ZoomInfo
+Timothy,Wright,Apollo,,timothy.wright@apollo.com,,Legacy CRM
+Amber,Lopez,RingCentral,,alopez@ringcentral.com,,Website Form
+Stephanie,Miller,Segment,Customer Success Manager,smiller@segment.com,,Website Form
+Kevin,Hall,Amplitude,National Sales Manager,kevin@@amplitude.com,123,Trade Show
+Tiffany,Thompson,Gong,VP of Marketing,tiffany.thompson@,8007986212,Manual Import
+Joshua,Robinson,ChurnZero,SDR,joshua@churnzero.com,3038005517,ZoomInfo
+Lauren,White,LinkedIn,Sales Development Manager,lauren@linkedin.com,,Manual Import
+Nathan,Martinez,Teams,Sales Enablement Manager,nathan.martinez@icloud.com,,Website Form
+Sarah,White,Zoom,,swhite@zoom.com,,Referral
+Nicole,Rivera,Notion,Field Sales Director,nicole@notion.com,2122317634,Apollo
+Ryan,Hall,Clearbit,Sales Operations Manager,ryan@clearbit.com,,Website Form
+Megan,Wright,Intercom,,mwright@intercom.com,2064107266,Website Form
+Timothy,Martinez,Drift,Account Executive,tmartinez@drift.com,188,ZoomInfo
+Tyler,Moore,Chorus,Demand Generation Manager,unknown@unknown,,Trade Show
+Adam,Roberts,Gong,Sales Director,adam.roberts@gong.com,,ZoomInfo
+Courtney,Harris,Constant Contact,Head of Growth,courtney@constantcontact.com,6176846580,Apollo
+Megan,Robinson,Klaviyo,,megan@klaviyo.com,,Trade Show
+Ryan,Carter,Freshworks,Marketing Manager,rcarter@freshworks.com,3036255481,Manual Import
+Natalie,Hill,Pardot,Customer Success Manager,natalie@pardot.com,,Legacy CRM
+James,Ramirez,Sendgrid,VP of Marketing,james@sendgrid.com,,Legacy CRM
+Jeffrey,Torres,Salesloft,,jtorres@salesloft.com,2064383942,Trade Show
+Jennifer,Johnson,Gainsight,,jennifer.johnson@gainsight.com,3124244712,Legacy CRM
+Stephanie,Gonzalez,Pardot,Sales Operations Manager,sgonzalez@pardot.com,,Website Form
+Rachel,Anderson,Teams,Sales Enablement Manager,rachel@teams.com,3128428192,Manual Import
+Monica,Rodriguez,Zoom,Enterprise AE,monica.rodriguez@zoom.com,2067775825,Apollo
+Alexandra,Martinez,Klaviyo,,alexandra.martinez@klaviyo.com,6178778499,ZoomInfo
+Ashley,Adams,Monday.com,Sales Operations Manager,ashley@mondaycom.com,6178318077,Legacy CRM
+Nicole,Jackson,Outreach,Director of Revenue Operations,njackson@outreach.com,2069326466,Legacy CRM
+David,Ramirez,Medallia,Mid-Market AE,david.ramirez@yahoo.com,4047456432,ZoomInfo
+Crystal,Miller,Salesloft,Inside Sales Rep,crystal.miller@gmail.com,6173395118,ZoomInfo
+Matthew,Davis,Clearbit,Inside Sales Rep,matthew.davis@guerrillamail.com,,ZoomInfo
+Danielle,Adams,Slack,,danielle@slack.com,,Apollo
+Kyle,Perez,Jira,Customer Success Manager,kyle.perez@jira.com,4158202260,Apollo
+Jonathan,Walker,mParticle,,jonathan.walker@mparticle.com,000,ZoomInfo
+Megan,Scott,Notion,,megan@notion.com,,Apollo
+Rachel,Hill,Mixpanel,Sales Development Manager,rachel@mixpanel.com,3032248518,ZoomInfo
+Danielle,Torres,Clearbit,Field Sales Director,danielle@clearbit.com,8664603754,Apollo
+Joshua,Green,Totango,,joshua.green@totango.com,,Website Form
+Jennifer,Wright,RingCentral,Director of Marketing,jennifer.wright@ringcentral.com,,Trade Show
+Patrick,Harris,Marketo,,pharris@marketo.com,3127142545,Apollo
+Justin,Wilson,Mailgun,,justin@mailgun.com,7137326583,ZoomInfo
+Brian,Roberts,ChurnZero,,broberts@churnzero.com,,Legacy CRM
+Courtney,Rodriguez,Campaign Monitor,Chief Revenue Officer,crodriguez@campaignmonitor.com,2129217412,Apollo
+Alexandra,Martin,Freshworks,Sales Director,alexandra.martin@freshworks.com,,Legacy CRM
+Danielle,Torres,mParticle,,,4156804273,ZoomInfo
+Jessica,Perez,Twilio,,jperez@twilio.com,,Manual Import
+Rachel,Moore,Gong,Mid-Market AE,rachel.moore@,8555352745,ZoomInfo
+Kevin,Nelson,Clearbit,Regional Sales Manager,knelson@clearbit.com,,Website Form
+Danielle,Davis,Sendgrid,VP of Marketing,,2066268727,ZoomInfo
+Eric,Robinson,Salesforce,BDR,,,ZoomInfo
+Timothy,Hill,Webex,,thill@webex.com,6179958210,Legacy CRM
+Courtney,Nguyen,Teams,VP of Customer Success,courtney.nguyen@teams.com,3126397579,ZoomInfo
+Natalie,Rivera,Mandrill,BDR,natalie.rivera@icloud.com,,ZoomInfo
+Brittany,Harris,RingCentral,Field Sales Director,bharris@ringcentral.com,4152025876,Legacy CRM
+Nathan,Garcia,ZoomInfo,,nathan@zoominfo.com,,Website Form
+Amanda,Martinez,mParticle,,amartinez@mparticle.com,3128612448,Trade Show
+Amber,Martinez,Pardot,Sales Development Manager,,,Apollo
+Eric,Rodriguez,Monday.com,,eric@@mondaycom.com,,Legacy CRM
+Kayla,Lee,Salesforce,,kayla.lee@salesforce,3036927868,Manual Import
+Danielle,Lewis,Amplitude,,danielle@amplitude.com,,Trade Show
+Alexandra,Smith,mParticle,Chief Revenue Officer,asmith@mparticle.com,,Trade Show
+Nicole,Nelson,Webex,,nicole@webex.com,4153797151,Website Form
+Danielle,Young,Gainsight,Director of Revenue Operations,danielle@gainsight.com,,ZoomInfo
+Justin,Wilson,Freshworks,,N/A,,Apollo
+Alexandra,Baker,RingCentral,National Sales Manager,alexandra.baker@ringcentral.com,3036679432,ZoomInfo
+Brandon,Wright,Teams,Chief Revenue Officer,brandon@teams.com,3122423790,Apollo
+David,Martinez,Slack,SDR,david.martinez@slack.com,6175895229,Website Form
+Emily,Sanchez,Asana,VP of Sales,esanchez@asana.com,,Website Form
+Chris,Torres,Chorus,,chris@chorus.com,,Manual Import
+Ryan,Wright,Jira,,ryan.wright@jira.com,000,Apollo
+Samantha,Carter,Salesforce,RevOps Manager,samantha.carter@salesforce.com,,Website Form
+James,Scott,Medallia,Director of Revenue Operations,james@medallia.com,8883369603,Apollo
+Eric,Anderson,Drift,,eanderson@drift.com,4159755401,Manual Import
+Tyler,Hill,Notion,,thill@notion.com,7133604460,Trade Show
+Chris,Perez,Intercom,Customer Success Manager,chris@intercom.com,7023594983,Manual Import
+Kayla,Scott,Amplitude,,kscott@amplitude.com,,Legacy CRM
+Nicole,Jackson,ActiveCampaign,Enterprise AE,nicole@activecampaign.com,7136818531,Website Form
+Danielle,Rodriguez,Insightly,Mid-Market AE,danielle.rodriguez@icloud.com,166,ZoomInfo
+Rachel,Martinez,Outreach,,rachel.martinez@outreach.com,,Website Form
+Derek,Wilson,Twilio,Mid-Market AE,derek@twilio.com,,ZoomInfo
+Daniel,Ramirez,Mixpanel,Regional Sales Manager,daniel@mixpanel.com,3032568865,Apollo
+Jeffrey,Sanchez,Clearbit,Customer Success Manager,jeffrey.sanchez@clearbit.com,,Trade Show
+Kyle,Hernandez,Mixpanel,Inside Sales Rep,kyle@mixpanel.com,2122775737,Referral
+Emily,Moore,Qualtrics,Regional Sales Manager,emily.moore@gmail.com,,ZoomInfo
+Timothy,Robinson,Pipedrive,,timothy@pipedrive.com,7028362419,Manual Import
+Kyle,Nelson,Intercom,,kyle@intercom.com,8887379095,Trade Show
+Sarah,Nelson,Iterable,Sales Operations Manager,sarah@iterable.com,5124479186,ZoomInfo
+Emily,Rivera,Chorus,,emily@chorus.com,,Trade Show
+Brian,Wilson,Drift,Field Sales Director,brian.wilson@,5126701696,Manual Import
+Lauren,Torres,Twilio,VP of Marketing,lauren.torres@twilio.com,,Legacy CRM
+Jessica,Baker,Postmark,,jessica.baker@postmark.com,,Website Form
+Daniel,Lewis,Webex,Regional Sales Manager,dlewis@webex.com,,Apollo
+Samantha,Davis,ChurnZero,,samantha@@churnzero.com,4154433239,Legacy CRM
+Rebecca,Martin,Marketo,,rebecca.martin@marketo.com,,Referral
+Jeffrey,Jones,Twilio,,jjones@twilio.com,3034158695,Apollo
+Rachel,Scott,Amplitude,Chief Revenue Officer,rscott@amplitude.com,6177851040,ZoomInfo
+Sarah,Brown,Iterable,VP of Marketing,sbrown@iterable.com,2128910083,Manual Import
+Crystal,Martinez,Pipedrive,Sales Enablement Manager,cmartinez@pipedrive.com,8009540726,ZoomInfo
+Kyle,Torres,Mandrill,,ktorres@mandrill.com,6174370298,Manual Import
+Ryan,Baker,Amplitude,Sales Director,ryan.baker@yahoo.com,2124591516,ZoomInfo
+Eric,Hill,Campaign Monitor,Head of Growth,eric@campaignmonitor.com,7022355300,ZoomInfo
+Nicole,Roberts,Medallia,,nroberts@medallia.com,4157813918,Manual Import
+Gregory,Martin,Notion,Revenue Operations Lead,gmartin@notion.com,000,ZoomInfo
+Monica,Walker,Teams,Sales Operations Manager,mwalker@teams.com,5125772115,Manual Import
+Kyle,Martinez,Salesloft,Director of Revenue Operations,kyle.martinez@salesloft.com,5127027775,Apollo
+Kayla,Torres,Mailgun,,kayla@mailgun.com,7023524453,ZoomInfo
+Eric,Thompson,mParticle,Demand Generation Manager,ethompson@mparticle.com,,Trade Show
+Rebecca,Nguyen,Pardot,,rebecca@pardot.com,,Website Form
+Rebecca,Roberts,Postmark,,rroberts@postmark.com,,Website Form
+Nathan,Perez,Mailgun,,nathan@mailgun.com,123,Website Form
+Joshua,Gonzalez,mParticle,Director of Revenue Operations,joshua@mparticle.com,6172721573,Manual Import
+Nicole,Lewis,RingCentral,Inside Sales Rep,nicole@ringcentral.com,6176479610,ZoomInfo
+Kyle,Wilson,Gong,Sales Operations Manager,N/A,,ZoomInfo
+Michael,Mitchell,Mailgun,Director of Revenue Operations,michael.mitchell@guerrillamail.com,,Apollo
+Rachel,Anderson,Braze,Sales Operations Manager,rachel@braze.com,3126849634,Apollo
+Michael,Martin,Asana,Sales Enablement Manager,michael.martin@asana.com,3125260197,ZoomInfo
+Jennifer,Thompson,ActiveCampaign,,jennifer@activecampaign.com,2066662313,ZoomInfo
+Lauren,Ramirez,ActiveCampaign,Inside Sales Rep,lauren.ramirez@activecampaign.com,7026211597,Manual Import
+Matthew,Baker,ZoomInfo,,matthew.baker@zoominfo.com,,Website Form
+Sarah,Flores,Chorus,SDR,sarah@chorus.com,6179973279,Apollo
+Adam,Hill,Salesforce,Director of Marketing,adam.hill@salesforce.com,8882646662,Apollo
+Brandon,Perez,Pardot,BDR,brandon@pardot.com,,Legacy CRM
+Natalie,Lee,Copper,National Sales Manager,nlee@copper.com,000,Website Form
+Ryan,Green,Notion,,ryan.green@notion.com,4155764277,Legacy CRM
+Matthew,Miller,Segment,Director of Revenue Operations,mmiller@segment.com,,Website Form
+Jessica,Sanchez,Iterable,Enterprise AE,jessica.sanchez@guerrillamail.com,,ZoomInfo
+Alexandra,Mitchell,Zoom,Sales Director,alexandra.mitchell@zoom.com,4043893070,ZoomInfo
+Kevin,Jones,Asana,Demand Generation Manager,kevin.jones@asana,,Legacy CRM
+Sarah,Adams,Asana,Customer Success Manager,sarah.adams@,5125257086,ZoomInfo
+Nicole,Anderson,Twilio,,nanderson@twilio.com,7026713373,Trade Show
+Crystal,Campbell,Outreach,,ccampbell@outreach.com,,Apollo
+Daniel,Nguyen,Insightly,VP of Marketing,dnguyen@insightly.com,7139447392,Legacy CRM
+Gregory,Campbell,Braze,Demand Generation Manager,gregory.campbell@braze.com,,Trade Show
+Megan,Allen,Jira,Director of Marketing,megan.allen@jira.com,5128161717,ZoomInfo
+Crystal,Scott,Segment,,crystal.scott@segment.com,,Website Form
+Tiffany,Garcia,RingCentral,Head of Growth,unknown@unknown,4049929937,Apollo
+Nathan,Thompson,Mailchimp,Regional Sales Manager,nathan@mailchimp.com,,Apollo
+Tyler,Adams,Campaign Monitor,Marketing Manager,tadams@campaignmonitor.com,8888662714,Website Form
+Amber,Moore,Intercom,,amoore@intercom.com,,Trade Show
+Kevin,Taylor,Sendgrid,,kevin.taylor@sendgrid.com,5126955464,Website Form
+Ryan,Lee,Apollo,Sales Development Manager,,2127516855,ZoomInfo
+Jennifer,Clark,mParticle,Account Executive,jennifer@mparticle.com,2126322395,ZoomInfo
+Sarah,Martin,Teams,Director of Revenue Operations,sarah.martin@outlook.com,6172637504,ZoomInfo
+Jeffrey,Young,RingCentral,Inside Sales Rep,jeffrey@ringcentral.com,7025113822,Apollo
+Stephanie,Harris,Slack,Enterprise AE,stephanie@slack.com,4153225679,Trade Show
+Brittany,Perez,Mailgun,,bperez@mailgun.com,8779983476,Website Form
+Michael,Nguyen,Sendgrid,Demand Generation Manager,michael.nguyen@10minutemail.com,4159900542,Legacy CRM
+Justin,Hill,Mailgun,,N/A,2122044971,Legacy CRM
+Nathan,Johnson,mParticle,Sales Operations Manager,nathan.johnson@hotmail.com,,Legacy CRM
+James,Perez,Intercom,Chief Revenue Officer,james.perez@intercom,3036666530,Referral
+James,Moore,Totango,Field Sales Director,james.moore@totango.com,5122382580,Referral
+Megan,Sanchez,Freshworks,SDR,msanchez@freshworks.com,7132209156,Referral
+Timothy,Martinez,Zendesk,RevOps Manager,tmartinez@zendesk.com,3123267004,Trade Show
+Ryan,Lopez,Copper,BDR,ryan.lopez@copper.com,3127414705,Apollo
+Brian,Allen,LinkedIn,,ballen@linkedin.com,,Website Form
+Kayla,Scott,Confluence,Sales Development Manager,kayla.scott@icloud.com,,Legacy CRM
+Ashley,Smith,Salesloft,Head of Growth,ashley@@salesloft.com,,ZoomInfo
+Brandon,Hernandez,Zendesk,Enterprise AE,unknown@unknown,7134821705,ZoomInfo
+Patrick,Campbell,Twilio,,patrick@twilio.com,4155804852,Website Form
+Kevin,Lopez,Mixpanel,Chief Revenue Officer,kevin@mixpanel.com,5125141205,ZoomInfo
+Ashley,Robinson,Webex,Account Executive,ashley.robinson@webex.com,,Legacy CRM
+Amber,Flores,Zoom,Inside Sales Rep,unknown@unknown,115,Trade Show
+Lauren,Johnson,Outreach,,lauren.johnson@outreach.com,157,ZoomInfo
+Jonathan,Sanchez,Twilio,VP of Customer Success,unknown@unknown,,ZoomInfo
+Derek,Wilson,Gong,Sales Development Manager,dwilson@gong.com,7027770210,Apollo
+David,Clark,ChurnZero,RevOps Manager,david.clark@guerrillamail.com,,ZoomInfo
+Jessica,Mitchell,Outreach,BDR,jessica.mitchell@outreach.com,7022446610,Referral
+Lauren,Garcia,Intercom,BDR,lauren.garcia@intercom.com,,Manual Import
+Jessica,Martin,Gong,VP of Customer Success,jessica.martin@gong.com,000,Apollo
+Tyler,Hall,Insightly,Revenue Operations Lead,tyler.hall@insightly.com,7137546405,ZoomInfo
+Andrew,Carter,HubSpot,National Sales Manager,andrew@hubspot.com,7029257799,Trade Show
+Jessica,Clark,Mailgun,Demand Generation Manager,jessica@mailgun.com,123,ZoomInfo
+Victoria,Flores,Notion,,victoria.flores@notion.com,,Website Form
+Amber,Sanchez,Teams,Mid-Market AE,amber.sanchez@teams.com,,Website Form
+Derek,Hall,Campaign Monitor,Field Sales Director,dhall@campaignmonitor.com,123,Referral
+Jeffrey,Thompson,Notion,Inside Sales Rep,jeffrey.thompson@notion.com,4043519477,ZoomInfo
+Kayla,Rivera,Totango,Chief Revenue Officer,,2127511813,Manual Import
+Brandon,White,Outreach,,brandon.white@outreach.com,2125197849,Manual Import
+Amber,Sanchez,Intercom,Demand Generation Manager,amber@intercom.com,7027170027,Apollo
+Megan,Gonzalez,Segment,VP of Customer Success,megan.gonzalez@segment.com,000,Website Form
+Tiffany,Moore,Constant Contact,VP of Sales,tiffany@constantcontact.com,,Website Form
+Timothy,Davis,HubSpot,Sales Director,timothy.davis@guerrillamail.com,4042729295,ZoomInfo
+Brian,White,Insightly,Head of Growth,brian@insightly.com,,Trade Show
+Amber,Sanchez,Pipedrive,Regional Sales Manager,,,ZoomInfo
+Emily,Hill,Salesforce,Revenue Operations Lead,ehill@salesforce.com,6175142747,Legacy CRM
+David,Hill,Gainsight,National Sales Manager,unknown@unknown,,Legacy CRM
+Amber,Garcia,Pipedrive,Director of Marketing,amber.garcia@pipedrive.com,,Trade Show
+Tyler,Anderson,Zendesk,Regional Sales Manager,tyler.anderson@icloud.com,8556453695,ZoomInfo
+Rachel,Perez,Zoom,Head of Growth,rachel.perez@zoom.com,2122618681,Manual Import
+Timothy,Lee,Constant Contact,Sales Director,tlee@constantcontact.com,,Website Form
+Danielle,Williams,Constant Contact,National Sales Manager,dwilliams@constantcontact.com,2126678334,Apollo
+Jessica,Martinez,Salesforce,Regional Sales Manager,jessica@salesforce.com,6176319263,Manual Import
+Gregory,Davis,Salesloft,VP of Customer Success,gdavis@salesloft.com,,Website Form
+Samantha,Smith,Confluence,,samantha@confluence.com,,Legacy CRM
+Jessica,Moore,RingCentral,,jessica.moore@ringcentral.com,,Manual Import
+Jeffrey,Gonzalez,Iterable,,jeffrey.gonzalez@iterable.com,3036081087,Apollo
+Sarah,Martin,Mixpanel,,sarah.martin@mixpanel.com,,Trade Show
+Brittany,Young,Salesloft,,brittany.young@salesloft.com,4045132930,Manual Import
+Victoria,Martin,Mandrill,,victoria@mandrill.com,3035890466,Trade Show
+Daniel,Hernandez,Amplitude,Sales Operations Manager,dhernandez@amplitude.com,,Referral
+Daniel,Walker,Asana,VP of Sales,dwalker@asana.com,4154194567,ZoomInfo
+Nathan,Baker,Apollo,Sales Director,nathan@apollo.com,4158341457,Apollo
+Danielle,Lee,LinkedIn,Marketing Manager,danielle@linkedin.com,4044778983,Apollo
+Brittany,Nguyen,ZoomInfo,,bnguyen@zoominfo.com,,ZoomInfo
+Eric,Robinson,Gainsight,Director of Marketing,eric@gainsight.com,8885790955,ZoomInfo
+James,Miller,Monday.com,,jmiller@mondaycom.com,,Website Form
+Timothy,Wright,Chorus,Demand Generation Manager,twright@chorus.com,,Website Form
+Megan,Scott,Clearbit,,,7023018595,ZoomInfo
+Heather,Sanchez,Monday.com,Demand Generation Manager,heather.sanchez@mondaycom.com,3126925248,Manual Import
+Brian,Robinson,Salesforce,Director of Revenue Operations,brian@salesforce.com,,Referral
+Timothy,Scott,Pardot,BDR,timothy.scott@pardot.com,,Apollo
+Gregory,Gonzalez,Twilio,,ggonzalez@twilio.com,,Apollo
+Kayla,King,Mailchimp,Sales Development Manager,kayla.king@yahoo.com,,Apollo
+Sean,Anderson,Monday.com,,sean.anderson@mondaycom.com,3129302141,Trade Show
+Nicole,Wilson,Jira,Head of Growth,nicole@jira.com,,Legacy CRM
+Rebecca,Green,Constant Contact,Mid-Market AE,rebecca.green@constantcontact.com,6174279311,ZoomInfo
+Patrick,Hall,Drift,Chief Revenue Officer,,,Legacy CRM
+Andrew,Lopez,Mailgun,Director of Marketing,andrew.lopez@mailgun.com,,Apollo
+Tiffany,Hall,Amplitude,SDR,tiffany@amplitude.com,184,Referral
+Brian,Martinez,ChurnZero,Director of Revenue Operations,brian@churnzero.com,,ZoomInfo
+Chris,Davis,Teams,,chris@teams.com,,Legacy CRM
+Brittany,Martin,Insightly,Sales Development Manager,brittany.martin@insightly.com,,ZoomInfo
+Heather,Jackson,Insightly,Director of Revenue Operations,hjackson@insightly.com,,ZoomInfo
+Jessica,Jackson,Sendgrid,Marketing Manager,,,Legacy CRM
+Crystal,Rivera,mParticle,Customer Success Manager,crystal.rivera@guerrillamail.com,3034275476,ZoomInfo
+Derek,Nelson,Insightly,,dnelson@insightly.com,,Trade Show
+Brian,King,Salesforce,Inside Sales Rep,bking@salesforce.com,,Website Form
+Nathan,Hill,Confluence,,nathan.hill@,7028349435,Legacy CRM
+Chris,Miller,Jira,Customer Success Manager,chris@jira.com,555,Referral
+Brittany,Walker,Jira,,brittany.walker@jira.com,7027597519,Website Form
+Monica,Hall,Salesforce,VP of Customer Success,monica.hall@salesforce.com,,Legacy CRM
+Patrick,Young,Jira,VP of Marketing,patrick.young@jira.com,,Legacy CRM
+Nicole,Torres,Jira,,nicole@jira.com,2065505392,Website Form
+Brittany,Taylor,Salesforce,Sales Operations Manager,brittany.taylor@salesforce.com,,Website Form
+Courtney,Brown,Mailchimp,Customer Success Manager,courtney.brown@,4153769852,ZoomInfo
+Daniel,Mitchell,ActiveCampaign,,daniel.mitchell@yahoo.com,3037489795,ZoomInfo
+Courtney,Martinez,Mixpanel,,cmartinez@mixpanel.com,,Trade Show
+Stephanie,Lee,Amplitude,Marketing Manager,stephanie@@amplitude.com,,Trade Show
+Rachel,Walker,Segment,Enterprise AE,rachel.walker@,3128454877,Apollo
+James,Mitchell,ChurnZero,Director of Revenue Operations,N/A,6173472158,ZoomInfo
+Kayla,Perez,Klaviyo,Director of Revenue Operations,kayla@klaviyo.com,8884913501,Apollo
+Nathan,Scott,Notion,Field Sales Director,nathan.scott@notion.com,123,Manual Import
+Tiffany,Green,Sendgrid,Revenue Operations Lead,tiffany@sendgrid.com,555,ZoomInfo
+Kyle,Allen,Iterable,BDR,kallen@iterable.com,2062771219,Legacy CRM
+Daniel,Miller,Slack,Sales Director,dmiller@slack.com,,Referral
+Joshua,Rodriguez,Asana,,joshua.rodriguez@asana.com,,Manual Import
+Eric,Walker,mParticle,,eric.walker@mparticle.com,3038706932,Legacy CRM
+Amanda,Scott,Mailgun,,ascott@mailgun.com,,Legacy CRM
+Lauren,Walker,mParticle,Chief Revenue Officer,N/A,,Apollo
+Nicole,Smith,Gainsight,Chief Revenue Officer,nicole.smith@icloud.com,4046232134,Trade Show
+Tiffany,Rodriguez,ChurnZero,Chief Revenue Officer,,8883383143,ZoomInfo
+Brian,Anderson,Segment,Sales Development Manager,brian@segment.com,4048887697,Manual Import
+Joshua,Lewis,ActiveCampaign,Director of Marketing,joshua@activecampaign.com,6177607215,Website Form
+Adam,Brown,Notion,,adam.brown@notion.com,,Legacy CRM
+Brandon,Carter,Zoom,Customer Success Manager,brandon.carter@zoom,2065838060,Legacy CRM
+Ashley,Young,RingCentral,RevOps Manager,ashley.young@,,Legacy CRM
+Eric,Anderson,Twilio,Revenue Operations Lead,eric@twilio.com,123,Apollo
+Adam,Allen,Asana,Sales Enablement Manager,adam@asana.com,,Trade Show
+Michael,Thompson,Sendgrid,Director of Revenue Operations,mthompson@sendgrid.com,8552312695,Manual Import
+Samantha,Davis,Zoom,Enterprise AE,samantha@zoom.com,,Apollo
+Michael,Smith,ChurnZero,Field Sales Director,unknown@unknown,3128217895,ZoomInfo
+Andrew,Jackson,Mailgun,Mid-Market AE,andrew@mailgun.com,,Apollo
+Brittany,Rodriguez,Braze,Head of Growth,brittany@braze.com,2127900162,Apollo
+Timothy,Moore,mParticle,Customer Success Manager,timothy@mparticle.com,5127483425,Apollo
+Victoria,Jackson,Slack,Regional Sales Manager,victoria.jackson@slack,5127679364,Legacy CRM
+Rebecca,Ramirez,Copper,,rebecca@copper.com,,Legacy CRM
+Danielle,Green,Apollo,,danielle.green@apollo.com,5125473228,Apollo
+Kyle,Robinson,RingCentral,,kyle.robinson@ringcentral.com,5128859832,Manual Import
+Alexandra,Scott,Insightly,,alexandra.scott@insightly.com,123,Website Form
+Sarah,Garcia,Gainsight,,sarah@gainsight.com,8552680007,Website Form
+Emily,Adams,Constant Contact,Customer Success Manager,emily@@constantcontact.com,,Legacy CRM
+Brittany,Campbell,Clearbit,Sales Operations Manager,brittany.campbell@clearbit.com,2069978085,Legacy CRM
+Kevin,Moore,Apollo,Sales Director,kmoore@apollo.com,,Legacy CRM
+Michael,Walker,Medallia,Sales Director,michael.walker@medallia.com,,ZoomInfo
+Ashley,Lopez,Gainsight,Regional Sales Manager,ashley.lopez@mailinator.com,5125449829,Apollo
+Alexandra,Allen,Iterable,Director of Marketing,alexandra.allen@iterable.com,8006888650,Manual Import
+Nathan,Wright,LinkedIn,BDR,nathan@linkedin.com,4046171034,Website Form
+Daniel,Carter,Apollo,Sales Operations Manager,dcarter@apollo.com,8664638247,ZoomInfo
+Sean,Allen,Webex,Sales Development Manager,sean@webex.com,,Legacy CRM
+Adam,Hall,Clearbit,Sales Operations Manager,adam@clearbit.com,,Apollo
+Monica,Johnson,LinkedIn,,mjohnson@linkedin.com,3122710208,Apollo
+Lauren,Hall,Insightly,,lauren@insightly.com,4159072231,Legacy CRM
+Kayla,Green,ChurnZero,,kayla@@churnzero.com,,Legacy CRM
+David,Martinez,Sendgrid,,david.martinez@sendgrid.com,,Legacy CRM
+Adam,Hernandez,Drift,Chief Revenue Officer,adam@drift.com,123,Trade Show
+Tyler,White,Postmark,Sales Director,tyler@postmark.com,,ZoomInfo
+Sean,Nelson,HubSpot,,sean@hubspot.com,2063428744,Apollo
+Tiffany,Flores,Segment,Chief Revenue Officer,tiffany.flores@segment.com,,Referral
+Gregory,White,Slack,Regional Sales Manager,N/A,123,Trade Show
+Daniel,Miller,Notion,,dmiller@notion.com,,Referral
+Courtney,Gonzalez,ActiveCampaign,,courtney@activecampaign.com,,Legacy CRM
+Ryan,Scott,Jira,,ryan.scott@jira.com,,Manual Import
+Natalie,Taylor,Drift,,natalie@drift.com,,Referral
+Patrick,Roberts,Mailgun,,patrick@mailgun.com,,Website Form
+Sarah,Rivera,Monday.com,Director of Revenue Operations,unknown@unknown,132,Manual Import
+Emily,Moore,Chorus,SDR,unknown@unknown,,Legacy CRM
+Justin,Adams,Braze,SDR,justin@braze.com,,Legacy CRM
+Brandon,Brown,LinkedIn,SDR,bbrown@linkedin.com,,Website Form
+Jeffrey,Miller,Pardot,Mid-Market AE,jeffrey.miller@pardot.com,3038496017,Manual Import
+Patrick,Rivera,Outreach,SDR,privera@outreach.com,,Manual Import
+Stephanie,Lewis,Outreach,VP of Sales,stephanie.lewis@outreach.com,5123450962,Manual Import
+Andrew,Gonzalez,Marketo,RevOps Manager,andrew.gonzalez@marketo.com,3035002106,Website Form
+Brian,Miller,Qualtrics,,brian.miller@qualtrics.com,2123108798,Legacy CRM
+Amanda,Nguyen,mParticle,,amanda.nguyen@mparticle,5127300595,Manual Import
+Patrick,Mitchell,ChurnZero,Customer Success Manager,patrick.mitchell@churnzero,,Legacy CRM
+Kyle,Thompson,Salesloft,Demand Generation Manager,kthompson@salesloft.com,2122662195,Referral
+Andrew,Hall,Braze,Inside Sales Rep,andrew@braze.com,,Referral
+Courtney,Harris,Zendesk,,courtney.harris@zendesk.com,,Legacy CRM
+Natalie,King,Intercom,Mid-Market AE,natalie.king@intercom.com,7024247609,Apollo
+Megan,Lewis,Constant Contact,Inside Sales Rep,megan.lewis@outlook.com,8669138309,ZoomInfo
+Emily,Davis,Notion,,emily@notion.com,,Legacy CRM
+Patrick,Rodriguez,Monday.com,,prodriguez@mondaycom.com,2124445420,Apollo
+David,Jones,Gainsight,,david@gainsight.com,,Trade Show
+Victoria,Martinez,Copper,National Sales Manager,victoria.martinez@copper.com,4048432302,ZoomInfo
+Natalie,Adams,Medallia,,nadams@medallia.com,3123373939,Apollo
+Emily,Hall,Klaviyo,Chief Revenue Officer,emily@klaviyo.com,3038338156,Website Form
+Matthew,Hall,ActiveCampaign,Mid-Market AE,mhall@activecampaign.com,,Legacy CRM
+Adam,Flores,Mixpanel,Chief Revenue Officer,aflores@mixpanel.com,7133631040,ZoomInfo
+Victoria,Hall,Jira,,victoria@jira.com,5127493883,ZoomInfo
+Nathan,Davis,Klaviyo,SDR,nathan.davis@klaviyo.com,8666070105,Legacy CRM
+Kyle,Rodriguez,Pardot,Regional Sales Manager,unknown@unknown,,Legacy CRM
+Jonathan,Moore,Teams,VP of Sales,N/A,,Legacy CRM
+Adam,Jackson,Amplitude,Sales Development Manager,N/A,7138111468,Apollo
+Monica,Johnson,Outreach,Sales Director,mjohnson@outreach.com,,Manual Import
+Tyler,Allen,Mailgun,,N/A,,Legacy CRM
+Adam,Robinson,Pardot,Inside Sales Rep,unknown@unknown,3123377729,Manual Import
+Daniel,Sanchez,Freshworks,SDR,daniel.sanchez@yahoo.com,7027580461,Legacy CRM
+James,Perez,Insightly,VP of Customer Success,james.perez@insightly.com,,Apollo
+Tyler,Johnson,HubSpot,,tjohnson@hubspot.com,,Legacy CRM
+Jonathan,Scott,Monday.com,,jscott@mondaycom.com,,Trade Show
+Rebecca,Hill,ZoomInfo,,rhill@zoominfo.com,,Trade Show
+Kyle,Mitchell,Mandrill,,kyle.mitchell@,,Legacy CRM
+Ryan,Young,Chorus,Regional Sales Manager,ryan.young@chorus.com,3034762250,Apollo
+Jonathan,Brown,Mailgun,VP of Sales,jonathan.brown@mailgun.com,5125100680,Apollo
+Samantha,Harris,Gong,Director of Revenue Operations,sharris@gong.com,7139890074,Referral
+Andrew,Wilson,Chorus,VP of Sales,awilson@chorus.com,555,Manual Import
+Tiffany,Martinez,Pipedrive,,tiffany.martinez@pipedrive.com,8666805944,Website Form
+Victoria,King,Clearbit,,victoria.king@clearbit.com,,Website Form
+Victoria,Smith,ActiveCampaign,Inside Sales Rep,vsmith@activecampaign.com,3126592575,Website Form
+Gregory,Garcia,Apollo,Marketing Manager,gregory.garcia@apollo.com,3129287622,Apollo
+Michael,Lewis,Teams,,michael.lewis@outlook.com,2125779261,ZoomInfo
+David,Mitchell,Slack,Director of Marketing,dmitchell@slack.com,3033707898,ZoomInfo
+Kyle,Davis,Monday.com,Head of Growth,kyle@mondaycom.com,8668556446,Referral
+Ashley,Smith,RingCentral,Demand Generation Manager,ashley.smith@ringcentral.com,,Apollo
+Crystal,Carter,Freshworks,Sales Development Manager,crystal@freshworks.com,,ZoomInfo
+Chris,White,Clearbit,,chris.white@clearbit.com,,Legacy CRM
+Heather,Sanchez,Insightly,VP of Customer Success,heather.sanchez@insightly.com,,Legacy CRM
+Jonathan,Ramirez,Freshworks,,jonathan.ramirez@freshworks.com,2066633721,Trade Show
+Kyle,Roberts,Webex,Regional Sales Manager,kroberts@webex.com,,Legacy CRM
+Ryan,Scott,Drift,,ryan@@drift.com,,Legacy CRM
+Chris,Rodriguez,Gainsight,National Sales Manager,chris.rodriguez@icloud.com,8557366980,ZoomInfo
+Tiffany,Lee,Qualtrics,,tiffany.lee@qualtrics,000,Apollo
+Eric,Mitchell,mParticle,Revenue Operations Lead,eric.mitchell@mparticle.com,,Manual Import
+Nicole,Allen,Mandrill,VP of Marketing,nicole@mandrill.com,,ZoomInfo
+Lauren,Baker,Pipedrive,,lauren.baker@pipedrive.com,3125973935,Website Form
+Kevin,Thomas,Pardot,Demand Generation Manager,unknown@unknown,,Trade Show
+Justin,Jackson,Apollo,Enterprise AE,,3125911754,Legacy CRM
+Nicole,Harris,HubSpot,Mid-Market AE,unknown@unknown,,Manual Import
+Michael,Thomas,Salesloft,Inside Sales Rep,michael@salesloft.com,,Referral
+Megan,Torres,Segment,,megan.torres@segment.com,,Website Form
+Adam,Smith,Gainsight,VP of Marketing,adam.smith@gainsight.com,,Manual Import
+Daniel,Martinez,Totango,Demand Generation Manager,daniel@totango.com,,Legacy CRM
+Danielle,Rivera,Clearbit,Director of Revenue Operations,danielle@clearbit.com,,Manual Import
+Amber,Wilson,ZoomInfo,Chief Revenue Officer,awilson@zoominfo.com,,Website Form
+Justin,Rivera,Teams,,justin.rivera@teams.com,,Manual Import
+Victoria,Moore,Salesloft,Field Sales Director,unknown@unknown,6177689281,Legacy CRM
+Nathan,Rivera,Monday.com,,nathan@mondaycom.com,,Manual Import
+Sean,Lewis,Asana,Chief Revenue Officer,slewis@asana.com,8884473225,Legacy CRM
+Emily,Adams,ActiveCampaign,Inside Sales Rep,emily.adams@activecampaign.com,,Apollo
+Natalie,Perez,Monday.com,VP of Customer Success,natalie.perez@mondaycom.com,4043172567,ZoomInfo
+Ashley,Jackson,HubSpot,Chief Revenue Officer,ashley@hubspot.com,3037970790,Apollo
+Sean,Rivera,LinkedIn,,sean.rivera@linkedin.com,5125117913,Legacy CRM
+Gregory,Harris,Sendgrid,,gregory@sendgrid.com,5128781749,Legacy CRM
+Alexandra,Ramirez,ChurnZero,Mid-Market AE,alexandra.ramirez@churnzero.com,,Website Form
+Danielle,Perez,Iterable,Chief Revenue Officer,danielle.perez@iterable.com,,Legacy CRM
+Derek,Garcia,Braze,,dgarcia@braze.com,,Legacy CRM
+Stephanie,Lee,Campaign Monitor,Inside Sales Rep,stephanie@campaignmonitor.com,,Legacy CRM
+Chris,King,Segment,,chris@segment.com,4045303202,Legacy CRM
+Kyle,Ramirez,Segment,,kyle.ramirez@segment.com,2069700701,Manual Import
+Kayla,Perez,Copper,Sales Development Manager,kayla@copper.com,,Website Form
+Alexandra,Allen,Insightly,,alexandra@insightly.com,,Apollo
+Amber,Baker,ZoomInfo,,abaker@zoominfo.com,,ZoomInfo
+Timothy,Lee,Constant Contact,Sales Director,tlee@constantcontact.com,,ZoomInfo
+Amber,Williams,Marketo,,amber@marketo.com,2125934947,Apollo
+Andrew,Rivera,Amplitude,National Sales Manager,andrew@amplitude.com,,Apollo
+Matthew,Martinez,Apollo,,matthew.martinez@apollo.com,,Referral
+Emily,Robinson,Clearbit,Marketing Manager,erobinson@clearbit.com,4045878710,ZoomInfo
+Nicole,Miller,Mandrill,Sales Director,unknown@unknown,4158679237,ZoomInfo
+Patrick,Young,Totango,,N/A,123,ZoomInfo
+Victoria,Williams,Medallia,VP of Marketing,vwilliams@medallia.com,,Website Form
+Sarah,Torres,Copper,VP of Customer Success,storres@copper.com,6173613024,Referral
+Brian,Anderson,HubSpot,Enterprise AE,brian.anderson@,,ZoomInfo
+Jonathan,Gonzalez,Mixpanel,,jonathan.gonzalez@mixpanel.com,,Legacy CRM
+Andrew,Walker,ZoomInfo,,andrew@zoominfo.com,,Website Form
+Danielle,Thompson,Mixpanel,Head of Growth,danielle@mixpanel.com,7027668272,Trade Show
+David,Miller,Gong,National Sales Manager,,2128467060,Apollo
+Eric,Scott,Mandrill,VP of Sales,eric@mandrill.com,,Website Form
+Crystal,Smith,LinkedIn,Account Executive,crystal.smith@,,Legacy CRM
+Sarah,Flores,Zoom,,sarah.flores@zoom.com,,Trade Show
+Tiffany,Wright,Teams,Inside Sales Rep,tiffany@teams.com,4042467556,Apollo
+Adam,Sanchez,Outreach,Customer Success Manager,unknown@unknown,,Manual Import
+Nicole,White,Braze,VP of Sales,nicole@braze.com,7138770445,ZoomInfo
+Tyler,Thomas,Pardot,Director of Marketing,tyler.thomas@pardot.com,3033630149,Website Form
+Tyler,Mitchell,Outreach,,tmitchell@outreach.com,2128658972,Website Form
+Lauren,Campbell,mParticle,,lcampbell@mparticle.com,,Legacy CRM
+Megan,Torres,Zendesk,Customer Success Manager,megan.torres@zendesk.com,123,Manual Import
+Amber,Carter,LinkedIn,,,,Legacy CRM
+Monica,Gonzalez,Pipedrive,,mgonzalez@pipedrive.com,,Trade Show
+Victoria,Torres,Webex,,victoria@webex.com,2126367521,Apollo
+Emily,Garcia,Pardot,Chief Revenue Officer,emily.garcia@gmail.com,3125799824,Apollo
+Matthew,Lewis,Gong,Account Executive,matthew.lewis@gong,000,ZoomInfo
+Victoria,Nguyen,Zendesk,VP of Sales,victoria@zendesk.com,3035566439,Manual Import
+Chris,Carter,Pipedrive,Mid-Market AE,chris.carter@pipedrive.com,7024872525,Manual Import
+Sarah,Sanchez,RingCentral,Revenue Operations Lead,sarah.sanchez@gmail.com,,Apollo
+Michael,Nguyen,Mandrill,Sales Operations Manager,michael@mandrill.com,,Apollo
+Rachel,Flores,Mandrill,Director of Revenue Operations,rachel.flores@mandrill.com,4045187749,ZoomInfo
+Amanda,Brown,Medallia,,amanda.brown@medallia.com,194,ZoomInfo
+Kayla,Carter,Apollo,,kcarter@apollo.com,,Manual Import
+Tiffany,Campbell,Sendgrid,,tiffany.campbell@sendgrid.com,4043185929,ZoomInfo
+Rebecca,Jones,Teams,SDR,rebecca.jones@guerrillamail.com,2062714549,ZoomInfo
+Jennifer,Moore,Apollo,,jennifer@apollo.com,,Website Form
+Nathan,Baker,Gainsight,Head of Growth,unknown@unknown,4159698327,Apollo
+Timothy,Martin,Monday.com,Field Sales Director,timothy@mondaycom.com,,Manual Import
+Victoria,Scott,Jira,BDR,victoria@jira.com,7135350414,ZoomInfo
+Danielle,Miller,Segment,Customer Success Manager,dmiller@segment.com,3034624980,ZoomInfo
+Jonathan,Flores,ChurnZero,,jflores@churnzero.com,,Legacy CRM
+Rachel,Green,Chorus,Director of Marketing,rgreen@chorus.com,3129288487,Legacy CRM
+Emily,Thomas,Mailchimp,Mid-Market AE,emily.thomas@mailchimp.com,,Manual Import
+Daniel,Green,Intercom,Demand Generation Manager,dgreen@intercom.com,2122909314,Referral
+Sarah,Ramirez,Clearbit,Chief Revenue Officer,sramirez@clearbit.com,,Referral
+Kyle,Nelson,Gainsight,,kyle@@gainsight.com,123,Referral
+Justin,Martin,Drift,Customer Success Manager,justin.martin@drift.com,7028788240,Manual Import
+Jeffrey,White,Salesforce,,jeffrey@salesforce.com,4157760855,Website Form
+Kyle,Smith,Clearbit,Revenue Operations Lead,kyle.smith@clearbit.com,2122513227,Manual Import
+Ryan,Williams,Gong,Customer Success Manager,ryan.williams@gong.com,4159718342,Apollo
+Nathan,Mitchell,mParticle,,nmitchell@mparticle.com,,Apollo
+James,King,ZoomInfo,,james.king@zoominfo.com,,ZoomInfo
+Kevin,Harris,Klaviyo,Director of Revenue Operations,kevin.harris@klaviyo.com,7024125887,Manual Import
+Kyle,Johnson,Amplitude,,kyle.johnson@amplitude.com,000,ZoomInfo
+Danielle,Rivera,ChurnZero,Mid-Market AE,danielle.rivera@churnzero.com,,Apollo
+Rebecca,Young,Outreach,VP of Customer Success,,,Legacy CRM
+Megan,Hill,ActiveCampaign,Marketing Manager,,6176908670,Legacy CRM
+James,Miller,Monday.com,Mid-Market AE,jmiller@mondaycom.com,,Referral
+Kyle,Rivera,Twilio,VP of Marketing,kyle@twilio.com,2065432646,Manual Import
+Victoria,Taylor,Postmark,Marketing Manager,victoria@postmark.com,,Manual Import
+Lauren,Miller,Zendesk,Account Executive,lauren.miller@zendesk.com,,Website Form
+Justin,Campbell,Pardot,SDR,justin.campbell@10minutemail.com,7029213888,ZoomInfo
+Stephanie,Smith,Medallia,Account Executive,ssmith@medallia.com,7135180871,Referral
+Patrick,Ramirez,Confluence,,patrick.ramirez@,,Legacy CRM
+Nathan,Smith,Mailgun,,nathan.smith@,,Manual Import
+Adam,Flores,Webex,BDR,adam@webex.com,4152781734,Apollo
+Stephanie,Taylor,Asana,Sales Enablement Manager,staylor@asana.com,,Legacy CRM
+Brandon,Lopez,Intercom,,brandon@intercom.com,6178215913,Website Form
+Sarah,Ramirez,Teams,Inside Sales Rep,sarah.ramirez@teams.com,,Legacy CRM
+Tyler,Roberts,Postmark,,tyler@postmark.com,6179942165,Manual Import
+Emily,Moore,Salesloft,Enterprise AE,emily.moore@hotmail.com,4159467580,Website Form
+Nathan,Miller,Gainsight,SDR,nmiller@gainsight.com,,Legacy CRM
+Crystal,Davis,Medallia,Director of Marketing,crystal.davis@medallia.com,151,Legacy CRM
+Courtney,Walker,Zendesk,,courtney.walker@zendesk.com,,Website Form
+James,Davis,Slack,Customer Success Manager,james.davis@slack.com,,Legacy CRM
+Jennifer,Roberts,Totango,VP of Sales,jroberts@totango.com,,Manual Import
+Sarah,Hill,Mailgun,National Sales Manager,sarah.hill@,,ZoomInfo
+Tiffany,Roberts,Intercom,VP of Sales,tiffany.roberts@intercom.com,7024647874,Apollo
+Derek,Adams,Chorus,VP of Marketing,derek@@chorus.com,8557287544,Manual Import
+Crystal,Wright,HubSpot,Head of Growth,crystal@hubspot.com,,Apollo
+Lauren,White,Pipedrive,Sales Development Manager,N/A,4155679009,Legacy CRM
+Jennifer,Moore,Copper,Field Sales Director,jennifer@copper.com,,Apollo
+Andrew,Davis,Zendesk,Director of Revenue Operations,andrew.davis@zendesk.com,4158351429,ZoomInfo
+Sean,Hernandez,ZoomInfo,Field Sales Director,shernandez@zoominfo.com,4047150818,Apollo
+James,Brown,Klaviyo,VP of Sales,james.brown@mailinator.com,,Legacy CRM
+Gregory,Robinson,Iterable,,gregory.robinson@iterable.com,,Legacy CRM
+Brandon,Allen,Chorus,,brandon@@chorus.com,4046472854,Apollo
+Stephanie,Scott,Zendesk,Sales Development Manager,stephanie@zendesk.com,,Apollo
+Gregory,White,Mailchimp,,gwhite@mailchimp.com,,Website Form
+Kyle,Wright,Amplitude,,kyle@amplitude.com,8777784533,Manual Import
+Daniel,Martin,Teams,BDR,daniel.martin@teams.com,4043706720,Legacy CRM
+Megan,Ramirez,Slack,,megan.ramirez@slack.com,,Trade Show
+Jonathan,Williams,Clearbit,Mid-Market AE,jonathan.williams@clearbit.com,,Legacy CRM
+Amber,Walker,Mandrill,VP of Customer Success,awalker@mandrill.com,,Referral
+Joshua,Mitchell,Chorus,,joshua.mitchell@chorus.com,4155721845,ZoomInfo
+Derek,Roberts,Klaviyo,,derek.roberts@klaviyo.com,7132741941,Apollo
+Ashley,Taylor,Chorus,Inside Sales Rep,ataylor@chorus.com,,Referral
+Kyle,Thompson,Medallia,,kthompson@medallia.com,,Trade Show
+David,Baker,Slack,,david@slack.com,8003566086,Legacy CRM
+Alexandra,Carter,RingCentral,,alexandra@ringcentral.com,4158601517,Trade Show
+Victoria,Clark,Copper,BDR,victoria@copper.com,5128111986,Apollo
+Tiffany,Thomas,Asana,Sales Development Manager,tiffany@@asana.com,,ZoomInfo
+Andrew,Hall,RingCentral,Director of Marketing,ahall@ringcentral.com,2122558662,Apollo
+Sarah,Torres,Pipedrive,VP of Marketing,sarah@pipedrive.com,3035748196,Referral
+Tiffany,Carter,ZoomInfo,Sales Director,tcarter@zoominfo.com,,Website Form
+Rebecca,Green,Constant Contact,Mid-Market AE,rebecca.green@constantcontact.com,6174279311,ZoomInfo
+Brandon,Hill,Constant Contact,Sales Development Manager,brandon.hill@constantcontact.com,000,Apollo
+Sarah,Perez,Pipedrive,Enterprise AE,sarah.perez@pipedrive.com,555,ZoomInfo
+Eric,Harris,Qualtrics,SDR,eric@qualtrics.com,3127482241,ZoomInfo
+Danielle,Thompson,Iterable,Chief Revenue Officer,danielle@@iterable.com,,ZoomInfo
+Natalie,Robinson,Clearbit,,N/A,4157825642,Legacy CRM
+Lauren,Nguyen,Chorus,,lauren.nguyen@chorus,4154831945,Apollo
+Sarah,Williams,ChurnZero,,sarah@churnzero.com,,Apollo
+Amber,Thomas,RingCentral,,amber@ringcentral.com,,Legacy CRM
+Gregory,White,Asana,Director of Revenue Operations,gwhite@asana.com,3035221539,Legacy CRM
+Justin,Hill,ActiveCampaign,Mid-Market AE,unknown@unknown,4159736774,ZoomInfo
+Brandon,White,Outreach,Regional Sales Manager,brandon@outreach.com,4155203718,Manual Import
+Jeffrey,Thompson,ChurnZero,Mid-Market AE,jthompson@churnzero.com,5128399178,Legacy CRM
+Megan,Young,Gong,Director of Revenue Operations,myoung@gong.com,7135658007,Apollo
+Natalie,Hernandez,Campaign Monitor,Head of Growth,natalie.hernandez@campaignmonitor.com,,Apollo
+Megan,Rodriguez,Zendesk,Sales Enablement Manager,megan@zendesk.com,3123726636,Manual Import
+Megan,Sanchez,Jira,,megan@jira.com,8779128333,Website Form
+Rebecca,Sanchez,mParticle,Inside Sales Rep,rebecca.sanchez@mparticle.com,,Legacy CRM
+Adam,Lee,Totango,Sales Enablement Manager,adam@totango.com,,Apollo
+Nathan,Torres,Marketo,Sales Enablement Manager,nathan@marketo.com,4049764287,ZoomInfo
+Kayla,Thompson,Totango,Account Executive,kayla@totango.com,7134028554,Apollo
+Stephanie,Wright,Apollo,RevOps Manager,stephanie@apollo.com,3123281096,Trade Show
+Monica,Thomas,Mandrill,,mthomas@mandrill.com,3032339367,Trade Show
+Danielle,Rivera,Teams,Marketing Manager,danielle.rivera@teams.com,,Apollo
+Monica,Jackson,Amplitude,,monica@amplitude.com,,Legacy CRM
+Matthew,Johnson,Slack,,mjohnson@slack.com,3038356167,Legacy CRM
+Jonathan,Green,LinkedIn,Revenue Operations Lead,jonathan@linkedin.com,123,Trade Show
+Kevin,Roberts,Mixpanel,Account Executive,kroberts@mixpanel.com,,Legacy CRM
+Stephanie,Thomas,Zoom,Head of Growth,stephanie@zoom.com,7132236613,ZoomInfo
+Matthew,Taylor,Confluence,Revenue Operations Lead,,4048335623,ZoomInfo
+Courtney,Rivera,Salesloft,SDR,crivera@salesloft.com,7024422466,Apollo
+Alexandra,Torres,ZoomInfo,Account Executive,alexandra.torres@zoominfo.com,3129828747,ZoomInfo
+Sean,Jones,Monday.com,SDR,sean.jones@mondaycom.com,,Referral
+Alexandra,Taylor,Marketo,Mid-Market AE,alexandra@marketo.com,2129141957,Apollo
+Michael,Nguyen,Intercom,,michael@intercom.com,,Legacy CRM
+Emily,Jones,Asana,VP of Marketing,emily@asana.com,,Trade Show
+Nicole,Jones,RingCentral,Director of Marketing,nicole.jones@ringcentral.com,7132419665,Trade Show
+Chris,Taylor,Medallia,Head of Growth,chris@medallia.com,,Apollo
+Patrick,Rodriguez,ZoomInfo,BDR,prodriguez@zoominfo.com,4156617633,Manual Import
+Ashley,White,Amplitude,,ashley.white@amplitude.com,,Legacy CRM
+Gregory,Moore,Braze,National Sales Manager,gregory@braze.com,5128865047,ZoomInfo
+Stephanie,Flores,Mandrill,,stephanie.flores@mandrill.com,7139971677,Apollo
+Amber,Martinez,Twilio,Field Sales Director,amber.martinez@twilio.com,6173432568,Manual Import
+Lauren,Perez,Totango,,lauren.perez@totango.com,5122583724,ZoomInfo
+Adam,Johnson,Klaviyo,RevOps Manager,ajohnson@klaviyo.com,,Manual Import
+Kevin,Adams,Gainsight,RevOps Manager,kevin@gainsight.com,2129006109,Apollo
+Gregory,Moore,Salesforce,Enterprise AE,gmoore@salesforce.com,,Referral
+Crystal,Moore,Campaign Monitor,VP of Marketing,crystal@campaignmonitor.com,,Legacy CRM
+Jonathan,Miller,Slack,,jmiller@slack.com,,Apollo
+Rebecca,Garcia,Intercom,Director of Revenue Operations,rebecca.garcia@intercom.com,,Manual Import
+Derek,Williams,Clearbit,,derek.williams@outlook.com,,Trade Show
+Lauren,Nelson,Clearbit,Account Executive,lnelson@clearbit.com,2064851633,Website Form
+Samantha,King,Notion,Demand Generation Manager,samantha@@notion.com,000,ZoomInfo
+Nathan,Garcia,ZoomInfo,,nathan@zoominfo.com,,ZoomInfo
+Michael,Taylor,Segment,RevOps Manager,michael.taylor@segment.com,,Website Form
+Lauren,Garcia,Outreach,Marketing Manager,lgarcia@outreach.com,3126366016,Legacy CRM
+Sean,Rodriguez,Amplitude,BDR,sean.rodriguez@gmail.com,2124146845,ZoomInfo
+Eric,Green,RingCentral,,eric@ringcentral.com,,Legacy CRM
+Adam,Williams,mParticle,VP of Customer Success,adam@mparticle.com,,Legacy CRM
+Chris,Martin,Iterable,Chief Revenue Officer,cmartin@iterable.com,4157753207,Apollo
+Chris,Lopez,Clearbit,Inside Sales Rep,chris@clearbit.com,8664282826,Apollo
+Joshua,Rodriguez,LinkedIn,Enterprise AE,joshua.rodriguez@linkedin.com,4049005492,ZoomInfo
+Jessica,Allen,mParticle,Account Executive,jessica.allen@mparticle,,ZoomInfo
+Nicole,Brown,Twilio,Inside Sales Rep,nicole.brown@icloud.com,7023755211,Legacy CRM
+Derek,Wilson,Constant Contact,,derek@constantcontact.com,8886104421,Referral
+Rebecca,Smith,Campaign Monitor,Sales Operations Manager,rebecca@campaignmonitor.com,,Referral
+David,Davis,Gong,,david@gong.com,,Legacy CRM
+Eric,Hill,Braze,National Sales Manager,eric.hill@braze.com,123,Website Form
+Sarah,Wright,Mailgun,Chief Revenue Officer,N/A,,Legacy CRM
+Lauren,Green,Notion,Enterprise AE,lauren.green@notion.com,8886524639,ZoomInfo
+Kevin,Thomas,Teams,Revenue Operations Lead,kthomas@teams.com,3035767904,Apollo
+Sarah,Campbell,Segment,Inside Sales Rep,scampbell@segment.com,6175768190,Apollo
+Joshua,Harris,Notion,Account Executive,joshua.harris@notion,7029271016,Apollo
+Tiffany,Garcia,Apollo,Sales Director,tgarcia@apollo.com,,Referral
+Jessica,Thompson,Zoom,,jessica.thompson@zoom.com,7022159220,Referral
+Courtney,Walker,Asana,,courtney@asana.com,,Manual Import
+Tyler,Campbell,Marketo,,tcampbell@marketo.com,,Legacy CRM
+Jessica,Clark,Confluence,,jessica.clark@confluence.com,7024341855,Apollo
+Samantha,Allen,Slack,SDR,samantha.allen@slack.com,2065771484,ZoomInfo
+Monica,Torres,Mandrill,BDR,monica@mandrill.com,8663832221,Website Form
+Joshua,Martinez,Braze,Head of Growth,joshua.martinez@braze.com,5124157641,Manual Import
+Gregory,Johnson,Zendesk,,gregory.johnson@zendesk.com,7132612616,ZoomInfo
+Jessica,Brown,Qualtrics,,jessica.brown@qualtrics.com,,Website Form
+Megan,Lewis,Mailgun,,megan@mailgun.com,,Website Form
+Kevin,Jones,Apollo,,,4045694475,Manual Import
+Kayla,Wright,Mixpanel,,kwright@mixpanel.com,,Legacy CRM
+Monica,Anderson,Insightly,Sales Director,monica.anderson@,555,ZoomInfo
+Emily,Perez,Salesforce,Inside Sales Rep,emily@salesforce.com,,Legacy CRM
+Crystal,Roberts,Totango,National Sales Manager,crystal.roberts@totango.com,4048787204,ZoomInfo
+Justin,Martinez,Clearbit,,justin@clearbit.com,,Apollo
+Rachel,Roberts,Mandrill,National Sales Manager,rachel.roberts@mandrill.com,,Referral
+Amber,Hill,mParticle,National Sales Manager,ahill@mparticle.com,,Legacy CRM
+Victoria,Davis,Teams,,vdavis@teams.com,7138181715,Legacy CRM
+Nathan,Allen,Gong,Demand Generation Manager,nathan.allen@gong.com,,Manual Import
+Rebecca,Johnson,Mixpanel,VP of Marketing,rjohnson@mixpanel.com,,Referral
+Daniel,Carter,Salesforce,,daniel@salesforce.com,,Manual Import
+Sarah,Sanchez,Teams,Field Sales Director,sarah@teams.com,,Referral
+Amanda,Walker,LinkedIn,,awalker@linkedin.com,186,Legacy CRM
+Danielle,White,ChurnZero,Field Sales Director,danielle.white@churnzero.com,,Referral
+Kayla,Clark,Twilio,VP of Sales,kayla@twilio.com,,Manual Import
+Courtney,Rodriguez,Amplitude,VP of Marketing,crodriguez@amplitude.com,,ZoomInfo
+Rachel,Carter,Confluence,,rcarter@confluence.com,,Manual Import
+Gregory,Flores,Postmark,,,,Legacy CRM
+Alexandra,Wilson,Iterable,SDR,alexandra.wilson@iterable.com,,Referral
+Patrick,Lee,Outreach,,plee@outreach.com,5124236561,Apollo
+Rebecca,Carter,Chorus,,rebecca@chorus.com,,Trade Show
+Sarah,Lewis,Webex,,unknown@unknown,,Trade Show
+Derek,Harris,Notion,Demand Generation Manager,derek.harris@notion.com,,Website Form
+Sarah,Garcia,Mailchimp,Director of Marketing,N/A,2128415275,ZoomInfo
+Chris,Ramirez,Totango,Head of Growth,chris.ramirez@,,Referral
+Lauren,Torres,Webex,BDR,ltorres@webex.com,192,ZoomInfo
+Kevin,Brown,Marketo,,kevin@marketo.com,7028375262,ZoomInfo
+Samantha,Roberts,Slack,Demand Generation Manager,samantha@slack.com,,Manual Import
+Brittany,Walker,Mailgun,Revenue Operations Lead,brittany.walker@mailgun.com,,Manual Import
+Lauren,Green,Copper,RevOps Manager,lauren.green@copper.com,150,Manual Import
+Heather,Wright,Segment,Customer Success Manager,hwright@segment.com,,Apollo
+Jeffrey,Young,Confluence,VP of Customer Success,jeffrey@confluence.com,,Apollo
+Jonathan,Rodriguez,LinkedIn,SDR,jonathan.rodriguez@linkedin.com,5124368102,Manual Import
+Sean,Jones,ZoomInfo,Revenue Operations Lead,sean.jones@zoominfo.com,,Website Form
+James,Nelson,Notion,SDR,jnelson@notion.com,5122525168,Website Form
+Kayla,Rivera,LinkedIn,Sales Enablement Manager,N/A,4155133906,ZoomInfo
+Patrick,Green,Segment,,patrick@segment.com,,Legacy CRM
+Michael,Garcia,Medallia,,mgarcia@medallia.com,,Website Form
+Ashley,Hernandez,Amplitude,VP of Marketing,ahernandez@amplitude.com,3038288793,Manual Import
+Heather,Hall,Jira,,heather@jira.com,,Website Form
+Sarah,Allen,Twilio,VP of Sales,sarah@twilio.com,7027996730,Referral
+Jonathan,Davis,Postmark,Demand Generation Manager,jdavis@postmark.com,3123152303,ZoomInfo
+Chris,Thompson,Drift,Director of Revenue Operations,chris.thompson@icloud.com,4152191600,Referral
+Lauren,Gonzalez,Jira,,unknown@unknown,5128462513,Legacy CRM
+Victoria,Campbell,ActiveCampaign,,vcampbell@activecampaign.com,,Website Form
+Amber,Gonzalez,Asana,,amber.gonzalez@asana.com,4043795834,Apollo
+Derek,Jackson,Gong,Demand Generation Manager,djackson@gong.com,123,Referral
+Gregory,Lopez,HubSpot,Sales Enablement Manager,glopez@hubspot.com,6174690177,Apollo
+James,Allen,Teams,Enterprise AE,james.allen@hotmail.com,,Referral
+Rebecca,Gonzalez,Clearbit,,rebecca.gonzalez@clearbit.com,555,Manual Import
+Samantha,Jones,Teams,RevOps Manager,samantha@teams.com,6176804169,ZoomInfo
+Heather,White,Qualtrics,,hwhite@qualtrics.com,4046043749,Manual Import
+Courtney,Harris,Mandrill,,courtney@mandrill.com,,Manual Import
+Timothy,Williams,HubSpot,,timothy.williams@hubspot.com,,Website Form
+Jennifer,Baker,Asana,,jennifer@asana.com,,Trade Show
+Kevin,Robinson,Segment,,krobinson@segment.com,,Trade Show
+Lauren,Garcia,Teams,Inside Sales Rep,lauren.garcia@teams.com,3038651362,Apollo
+James,Adams,Postmark,BDR,james@postmark.com,8887399322,Referral
+Ashley,White,Amplitude,,ashley.white@amplitude.com,,Trade Show
+Tiffany,Nguyen,Apollo,,,7136229515,ZoomInfo
+Sean,Baker,Webex,Demand Generation Manager,sean.baker@webex.com,,Trade Show
+Gregory,Garcia,Twilio,,gregory@twilio.com,133,Manual Import
+Monica,Roberts,Slack,Chief Revenue Officer,monica.roberts@10minutemail.com,5124843164,ZoomInfo
+Matthew,Jones,Totango,,matthew.jones@totango.com,,Manual Import
+Michael,Jones,Qualtrics,Sales Enablement Manager,mjones@qualtrics.com,,Trade Show
+Emily,Lewis,Klaviyo,,emily.lewis@klaviyo.com,5123626816,Legacy CRM
+Derek,Wilson,Gong,Sales Development Manager,dwilson@gong.com,7027770210,Legacy CRM
+Stephanie,Gonzalez,Notion,,N/A,2122333467,Apollo
+Ashley,Baker,Gong,Regional Sales Manager,ashley@gong.com,,Manual Import
+Crystal,Miller,Campaign Monitor,Enterprise AE,crystal.miller@campaignmonitor,000,ZoomInfo
+Timothy,Lee,HubSpot,VP of Customer Success,timothy.lee@hubspot.com,3037686884,Legacy CRM
+Megan,Rodriguez,Campaign Monitor,,megan.rodriguez@campaignmonitor.com,,Apollo
+Jeffrey,Hill,Medallia,National Sales Manager,jeffrey@medallia.com,,Website Form
+Natalie,King,Mandrill,,natalie@mandrill.com,,Trade Show
+Rachel,Rodriguez,Outreach,Sales Development Manager,rrodriguez@outreach.com,3128965762,ZoomInfo
+Michael,Scott,Salesloft,,michael@salesloft.com,,Referral
+Amanda,Thomas,Marketo,Head of Growth,athomas@marketo.com,2068668409,ZoomInfo
+Kyle,Smith,Notion,Account Executive,ksmith@notion.com,8669080397,Apollo
+Kyle,Torres,LinkedIn,Inside Sales Rep,kyle.torres@linkedin.com,7026547670,ZoomInfo
+David,Thomas,Qualtrics,,david@qualtrics.com,000,ZoomInfo
+Rachel,Lopez,Asana,,rachel.lopez@icloud.com,120,ZoomInfo
+Joshua,Johnson,Salesforce,Marketing Manager,jjohnson@salesforce.com,7023041671,Apollo
+Brandon,Rodriguez,Zoom,,N/A,,Website Form
+Eric,Davis,RingCentral,,eric.davis@,,Manual Import
+Rachel,Thompson,RingCentral,,rachel.thompson@ringcentral.com,,Manual Import
+Patrick,White,RingCentral,,patrick.white@ringcentral.com,123,Manual Import
+Andrew,Martinez,Postmark,Enterprise AE,andrew.martinez@postmark.com,,Manual Import
+Daniel,Robinson,Webex,VP of Sales,drobinson@webex.com,7137654520,Referral
+Nathan,Roberts,Klaviyo,,nroberts@klaviyo.com,4157582420,Legacy CRM
+Emily,Green,ChurnZero,,egreen@churnzero.com,,Manual Import
+Jessica,Perez,Copper,Sales Director,jessica@copper.com,,Manual Import
+David,Nguyen,Amplitude,Mid-Market AE,david.nguyen@amplitude.com,2063440940,Apollo
+Danielle,Ramirez,Salesloft,Head of Growth,danielle.ramirez@salesloft.com,,Manual Import
+Jessica,Hall,Pipedrive,Sales Director,jessica.hall@pipedrive,,Website Form
+Sean,Hall,Teams,Chief Revenue Officer,sean.hall@yopmail.com,,Apollo
+Sarah,Garcia,Pardot,,sarah@pardot.com,,ZoomInfo
+Danielle,Allen,Freshworks,Revenue Operations Lead,danielle@freshworks.com,2122089522,Website Form
+Justin,Scott,Twilio,,justin@twilio.com,,Apollo
+Amanda,Moore,Webex,Director of Revenue Operations,amanda.moore@webex.com,3036184155,Manual Import
+Brandon,Hernandez,Braze,,bhernandez@braze.com,555,Legacy CRM
+Megan,Roberts,RingCentral,Mid-Market AE,megan@ringcentral.com,123,Referral
+Natalie,Miller,Copper,,natalie.miller@copper.com,,Manual Import
+Rebecca,Wilson,Freshworks,VP of Marketing,rwilson@freshworks.com,000,Trade Show
+Rebecca,Smith,ZoomInfo,Marketing Manager,rebecca@zoominfo.com,,Legacy CRM
+Andrew,Nguyen,Slack,Revenue Operations Lead,andrew@slack.com,2069809365,Referral
+Daniel,Martinez,Webex,,dmartinez@webex.com,,Manual Import
+Emily,Johnson,Notion,,emily@notion.com,,Trade Show
+Jeffrey,Rodriguez,Chorus,Sales Operations Manager,jeffrey@chorus.com,7139320750,Apollo
+Courtney,Hernandez,ChurnZero,,courtney@churnzero.com,3129288178,Apollo
+Rebecca,Hernandez,Apollo,SDR,rhernandez@apollo.com,,Legacy CRM
+Adam,Nguyen,Zendesk,Field Sales Director,adam@zendesk.com,2128633047,ZoomInfo
+Brittany,Adams,Teams,,brittany@teams.com,4044065659,Apollo
+Alexandra,Hall,Amplitude,Account Executive,ahall@amplitude.com,5127017625,Manual Import
+Michael,Ramirez,HubSpot,Chief Revenue Officer,michael.ramirez@hubspot.com,,Manual Import
+Tiffany,Rodriguez,Pardot,,trodriguez@pardot.com,555,Apollo
+Megan,Garcia,Teams,,megan@teams.com,7022383196,Legacy CRM
+Rebecca,Gonzalez,Zendesk,Sales Enablement Manager,rebecca.gonzalez@zendesk.com,7028802383,Manual Import
+Megan,White,Campaign Monitor,VP of Marketing,megan.white@yahoo.com,,Legacy CRM
+James,Scott,Webex,,james@webex.com,7133213137,Legacy CRM
+Derek,Rodriguez,RingCentral,,derek.rodriguez@icloud.com,000,Manual Import
+Nicole,Wright,ActiveCampaign,SDR,nicole@activecampaign.com,,Manual Import
+Chris,Flores,Gong,,chris@gong.com,7027120674,Website Form
+David,Rivera,Confluence,VP of Sales,david@confluence.com,2129962320,Manual Import
+Tiffany,Nelson,mParticle,Customer Success Manager,tnelson@mparticle.com,,Website Form
+Kevin,Sanchez,Salesforce,,ksanchez@salesforce.com,2066382880,Manual Import
+Amanda,Nguyen,Iterable,,amanda@iterable.com,,Manual Import
+Alexandra,Miller,HubSpot,Field Sales Director,alexandra.miller@hubspot.com,,Legacy CRM
+Joshua,Johnson,Salesforce,RevOps Manager,jjohnson@salesforce.com,,Referral
+James,Young,Pardot,,jyoung@pardot.com,,Apollo
+Emily,Lee,Twilio,,elee@twilio.com,,Manual Import
+Adam,Mitchell,Mixpanel,VP of Sales,adam.mitchell@,5123722318,Legacy CRM
+Sean,Torres,Salesloft,,sean.torres@salesloft.com,7025508315,Apollo
+Victoria,Taylor,Segment,Customer Success Manager,victoria.taylor@segment.com,5122976647,Manual Import
+Alexandra,Martin,Postmark,Sales Enablement Manager,alexandra.martin@postmark.com,,Trade Show
+Gregory,Moore,ActiveCampaign,Head of Growth,gmoore@activecampaign.com,,Manual Import
+James,Thomas,Iterable,BDR,james@iterable.com,2067529414,Legacy CRM
+Nicole,Williams,Amplitude,,nicole.williams@amplitude.com,2068623542,Legacy CRM
+Monica,Jones,Confluence,Inside Sales Rep,monica.jones@confluence.com,3038855478,Apollo
+Brandon,Anderson,Mailgun,Sales Operations Manager,banderson@mailgun.com,,Manual Import
+Adam,Taylor,Mandrill,Marketing Manager,adam@mandrill.com,,Referral
+Adam,Rodriguez,ChurnZero,Director of Marketing,arodriguez@churnzero.com,,Manual Import
+Stephanie,Robinson,Klaviyo,Director of Marketing,srobinson@klaviyo.com,4047483652,Trade Show
+Amber,Davis,Jira,,amber.davis@jira.com,3122599029,ZoomInfo
+Monica,Smith,Webex,Field Sales Director,monica.smith@webex.com,5126662309,Legacy CRM
+Timothy,Young,Copper,,timothy@copper.com,4044399196,Apollo
+Andrew,Hill,Zendesk,Customer Success Manager,ahill@zendesk.com,2068415750,Apollo
+Kayla,White,Postmark,,kwhite@postmark.com,,Manual Import
+Samantha,Allen,Drift,Regional Sales Manager,samantha.allen@drift.com,,Trade Show
+Chris,Rodriguez,Salesloft,VP of Marketing,,,Legacy CRM
+Jonathan,Mitchell,Postmark,Sales Development Manager,jonathan.mitchell@postmark.com,,ZoomInfo
+Jennifer,Lopez,Klaviyo,Sales Operations Manager,jennifer.lopez@klaviyo.com,,ZoomInfo
+Eric,Robinson,Outreach,Inside Sales Rep,eric@outreach.com,2069421403,Apollo
+Justin,Roberts,Zoom,Director of Marketing,justin@@zoom.com,,ZoomInfo
+Stephanie,Hernandez,Mandrill,,shernandez@mandrill.com,,Referral
+Kayla,Rodriguez,mParticle,Director of Marketing,krodriguez@mparticle.com,6179390389,Legacy CRM
+Gregory,Nguyen,Klaviyo,Sales Director,gregory.nguyen@klaviyo,,Manual Import
+Tiffany,Perez,Webex,,unknown@unknown,3129408595,Legacy CRM
+Adam,Baker,Zendesk,National Sales Manager,adam.baker@zendesk.com,4042904755,Manual Import
+Jessica,Campbell,Constant Contact,,jessica@constantcontact.com,8774265484,Trade Show
+Lauren,Hernandez,HubSpot,Enterprise AE,lhernandez@hubspot.com,000,Website Form
+Sean,Perez,Confluence,Revenue Operations Lead,sperez@confluence.com,7136550275,Apollo
+Natalie,Carter,Clearbit,Marketing Manager,natalie@@clearbit.com,2066516390,Manual Import
+Brandon,Ramirez,Mixpanel,Head of Growth,brandon.ramirez@mixpanel.com,3123059720,Referral
+Tyler,Lewis,Intercom,,tyler.lewis@intercom,,Apollo
+Kyle,Wright,Clearbit,SDR,kyle.wright@clearbit.com,7133454984,Apollo
+Megan,Lee,Asana,Revenue Operations Lead,N/A,6178913357,Trade Show
+Patrick,Walker,ActiveCampaign,National Sales Manager,patrick@activecampaign.com,,ZoomInfo
+Natalie,Lewis,ActiveCampaign,Customer Success Manager,natalie.lewis@activecampaign.com,,Website Form
+Ashley,Jackson,LinkedIn,,ashley.jackson@linkedin.com,,Website Form
+Rebecca,Hernandez,Pardot,,rhernandez@pardot.com,,Website Form
+Emily,Harris,Mixpanel,VP of Sales,emily.harris@mixpanel.com,2126728144,Manual Import
+Joshua,Wright,Totango,Regional Sales Manager,joshua.wright@gmail.com,2128366359,ZoomInfo
+Andrew,Hill,Zendesk,BDR,ahill@zendesk.com,5129462811,Referral
+Sarah,Wilson,Drift,Inside Sales Rep,sarah.wilson@outlook.com,2068584021,ZoomInfo
+Jeffrey,Nguyen,Confluence,Sales Enablement Manager,jnguyen@confluence.com,3124750993,Manual Import
+Matthew,Torres,Pipedrive,Head of Growth,,5127731205,ZoomInfo
+David,Scott,Drift,Inside Sales Rep,dscott@drift.com,4153185566,Manual Import
+Tyler,Martinez,mParticle,,tyler@mparticle.com,,Legacy CRM
+Danielle,Green,mParticle,VP of Marketing,danielle.green@mparticle.com,3039484924,Manual Import
+Jeffrey,Lee,Pardot,,jeffrey.lee@pardot.com,555,Website Form
+Derek,Nelson,Mandrill,Demand Generation Manager,dnelson@mandrill.com,2123344150,Legacy CRM
+Danielle,Lopez,Klaviyo,,danielle@klaviyo.com,000,Legacy CRM
+Kevin,Perez,Jira,National Sales Manager,kevin.perez@jira.com,,ZoomInfo
+David,Hill,Confluence,,david.hill@confluence.com,,Website Form
+Jeffrey,Davis,Intercom,Demand Generation Manager,unknown@unknown,,Legacy CRM
+Daniel,Clark,Webex,Regional Sales Manager,daniel.clark@hotmail.com,4049220138,ZoomInfo
+Gregory,Martin,ZoomInfo,Account Executive,gregory.martin@zoominfo.com,2123194315,ZoomInfo
+Justin,Lopez,Constant Contact,,jlopez@constantcontact.com,,Website Form
+Patrick,Roberts,Pipedrive,Director of Marketing,patrick@pipedrive.com,,Apollo
+Patrick,Lewis,Klaviyo,Enterprise AE,patrick.lewis@klaviyo.com,,Website Form
+Victoria,Baker,Gainsight,,victoria.baker@gainsight.com,,Apollo
+Sarah,White,Clearbit,Inside Sales Rep,sarah.white@clearbit.com,,Legacy CRM
+Adam,Nguyen,HubSpot,,,3036802802,Apollo
+Courtney,Wright,Medallia,VP of Marketing,courtney.wright@medallia.com,7026583143,ZoomInfo
+Rebecca,Sanchez,Webex,Sales Development Manager,rsanchez@webex.com,8003666512,Referral
+Michael,Hernandez,mParticle,,michael.hernandez@mparticle.com,,Legacy CRM
+Derek,Lopez,Notion,Director of Marketing,dlopez@notion.com,7026648596,Legacy CRM
+Courtney,Hernandez,Teams,Director of Revenue Operations,,4153085535,ZoomInfo
+Sarah,Anderson,Confluence,Field Sales Director,sanderson@confluence.com,3036078108,Apollo
+Justin,Scott,Gainsight,Revenue Operations Lead,jscott@gainsight.com,,Referral
+Kayla,Clark,Salesloft,Inside Sales Rep,kayla.clark@,6173535762,Legacy CRM
+Matthew,Thomas,HubSpot,Director of Marketing,matthew.thomas@hubspot.com,555,Trade Show
+Emily,Adams,ChurnZero,Chief Revenue Officer,eadams@churnzero.com,5128235316,ZoomInfo
+Stephanie,Rodriguez,Qualtrics,Regional Sales Manager,stephanie.rodriguez@qualtrics.com,3032604613,ZoomInfo
+Rebecca,Nelson,mParticle,National Sales Manager,rebecca.nelson@mparticle,,Manual Import
+Jessica,Nelson,mParticle,,jnelson@mparticle.com,,Referral
+Rachel,Robinson,Freshworks,Demand Generation Manager,rachel.robinson@freshworks,2066739082,Apollo
+Kevin,Hall,ActiveCampaign,RevOps Manager,kevin@activecampaign.com,3036062041,Manual Import
+Nathan,Ramirez,mParticle,Director of Revenue Operations,nramirez@mparticle.com,,Legacy CRM
+Rebecca,Carter,Zendesk,Sales Enablement Manager,rebecca@zendesk.com,4042259606,Legacy CRM
+Kyle,Allen,Qualtrics,Sales Director,kyle.allen@qualtrics.com,195,Manual Import
+Kyle,Robinson,Jira,Mid-Market AE,krobinson@jira.com,555,Trade Show
+Timothy,Flores,Apollo,Inside Sales Rep,timothy@apollo.com,8009770523,Website Form
+Nicole,Taylor,Zendesk,,nicole@zendesk.com,555,ZoomInfo
+Chris,Williams,mParticle,VP of Customer Success,chris@mparticle.com,,Apollo
+Matthew,Davis,Freshworks,,matthew@freshworks.com,7028231510,Manual Import
+Tyler,Smith,Insightly,VP of Sales,tsmith@insightly.com,4152446217,Legacy CRM
+Natalie,Williams,Twilio,,nwilliams@twilio.com,,Website Form
+Jennifer,Nguyen,Amplitude,BDR,jnguyen@amplitude.com,2067943432,Legacy CRM
+Adam,Clark,Insightly,Customer Success Manager,adam@insightly.com,,Website Form
+Adam,Mitchell,Segment,Inside Sales Rep,adam.mitchell@segment.com,4044726713,ZoomInfo
+Monica,Perez,Freshworks,,monica.perez@freshworks.com,7022714921,Website Form
+Gregory,Harris,Totango,,gharris@totango.com,194,Referral
+Patrick,Martin,Totango,Director of Marketing,patrick.martin@totango.com,7024582585,Apollo
+Brandon,Baker,ZoomInfo,Chief Revenue Officer,brandon.baker@zoominfo.com,2125833963,Referral
+Joshua,Harris,Insightly,Sales Development Manager,jharris@insightly.com,,Legacy CRM
+Jeffrey,Wright,Braze,Customer Success Manager,jeffrey@braze.com,,Website Form
+Ashley,Miller,ActiveCampaign,,amiller@activecampaign.com,3126835288,Website Form
+Brittany,Martinez,Clearbit,Account Executive,bmartinez@clearbit.com,2126598235,Apollo
+Ashley,Williams,Pipedrive,Mid-Market AE,ashley@pipedrive.com,7023173275,Manual Import
+Samantha,Smith,Pardot,BDR,samantha.smith@pardot,,Legacy CRM
+Jeffrey,Moore,Marketo,VP of Marketing,jmoore@marketo.com,2129327624,Trade Show
+Monica,King,Braze,RevOps Manager,monica@braze.com,,Apollo
+David,Rivera,Sendgrid,Inside Sales Rep,david.rivera@sendgrid.com,,ZoomInfo
+Lauren,Roberts,RingCentral,RevOps Manager,lauren.roberts@ringcentral.com,,Trade Show
+Courtney,Hernandez,Pipedrive,Director of Revenue Operations,courtney.hernandez@pipedrive.com,3129570812,Legacy CRM
+Nicole,Harris,Slack,,nicole.harris@slack.com,,Website Form
+Nathan,Jackson,Pardot,,nathan@pardot.com,555,Legacy CRM
+Kyle,Baker,Copper,Regional Sales Manager,kbaker@copper.com,7132241728,ZoomInfo
+Eric,White,Intercom,,eric@intercom.com,,Apollo
+Lauren,Thomas,Qualtrics,,lauren@qualtrics.com,7134690512,Referral
+Joshua,Jones,ChurnZero,Account Executive,joshua@churnzero.com,,ZoomInfo
+Matthew,Jones,Outreach,VP of Marketing,mjones@outreach.com,4047002713,ZoomInfo
+Kyle,Young,Mandrill,Sales Enablement Manager,kyoung@mandrill.com,8553760261,Legacy CRM
+Kyle,Roberts,Twilio,,kroberts@twilio.com,2067225317,Referral
+Victoria,Nguyen,Webex,Customer Success Manager,victoria.nguyen@gmail.com,,Legacy CRM
+Kevin,Young,Slack,Chief Revenue Officer,kevin@slack.com,3038300598,Legacy CRM
+Crystal,Jackson,Gainsight,Inside Sales Rep,crystal@gainsight.com,7136280998,Referral
+Derek,Campbell,Freshworks,,derek@freshworks.com,7139708917,Manual Import
+Crystal,Flores,Pipedrive,Director of Marketing,cflores@pipedrive.com,,Referral
+Jessica,Robinson,Amplitude,Chief Revenue Officer,jessica@amplitude.com,,Apollo
+Amber,Adams,Iterable,Chief Revenue Officer,amber@iterable.com,,Manual Import
+Samantha,Miller,Postmark,Sales Operations Manager,samantha.miller@postmark.com,4044751516,ZoomInfo
+Jonathan,Ramirez,Insightly,Sales Operations Manager,jonathan@insightly.com,,Website Form
+Eric,Clark,Twilio,BDR,eclark@twilio.com,,Manual Import
+Tiffany,Rodriguez,Gainsight,BDR,trodriguez@gainsight.com,,ZoomInfo
+Ryan,Martin,Mailchimp,,rmartin@mailchimp.com,123,Legacy CRM
+Ryan,King,Marketo,Field Sales Director,rking@marketo.com,115,ZoomInfo
+Chris,Garcia,ActiveCampaign,,chris.garcia@hotmail.com,,Website Form
+Rachel,Allen,Gong,,rachel@gong.com,4049320030,Manual Import
+Jeffrey,Mitchell,Insightly,Field Sales Director,jeffrey.mitchell@insightly.com,,Legacy CRM
+Natalie,Baker,HubSpot,Sales Enablement Manager,natalie@hubspot.com,,Legacy CRM
+Daniel,Lewis,Medallia,Enterprise AE,daniel@medallia.com,3032700369,Legacy CRM
+Andrew,Jones,Monday.com,Inside Sales Rep,andrew.jones@,,Apollo
