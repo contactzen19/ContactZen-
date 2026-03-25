@@ -1,6 +1,7 @@
 import io
+import math
 import os
-from typing import Optional
+from typing import Any, Optional
 
 import pandas as pd
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
@@ -9,6 +10,17 @@ from fastapi.responses import StreamingResponse
 
 from analysis import apply_fixes, compute_scan, normalize_columns, guess_email_col, guess_source_col, guess_phone_col
 from roi import ROIInputs, calc_roi
+
+
+def sanitize(obj: Any) -> Any:
+    """Recursively replace NaN/Inf floats with None so FastAPI can serialize."""
+    if isinstance(obj, float):
+        return None if (math.isnan(obj) or math.isinf(obj)) else obj
+    if isinstance(obj, dict):
+        return {k: sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize(v) for v in obj]
+    return obj
 
 app = FastAPI(title="ContactZen API", version="1.0.0")
 
@@ -100,7 +112,7 @@ async def scan(
     )
     roi = calc_roi(roi_inputs)
 
-    return {"scan": scan_results, "roi": roi}
+    return sanitize({"scan": scan_results, "roi": roi})
 
 
 @app.post("/api/fix")
