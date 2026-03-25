@@ -110,13 +110,13 @@ def make_risky_email(first, last):
 
 # Source profiles: (name, email_bad_rate, phone_missing_rate, title_missing_rate, count)
 SOURCE_PROFILES = [
-    ("ZoomInfo",      0.38, 0.25, 0.20, 500),   # villain — highest bad rate
-    ("Apollo",        0.22, 0.35, 0.30, 400),   # also questionable
-    ("Legacy CRM",    0.28, 0.50, 0.40, 500),   # old data, lots of gaps
-    ("Manual Import", 0.12, 0.45, 0.35, 400),   # human entered, fewer bad emails but gaps
-    ("Trade Show",    0.15, 0.60, 0.50, 200),   # scanned badges, lots missing
-    ("Website Form",  0.08, 0.70, 0.55, 300),   # self-submitted, phones usually blank
-    ("Referral",      0.05, 0.55, 0.25, 200),   # best quality
+    ("ZoomInfo",      0.38, 0.25, 0.20, 6000),  # villain — highest bad rate
+    ("Apollo",        0.22, 0.35, 0.30, 4500),  # also questionable
+    ("Legacy CRM",    0.28, 0.50, 0.40, 5500),  # old data, lots of gaps
+    ("Manual Import", 0.12, 0.45, 0.35, 4000),  # human entered, fewer bad emails but gaps
+    ("Trade Show",    0.15, 0.60, 0.50, 2000),  # scanned badges, lots missing
+    ("Website Form",  0.08, 0.70, 0.55, 2000),  # self-submitted, phones usually blank
+    ("Referral",      0.05, 0.55, 0.25, 1000),  # best quality
 ]
 
 
@@ -171,7 +171,7 @@ def generate_demo_dataset():
     df = pd.DataFrame(rows)
 
     # Inject ~120 email duplicates (realistic CRM bloat)
-    dupe_pool = df[df["email"].str.contains("@") & (df["email"] != "")].sample(60, random_state=42)
+    dupe_pool = df[df["email"].str.contains("@") & (df["email"] != "")].sample(600, random_state=42)
     dupes = dupe_pool.copy()
     dupes["source"] = dupes["source"].apply(lambda s: random.choice(["ZoomInfo", "Apollo", "Legacy CRM"]))
     df = pd.concat([df, dupes], ignore_index=True)
