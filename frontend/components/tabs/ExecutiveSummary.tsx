@@ -48,11 +48,11 @@ function getActions(scan: ScanResult, roi: ROIResult): { level: string; action: 
   return actions;
 }
 
-export default function ExecutiveSummary({ scan, roi }: { scan: ScanResult; roi: ROIResult }) {
+export default function ExecutiveSummary({ scan, roi, numberOfReps }: { scan: ScanResult; roi: ROIResult; numberOfReps: number }) {
   const [avgPipeline, setAvgPipeline] = useState(250000);
   const healthScore = Math.max(0, Math.min(100, Math.round(100 - scan.contact_high_risk_rate * 100)));
   const healthLabel = healthScore >= 90 ? "Healthy" : healthScore >= 75 ? "Moderate Risk" : healthScore >= 50 ? "High Risk" : "Critical";
-  const pipelineAtRisk = Math.round(roi.annual_cleanup_hours > 0 ? scan.high_risk_rate * avgPipeline * (roi.annual_cleanup_hours / roi.rep_productivity_loss * roi.rep_productivity_loss / roi.annual_cleanup_hours) : scan.high_risk_rate * avgPipeline);
+  const pipelineAtRisk = Math.round(numberOfReps * avgPipeline * scan.high_risk_rate);
   const actions = getActions(scan, roi);
 
   return (
@@ -135,9 +135,9 @@ export default function ExecutiveSummary({ scan, roi }: { scan: ScanResult; roi:
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <MetricCard label="Sales Reps" value={fmtNum(roi.annual_cleanup_hours > 0 ? Math.round(roi.annual_cleanup_hours / 24) : 25)} />
+          <MetricCard label="Sales Reps" value={fmtNum(numberOfReps)} />
           <MetricCard label="Avg Pipeline / Rep" value={fmtDollar(avgPipeline)} />
-          <MetricCard label="Pipeline at Risk" value={fmtDollar(Math.round(avgPipeline * scan.high_risk_rate * 25))} danger />
+          <MetricCard label="Pipeline at Risk" value={fmtDollar(pipelineAtRisk)} danger />
         </div>
       </div>
     </div>

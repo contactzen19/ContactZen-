@@ -166,7 +166,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="p-6">
-                {activeTab === "Executive Summary" && <ExecutiveSummary scan={scanResult} roi={roiResult} />}
+                {activeTab === "Executive Summary" && <ExecutiveSummary scan={scanResult} roi={roiResult} numberOfReps={roi.number_of_reps} />}
                 {activeTab === "RevOps Breakdown" && <RevOpsBreakdown scan={scanResult} />}
                 {activeTab === "At-Risk Records" && <AtRiskRecords scan={scanResult} />}
                 {activeTab === "Fix & Export" && <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} />}
