@@ -78,7 +78,7 @@ export default function UploadZone({ onFile, loading }: Props) {
           </>
         ) : (
           <>
-            ✨ Try with 2,500 sample contacts
+            ✨ Try with 25,000 sample contacts
             <span className="ml-1 text-xs font-normal text-brand-500">— see the wow moment instantly</span>
           </>
         )}
