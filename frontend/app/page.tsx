@@ -68,7 +68,7 @@ function Hero() {
             Connect HubSpot
           </a>
         </div>
-        <p className="text-xs text-gray-400 mt-4">No credit card required · No data stored · Read-only access</p>
+        <p className="text-sm text-gray-500 mt-4">No credit card required · No data stored · Read-only access</p>
       </div>
     </section>
   );
@@ -239,7 +239,7 @@ function CTASection() {
             </button>
           </form>
         )}
-        <p className="text-brand-300 text-xs mt-3">No spam. Just product updates and early access invites.</p>
+        <p className="text-white/50 text-xs mt-3">No spam. Just product updates and early access invites.</p>
       </div>
     </section>
   );
