@@ -19,6 +19,9 @@ function NavBar() {
           <Link href="/app" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">
             Try the Tool
           </Link>
+          <Link href="/pricing" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">
+            Pricing
+          </Link>
           <a
             href="https://calendly.com/contactzen-joey/new-meeting"
             target="_blank"
