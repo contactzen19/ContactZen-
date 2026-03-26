@@ -10,9 +10,9 @@ function HubSpotCallbackInner() {
     const token = params.get("token");
     if (token) {
       sessionStorage.setItem("hubspot_token", token);
-      router.push("/?hubspot=connected");
+      router.push("/app?hubspot=connected");
     } else {
-      router.push("/?hubspot=error");
+      router.push("/app?hubspot=error");
     }
   }, [params, router]);
 

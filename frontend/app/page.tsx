@@ -1,18 +1,182 @@
 "use client";
-import { useState, useCallback, useEffect } from "react";
-import Logo from "@/components/Logo";
-import UploadZone from "@/components/UploadZone";
-import ColumnSelector from "@/components/ColumnSelector";
-import ROIPanel from "@/components/ROIPanel";
-import ExecutiveSummary from "@/components/tabs/ExecutiveSummary";
-import RevOpsBreakdown from "@/components/tabs/RevOpsBreakdown";
-import AtRiskRecords from "@/components/tabs/AtRiskRecords";
-import FixExport from "@/components/tabs/FixExport";
-import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
-import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
-import clsx from "clsx";
+import { useState } from "react";
+import Link from "next/link";
 
-function LeadCapture() {
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+function NavBar() {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-[10px] flex items-center justify-center text-white text-base flex-shrink-0"
+            style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", boxShadow: "0 4px 14px rgba(124,58,237,0.25)" }}>
+            ⚡
+          </div>
+          <span className="text-xl font-extrabold text-brand-900 tracking-tight">ContactZen</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link href="/app" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">
+            Try the Tool
+          </Link>
+          <a
+            href="https://calendly.com/contactzen-joey/new-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm px-4 py-2"
+          >
+            Book a Call
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="pt-32 pb-20 px-6 text-center">
+      <div className="max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-sm font-medium text-brand-700 mb-8">
+          <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
+          Built for RevOps &amp; Sales Leaders
+        </div>
+        <h1 className="text-5xl md:text-6xl font-extrabold text-brand-900 leading-tight tracking-tight mb-6">
+          Your CRM is full of<br />
+          <span style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            bad data.
+          </span>
+          <br />We&apos;ll prove it in 60 seconds.
+        </h1>
+        <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+          ContactZen scans your HubSpot contacts for invalid emails, dead phone numbers, duplicates, and missing fields — then shows you exactly what it&apos;s costing your team.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/app?demo=true"
+            className="btn-primary text-base px-8 py-4 rounded-xl"
+          >
+            ✨ See a Live Demo
+          </Link>
+          <a
+            href={`${API_URL}/auth/hubspot`}
+            className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-brand-400 text-gray-700 font-semibold text-base px-8 py-4 rounded-xl transition-colors"
+          >
+            Connect HubSpot
+          </a>
+        </div>
+        <p className="text-xs text-gray-400 mt-4">No credit card required · No data stored · Read-only access</p>
+      </div>
+    </section>
+  );
+}
+
+function PainSection() {
+  const stats = [
+    { number: "25–40%", label: "of CRM contacts are bad or outdated" },
+    { number: "3.1 hrs", label: "per rep per week lost to bad data cleanup" },
+    { number: "$47K+", label: "wasted annually on dirty data per sales team" },
+  ];
+
+  return (
+    <section className="py-20 px-6 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Bad data is a silent revenue killer</h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Your reps are burning time on contacts that will never convert. Your emails are bouncing. Your data providers are selling you stale lists. And nobody knows how bad it actually is.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {stats.map((s) => (
+            <div key={s.number} className="text-center p-8 rounded-2xl bg-gray-50 border border-gray-100">
+              <div className="text-4xl font-extrabold mb-2" style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                {s.number}
+              </div>
+              <p className="text-gray-600 font-medium">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  const steps = [
+    {
+      icon: "🔗",
+      title: "Connect your CRM",
+      desc: "Connect HubSpot directly via OAuth, or upload a CSV export from any CRM. Takes 30 seconds.",
+    },
+    {
+      icon: "⚡",
+      title: "ContactZen scans everything",
+      desc: "We check every contact for email validity, phone quality, duplicates, field completeness, and source attribution.",
+    },
+    {
+      icon: "📊",
+      title: "Get your executive report",
+      desc: "See your risk rate, ROI impact, worst offending sources, and a clean export — ready to act on immediately.",
+    },
+  ];
+
+  return (
+    <section className="py-20 px-6 bg-gray-50">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How it works</h2>
+          <p className="text-gray-500 text-lg">From connection to insight in under 60 seconds.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((step, i) => (
+            <div key={i} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+              <div className="text-4xl mb-4">{step.icon}</div>
+              <div className="text-xs font-bold text-brand-600 uppercase tracking-wider mb-2">Step {i + 1}</div>
+              <h3 className="text-lg font-bold text-brand-900 mb-2">{step.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrustSection() {
+  const items = [
+    { icon: "🔒", title: "We never store your contacts", desc: "Your data is processed in memory and immediately discarded. Nothing is written to a database." },
+    { icon: "👁️", title: "Read-only CRM access", desc: "ContactZen can only read your contacts. We cannot modify, delete, or export anything from your CRM." },
+    { icon: "🛡️", title: "SOC 2-aligned architecture", desc: "Built from day one with security best practices. Process-and-discard data model minimizes your compliance surface." },
+    { icon: "🔑", title: "Revoke access any time", desc: "You control the connection. Disconnect ContactZen from your HubSpot settings in one click, at any time." },
+  ];
+
+  return (
+    <section className="py-20 px-6 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Built for trust</h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Your contact data is sensitive. We designed ContactZen so you never have to wonder what happens to it.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {items.map((item) => (
+            <div key={item.title} className="flex gap-4 p-6 rounded-2xl bg-gray-50 border border-gray-100">
+              <div className="text-3xl flex-shrink-0">{item.icon}</div>
+              <div>
+                <h3 className="font-bold text-brand-900 mb-1">{item.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTASection() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -23,252 +187,84 @@ function LeadCapture() {
     await fetch("https://formspree.io/f/xykbydze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, source: "landing-page" }),
     });
     setSubmitted(true);
     setSending(false);
   };
 
-  if (submitted) {
-    return (
-      <div className="rounded-xl bg-brand-50 border border-brand-200 px-6 py-4 flex items-center gap-3">
-        <span className="text-2xl">🎉</span>
-        <p className="text-sm font-medium text-brand-800">You&apos;re on the list — I&apos;ll be in touch soon.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="rounded-xl bg-brand-600 px-6 py-5 text-white">
-      <p className="font-semibold text-lg mb-1">Want this for your actual CRM?</p>
-      <p className="text-brand-200 text-sm mb-4">Enter your email and I&apos;ll reach out to get you set up.</p>
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="email"
-          required
-          placeholder="you@company.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 rounded-lg px-4 py-2 text-sm text-gray-900 outline-none"
-        />
-        <button
-          type="submit"
-          disabled={sending}
-          className="bg-white text-brand-700 font-semibold text-sm px-5 py-2 rounded-lg hover:bg-brand-50 transition-colors disabled:opacity-50"
-        >
-          {sending ? "Sending…" : "Get Started"}
-        </button>
-      </form>
-    </div>
-  );
-}
-
-const DEFAULT_ROI: ROIInputs = {
-  number_of_reps: 25,
-  emails_per_rep_per_week: 200,
-  new_contacts_per_rep_per_week: 50,
-  cleanup_hours_per_rep_per_month: 2.0,
-  rep_hourly_cost: 50.0,
-  annual_data_cost: 18000.0,
-  confidence_factor: 0.5,
-};
-
-const TABS = ["Executive Summary", "RevOps Breakdown", "At-Risk Records", "Fix & Export"] as const;
-type Tab = typeof TABS[number];
-
-export default function Home() {
-  const [file, setFile] = useState<File | null>(null);
-  const [columns, setColumns] = useState<string[]>([]);
-  const [totalRows, setTotalRows] = useState<number | null>(null);
-  const [emailCol, setEmailCol] = useState("");
-  const [sourceCol, setSourceCol] = useState("");
-  const [phoneCol, setPhoneCol] = useState("");
-  const [roi, setRoi] = useState<ROIInputs>(DEFAULT_ROI);
-  const [scanning, setScanning] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [scanResult, setScanResult] = useState<ScanResult | null>(null);
-  const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
-  const [activeTab, setActiveTab] = useState<Tab>("Executive Summary");
-
-  // Handle HubSpot OAuth callback
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("hubspot") === "connected") {
-      const token = sessionStorage.getItem("hubspot_token");
-      if (token) {
-        sessionStorage.removeItem("hubspot_token");
-        window.history.replaceState({}, "", "/");
-        setScanning(true);
-        setError(null);
-        runHubSpotScan(token, roi)
-          .then((result) => {
-            setScanResult(result.scan);
-            setRoiResult(result.roi);
-            setActiveTab("Executive Summary");
-            setColumns(["email", "phone", "first_name", "last_name", "company", "title", "source"]);
-            setEmailCol("email");
-            setPhoneCol("phone");
-            setSourceCol("source");
-          })
-          .catch((e) => setError("HubSpot scan failed: " + e))
-          .finally(() => setScanning(false));
-      }
-    }
-    if (params.get("hubspot") === "error") {
-      window.history.replaceState({}, "", "/");
-      setError("HubSpot connection failed. Please try again.");
-    }
-  }, [roi]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const handleFile = useCallback(async (f: File) => {
-    setFile(f);
-    setScanResult(null);
-    setRoiResult(null);
-    setError(null);
-    try {
-      const data = await fetchColumns(f);
-      setColumns(data.columns);
-      setTotalRows(data.total_rows);
-      setEmailCol(data.guesses.email ?? data.columns[0] ?? "");
-      setSourceCol(data.guesses.source ?? "");
-      setPhoneCol(data.guesses.phone ?? "");
-    } catch (e) {
-      setError("Could not read file: " + e);
-    }
-  }, []);
-
-  const handleScan = async () => {
-    if (!file || !emailCol) return;
-    setScanning(true);
-    setError(null);
-    try {
-      const result = await runScan(file, emailCol, sourceCol || null, phoneCol || null, roi);
-      setScanResult(result.scan);
-      setRoiResult(result.roi);
-      setActiveTab("Executive Summary");
-    } catch (e) {
-      setError("Scan failed: " + e);
-    } finally {
-      setScanning(false);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-100 px-6 py-4 sticky top-0 z-10 shadow-sm">
-        <div className="flex items-center justify-between">
-          <Logo />
+    <section className="py-24 px-6" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
+      <div className="max-w-2xl mx-auto text-center">
+        <h2 className="text-4xl font-extrabold text-white mb-4">
+          Ready to see what&apos;s hiding in your CRM?
+        </h2>
+        <p className="text-brand-200 text-lg mb-10">
+          Run a free scan on your demo data in 60 seconds, or connect your HubSpot and see your real numbers.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <Link href="/app?demo=true" className="bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors">
+            ✨ Try the Demo
+          </Link>
           <a
             href="https://calendly.com/contactzen-joey/new-meeting"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary text-sm px-4 py-2"
+            className="border-2 border-white/40 text-white font-bold text-base px-8 py-4 rounded-xl hover:bg-white/10 transition-colors"
           >
             Book a Call
           </a>
         </div>
-      </header>
-
-      <div className="max-w-screen-xl mx-auto px-6 py-8 flex gap-6">
-        {/* Sidebar: ROI inputs */}
-        <aside className="w-64 flex-shrink-0 hidden lg:block">
-          <div className="card sticky top-24">
-            <ROIPanel values={roi} onChange={setRoi} />
-          </div>
-        </aside>
-
-        {/* Main */}
-        <main className="flex-1 min-w-0 space-y-6">
-          <p className="text-sm text-gray-500">
-            Upload a CRM export to scan for bad data, quantify business impact, and surface what to do next.
-          </p>
-
-          {/* Step 1 */}
-          <div className="card space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
-              <h2 className="font-semibold text-brand-900">Upload Contacts CSV</h2>
-            </div>
-            <UploadZone onFile={handleFile} loading={scanning} />
-            {file && totalRows != null && (
-              <p className="text-sm text-gray-600">
-                ✅ <strong>{file.name}</strong> — {totalRows.toLocaleString()} contacts · {columns.length} columns
-              </p>
-            )}
-          </div>
-
-          {/* Step 2 */}
-          {columns.length > 0 && (
-            <div className="card space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
-                <h2 className="font-semibold text-brand-900">Map Columns</h2>
-              </div>
-              <ColumnSelector
-                columns={columns}
-                emailCol={emailCol}
-                sourceCol={sourceCol}
-                phoneCol={phoneCol}
-                onChange={(key, val) => {
-                  if (key === "emailCol") setEmailCol(val);
-                  if (key === "sourceCol") setSourceCol(val);
-                  if (key === "phoneCol") setPhoneCol(val);
-                }}
-              />
-            </div>
-          )}
-
-          {/* Step 3 */}
-          {columns.length > 0 && (
-            <div className="card">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
-                <h2 className="font-semibold text-brand-900">Run Scan</h2>
-              </div>
-              <button onClick={handleScan} disabled={scanning || !emailCol} className="btn-primary w-full text-base py-3">
-                {scanning ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                    </svg>
-                    Scanning contacts…
-                  </span>
-                ) : "Run ContactZen Scan"}
-              </button>
-              {error && (
-                <div className="mt-3 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">{error}</div>
-              )}
-            </div>
-          )}
-
-          {/* Lead capture */}
-          {scanResult && <LeadCapture />}
-
-          {/* Results */}
-          {scanResult && roiResult && file && (
-            <div className="card p-0 overflow-hidden">
-              <div className="border-b border-gray-100 px-6 flex gap-1 overflow-x-auto">
-                {TABS.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={clsx("py-4 px-3 text-sm font-medium whitespace-nowrap transition-colors", activeTab === tab ? "tab-active" : "tab-inactive")}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-              <div className="p-6">
-                {activeTab === "Executive Summary" && <ExecutiveSummary scan={scanResult} roi={roiResult} numberOfReps={roi.number_of_reps} />}
-                {activeTab === "RevOps Breakdown" && <RevOpsBreakdown scan={scanResult} />}
-                {activeTab === "At-Risk Records" && <AtRiskRecords scan={scanResult} />}
-                {activeTab === "Fix & Export" && <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} />}
-              </div>
-            </div>
-          )}
-        </main>
+        {submitted ? (
+          <p className="text-brand-200 font-medium">You&apos;re on the list — I&apos;ll be in touch soon. 🎉</p>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
+            <input
+              type="email"
+              required
+              placeholder="your@company.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none"
+            />
+            <button
+              type="submit"
+              disabled={sending}
+              className="bg-brand-400 hover:bg-brand-300 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-colors disabled:opacity-50"
+            >
+              {sending ? "…" : "Notify Me"}
+            </button>
+          </form>
+        )}
+        <p className="text-brand-300 text-xs mt-3">No spam. Just product updates and early access invites.</p>
       </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-brand-900 py-8 px-6 text-center">
+      <p className="text-brand-400 text-sm">
+        © 2026 ContactZen · Contact Data Intelligence Platform ·{" "}
+        <a href="mailto:contactzen.joey@gmail.com" className="hover:text-white transition-colors">
+          contactzen.joey@gmail.com
+        </a>
+      </p>
+    </footer>
+  );
+}
+
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      <NavBar />
+      <Hero />
+      <PainSection />
+      <HowItWorks />
+      <TrustSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 }
