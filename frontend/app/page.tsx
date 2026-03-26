@@ -33,7 +33,7 @@ function LeadCapture() {
     return (
       <div className="rounded-xl bg-brand-50 border border-brand-200 px-6 py-4 flex items-center gap-3">
         <span className="text-2xl">🎉</span>
-        <p className="text-sm font-medium text-brand-800">You're on the list — I'll be in touch soon.</p>
+        <p className="text-sm font-medium text-brand-800">You&apos;re on the list — I&apos;ll be in touch soon.</p>
       </div>
     );
   }
@@ -41,7 +41,7 @@ function LeadCapture() {
   return (
     <div className="rounded-xl bg-brand-600 px-6 py-5 text-white">
       <p className="font-semibold text-lg mb-1">Want this for your actual CRM?</p>
-      <p className="text-brand-200 text-sm mb-4">Enter your email and I'll reach out to get you set up.</p>
+      <p className="text-brand-200 text-sm mb-4">Enter your email and I&apos;ll reach out to get you set up.</p>
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="email"
@@ -118,7 +118,7 @@ export default function Home() {
       window.history.replaceState({}, "", "/");
       setError("HubSpot connection failed. Please try again.");
     }
-  }, []);
+  }, [roi]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleFile = useCallback(async (f: File) => {
     setFile(f);
