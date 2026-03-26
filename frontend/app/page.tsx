@@ -159,7 +159,7 @@ export default function Home() {
         <div className="flex items-center justify-between">
           <Logo />
           <a
-            href="https://calendly.com"
+            href="https://calendly.com/contactzen-joey/new-meeting"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary text-sm px-4 py-2"
