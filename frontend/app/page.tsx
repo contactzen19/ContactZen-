@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Logo from "@/components/Logo";
 import UploadZone from "@/components/UploadZone";
 import ColumnSelector from "@/components/ColumnSelector";
@@ -8,7 +8,7 @@ import ExecutiveSummary from "@/components/tabs/ExecutiveSummary";
 import RevOpsBreakdown from "@/components/tabs/RevOpsBreakdown";
 import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
-import { fetchColumns, runScan } from "@/lib/api";
+import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
 import clsx from "clsx";
 
@@ -38,6 +38,36 @@ export default function Home() {
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>("Executive Summary");
+
+  // Handle HubSpot OAuth callback
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("hubspot") === "connected") {
+      const token = sessionStorage.getItem("hubspot_token");
+      if (token) {
+        sessionStorage.removeItem("hubspot_token");
+        window.history.replaceState({}, "", "/");
+        setScanning(true);
+        setError(null);
+        runHubSpotScan(token, roi)
+          .then((result) => {
+            setScanResult(result.scan);
+            setRoiResult(result.roi);
+            setActiveTab("Executive Summary");
+            setColumns(["email", "phone", "first_name", "last_name", "company", "title", "source"]);
+            setEmailCol("email");
+            setPhoneCol("phone");
+            setSourceCol("source");
+          })
+          .catch((e) => setError("HubSpot scan failed: " + e))
+          .finally(() => setScanning(false));
+      }
+    }
+    if (params.get("hubspot") === "error") {
+      window.history.replaceState({}, "", "/");
+      setError("HubSpot connection failed. Please try again.");
+    }
+  }, []);
 
   const handleFile = useCallback(async (f: File) => {
     setFile(f);

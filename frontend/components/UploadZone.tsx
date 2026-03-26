@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
 interface Props {
   onFile: (file: File) => void;
   loading?: boolean;
@@ -33,6 +35,22 @@ export default function UploadZone({ onFile, loading }: Props) {
 
   return (
     <div className="space-y-3">
+      {/* Connect HubSpot */}
+      <a
+        href={`${API_URL}/auth/hubspot`}
+        className="w-full flex items-center justify-center gap-3 rounded-xl border-2 border-[#FF7A59] bg-[#FFF4F1] px-4 py-3 text-sm font-semibold text-[#C0392B] hover:bg-[#FFE8E2] transition-colors"
+      >
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="#FF7A59"><path d="M296.9 143.9V96.1c18.6-7.9 31.6-26.4 31.6-47.9C328.5 21.7 306.8 0 280.3 0s-48.2 21.7-48.2 48.2c0 21.5 13 40 31.6 47.9v47.8c-27.2 4.2-51.7 16.5-71 34.4L75.4 72.6c1.3-4.6 2-9.4 2-14.3C77.4 26.1 51.3 0 19.1 0S-39.2 26.1-39.2 58.3s26.1 58.3 58.3 58.3c12.6 0 24.3-4 33.9-10.8l115.7 104.2c-16.8 25-26.6 55-26.6 87.4 0 32.5 9.9 62.7 26.9 87.8L54.6 499.4c-9.5-6.5-21-10.3-33.4-10.3C-11 489.1-37 515.1-37 547.3c0 32.1 26.1 58.3 58.3 58.3s58.3-26.1 58.3-58.3c0-10-2.6-19.4-7.1-27.6l112.4-112.4c25.2 17.4 55.8 27.6 88.8 27.6 86.3 0 156.3-70 156.3-156.3 0-77.4-56.3-141.7-130.1-154.7zM280.3 384c-53.7 0-97.3-43.6-97.3-97.3s43.6-97.3 97.3-97.3 97.3 43.6 97.3 97.3-43.6 97.3-97.3 97.3z"/></svg>
+        Connect HubSpot
+        <span className="ml-1 text-xs font-normal text-[#E8694A]">— scan your live CRM data</span>
+      </a>
+
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-gray-200" />
+        <span className="text-xs text-gray-400">or upload a CSV</span>
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
+
       <label
         onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
