@@ -1,8 +1,8 @@
 "use client";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function HubSpotCallback() {
+function HubSpotCallbackInner() {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -23,5 +23,17 @@ export default function HubSpotCallback() {
         <p className="text-gray-600 font-medium">Connecting HubSpot…</p>
       </div>
     </div>
+  );
+}
+
+export default function HubSpotCallback() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-600 font-medium">Connecting HubSpot…</p>
+      </div>
+    }>
+      <HubSpotCallbackInner />
+    </Suspense>
   );
 }
