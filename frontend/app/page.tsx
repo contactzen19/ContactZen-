@@ -76,9 +76,9 @@ function Hero() {
 
 function PainSection() {
   const stats = [
-    { number: "25–40%", label: "of CRM contacts are bad or outdated" },
-    { number: "3.1 hrs", label: "per rep per week lost to bad data cleanup" },
-    { number: "$47K+", label: "wasted annually on dirty data per sales team" },
+    { number: "28%", label: "of contacts flagged as high-risk in our own 25,000-contact scan" },
+    { number: "45%", label: "of contacts had missing or invalid phone numbers" },
+    { number: "1 in 3", label: "contacts had incomplete fields — no title, no company, or both" },
   ];
 
   return (
@@ -87,7 +87,7 @@ function PainSection() {
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Bad data is a silent revenue killer</h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Your reps are burning time on contacts that will never convert. Your emails are bouncing. Your data providers are selling you stale lists. And nobody knows how bad it actually is.
+            Your reps are burning time on contacts that will never convert. Your emails are bouncing. Your data providers are selling you stale lists. Here&apos;s what we found when we ran ContactZen on a real 25,000-contact CRM database:
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
