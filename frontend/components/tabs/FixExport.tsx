@@ -102,19 +102,55 @@ export default function FixExport({ scan, file, emailCol, phoneCol }: Props) {
         </button>
       </div>
 
-      <div className="card border-brand-100 bg-brand-50 space-y-3">
-        <h3 className="font-semibold text-brand-900">Making This Ongoing</h3>
-        <p className="text-sm text-gray-700">
-          A one-time fix is a start. The real value is continuous protection — catching bad data before it reaches reps.
+      {/* Coming Soon: Contact Recovery */}
+      <div className="rounded-2xl border-2 border-dashed border-brand-300 bg-gradient-to-br from-brand-50 to-white p-6 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+            style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)" }}>
+            🔮
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-bold text-brand-900">Contact Recovery Engine</h3>
+              <span className="text-xs font-bold bg-brand-600 text-white px-2 py-0.5 rounded-full">Coming Soon</span>
+            </div>
+            <p className="text-xs text-brand-600 font-medium">The future of ContactZen</p>
+          </div>
+        </div>
+
+        <p className="text-sm text-gray-700 leading-relaxed">
+          Every contact we suppress today goes into a <strong>recovery pool</strong> — not the trash. When ContactZen&apos;s recovery engine launches, we&apos;ll automatically find replacement emails and phone numbers for your suppressed contacts, validate them, and put the good ones back in your pipeline.
         </p>
-        <ul className="text-sm text-gray-700 space-y-1.5">
-          <li>• <strong>Automated scans</strong> — run weekly against your live HubSpot or Salesforce data, no CSV required</li>
-          <li>• <strong>Pre-sequence protection</strong> — flag or suppress risky contacts before enrollment</li>
-          <li>• <strong>Vendor accountability</strong> — track data quality by source over time, build a paper trail for credit recapture</li>
-          <li>• <strong>Push suppressions to HubSpot</strong> — apply risk scores as contact properties, directly in HubSpot</li>
-        </ul>
-        <div className="bg-white border border-brand-200 rounded-lg px-4 py-3 text-sm text-brand-800">
-          💡 HubSpot API integration is coming next. You&apos;ll pull live contacts, push risk scores, and schedule scans — all without a CSV export.
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            { icon: "🏷️", title: "Suppress today", desc: "Bad contacts are quarantined, not deleted. They stay in HubSpot — just out of your active sequences." },
+            { icon: "🔍", title: "Recover tomorrow", desc: "ContactZen finds verified replacement contact info from trusted enrichment sources." },
+            { icon: "✅", title: "Flip to active", desc: "Recovered contacts are validated and pushed back to HubSpot — clean, verified, ready to work." },
+          ].map((s) => (
+            <div key={s.title} className="bg-white border border-brand-100 rounded-xl p-4">
+              <div className="text-2xl mb-2">{s.icon}</div>
+              <div className="text-sm font-bold text-brand-900 mb-1">{s.title}</div>
+              <div className="text-xs text-gray-500 leading-relaxed">{s.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-brand-600 rounded-xl px-5 py-4 text-white">
+          <p className="text-sm font-semibold mb-0.5">What this means for your team</p>
+          <p className="text-xs text-brand-200 leading-relaxed">
+            If even 10% of your suppressed contacts are recoverable, that&apos;s pipeline you already paid for — coming back to life automatically. No new data spend. No manual research. Just recovered revenue.
+          </p>
+        </div>
+
+        <div className="border-t border-brand-200 pt-4">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Also on the roadmap</p>
+          <ul className="text-sm text-gray-600 space-y-2">
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Continuous monitoring</strong> — weekly scans against your live HubSpot data, no CSV required</li>
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Pre-sequence protection</strong> — flag risky contacts before they enter a sequence</li>
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Vendor scorecards</strong> — hold ZoomInfo, Apollo, and Lusha accountable with monthly quality reports</li>
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>HubSpot writeback</strong> — push risk scores and dispositions directly as contact properties</li>
+          </ul>
         </div>
       </div>
     </div>
