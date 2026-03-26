@@ -10,7 +10,6 @@ import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
 import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
-import clsx from "clsx";
 
 function LeadCapture() {
   const [email, setEmail] = useState("");
@@ -73,8 +72,6 @@ const DEFAULT_ROI: ROIInputs = {
   confidence_factor: 0.5,
 };
 
-const TABS = ["Executive Summary", "RevOps Breakdown", "At-Risk Records", "Fix & Export"] as const;
-type Tab = typeof TABS[number];
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -88,7 +85,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
-  const [activeTab, setActiveTab] = useState<Tab>("Executive Summary");
 
   // Auto-load demo if ?demo=true
   useEffect(() => {
@@ -118,7 +114,6 @@ export default function Home() {
           .then((result) => {
             setScanResult(result.scan);
             setRoiResult(result.roi);
-            setActiveTab("Executive Summary");
             setColumns(["email", "phone", "first_name", "last_name", "company", "title", "source"]);
             setEmailCol("email");
             setPhoneCol("phone");
@@ -159,7 +154,6 @@ export default function Home() {
       const result = await runScan(file, emailCol, sourceCol || null, phoneCol || null, roi);
       setScanResult(result.scan);
       setRoiResult(result.roi);
-      setActiveTab("Executive Summary");
     } catch (e) {
       setError("Scan failed: " + e);
     } finally {
@@ -259,27 +253,41 @@ export default function Home() {
           {/* Lead capture */}
           {scanResult && <LeadCapture />}
 
-          {/* Results */}
+          {/* Results — vertical sections */}
           {scanResult && roiResult && file && (
-            <div className="card p-0 overflow-hidden">
-              <div className="border-b border-gray-100 px-6 flex gap-1 overflow-x-auto">
-                {TABS.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={clsx("py-4 px-3 text-sm font-medium whitespace-nowrap transition-colors", activeTab === tab ? "tab-active" : "tab-inactive")}
-                  >
-                    {tab}
-                  </button>
-                ))}
+            <>
+              <div className="card">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-1 h-6 rounded-full bg-brand-600" />
+                  <h2 className="font-bold text-brand-900 text-lg">Executive Summary</h2>
+                </div>
+                <ExecutiveSummary scan={scanResult} roi={roiResult} numberOfReps={roi.number_of_reps} />
               </div>
-              <div className="p-6">
-                {activeTab === "Executive Summary" && <ExecutiveSummary scan={scanResult} roi={roiResult} numberOfReps={roi.number_of_reps} />}
-                {activeTab === "RevOps Breakdown" && <RevOpsBreakdown scan={scanResult} />}
-                {activeTab === "At-Risk Records" && <AtRiskRecords scan={scanResult} />}
-                {activeTab === "Fix & Export" && <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} />}
+
+              <div className="card">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-1 h-6 rounded-full bg-brand-600" />
+                  <h2 className="font-bold text-brand-900 text-lg">RevOps Breakdown</h2>
+                </div>
+                <RevOpsBreakdown scan={scanResult} />
               </div>
-            </div>
+
+              <div className="card">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-1 h-6 rounded-full bg-red-500" />
+                  <h2 className="font-bold text-brand-900 text-lg">At-Risk Records</h2>
+                </div>
+                <AtRiskRecords scan={scanResult} />
+              </div>
+
+              <div className="card">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-1 h-6 rounded-full bg-brand-600" />
+                  <h2 className="font-bold text-brand-900 text-lg">Fix &amp; Export</h2>
+                </div>
+                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} />
+              </div>
+            </>
           )}
         </main>
       </div>
