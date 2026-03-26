@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 interface Props {
   onClose: () => void;
@@ -16,15 +16,13 @@ export default function AuthModal({ onClose }: Props) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithOtp({
+    const sb = getSupabase();
+    if (!sb) { setError("Auth not configured."); setLoading(false); return; }
+    const { error } = await sb.auth.signInWithOtp({
       email,
       options: { emailRedirectTo: `${window.location.origin}/app` },
     });
-    if (error) {
-      setError(error.message);
-    } else {
-      setSent(true);
-    }
+    if (error) { setError(error.message); } else { setSent(true); }
     setLoading(false);
   };
 
@@ -38,7 +36,6 @@ export default function AuthModal({ onClose }: Props) {
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
         </div>
-
         {sent ? (
           <div className="bg-brand-50 border border-brand-200 rounded-xl px-5 py-4 text-center space-y-2">
             <p className="text-2xl">📬</p>
@@ -59,11 +56,7 @@ export default function AuthModal({ onClose }: Props) {
               />
             </div>
             {error && <p className="text-sm text-red-600">{error}</p>}
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full py-3 text-sm"
-            >
+            <button type="submit" disabled={loading} className="btn-primary w-full py-3 text-sm">
               {loading ? "Sending…" : "Send Magic Link →"}
             </button>
             <p className="text-xs text-gray-400 text-center">No password. Just click the link we email you.</p>

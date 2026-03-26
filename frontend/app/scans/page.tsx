@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { listScans, deleteScan, SavedScan } from "@/lib/scans";
 import { encodeSummary } from "@/lib/report";
 
@@ -16,7 +16,9 @@ export default function ScansPage() {
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    const sb = getSupabase();
+    if (!sb) { setLoading(false); return; }
+    sb.auth.getUser().then(({ data: { user } }) => {
       if (!user) { setLoading(false); return; }
       setAuthed(true);
       listScans().then((s) => { setScans(s); setLoading(false); });
@@ -29,7 +31,7 @@ export default function ScansPage() {
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    await getSupabase()?.auth.signOut();
     window.location.href = "/app";
   };
 

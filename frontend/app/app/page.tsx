@@ -15,7 +15,7 @@ import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
 import { encodeReport, buildSummary } from "@/lib/report";
 import { saveScan } from "@/lib/scans";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 function LeadCapture() {
   const [email, setEmail] = useState("");
@@ -97,8 +97,10 @@ export default function Home() {
 
   // Track auth state
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => setUser(user));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+    const sb = getSupabase();
+    if (!sb) return;
+    sb.auth.getUser().then(({ data: { user } }) => setUser(user));
+    const { data: { subscription } } = sb.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null);
     });
     return () => subscription.unsubscribe();
