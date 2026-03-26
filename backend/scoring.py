@@ -17,7 +17,7 @@ def normalize_phone(phone) -> str:
 
 def phone_risk(phone) -> Tuple[str, str]:
     if phone is None or str(phone).strip() == "" or str(phone).lower() == "nan":
-        return "risky", "missing_phone"
+        return "missing", "missing_phone"
     digits = normalize_phone(phone)
     if len(digits) < 10:
         return "invalid", "invalid_phone"

@@ -121,11 +121,13 @@ def compute_scan(
         phone_invalid = int((df_out["cz_phone_risk"] == "invalid").sum())
         phone_risky = int((df_out["cz_phone_risk"] == "risky").sum())
         phone_valid = int((df_out["cz_phone_risk"] == "valid").sum())
+        phone_missing = int((df_out["cz_phone_risk"] == "missing").sum())
         phone_high_risk_rate = round(((phone_invalid + phone_risky) / total), 4) if total else 0.0
 
     # Combined contact-level risk
     email_flagged = df_out["cz_risk"].isin(["invalid", "risky"])
     if phone_col and phone_col in df_out.columns:
+        # missing phones are a completeness issue, not a contact risk flag
         contact_flagged = email_flagged | df_out["cz_phone_risk"].isin(["invalid", "risky"])
     else:
         contact_flagged = email_flagged
@@ -186,6 +188,7 @@ def compute_scan(
         "phone_invalid": phone_invalid,
         "phone_risky": phone_risky,
         "phone_valid": phone_valid,
+        "phone_missing": phone_missing if phone_col and phone_col in df_out.columns else 0,
         "phone_high_risk_rate": phone_high_risk_rate,
         "contact_invalid": contact_invalid,
         "contact_risky": contact_risky,
