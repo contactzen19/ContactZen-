@@ -10,6 +10,7 @@ import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
 import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
+import { encodeReport } from "@/lib/report";
 
 function LeadCapture() {
   const [email, setEmail] = useState("");
@@ -85,6 +86,30 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleReset = () => {
+    setFile(null);
+    setColumns([]);
+    setTotalRows(null);
+    setEmailCol("");
+    setSourceCol("");
+    setPhoneCol("");
+    setScanResult(null);
+    setRoiResult(null);
+    setError(null);
+    setCopied(false);
+  };
+
+  const handleCopyLink = () => {
+    if (!scanResult || !roiResult) return;
+    const encoded = encodeReport(scanResult, roiResult, roi.number_of_reps);
+    const url = `${window.location.origin}/report?d=${encoded}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
 
   // Auto-load demo if ?demo=true
   useEffect(() => {
@@ -247,6 +272,24 @@ export default function Home() {
               {error && (
                 <div className="mt-3 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">{error}</div>
               )}
+            </div>
+          )}
+
+          {/* Share + Reset */}
+          {scanResult && roiResult && (
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={handleCopyLink}
+                className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm py-2.5"
+              >
+                {copied ? "✅ Link Copied!" : "🔗 Copy Shareable Report Link"}
+              </button>
+              <button
+                onClick={handleReset}
+                className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5"
+              >
+                ↩ Scan Another File
+              </button>
             </div>
           )}
 
