@@ -12,6 +12,57 @@ import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
 import clsx from "clsx";
 
+function LeadCapture() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    await fetch("https://formspree.io/f/xykbydze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setSubmitted(true);
+    setSending(false);
+  };
+
+  if (submitted) {
+    return (
+      <div className="rounded-xl bg-brand-50 border border-brand-200 px-6 py-4 flex items-center gap-3">
+        <span className="text-2xl">🎉</span>
+        <p className="text-sm font-medium text-brand-800">You're on the list — I'll be in touch soon.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl bg-brand-600 px-6 py-5 text-white">
+      <p className="font-semibold text-lg mb-1">Want this for your actual CRM?</p>
+      <p className="text-brand-200 text-sm mb-4">Enter your email and I'll reach out to get you set up.</p>
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          type="email"
+          required
+          placeholder="you@company.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="flex-1 rounded-lg px-4 py-2 text-sm text-gray-900 outline-none"
+        />
+        <button
+          type="submit"
+          disabled={sending}
+          className="bg-white text-brand-700 font-semibold text-sm px-5 py-2 rounded-lg hover:bg-brand-50 transition-colors disabled:opacity-50"
+        >
+          {sending ? "Sending…" : "Get Started"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
 const DEFAULT_ROI: ROIInputs = {
   number_of_reps: 25,
   emails_per_rep_per_week: 200,
@@ -105,7 +156,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-100 px-6 py-4 sticky top-0 z-10 shadow-sm">
-        <Logo />
+        <div className="flex items-center justify-between">
+          <Logo />
+          <a
+            href="https://calendly.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm px-4 py-2"
+          >
+            Book a Call
+          </a>
+        </div>
       </header>
 
       <div className="max-w-screen-xl mx-auto px-6 py-8 flex gap-6">
@@ -180,6 +241,9 @@ export default function Home() {
               )}
             </div>
           )}
+
+          {/* Lead capture */}
+          {scanResult && <LeadCapture />}
 
           {/* Results */}
           {scanResult && roiResult && file && (
