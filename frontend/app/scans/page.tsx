@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { listScans, deleteScan, SavedScan } from "@/lib/scans";
-import { encodeReport } from "@/lib/report";
+import { encodeSummary } from "@/lib/report";
 
 const fmt = (x: number) => `${(x * 100).toFixed(1)}%`;
 const fmtNum = (x: number) => x.toLocaleString();
@@ -84,7 +84,7 @@ export default function ScansPage() {
 
         {scans.map((scan) => {
           const s = scan.summary;
-          const reportUrl = `/report?d=${encodeReport(s, s.roi, s.number_of_reps)}`;
+          const reportUrl = `/report?d=${encodeSummary(s)}`;
           const date = new Date(scan.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
           return (
             <div key={scan.id} className="card space-y-4">
