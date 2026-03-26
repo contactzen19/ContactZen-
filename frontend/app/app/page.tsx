@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
+import Link from "next/link";
 import Logo from "@/components/Logo";
 import UploadZone from "@/components/UploadZone";
 import ColumnSelector from "@/components/ColumnSelector";
@@ -8,9 +9,12 @@ import ExecutiveSummary from "@/components/tabs/ExecutiveSummary";
 import RevOpsBreakdown from "@/components/tabs/RevOpsBreakdown";
 import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
+import AuthModal from "@/components/AuthModal";
 import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
-import { encodeReport } from "@/lib/report";
+import { encodeReport, buildSummary } from "@/lib/report";
+import { saveScan } from "@/lib/scans";
+import { supabase } from "@/lib/supabase";
 
 function LeadCapture() {
   const [email, setEmail] = useState("");
@@ -73,7 +77,6 @@ const DEFAULT_ROI: ROIInputs = {
   confidence_factor: 0.5,
 };
 
-
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [columns, setColumns] = useState<string[]>([]);
@@ -87,29 +90,18 @@ export default function Home() {
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
   const [copied, setCopied] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [user, setUser] = useState<{ email?: string } | null>(null);
 
-  const handleReset = () => {
-    setFile(null);
-    setColumns([]);
-    setTotalRows(null);
-    setEmailCol("");
-    setSourceCol("");
-    setPhoneCol("");
-    setScanResult(null);
-    setRoiResult(null);
-    setError(null);
-    setCopied(false);
-  };
-
-  const handleCopyLink = () => {
-    if (!scanResult || !roiResult) return;
-    const encoded = encodeReport(scanResult, roiResult, roi.number_of_reps);
-    const url = `${window.location.origin}/report?d=${encoded}`;
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
+  // Track auth state
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => setUser(user));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUser(session?.user ?? null);
     });
-  };
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Auto-load demo if ?demo=true
   useEffect(() => {
@@ -159,6 +151,7 @@ export default function Home() {
     setScanResult(null);
     setRoiResult(null);
     setError(null);
+    setSaved(false);
     try {
       const data = await fetchColumns(f);
       setColumns(data.columns);
@@ -175,6 +168,7 @@ export default function Home() {
     if (!file || !emailCol) return;
     setScanning(true);
     setError(null);
+    setSaved(false);
     try {
       const result = await runScan(file, emailCol, sourceCol || null, phoneCol || null, roi);
       setScanResult(result.scan);
@@ -186,19 +180,67 @@ export default function Home() {
     }
   };
 
+  const handleReset = () => {
+    setFile(null);
+    setColumns([]);
+    setTotalRows(null);
+    setEmailCol("");
+    setSourceCol("");
+    setPhoneCol("");
+    setScanResult(null);
+    setRoiResult(null);
+    setError(null);
+    setCopied(false);
+    setSaved(false);
+  };
+
+  const handleCopyLink = () => {
+    if (!scanResult || !roiResult) return;
+    const encoded = encodeReport(scanResult, roiResult, roi.number_of_reps);
+    const url = `${window.location.origin}/report?d=${encoded}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
+
+  const handleSave = async () => {
+    if (!scanResult || !roiResult) return;
+    if (!user) { setShowAuth(true); return; }
+    const summary = buildSummary(scanResult, roiResult, roi.number_of_reps);
+    await saveScan(summary);
+    setSaved(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
+
       <header className="bg-white border-b border-gray-100 px-6 py-4 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center justify-between">
           <Logo />
-          <a
-            href="https://calendly.com/contactzen-joey/new-meeting"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary text-sm px-4 py-2"
-          >
-            Book a Call
-          </a>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <Link href="/scans" className="text-sm text-gray-600 hover:text-brand-600 transition-colors font-medium">
+                My Scans
+              </Link>
+            ) : (
+              <button
+                onClick={() => setShowAuth(true)}
+                className="text-sm text-gray-600 hover:text-brand-600 transition-colors font-medium"
+              >
+                Sign In
+              </button>
+            )}
+            <a
+              href="https://calendly.com/contactzen-joey/new-meeting"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-sm px-4 py-2"
+            >
+              Book a Call
+            </a>
+          </div>
         </div>
       </header>
 
@@ -275,7 +317,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Share + Reset */}
+          {/* Share / Save / Reset */}
           {scanResult && roiResult && (
             <div className="flex flex-col sm:flex-row gap-3">
               <button
@@ -285,10 +327,16 @@ export default function Home() {
                 {copied ? "✅ Link Copied!" : "🔗 Copy Shareable Report Link"}
               </button>
               <button
-                onClick={handleReset}
+                onClick={handleSave}
                 className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5"
               >
-                ↩ Scan Another File
+                {saved ? "✅ Scan Saved" : "💾 Save Scan"}
+              </button>
+              <button
+                onClick={handleReset}
+                className="btn-secondary flex items-center justify-center gap-2 text-sm py-2.5 px-5"
+              >
+                ↩ New Scan
               </button>
             </div>
           )}

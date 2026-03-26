@@ -26,8 +26,8 @@ export interface ReportSummary {
   number_of_reps: number;
 }
 
-export function encodeReport(scan: ScanResult, roi: ROIResult, numberOfReps: number): string {
-  const summary: ReportSummary = {
+export function buildSummary(scan: ScanResult, roi: ROIResult, numberOfReps: number): ReportSummary {
+  return {
     total: scan.total,
     contact_invalid: scan.contact_invalid,
     contact_valid: scan.contact_valid,
@@ -47,12 +47,18 @@ export function encodeReport(scan: ScanResult, roi: ROIResult, numberOfReps: num
     phone_dupes: scan.phone_dupes,
     zoominfo_high_risk_rate: scan.zoominfo_high_risk_rate,
     bad_zoominfo_contacts: scan.bad_zoominfo_contacts,
-    // cap source breakdown to 10 rows — no contact records
     source_breakdown: scan.source_breakdown ? scan.source_breakdown.slice(0, 10) : null,
     roi,
     scanned_at: new Date().toISOString().split("T")[0],
     number_of_reps: numberOfReps,
   };
+}
+
+export function encodeReport(scan: ScanResult, roi: ROIResult, numberOfReps: number): string {
+  return btoa(encodeURIComponent(JSON.stringify(buildSummary(scan, roi, numberOfReps))));
+}
+
+export function encodeSummary(summary: ReportSummary): string {
   return btoa(encodeURIComponent(JSON.stringify(summary)));
 }
 
