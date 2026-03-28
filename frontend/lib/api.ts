@@ -54,6 +54,14 @@ export async function runHubSpotScan(
   return res.json();
 }
 
+export async function writebackToHubSpot(accessToken: string): Promise<{ updated: number; errors: number; total: number }> {
+  const form = new FormData();
+  form.append("access_token", accessToken);
+  const res = await fetch(`${API_URL}/api/hubspot/writeback`, { method: "POST", body: form });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
 export async function downloadFixed(
   file: File,
   emailCol: string,

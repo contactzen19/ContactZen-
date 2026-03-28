@@ -94,6 +94,7 @@ export default function Home() {
   const [saved, setSaved] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [user, setUser] = useState<{ email?: string } | null>(null);
+  const [hubspotToken, setHubspotToken] = useState<string | null>(null);
 
   // Track auth state
   useEffect(() => {
@@ -128,6 +129,7 @@ export default function Home() {
       if (token) {
         sessionStorage.removeItem("hubspot_token");
         window.history.replaceState({}, "", "/app");
+        setHubspotToken(token);
         setScanning(true);
         setError(null);
         runHubSpotScan(token, roi)
@@ -195,6 +197,7 @@ export default function Home() {
     setError(null);
     setCopied(false);
     setSaved(false);
+    setHubspotToken(null);
   };
 
   const handleCopyLink = () => {
@@ -379,7 +382,7 @@ export default function Home() {
                   <div className="w-1 h-6 rounded-full bg-brand-600" />
                   <h2 className="font-bold text-brand-900 text-lg">Fix &amp; Export</h2>
                 </div>
-                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} />
+                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} hubspotToken={hubspotToken} />
               </div>
             </>
           )}

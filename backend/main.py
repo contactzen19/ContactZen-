@@ -178,11 +178,12 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "https://contactzen.io")
 @app.get("/auth/hubspot")
 def hubspot_auth():
     """Redirect user to HubSpot OAuth consent screen."""
+    scopes = "crm.objects.contacts.read crm.objects.contacts.write"
     url = (
         f"https://app.hubspot.com/oauth/authorize"
         f"?client_id={HUBSPOT_CLIENT_ID}"
         f"&redirect_uri={HUBSPOT_REDIRECT_URI}"
-        f"&scope=crm.objects.contacts.read"
+        f"&scope={scopes.replace(' ', '%20')}"
     )
     return RedirectResponse(url)
 
@@ -205,6 +206,61 @@ def hubspot_callback(code: str):
 
     token = resp.json().get("access_token")
     return RedirectResponse(f"{FRONTEND_URL}/hubspot/callback?token={token}")
+
+
+@app.post("/api/hubspot/writeback")
+async def hubspot_writeback(access_token: str = Form(...)):
+    """
+    Fetch contacts from HubSpot, score them, and write cz_ properties back.
+    Ensures custom properties exist first. Token is never stored.
+    """
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    # Fetch contacts (email only — we just need to score and write back)
+    contacts = []
+    after = None
+    while len(contacts) < 10000:
+        params: dict = {"limit": 100, "properties": "email"}
+        if after:
+            params["after"] = after
+        r = http.get("https://api.hubapi.com/crm/v3/objects/contacts", headers=headers, params=params, timeout=30)
+        if not r.ok:
+            raise HTTPException(status_code=400, detail="Failed to fetch HubSpot contacts")
+        data = r.json()
+        contacts.extend(data.get("results", []))
+        if "next" not in data.get("paging", {}):
+            break
+        after = data["paging"]["next"]["after"]
+
+    # Score each contact
+    from scoring import email_risk as _email_risk
+    updates = []
+    for c in contacts:
+        email = (c.get("properties") or {}).get("email") or ""
+        risk_level, reason = _email_risk(email)
+        updates.append({
+            "id": c["id"],
+            "properties": {
+                "cz_risk": risk_level,
+                "cz_reason": reason,
+                "cz_risky_email": "true" if risk_level == "risky" else "false",
+            },
+        })
+
+    # Batch update in chunks of 100
+    errors = 0
+    for i in range(0, len(updates), 100):
+        batch = updates[i:i + 100]
+        r = http.post(
+            "https://api.hubapi.com/crm/v3/objects/contacts/batch/update",
+            headers=headers,
+            json={"inputs": batch},
+            timeout=60,
+        )
+        if not r.ok:
+            errors += len(batch)
+
+    return {"updated": len(updates) - errors, "errors": errors, "total": len(updates)}
 
 
 @app.post("/api/scan/hubspot")

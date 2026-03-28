@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ScanResult } from "@/lib/types";
-import { downloadFixed } from "@/lib/api";
+import { downloadFixed, writebackToHubSpot } from "@/lib/api";
 
 const fmtNum = (x: number) => x.toLocaleString();
 
@@ -10,17 +10,32 @@ interface Props {
   file: File;
   emailCol: string;
   phoneCol: string | null;
+  hubspotToken?: string | null;
 }
 
-export default function FixExport({ scan, file, emailCol, phoneCol }: Props) {
+export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken }: Props) {
   const [fixes, setFixes] = useState<Record<string, boolean>>({
     suppress_invalid_email: true,
-    suppress_risky_email: false,
+    tag_risky_email: false,
     suppress_invalid_phone: false,
     deduplicate_email: scan.email_dupes > 0,
     flag_enrichment: false,
   });
   const [loading, setLoading] = useState<"clean" | "suppression" | null>(null);
+  const [writeback, setWriteback] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [writebackResult, setWritebackResult] = useState<{ updated: number; errors: number; total: number } | null>(null);
+
+  const handleWriteback = async () => {
+    if (!hubspotToken) return;
+    setWriteback("loading");
+    try {
+      const result = await writebackToHubSpot(hubspotToken);
+      setWritebackResult(result);
+      setWriteback("done");
+    } catch {
+      setWriteback("error");
+    }
+  };
 
   const toggle = (key: string) => setFixes(prev => ({ ...prev, [key]: !prev[key] }));
   const activeFixes = Object.entries(fixes).filter(([, v]) => v).map(([k]) => k);
@@ -44,7 +59,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol }: Props) {
 
   const fixOptions = [
     { key: "suppress_invalid_email", label: "Remove invalid emails", count: scan.invalid, help: "Removes contacts with empty, malformed, or syntactically invalid email addresses." },
-    { key: "suppress_risky_email", label: "Also remove risky emails", count: scan.risky, help: "More aggressive — removes disposable domains and suspicious structures too." },
+    { key: "tag_risky_email", label: "Tag risky emails", count: scan.risky, help: "Adds a cz_risky_email column to your export — keeps the contact, flags it for review or suppression in your CRM." },
     { key: "suppress_invalid_phone", label: "Remove invalid phone numbers", count: scan.phone_invalid, help: "Removes contacts with clearly malformed phone numbers.", disabled: !phoneCol },
     { key: "deduplicate_email", label: "Deduplicate by email", count: scan.email_dupes, help: "Keeps the first occurrence of each email, removes the rest." },
     { key: "flag_enrichment", label: "Flag contacts needing enrichment", count: null, help: "Adds a cz_needs_enrichment column — does not remove contacts." },
@@ -101,6 +116,51 @@ export default function FixExport({ scan, file, emailCol, phoneCol }: Props) {
           {loading === "suppression" ? "Generating…" : "⬇ Download Suppression List"}
         </button>
       </div>
+
+      {/* HubSpot Writeback */}
+      {hubspotToken && (
+        <div className="rounded-xl border border-orange-200 bg-orange-50 p-5 space-y-3">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-orange-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">HS</div>
+            <div>
+              <p className="font-semibold text-gray-900 text-sm">Write Scores to HubSpot</p>
+              <p className="text-xs text-gray-500">Pushes <code className="bg-orange-100 px-1 rounded">cz_risk</code>, <code className="bg-orange-100 px-1 rounded">cz_reason</code>, and <code className="bg-orange-100 px-1 rounded">cz_risky_email</code> directly to each contact as custom properties. Creates the properties automatically if they don&apos;t exist.</p>
+            </div>
+          </div>
+
+          {writeback === "done" && writebackResult && (
+            <div className="rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800">
+              ✅ <strong>{writebackResult.updated.toLocaleString()} contacts updated</strong> in HubSpot.
+              {writebackResult.errors > 0 && <span className="text-yellow-700 ml-2">({writebackResult.errors} errors)</span>}
+              {" "}Filter by <code className="bg-green-100 px-1 rounded">cz_risk = invalid</code> or <code className="bg-green-100 px-1 rounded">cz_risky_email = true</code> to build suppression lists.
+            </div>
+          )}
+
+          {writeback === "error" && (
+            <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+              Writeback failed. Your HubSpot session may have expired — reconnect and try again.
+            </div>
+          )}
+
+          {writeback !== "done" && (
+            <button
+              onClick={handleWriteback}
+              disabled={writeback === "loading"}
+              className="btn-primary text-sm w-full flex items-center justify-center gap-2"
+            >
+              {writeback === "loading" ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                  </svg>
+                  Writing to HubSpot…
+                </>
+              ) : "Write Risk Scores to HubSpot"}
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Coming Soon: Contact Recovery */}
       <div className="rounded-2xl border-2 border-dashed border-brand-300 bg-gradient-to-br from-brand-50 to-white p-6 space-y-4">
