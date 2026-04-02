@@ -251,10 +251,51 @@ export default function Home() {
       </header>
 
       <div className="max-w-screen-xl mx-auto px-6 py-8 flex gap-6">
-        {/* Sidebar: ROI inputs */}
+        {/* Sidebar */}
         <aside className="w-64 flex-shrink-0 hidden lg:block">
-          <div className="card sticky top-24">
-            <ROIPanel values={roi} onChange={setRoi} roi={roiResult ?? undefined} />
+          <div className="sticky top-24 space-y-4">
+            {roiResult ? (
+              <>
+                {/* Post-scan: big number + actions */}
+                <div className="rounded-xl p-5 text-white space-y-4" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-1">GTM Waste Detected</p>
+                    <p className="text-4xl font-extrabold">${Math.round(roiResult.total_annual_impact).toLocaleString()}</p>
+                    <p className="text-brand-200 text-xs mt-1">estimated annual impact</p>
+                  </div>
+                  <div className="border-t border-white/20 pt-4 space-y-2.5">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-brand-200">Rep time waste</span>
+                      <span className="font-semibold">${Math.round(roiResult.rep_productivity_loss).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-brand-200">Data vendor waste</span>
+                      <span className="font-semibold">${Math.round(roiResult.estimated_data_waste).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-brand-200">Wasted emails / yr</span>
+                      <span className="font-semibold">{roiResult.wasted_emails.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Actions */}
+                <div className="card space-y-2">
+                  <button onClick={handleCopyLink} className="btn-primary w-full flex items-center justify-center gap-2 text-sm py-2.5">
+                    {copied ? "✅ Link Copied!" : "🔗 Share Report"}
+                  </button>
+                  <button onClick={handleSave} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
+                    {saved ? "✅ Saved" : "💾 Save Scan"}
+                  </button>
+                  <button onClick={handleReset} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
+                    ↩ New Scan
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="card">
+                <ROIPanel values={roi} onChange={setRoi} />
+              </div>
+            )}
           </div>
         </aside>
 
@@ -323,25 +364,16 @@ export default function Home() {
             </div>
           )}
 
-          {/* Share / Save / Reset */}
+          {/* Share / Save / Reset — mobile only (sidebar handles desktop) */}
           {scanResult && roiResult && (
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={handleCopyLink}
-                className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm py-2.5"
-              >
+            <div className="flex flex-col sm:flex-row gap-3 lg:hidden">
+              <button onClick={handleCopyLink} className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
                 {copied ? "✅ Link Copied!" : "🔗 Copy Shareable Report Link"}
               </button>
-              <button
-                onClick={handleSave}
-                className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5"
-              >
+              <button onClick={handleSave} className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
                 {saved ? "✅ Scan Saved" : "💾 Save Scan"}
               </button>
-              <button
-                onClick={handleReset}
-                className="btn-secondary flex items-center justify-center gap-2 text-sm py-2.5 px-5"
-              >
+              <button onClick={handleReset} className="btn-secondary flex items-center justify-center gap-2 text-sm py-2.5 px-5">
                 ↩ New Scan
               </button>
             </div>
