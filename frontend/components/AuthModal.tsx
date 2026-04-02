@@ -40,7 +40,7 @@ export default function AuthModal({ onClose }: Props) {
           <div className="bg-brand-50 border border-brand-200 rounded-xl px-5 py-4 text-center space-y-2">
             <p className="text-2xl">📬</p>
             <p className="font-semibold text-brand-900">Check your email</p>
-            <p className="text-sm text-gray-500">We sent a magic link to <strong>{email}</strong>. Click it to sign in — no password needed.</p>
+            <p className="text-sm text-gray-500">We sent a sign-in link to <strong>{email}</strong>. Click it to save your scan — no password needed.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,9 +57,9 @@ export default function AuthModal({ onClose }: Props) {
             </div>
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button type="submit" disabled={loading} className="btn-primary w-full py-3 text-sm">
-              {loading ? "Sending…" : "Send Magic Link →"}
+              {loading ? "Sending…" : "Email me a sign-in link →"}
             </button>
-            <p className="text-xs text-gray-400 text-center">No password. Just click the link we email you.</p>
+            <p className="text-xs text-gray-400 text-center">No password required. Click the link we send you.</p>
           </form>
         )}
       </div>

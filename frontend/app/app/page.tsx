@@ -281,8 +281,9 @@ export default function Home() {
                 {/* Actions */}
                 <div className="card space-y-2">
                   <button onClick={handleCopyLink} className="btn-primary w-full flex items-center justify-center gap-2 text-sm py-2.5">
-                    {copied ? "✅ Link Copied!" : "🔗 Share Report"}
+                    {copied ? "✅ Copied — paste it anywhere" : "🔗 Share Report"}
                   </button>
+                  {!copied && <p className="text-xs text-gray-400 text-center">Copies a link — send it via email or Slack</p>}
                   <button onClick={handleSave} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
                     {saved ? "✅ Saved" : "💾 Save Scan"}
                   </button>
@@ -373,7 +374,7 @@ export default function Home() {
           {scanResult && roiResult && (
             <div className="flex flex-col sm:flex-row gap-3 lg:hidden">
               <button onClick={handleCopyLink} className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
-                {copied ? "✅ Link Copied!" : "🔗 Copy Shareable Report Link"}
+                {copied ? "✅ Copied — paste it anywhere" : "🔗 Share Report"}
               </button>
               <button onClick={handleSave} className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
                 {saved ? "✅ Scan Saved" : "💾 Save Scan"}
