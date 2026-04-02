@@ -254,7 +254,7 @@ export default function Home() {
         {/* Sidebar: ROI inputs */}
         <aside className="w-64 flex-shrink-0 hidden lg:block">
           <div className="card sticky top-24">
-            <ROIPanel values={roi} onChange={setRoi} />
+            <ROIPanel values={roi} onChange={setRoi} roi={roiResult ?? undefined} />
           </div>
         </aside>
 
@@ -382,7 +382,7 @@ export default function Home() {
                   <div className="w-1 h-6 rounded-full bg-brand-600" />
                   <h2 className="font-bold text-brand-900 text-lg">Fix &amp; Export</h2>
                 </div>
-                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} hubspotToken={hubspotToken} />
+                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} hubspotToken={hubspotToken} annualDataCost={roi.annual_data_cost} numberOfReps={roi.number_of_reps} />
               </div>
             </>
           )}

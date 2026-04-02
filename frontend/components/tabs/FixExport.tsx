@@ -11,9 +11,16 @@ interface Props {
   emailCol: string;
   phoneCol: string | null;
   hubspotToken?: string | null;
+  annualDataCost?: number;
+  numberOfReps?: number;
 }
 
-export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken }: Props) {
+const CREDITS_PER_REP_PER_MONTH = 1000;
+
+export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken, annualDataCost = 0, numberOfReps = 0 }: Props) {
+  const totalAnnualCredits = numberOfReps > 0 ? numberOfReps * CREDITS_PER_REP_PER_MONTH * 12 : 0;
+  const costPerCredit = totalAnnualCredits > 0 ? annualDataCost / totalAnnualCredits : 0;
+  const wastedCreditValue = Math.round(scan.bad_zoominfo_contacts * costPerCredit);
   const [fixes, setFixes] = useState<Record<string, boolean>>({
     suppress_invalid_email: true,
     tag_risky_email: false,
@@ -22,6 +29,28 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     flag_enrichment: false,
   });
   const [loading, setLoading] = useState<"clean" | "suppression" | null>(null);
+
+  const downloadZoomInfoClaim = () => {
+    const rows = scan.zoominfo_flagged_sample;
+    if (!rows.length) return;
+    const headers = Object.keys(rows[0]);
+    const csv = [
+      headers.join(","),
+      ...rows.map(row =>
+        headers.map(h => {
+          const val = String(row[h] ?? "");
+          return val.includes(",") ? `"${val}"` : val;
+        }).join(",")
+      ),
+    ].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "contactzen_zoominfo_credit_claim.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
   const [writeback, setWriteback] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [writebackResult, setWritebackResult] = useState<{ updated: number; errors: number; total: number } | null>(null);
 
@@ -116,6 +145,46 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
           {loading === "suppression" ? "Generating…" : "⬇ Download Suppression List"}
         </button>
       </div>
+
+      {/* ZoomInfo Credit Claim */}
+      {scan.zoominfo_flagged_sample.length > 0 && (
+        <div className="rounded-xl border border-red-200 bg-red-50 p-5 space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5">ZI</div>
+            <div>
+              <p className="font-semibold text-gray-900 text-sm">ZoomInfo Credit Claim</p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {fmtNum(scan.bad_zoominfo_contacts)} ZoomInfo-sourced contacts are invalid or unreachable.
+                Enterprise ZoomInfo contracts typically include credit SLAs for provably bad data — most teams never claim them because they can&apos;t document it. This file is your proof.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-lg bg-white border border-red-100 px-4 py-3 text-sm text-gray-700 space-y-2">
+            {costPerCredit > 0 ? (
+              <>
+                <p className="font-medium text-red-800">
+                  Estimated credit claim: ~${wastedCreditValue.toLocaleString()}
+                </p>
+                <div className="text-xs text-gray-500 space-y-1">
+                  <p>{fmtNum(scan.bad_zoominfo_contacts)} bad contacts × ${costPerCredit.toFixed(2)}/credit = <strong>${wastedCreditValue.toLocaleString()}</strong> in provably wasted credits</p>
+                  <p className="text-gray-400">Based on {numberOfReps} reps × {CREDITS_PER_REP_PER_MONTH.toLocaleString()} credits/month = ${(annualDataCost / totalAnnualCredits * 100).toFixed(1)}¢ per credit</p>
+                </div>
+              </>
+            ) : annualDataCost > 0 ? (
+              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set number of reps in the ROI panel to calculate exact credit value.</p>
+            ) : (
+              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set your annual data cost and rep count in the ROI panel to estimate credit value.</p>
+            )}
+            <p className="text-xs text-gray-400">Bring this file to your next ZoomInfo renewal or account review conversation.</p>
+          </div>
+          <button
+            onClick={downloadZoomInfoClaim}
+            className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
+          >
+            ⬇ Download ZoomInfo Credit Claim CSV
+          </button>
+        </div>
+      )}
 
       {/* HubSpot Writeback */}
       {hubspotToken && (

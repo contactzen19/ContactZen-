@@ -178,7 +178,7 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "https://contactzen.io")
 @app.get("/auth/hubspot")
 def hubspot_auth():
     """Redirect user to HubSpot OAuth consent screen."""
-    scopes = "crm.objects.contacts.read crm.objects.contacts.write"
+    scopes = "crm.objects.contacts.read"
     url = (
         f"https://app.hubspot.com/oauth/authorize"
         f"?client_id={HUBSPOT_CLIENT_ID}"

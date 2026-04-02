@@ -221,9 +221,10 @@ def apply_fixes(
     """Returns (clean_df, removed_df). Data is never persisted."""
     clean = df.copy()
 
-    if "suppress_risky_email" in fixes:
-        clean = clean[~clean["cz_risk"].isin(["invalid", "risky"])]
-    elif "suppress_invalid_email" in fixes:
+    if "tag_risky_email" in fixes:
+        clean["cz_risky_email"] = clean["cz_risk"] == "risky"
+
+    if "suppress_invalid_email" in fixes:
         clean = clean[clean["cz_risk"] != "invalid"]
 
     if "suppress_invalid_phone" in fixes and "cz_phone_risk" in clean.columns:

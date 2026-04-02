@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
-import { ROIInputs } from "@/lib/types";
+import { ROIInputs, ROIResult } from "@/lib/types";
 
 interface Props {
   values: ROIInputs;
   onChange: (vals: ROIInputs) => void;
+  roi?: ROIResult;
 }
+
+const fmtDollar = (x: number) => `$${Math.round(x).toLocaleString()}`;
 
 const TOOLTIPS: Record<string, string> = {
   rep_hourly_cost: "Average fully-loaded cost per rep per hour including salary, benefits, and overhead.",
@@ -72,11 +75,32 @@ function Field({ label, tooltipKey, value, onChange, min, max, step, prefix }: {
   );
 }
 
-export default function ROIPanel({ values, onChange }: Props) {
+export default function ROIPanel({ values, onChange, roi }: Props) {
   const set = (key: keyof ROIInputs) => (v: number) => onChange({ ...values, [key]: v });
 
   return (
     <div className="space-y-5">
+      {roi && (
+        <div className="rounded-xl p-4 text-white space-y-3" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-300">GTM Waste Detected</p>
+          <p className="text-3xl font-extrabold">{fmtDollar(roi.total_annual_impact)}</p>
+          <p className="text-brand-200 text-xs">estimated annual impact</p>
+          <div className="border-t border-white/20 pt-3 space-y-2">
+            <div className="flex justify-between text-xs">
+              <span className="text-brand-200">Rep time waste</span>
+              <span className="font-semibold">{fmtDollar(roi.rep_productivity_loss)}</span>
+            </div>
+            <div className="flex justify-between text-xs">
+              <span className="text-brand-200">Data vendor waste</span>
+              <span className="font-semibold">{fmtDollar(roi.estimated_data_waste)}</span>
+            </div>
+            <div className="flex justify-between text-xs">
+              <span className="text-brand-200">Wasted emails / yr</span>
+              <span className="font-semibold">{roi.wasted_emails.toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+      )}
       <div>
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">ROI Assumptions</p>
         <div className="space-y-3">
