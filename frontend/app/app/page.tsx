@@ -254,7 +254,7 @@ export default function Home() {
         {/* Sidebar */}
         <aside className="w-64 flex-shrink-0 hidden lg:block">
           <div className="sticky top-24 space-y-4">
-            {roiResult ? (
+            {scanResult && roiResult ? (
               <>
                 {/* Post-scan: big number + actions */}
                 <div className="rounded-xl p-5 text-white space-y-4" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
@@ -301,67 +301,72 @@ export default function Home() {
 
         {/* Main */}
         <main className="flex-1 min-w-0 space-y-6">
-          <p className="text-sm text-gray-500">
-            Upload a CRM export to scan for bad data, quantify business impact, and surface what to do next.
-          </p>
-
-          {/* Step 1 */}
-          <div className="card space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
-              <h2 className="font-semibold text-brand-900">Upload Contacts CSV</h2>
-            </div>
-            <UploadZone onFile={handleFile} loading={scanning} />
-            {file && totalRows != null && (
-              <p className="text-sm text-gray-600">
-                ✅ <strong>{file.name}</strong> — {totalRows.toLocaleString()} contacts · {columns.length} columns
+          {/* Pre-scan: upload + column mapping + run */}
+          {!scanResult && (
+            <>
+              <p className="text-sm text-gray-500">
+                Upload a CRM export to scan for bad data, quantify business impact, and surface what to do next.
               </p>
-            )}
-          </div>
 
-          {/* Step 2 */}
-          {columns.length > 0 && (
-            <div className="card space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
-                <h2 className="font-semibold text-brand-900">Map Columns</h2>
+              {/* Step 1 */}
+              <div className="card space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+                  <h2 className="font-semibold text-brand-900">Upload Contacts CSV</h2>
+                </div>
+                <UploadZone onFile={handleFile} loading={scanning} />
+                {file && totalRows != null && (
+                  <p className="text-sm text-gray-600">
+                    ✅ <strong>{file.name}</strong> — {totalRows.toLocaleString()} contacts · {columns.length} columns
+                  </p>
+                )}
               </div>
-              <ColumnSelector
-                columns={columns}
-                emailCol={emailCol}
-                sourceCol={sourceCol}
-                phoneCol={phoneCol}
-                onChange={(key, val) => {
-                  if (key === "emailCol") setEmailCol(val);
-                  if (key === "sourceCol") setSourceCol(val);
-                  if (key === "phoneCol") setPhoneCol(val);
-                }}
-              />
-            </div>
-          )}
 
-          {/* Step 3 */}
-          {columns.length > 0 && (
-            <div className="card">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
-                <h2 className="font-semibold text-brand-900">Run Scan</h2>
-              </div>
-              <button onClick={handleScan} disabled={scanning || !emailCol} className="btn-primary w-full text-base py-3">
-                {scanning ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                    </svg>
-                    Scanning contacts…
-                  </span>
-                ) : "Run ContactZen Scan"}
-              </button>
-              {error && (
-                <div className="mt-3 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">{error}</div>
+              {/* Step 2 */}
+              {columns.length > 0 && (
+                <div className="card space-y-4">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+                    <h2 className="font-semibold text-brand-900">Map Columns</h2>
+                  </div>
+                  <ColumnSelector
+                    columns={columns}
+                    emailCol={emailCol}
+                    sourceCol={sourceCol}
+                    phoneCol={phoneCol}
+                    onChange={(key, val) => {
+                      if (key === "emailCol") setEmailCol(val);
+                      if (key === "sourceCol") setSourceCol(val);
+                      if (key === "phoneCol") setPhoneCol(val);
+                    }}
+                  />
+                </div>
               )}
-            </div>
+
+              {/* Step 3 */}
+              {columns.length > 0 && (
+                <div className="card">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
+                    <h2 className="font-semibold text-brand-900">Run Scan</h2>
+                  </div>
+                  <button onClick={handleScan} disabled={scanning || !emailCol} className="btn-primary w-full text-base py-3">
+                    {scanning ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                        </svg>
+                        Scanning contacts…
+                      </span>
+                    ) : "Run ContactZen Scan"}
+                  </button>
+                  {error && (
+                    <div className="mt-3 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">{error}</div>
+                  )}
+                </div>
+              )}
+            </>
           )}
 
           {/* Share / Save / Reset — mobile only (sidebar handles desktop) */}
@@ -383,7 +388,7 @@ export default function Home() {
           {scanResult && <LeadCapture />}
 
           {/* Results — vertical sections */}
-          {scanResult && roiResult && file && (
+          {scanResult && roiResult && (
             <>
               <div className="card">
                 <div className="flex items-center gap-2 mb-6">

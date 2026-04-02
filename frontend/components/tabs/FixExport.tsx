@@ -7,7 +7,7 @@ const fmtNum = (x: number) => x.toLocaleString();
 
 interface Props {
   scan: ScanResult;
-  file: File;
+  file: File | null;
   emailCol: string;
   phoneCol: string | null;
   hubspotToken?: string | null;
@@ -70,6 +70,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
   const activeFixes = Object.entries(fixes).filter(([, v]) => v).map(([k]) => k);
 
   const download = async (type: "clean" | "suppression") => {
+    if (!file) return;
     setLoading(type);
     try {
       const blob = await downloadFixed(file, emailCol, phoneCol, activeFixes, type);
@@ -129,22 +130,28 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
         ))}
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3">
-        <button
-          onClick={() => download("clean")}
-          disabled={!!loading}
-          className="btn-primary flex-1 flex items-center justify-center gap-2"
-        >
-          {loading === "clean" ? "Generating…" : "⬇ Download Clean Contact List"}
-        </button>
-        <button
-          onClick={() => download("suppression")}
-          disabled={!!loading}
-          className="btn-secondary flex-1 flex items-center justify-center gap-2"
-        >
-          {loading === "suppression" ? "Generating…" : "⬇ Download Suppression List"}
-        </button>
-      </div>
+      {file ? (
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => download("clean")}
+            disabled={!!loading}
+            className="btn-primary flex-1 flex items-center justify-center gap-2"
+          >
+            {loading === "clean" ? "Generating…" : "⬇ Download Clean Contact List"}
+          </button>
+          <button
+            onClick={() => download("suppression")}
+            disabled={!!loading}
+            className="btn-secondary flex-1 flex items-center justify-center gap-2"
+          >
+            {loading === "suppression" ? "Generating…" : "⬇ Download Suppression List"}
+          </button>
+        </div>
+      ) : (
+        <div className="rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-gray-500 text-center">
+          CSV export is available when scanning from a file upload. For HubSpot scans, use the writeback below to push fixes directly to your CRM.
+        </div>
+      )}
 
       {/* ZoomInfo Credit Claim */}
       {scan.zoominfo_flagged_sample.length > 0 && (
