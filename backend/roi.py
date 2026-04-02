@@ -16,7 +16,7 @@ class ROIInputs:
 
 def calc_roi(inputs: ROIInputs) -> dict:
     annual_cleanup_hours = inputs.number_of_reps * inputs.cleanup_hours_per_rep_per_month * 12
-    rep_productivity_loss = annual_cleanup_hours * inputs.rep_hourly_cost
+    rep_productivity_loss = annual_cleanup_hours * inputs.rep_hourly_cost * inputs.risky_new_contact_rate
     annual_emails_sent = inputs.number_of_reps * inputs.emails_per_rep_per_week * 52
     wasted_emails = int(round(annual_emails_sent * inputs.invalid_email_rate))
     estimated_data_waste = (
