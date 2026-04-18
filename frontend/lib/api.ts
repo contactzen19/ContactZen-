@@ -62,6 +62,68 @@ export async function writebackToHubSpot(accessToken: string): Promise<{ updated
   return res.json();
 }
 
+export interface ScoreResult {
+  total_contacts: number;
+  contacts_with_signals: number;
+  engagements_processed: number;
+  errors: number;
+  tiers: { hot: number; warm: number; cold: number; dead: number };
+  scored_at: string;
+}
+
+export interface TaskResult {
+  hot_contacts: number;
+  tasks_created: number;
+  errors: number;
+}
+
+export async function scoreHubSpotContacts(accessToken: string): Promise<ScoreResult> {
+  const form = new FormData();
+  form.append("access_token", accessToken);
+  const res = await fetch(`${API_URL}/api/hubspot/score`, { method: "POST", body: form });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+export async function createHotTasks(accessToken: string): Promise<TaskResult> {
+  const form = new FormData();
+  form.append("access_token", accessToken);
+  const res = await fetch(`${API_URL}/api/hubspot/create-tasks`, { method: "POST", body: form });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+export type DispositionValue =
+  | "active"
+  | "not_a_buyer"
+  | "bad_timing"
+  | "no_budget"
+  | "unresponsive"
+  | "do_not_contact";
+
+export const DISPOSITION_LABELS: Record<DispositionValue, string> = {
+  active:         "Active",
+  not_a_buyer:    "Not a Buyer",
+  bad_timing:     "Bad Timing",
+  no_budget:      "No Budget",
+  unresponsive:   "Unresponsive",
+  do_not_contact: "Do Not Contact",
+};
+
+export async function setDisposition(
+  accessToken: string,
+  contactId: string,
+  disposition: DispositionValue,
+): Promise<{ contact_id: string; disposition: string; updated: boolean }> {
+  const form = new FormData();
+  form.append("access_token", accessToken);
+  form.append("contact_id", contactId);
+  form.append("disposition", disposition);
+  const res = await fetch(`${API_URL}/api/hubspot/set-disposition`, { method: "POST", body: form });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
 export async function downloadFixed(
   file: File,
   emailCol: string,

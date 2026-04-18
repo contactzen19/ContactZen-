@@ -1,16 +1,18 @@
 import io
 import math
 import os
+from datetime import datetime, timezone
 from typing import Any, Optional
 
 import pandas as pd
 import requests as http
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 
 from analysis import apply_fixes, compute_scan, normalize_columns, guess_email_col, guess_source_col, guess_phone_col
 from roi import ROIInputs, calc_roi
+from signal_scoring import parse_hubspot_engagement, score_contact
 
 
 def sanitize(obj: Any) -> Any:
@@ -178,7 +180,13 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "https://contactzen.io")
 @app.get("/auth/hubspot")
 def hubspot_auth():
     """Redirect user to HubSpot OAuth consent screen."""
-    scopes = "crm.objects.contacts.read"
+    scopes = (
+        "crm.objects.contacts.read "
+        "crm.objects.contacts.write "
+        "crm.objects.engagements.read "
+        "crm.objects.tasks.write "
+        "crm.schemas.contacts.write"
+    )
     url = (
         f"https://app.hubspot.com/oauth/authorize"
         f"?client_id={HUBSPOT_CLIENT_ID}"
@@ -335,3 +343,355 @@ async def scan_hubspot(
     roi = calc_roi(roi_inputs)
 
     return sanitize({"scan": scan_results, "roi": roi})
+
+
+# ── Signal Scoring Engine ──────────────────────────────────────────────────────
+
+MAX_ENGAGEMENTS = 50_000  # cap for portal-wide fetch (~6 months for active orgs)
+
+
+def _hs_headers(token: str) -> dict:
+    return {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+
+def _ensure_cz_properties(token: str) -> None:
+    """
+    Create ContactZen custom contact properties in HubSpot if they don't exist.
+    Silently ignores 409 (already exists) responses.
+    """
+    props = [
+        {
+            "name": "cz_score",
+            "label": "ContactZen Score",
+            "type": "number",
+            "fieldType": "number",
+            "groupName": "contactinformation",
+            "description": "ContactZen behavioral engagement score (0-200). Higher = more buying signals.",
+        },
+        {
+            "name": "cz_score_tier",
+            "label": "ContactZen Score Tier",
+            "type": "enumeration",
+            "fieldType": "select",
+            "groupName": "contactinformation",
+            "description": "ContactZen prospect tier: hot, warm, cold, or dead.",
+            "options": [
+                {"label": "Hot",  "value": "hot",  "displayOrder": 0, "hidden": False},
+                {"label": "Warm", "value": "warm", "displayOrder": 1, "hidden": False},
+                {"label": "Cold", "value": "cold", "displayOrder": 2, "hidden": False},
+                {"label": "Dead", "value": "dead", "displayOrder": 3, "hidden": False},
+            ],
+        },
+        {
+            "name": "cz_signal_summary",
+            "label": "ContactZen Signal Summary",
+            "type": "string",
+            "fieldType": "text",
+            "groupName": "contactinformation",
+            "description": "Recent engagement signals detected by ContactZen.",
+        },
+        {
+            "name": "cz_last_scored",
+            "label": "ContactZen Last Scored",
+            "type": "datetime",
+            "fieldType": "date",
+            "groupName": "contactinformation",
+            "description": "Timestamp of the most recent ContactZen scoring run.",
+        },
+        {
+            "name": "cz_disposition",
+            "label": "ContactZen Disposition",
+            "type": "enumeration",
+            "fieldType": "select",
+            "groupName": "contactinformation",
+            "description": "Rep-assigned contact disposition. Set via ContactZen CRM card. Survives scoring reruns.",
+            "options": [
+                {"label": "Active",           "value": "active",           "displayOrder": 0, "hidden": False},
+                {"label": "Not a Buyer",      "value": "not_a_buyer",      "displayOrder": 1, "hidden": False},
+                {"label": "Bad Timing",       "value": "bad_timing",       "displayOrder": 2, "hidden": False},
+                {"label": "No Budget",        "value": "no_budget",        "displayOrder": 3, "hidden": False},
+                {"label": "Unresponsive",     "value": "unresponsive",     "displayOrder": 4, "hidden": False},
+                {"label": "Do Not Contact",   "value": "do_not_contact",   "displayOrder": 5, "hidden": False},
+            ],
+        },
+    ]
+    headers = _hs_headers(token)
+    for prop in props:
+        http.post(
+            "https://api.hubapi.com/crm/v3/properties/contacts",
+            headers=headers,
+            json=prop,
+            timeout=15,
+        )
+        # 409 = already exists — intentionally not raising on this
+
+
+@app.post("/api/hubspot/score")
+async def score_hubspot_contacts(access_token: str = Form(...)):
+    """
+    Full scoring run against a connected HubSpot portal:
+    1. Fetch engagement history portal-wide (capped at MAX_ENGAGEMENTS)
+    2. Group signals by contact ID
+    3. Score each contact with time-decay weighting
+    4. Ensure cz_ custom properties exist in HubSpot
+    5. Write scores back in batches of 100
+    """
+    headers = _hs_headers(access_token)
+    now = datetime.now(timezone.utc)
+
+    # Step 1: Fetch engagements portal-wide ────────────────────────────────────
+    signals_by_contact: dict[str, list] = {}
+    total_fetched = 0
+    offset = 0
+    has_more = True
+
+    while has_more and total_fetched < MAX_ENGAGEMENTS:
+        r = http.get(
+            "https://api.hubapi.com/engagements/v1/engagements/paged",
+            headers=headers,
+            params={"limit": 250, "offset": offset},
+            timeout=60,
+        )
+        if not r.ok:
+            break
+
+        data = r.json()
+        results = data.get("results", [])
+
+        for eng in results:
+            event = parse_hubspot_engagement(eng)
+            if not event:
+                continue
+            for cid in eng.get("associations", {}).get("contactIds", []):
+                signals_by_contact.setdefault(str(cid), []).append(event)
+
+        total_fetched += len(results)
+        has_more = data.get("hasMore", False)
+        offset = data.get("offset", offset + 250)
+
+    # Step 2: Fetch all contacts ───────────────────────────────────────────────
+    contacts = []
+    after = None
+
+    while True:
+        params: dict = {
+            "limit": 100,
+            "properties": "email,hubspot_owner_id,firstname,lastname",
+        }
+        if after:
+            params["after"] = after
+
+        r = http.get(
+            "https://api.hubapi.com/crm/v3/objects/contacts",
+            headers=headers,
+            params=params,
+            timeout=30,
+        )
+        if not r.ok:
+            raise HTTPException(status_code=400, detail="Failed to fetch HubSpot contacts")
+
+        data = r.json()
+        contacts.extend(data.get("results", []))
+
+        if "next" not in data.get("paging", {}):
+            break
+        after = data["paging"]["next"]["after"]
+
+    # Step 3: Score each contact ───────────────────────────────────────────────
+    tier_counts: dict[str, int] = {"hot": 0, "warm": 0, "cold": 0, "dead": 0}
+    updates = []
+    scored_at_iso = now.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+    for c in contacts:
+        cid = c["id"]
+        events = signals_by_contact.get(cid, [])
+        result = score_contact(events, now=now)
+        tier = result["tier"]
+        tier_counts[tier] = tier_counts.get(tier, 0) + 1
+
+        updates.append({
+            "id": cid,
+            "properties": {
+                "cz_score": str(result["score"]),
+                "cz_score_tier": tier,
+                "cz_signal_summary": result["signal_summary"],
+                "cz_last_scored": scored_at_iso,
+            },
+        })
+
+    # Step 4: Ensure custom properties exist ───────────────────────────────────
+    _ensure_cz_properties(access_token)
+
+    # Step 5: Batch write back ─────────────────────────────────────────────────
+    errors = 0
+    for i in range(0, len(updates), 100):
+        batch = updates[i : i + 100]
+        r = http.post(
+            "https://api.hubapi.com/crm/v3/objects/contacts/batch/update",
+            headers=headers,
+            json={"inputs": batch},
+            timeout=60,
+        )
+        if not r.ok:
+            errors += len(batch)
+
+    return {
+        "total_contacts": len(contacts),
+        "contacts_with_signals": len(signals_by_contact),
+        "engagements_processed": total_fetched,
+        "errors": errors,
+        "tiers": tier_counts,
+        "scored_at": scored_at_iso,
+    }
+
+
+@app.get("/api/hubspot/story")
+async def get_contact_story(
+    contact_id: str = Query(...),
+    access_token: str = Query(...),
+):
+    """
+    Return the score + story for a single contact by ID.
+    Used by the Chrome extension to render the contact story panel inline.
+    """
+    headers = _hs_headers(access_token)
+
+    r = http.get(
+        f"https://api.hubapi.com/engagements/v1/engagements/associated/CONTACT/{contact_id}/paged",
+        headers=headers,
+        params={"limit": 100},
+        timeout=30,
+    )
+    if not r.ok:
+        raise HTTPException(status_code=400, detail="Failed to fetch contact engagements")
+
+    events = []
+    for eng in r.json().get("results", []):
+        event = parse_hubspot_engagement(eng)
+        if event:
+            events.append(event)
+
+    return score_contact(events)
+
+
+@app.post("/api/hubspot/create-tasks")
+async def create_tasks_for_hot_contacts(access_token: str = Form(...)):
+    """
+    Query all Hot contacts (cz_score_tier = 'hot') and create a HubSpot call
+    task on their owner. Task subject includes score + signal summary so the
+    rep knows exactly why this contact is hot before picking up the phone.
+    """
+    headers = _hs_headers(access_token)
+    now_ms = str(int(datetime.now(timezone.utc).timestamp() * 1000))
+
+    r = http.post(
+        "https://api.hubapi.com/crm/v3/objects/contacts/search",
+        headers=headers,
+        json={
+            "filterGroups": [{
+                "filters": [{
+                    "propertyName": "cz_score_tier",
+                    "operator": "EQ",
+                    "value": "hot",
+                }]
+            }],
+            "properties": [
+                "email", "firstname", "lastname",
+                "cz_score", "cz_signal_summary", "hubspot_owner_id",
+            ],
+            "limit": 100,
+        },
+        timeout=30,
+    )
+    if not r.ok:
+        raise HTTPException(status_code=400, detail="Failed to search hot contacts")
+
+    hot_contacts = r.json().get("results", [])
+    tasks_created = 0
+    errors = 0
+
+    for c in hot_contacts:
+        props = c.get("properties", {})
+        first = props.get("firstname") or ""
+        last = props.get("lastname") or ""
+        name = f"{first} {last}".strip() or props.get("email") or "Contact"
+        score = props.get("cz_score") or "?"
+        summary = props.get("cz_signal_summary") or "Recent engagement detected"
+        owner_id = props.get("hubspot_owner_id")
+
+        task_props: dict = {
+            "hs_task_subject": f"\U0001f525 Call {name} \u2014 Score {score}",
+            "hs_task_body": summary,
+            "hs_task_status": "NOT_STARTED",
+            "hs_task_type": "CALL",
+            "hs_timestamp": now_ms,
+        }
+        if owner_id:
+            task_props["hubspot_owner_id"] = owner_id
+
+        task_r = http.post(
+            "https://api.hubapi.com/crm/v3/objects/tasks",
+            headers=headers,
+            json={"properties": task_props},
+            timeout=20,
+        )
+
+        if not task_r.ok:
+            errors += 1
+            continue
+
+        task_id = task_r.json().get("id")
+        if task_id:
+            http.put(
+                f"https://api.hubapi.com/crm/v3/objects/tasks/{task_id}"
+                f"/associations/contacts/{c['id']}/task_to_contact",
+                headers=headers,
+                timeout=15,
+            )
+        tasks_created += 1
+
+    return {
+        "hot_contacts": len(hot_contacts),
+        "tasks_created": tasks_created,
+        "errors": errors,
+    }
+
+
+VALID_DISPOSITIONS = {
+    "active", "not_a_buyer", "bad_timing", "no_budget", "unresponsive", "do_not_contact"
+}
+
+
+@app.post("/api/hubspot/set-disposition")
+async def set_disposition(
+    contact_id: str = Form(...),
+    disposition: str = Form(...),
+    access_token: str = Form(...),
+):
+    """
+    Write a rep-assigned disposition to a single contact's cz_disposition property.
+    Called from the ContactZen CRM card action buttons and ScorePanel UI.
+    Disposition survives scoring reruns — scoring never overwrites this field.
+    """
+    if disposition not in VALID_DISPOSITIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid disposition '{disposition}'. Must be one of: {', '.join(sorted(VALID_DISPOSITIONS))}",
+        )
+
+    _ensure_cz_properties(access_token)
+
+    r = http.patch(
+        f"https://api.hubapi.com/crm/v3/objects/contacts/{contact_id}",
+        headers=_hs_headers(access_token),
+        json={"properties": {"cz_disposition": disposition}},
+        timeout=15,
+    )
+
+    if not r.ok:
+        raise HTTPException(
+            status_code=r.status_code,
+            detail=f"HubSpot write failed: {r.text[:200]}",
+        )
+
+    return {"contact_id": contact_id, "disposition": disposition, "updated": True}
