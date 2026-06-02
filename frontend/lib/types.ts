@@ -34,11 +34,40 @@ export interface ROIResult {
   total_annual_impact: number;
 }
 
+// Methodology-correct audit ROI. Returned alongside ROIResult during migration.
+// Shape matches backend/roi.py AuditROIResult dataclass. Source: METHODOLOGY.md.
+export interface LeverResult {
+  label: string;
+  formula: string;
+  value: number;
+  inputs_used: Record<string, number>;
+  is_estimate: boolean;
+}
+
+export interface AuditROIResult {
+  wasted_rep_capacity: LeverResult;     // Lever 1 — headline
+  recoverable_pipeline: LeverResult;    // Lever 2 — choice framing, NOT summed with L1
+  wasted_data_spend: LeverResult;       // Lever 3 — footnote
+  headline_total_annual: number;        // L1 + L3 only
+  deliverability_at_risk: boolean;
+  deliverability_target_bounce_rate: number;
+  deliverability_blacklist_threshold: number;
+  estimated_fields: string[];
+}
+
 export interface SourceRow {
   source: string;
   invalid?: number;
   risky?: number;
   valid?: number;
+  // Extended (sent when /api/scan computes a source breakdown). Older
+  // encoded reports may omit these — render code must treat them as optional.
+  total?: number;
+  count_invalid?: number;
+  count_risky?: number;
+  count_valid?: number;
+  count_bad?: number;
+  unreachable_rate?: number;
 }
 
 export interface ColumnsResponse {
@@ -54,5 +83,12 @@ export interface ROIInputs {
   cleanup_hours_per_rep_per_month: number;
   rep_hourly_cost: number;
   annual_data_cost: number;
-  confidence_factor: number;
+  // Reachability-audit fact-finder. Each field is optional from the user's
+  // perspective — left at default, backend flags it under `estimated_fields`.
+  loaded_ote: number;
+  selling_time_pct: number;
+  list_coverage_pct: number;
+  reply_rate: number;
+  mtg_to_deal_pct: number;
+  avg_contract_value: number;
 }

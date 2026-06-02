@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 
 from analysis import apply_fixes, compute_scan, normalize_columns, guess_email_col, guess_source_col, guess_phone_col
-from roi import ROIInputs, calc_roi
+from roi import ROIInputs, calc_roi, audit_roi_from_legacy
 from signal_scoring import parse_hubspot_engagement, score_contact
 
 
@@ -84,7 +84,14 @@ async def scan(
     cleanup_hours_per_rep_per_month: float = Form(2.0),
     rep_hourly_cost: float = Form(50.0),
     annual_data_cost: float = Form(18000.0),
-    confidence_factor: float = Form(0.5),
+    # Reachability-audit fact-finder inputs. 0 = "not confirmed" — backend
+    # falls back to methodology default and flags the field as an estimate.
+    loaded_ote: float = Form(0.0),
+    selling_time_pct: float = Form(0.0),
+    list_coverage_pct: float = Form(0.0),
+    reply_rate: float = Form(0.0),
+    mtg_to_deal_pct: float = Form(0.0),
+    avg_contract_value: float = Form(0.0),
 ):
     """
     Core scan endpoint. Processes the uploaded CSV, returns scan results and ROI.
@@ -111,11 +118,21 @@ async def scan(
         cleanup_hours_per_rep_per_month=cleanup_hours_per_rep_per_month,
         rep_hourly_cost=rep_hourly_cost,
         annual_data_cost=annual_data_cost,
-        confidence_factor=confidence_factor,
+        confidence_factor=1.0,
     )
     roi = calc_roi(roi_inputs)
+    audit_roi = audit_roi_from_legacy(
+        roi_inputs,
+        scan_results,
+        loaded_ote=loaded_ote,
+        selling_time_pct=selling_time_pct,
+        list_coverage_pct=list_coverage_pct,
+        reply_rate=reply_rate,
+        mtg_to_deal_pct=mtg_to_deal_pct,
+        avg_contract_value=avg_contract_value,
+    )
 
-    return sanitize({"scan": scan_results, "roi": roi})
+    return sanitize({"scan": scan_results, "roi": roi, "audit_roi": audit_roi})
 
 
 @app.post("/api/fix")
@@ -280,7 +297,12 @@ async def scan_hubspot(
     cleanup_hours_per_rep_per_month: float = Form(2.0),
     rep_hourly_cost: float = Form(50.0),
     annual_data_cost: float = Form(18000.0),
-    confidence_factor: float = Form(0.5),
+    loaded_ote: float = Form(0.0),
+    selling_time_pct: float = Form(0.0),
+    list_coverage_pct: float = Form(0.0),
+    reply_rate: float = Form(0.0),
+    mtg_to_deal_pct: float = Form(0.0),
+    avg_contract_value: float = Form(0.0),
 ):
     """Fetch contacts from HubSpot, run scan, return results. Token is never stored."""
     contacts = []
@@ -338,11 +360,21 @@ async def scan_hubspot(
         cleanup_hours_per_rep_per_month=cleanup_hours_per_rep_per_month,
         rep_hourly_cost=rep_hourly_cost,
         annual_data_cost=annual_data_cost,
-        confidence_factor=confidence_factor,
+        confidence_factor=1.0,
     )
     roi = calc_roi(roi_inputs)
+    audit_roi = audit_roi_from_legacy(
+        roi_inputs,
+        scan_results,
+        loaded_ote=loaded_ote,
+        selling_time_pct=selling_time_pct,
+        list_coverage_pct=list_coverage_pct,
+        reply_rate=reply_rate,
+        mtg_to_deal_pct=mtg_to_deal_pct,
+        avg_contract_value=avg_contract_value,
+    )
 
-    return sanitize({"scan": scan_results, "roi": roi})
+    return sanitize({"scan": scan_results, "roi": roi, "audit_roi": audit_roi})
 
 
 # ── Signal Scoring Engine ──────────────────────────────────────────────────────

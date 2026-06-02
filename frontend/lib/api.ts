@@ -1,6 +1,23 @@
-import { ColumnsResponse, ROIInputs, ScanResult, ROIResult } from "./types";
+import { ColumnsResponse, ROIInputs, ScanResult, ROIResult, AuditROIResult } from "./types";
+
+export type ScanResponse = { scan: ScanResult; roi: ROIResult; audit_roi?: AuditROIResult };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+function appendRoiFields(form: FormData, roi: ROIInputs) {
+  form.append("number_of_reps", String(roi.number_of_reps));
+  form.append("emails_per_rep_per_week", String(roi.emails_per_rep_per_week));
+  form.append("new_contacts_per_rep_per_week", String(roi.new_contacts_per_rep_per_week));
+  form.append("cleanup_hours_per_rep_per_month", String(roi.cleanup_hours_per_rep_per_month));
+  form.append("rep_hourly_cost", String(roi.rep_hourly_cost));
+  form.append("annual_data_cost", String(roi.annual_data_cost));
+  form.append("loaded_ote", String(roi.loaded_ote));
+  form.append("selling_time_pct", String(roi.selling_time_pct));
+  form.append("list_coverage_pct", String(roi.list_coverage_pct));
+  form.append("reply_rate", String(roi.reply_rate));
+  form.append("mtg_to_deal_pct", String(roi.mtg_to_deal_pct));
+  form.append("avg_contract_value", String(roi.avg_contract_value));
+}
 
 export async function fetchColumns(file: File): Promise<ColumnsResponse> {
   const form = new FormData();
@@ -16,19 +33,13 @@ export async function runScan(
   sourceCol: string | null,
   phoneCol: string | null,
   roi: ROIInputs
-): Promise<{ scan: ScanResult; roi: ROIResult }> {
+): Promise<ScanResponse> {
   const form = new FormData();
   form.append("file", file);
   form.append("email_col", emailCol);
   if (sourceCol) form.append("source_col", sourceCol);
   if (phoneCol) form.append("phone_col", phoneCol);
-  form.append("number_of_reps", String(roi.number_of_reps));
-  form.append("emails_per_rep_per_week", String(roi.emails_per_rep_per_week));
-  form.append("new_contacts_per_rep_per_week", String(roi.new_contacts_per_rep_per_week));
-  form.append("cleanup_hours_per_rep_per_month", String(roi.cleanup_hours_per_rep_per_month));
-  form.append("rep_hourly_cost", String(roi.rep_hourly_cost));
-  form.append("annual_data_cost", String(roi.annual_data_cost));
-  form.append("confidence_factor", String(roi.confidence_factor));
+  appendRoiFields(form, roi);
 
   const res = await fetch(`${API_URL}/api/scan`, { method: "POST", body: form });
   if (!res.ok) throw new Error(await res.text());
@@ -38,16 +49,10 @@ export async function runScan(
 export async function runHubSpotScan(
   accessToken: string,
   roi: ROIInputs
-): Promise<{ scan: ScanResult; roi: ROIResult }> {
+): Promise<ScanResponse> {
   const form = new FormData();
   form.append("access_token", accessToken);
-  form.append("number_of_reps", String(roi.number_of_reps));
-  form.append("emails_per_rep_per_week", String(roi.emails_per_rep_per_week));
-  form.append("new_contacts_per_rep_per_week", String(roi.new_contacts_per_rep_per_week));
-  form.append("cleanup_hours_per_rep_per_month", String(roi.cleanup_hours_per_rep_per_month));
-  form.append("rep_hourly_cost", String(roi.rep_hourly_cost));
-  form.append("annual_data_cost", String(roi.annual_data_cost));
-  form.append("confidence_factor", String(roi.confidence_factor));
+  appendRoiFields(form, roi);
 
   const res = await fetch(`${API_URL}/api/scan/hubspot`, { method: "POST", body: form });
   if (!res.ok) throw new Error(await res.text());

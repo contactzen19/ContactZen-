@@ -146,14 +146,46 @@ def compute_scan(
     if source_col and source_col in df_out.columns:
         s = df_out[source_col].astype(str).str.lower().fillna("")
         df_out["_cz_source_norm"] = s
-        grp = (
+
+        # Rates (existing schema — kept for backwards compat)
+        rates = (
             df_out.groupby("_cz_source_norm")["cz_risk"]
             .value_counts(normalize=True)
             .unstack(fill_value=0)
-            .reset_index()
-            .rename(columns={"_cz_source_norm": "source"})
         )
-        source_breakdown = grp.to_dict(orient="records")
+        # Absolute counts so the frontend can rank and attribute dollars
+        counts = (
+            df_out.groupby("_cz_source_norm")["cz_risk"]
+            .value_counts()
+            .unstack(fill_value=0)
+        )
+        totals = df_out.groupby("_cz_source_norm").size().rename("total")
+
+        merged = rates.join(counts.add_prefix("count_")).join(totals).reset_index()
+        merged = merged.rename(columns={"_cz_source_norm": "source"})
+
+        rows = []
+        for r in merged.to_dict(orient="records"):
+            invalid_rate = float(r.get("invalid", 0.0))
+            risky_rate = float(r.get("risky", 0.0))
+            count_invalid = int(r.get("count_invalid", 0))
+            count_risky = int(r.get("count_risky", 0))
+            count_valid = int(r.get("count_valid", 0))
+            total_for_source = int(r.get("total", 0))
+            rows.append({
+                "source": r["source"],
+                "total": total_for_source,
+                "count_invalid": count_invalid,
+                "count_risky": count_risky,
+                "count_valid": count_valid,
+                "count_bad": count_invalid + count_risky,
+                "invalid": round(invalid_rate, 4),
+                "risky": round(risky_rate, 4),
+                "valid": round(float(r.get("valid", 0.0)), 4),
+                "unreachable_rate": round(invalid_rate + risky_rate, 4),
+            })
+        rows.sort(key=lambda x: x["unreachable_rate"], reverse=True)
+        source_breakdown = rows
 
         is_zoominfo = df_out["_cz_source_norm"].str.contains("zoom", na=False)
         if is_zoominfo.any():

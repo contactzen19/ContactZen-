@@ -1,4 +1,4 @@
-import { ScanResult, ROIResult } from "./types";
+import { ScanResult, ROIResult, AuditROIResult } from "./types";
 
 export interface ReportSummary {
   total: number;
@@ -22,11 +22,13 @@ export interface ReportSummary {
   bad_zoominfo_contacts: number;
   source_breakdown: { source: string; invalid?: number; risky?: number; valid?: number }[] | null;
   roi: ROIResult;
+  audit_roi?: AuditROIResult;
+  annual_data_spend?: number;
   scanned_at: string;
   number_of_reps: number;
 }
 
-export function buildSummary(scan: ScanResult, roi: ROIResult, numberOfReps: number): ReportSummary {
+export function buildSummary(scan: ScanResult, roi: ROIResult, numberOfReps: number, auditROI?: AuditROIResult, annualDataSpend?: number): ReportSummary {
   return {
     total: scan.total,
     contact_invalid: scan.contact_invalid,
@@ -49,13 +51,15 @@ export function buildSummary(scan: ScanResult, roi: ROIResult, numberOfReps: num
     bad_zoominfo_contacts: scan.bad_zoominfo_contacts,
     source_breakdown: scan.source_breakdown ? scan.source_breakdown.slice(0, 10) : null,
     roi,
+    audit_roi: auditROI,
+    annual_data_spend: annualDataSpend,
     scanned_at: new Date().toISOString().split("T")[0],
     number_of_reps: numberOfReps,
   };
 }
 
-export function encodeReport(scan: ScanResult, roi: ROIResult, numberOfReps: number): string {
-  return btoa(encodeURIComponent(JSON.stringify(buildSummary(scan, roi, numberOfReps))));
+export function encodeReport(scan: ScanResult, roi: ROIResult, numberOfReps: number, auditROI?: AuditROIResult, annualDataSpend?: number): string {
+  return btoa(encodeURIComponent(JSON.stringify(buildSummary(scan, roi, numberOfReps, auditROI, annualDataSpend))));
 }
 
 export function encodeSummary(summary: ReportSummary): string {

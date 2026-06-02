@@ -4,6 +4,8 @@ import Link from "next/link";
 import { decodeReport, summaryToScanResult, ReportSummary } from "@/lib/report";
 import ExecutiveSummary from "@/components/tabs/ExecutiveSummary";
 import RevOpsBreakdown from "@/components/tabs/RevOpsBreakdown";
+import AuditROISection from "@/components/AuditROISection";
+import SourceMap from "@/components/SourceMap";
 
 export default function ReportPage() {
   const [summary, setSummary] = useState<ReportSummary | null>(null);
@@ -69,6 +71,34 @@ export default function ReportPage() {
             Scanned on {summary.scanned_at} · Read-only report · No contact data stored
           </p>
         </div>
+
+        {/* Reachability Audit — methodology-correct ROI (shown when available) */}
+        {summary.audit_roi && (
+          <div className="card">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-1 h-6 rounded-full bg-brand-600" />
+              <h2 className="font-bold text-brand-900 text-lg">Reachability Audit</h2>
+            </div>
+            <AuditROISection
+              audit={summary.audit_roi}
+              unreachableRate={scan.contact_high_risk_rate}
+            />
+          </div>
+        )}
+
+        {/* Source Map — vendor attribution */}
+        {summary.source_breakdown && summary.source_breakdown.length > 0 && (
+          <div className="card">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-1 h-6 rounded-full bg-brand-600" />
+              <h2 className="font-bold text-brand-900 text-lg">Source Map</h2>
+            </div>
+            <SourceMap
+              rows={summary.source_breakdown}
+              annualDataSpend={summary.annual_data_spend}
+            />
+          </div>
+        )}
 
         {/* Executive Summary */}
         <div className="card">

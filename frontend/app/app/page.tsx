@@ -10,9 +10,10 @@ import ExecutiveSummary from "@/components/tabs/ExecutiveSummary";
 import RevOpsBreakdown from "@/components/tabs/RevOpsBreakdown";
 import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
+import ScorePanel from "@/components/ScorePanel";
 import AuthModal from "@/components/AuthModal";
 import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
-import { ROIInputs, ScanResult, ROIResult } from "@/lib/types";
+import { ROIInputs, ScanResult, ROIResult, AuditROIResult } from "@/lib/types";
 import { encodeReport, buildSummary } from "@/lib/report";
 import { saveScan } from "@/lib/scans";
 import { getSupabase } from "@/lib/supabase";
@@ -75,7 +76,14 @@ const DEFAULT_ROI: ROIInputs = {
   cleanup_hours_per_rep_per_month: 2.0,
   rep_hourly_cost: 50.0,
   annual_data_cost: 18000.0,
-  confidence_factor: 0.5,
+  // Fact-finder defaults match METHODOLOGY.md. 0 sentinels = "not confirmed";
+  // backend audit flags these under `estimated_fields` so the report shows it.
+  loaded_ote: 0,
+  selling_time_pct: 0.35,
+  list_coverage_pct: 0.40,
+  reply_rate: 0.015,
+  mtg_to_deal_pct: 0.20,
+  avg_contract_value: 0,
 };
 
 export default function Home() {
@@ -87,14 +95,23 @@ export default function Home() {
   const [phoneCol, setPhoneCol] = useState("");
   const [roi, setRoi] = useState<ROIInputs>(DEFAULT_ROI);
   const [scanning, setScanning] = useState(false);
+  const [slowScan, setSlowScan] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
+  const [auditRoi, setAuditRoi] = useState<AuditROIResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [hubspotToken, setHubspotToken] = useState<string | null>(null);
+
+  // Show "warming up" message if scan takes more than 5 seconds
+  useEffect(() => {
+    if (!scanning) { setSlowScan(false); return; }
+    const t = setTimeout(() => setSlowScan(true), 5000);
+    return () => clearTimeout(t);
+  }, [scanning]);
 
   // Track auth state
   useEffect(() => {
@@ -136,12 +153,13 @@ export default function Home() {
           .then((result) => {
             setScanResult(result.scan);
             setRoiResult(result.roi);
+            setAuditRoi(result.audit_roi ?? null);
             setColumns(["email", "phone", "first_name", "last_name", "company", "title", "source"]);
             setEmailCol("email");
             setPhoneCol("phone");
             setSourceCol("source");
           })
-          .catch((e) => setError("HubSpot scan failed: " + e))
+          .catch(() => setError("HubSpot scan failed. Please reconnect and try again."))
           .finally(() => setScanning(false));
       }
     }
@@ -164,8 +182,8 @@ export default function Home() {
       setEmailCol(data.guesses.email ?? data.columns[0] ?? "");
       setSourceCol(data.guesses.source ?? "");
       setPhoneCol(data.guesses.phone ?? "");
-    } catch (e) {
-      setError("Could not read file: " + e);
+    } catch {
+      setError("Could not read this file. Please check that it's a valid CSV and try again.");
     }
   }, []);
 
@@ -178,8 +196,9 @@ export default function Home() {
       const result = await runScan(file, emailCol, sourceCol || null, phoneCol || null, roi);
       setScanResult(result.scan);
       setRoiResult(result.roi);
-    } catch (e) {
-      setError("Scan failed: " + e);
+      setAuditRoi(result.audit_roi ?? null);
+    } catch {
+      setError("Scan failed. Please try again — if the problem persists, check your file and column mapping.");
     } finally {
       setScanning(false);
     }
@@ -194,6 +213,7 @@ export default function Home() {
     setPhoneCol("");
     setScanResult(null);
     setRoiResult(null);
+    setAuditRoi(null);
     setError(null);
     setCopied(false);
     setSaved(false);
@@ -202,7 +222,7 @@ export default function Home() {
 
   const handleCopyLink = () => {
     if (!scanResult || !roiResult) return;
-    const encoded = encodeReport(scanResult, roiResult, roi.number_of_reps);
+    const encoded = encodeReport(scanResult, roiResult, roi.number_of_reps, auditRoi ?? undefined, roi.annual_data_cost);
     const url = `${window.location.origin}/report?d=${encoded}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
@@ -213,7 +233,7 @@ export default function Home() {
   const handleSave = async () => {
     if (!scanResult || !roiResult) return;
     if (!user) { setShowAuth(true); return; }
-    const summary = buildSummary(scanResult, roiResult, roi.number_of_reps);
+    const summary = buildSummary(scanResult, roiResult, roi.number_of_reps, auditRoi ?? undefined, roi.annual_data_cost);
     await saveScan(summary);
     setSaved(true);
   };
@@ -362,6 +382,11 @@ export default function Home() {
                       </span>
                     ) : "Run ContactZen Scan"}
                   </button>
+                  {scanning && slowScan && (
+                    <div className="mt-3 bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-sm text-brand-700">
+                      Warming up the server — this can take 20–30 seconds on first use. Hang tight…
+                    </div>
+                  )}
                   {error && (
                     <div className="mt-3 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">{error}</div>
                   )}
@@ -414,6 +439,16 @@ export default function Home() {
                 </div>
                 <AtRiskRecords scan={scanResult} />
               </div>
+
+              {hubspotToken && (
+                <div className="card">
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="w-1 h-6 rounded-full bg-orange-500" />
+                    <h2 className="font-bold text-brand-900 text-lg">Score &amp; Task</h2>
+                  </div>
+                  <ScorePanel hubspotToken={hubspotToken} />
+                </div>
+              )}
 
               <div className="card">
                 <div className="flex items-center gap-2 mb-6">
