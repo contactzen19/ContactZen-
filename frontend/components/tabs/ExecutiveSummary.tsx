@@ -83,7 +83,7 @@ function getActions(scan: ScanResult, roi: ROIResult): Action[] {
     actions.push({
       level: "warning",
       action: `Deduplicate ${fmtNum(scan.email_dupes)} contacts before your next sequence enrollment`,
-      why: `Duplicates mean the same person receives the same email multiple times — triggering spam complaints, splitting engagement history, and inflating enrollment counts that distort your reporting. This is a one-click fix with ContactZen's export.`,
+      why: `Duplicates mean the same person receives the same email multiple times — triggering spam complaints, splitting engagement history, and inflating enrollment counts that distort your reporting. This is a one-click fix with ReachAudit's export.`,
       impact: scan.email_dupes * 5,
       quickWin: true,
     });

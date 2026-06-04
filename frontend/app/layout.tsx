@@ -5,22 +5,22 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://contactzen.io"),
-  title: "ContactZen — Contact Data Intelligence Platform",
+  metadataBase: new URL("https://reachaudit.com"),
+  title: "ReachAudit — Independent Reachability Audits for B2B Sales",
   description:
-    "Identify decayed contacts, quantify GTM waste, and prevent bad data from entering your CRM.",
+    "Find the unreachable contacts costing your sales team revenue. Independent audit of your list — what's reachable, what's wasted, what to recover.",
   openGraph: {
-    title: "ContactZen — Contact Data Intelligence Platform",
+    title: "ReachAudit — Independent Reachability Audits for B2B Sales",
     description:
       "Valid doesn't mean reachable. See what's actually usable in your CRM.",
-    url: "https://contactzen.io",
-    siteName: "ContactZen",
+    url: "https://reachaudit.com",
+    siteName: "ReachAudit",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ContactZen — Valid doesn't mean reachable.",
+        alt: "ReachAudit — Valid doesn't mean reachable.",
       },
     ],
     locale: "en_US",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ContactZen — Contact Data Intelligence Platform",
+    title: "ReachAudit — Independent Reachability Audits for B2B Sales",
     description: "Valid doesn't mean reachable.",
     images: ["/og-image.png"],
   },

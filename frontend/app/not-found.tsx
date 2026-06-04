@@ -14,7 +14,7 @@ export default function NotFound() {
         >
           <Zap className="w-5 h-5" aria-hidden="true" />
         </div>
-        <span className="text-xl font-extrabold text-brand-900 tracking-tight">ContactZen</span>
+        <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
       </Link>
 
       <div className="text-center max-w-md">

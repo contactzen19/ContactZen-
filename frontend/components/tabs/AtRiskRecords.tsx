@@ -41,7 +41,7 @@ export default function AtRiskRecords({ scan }: { scan: ScanResult }) {
           </p>
         </div>
         <button
-          onClick={() => downloadCSV(rows, "contactzen_at_risk.csv")}
+          onClick={() => downloadCSV(rows, "reachaudit_at_risk.csv")}
           className="btn-secondary text-sm flex items-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -101,7 +101,7 @@ export default function AtRiskRecords({ scan }: { scan: ScanResult }) {
         {rows.length > 20 && (
           <div className="mt-3 text-center">
             <button
-              onClick={() => downloadCSV(rows, "contactzen_at_risk.csv")}
+              onClick={() => downloadCSV(rows, "reachaudit_at_risk.csv")}
               className="text-sm text-brand-600 font-medium hover:underline"
             >
               Download all {rows.length.toLocaleString()} flagged contacts →

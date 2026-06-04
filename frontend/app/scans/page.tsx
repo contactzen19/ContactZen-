@@ -46,7 +46,7 @@ export default function ScansPage() {
             >
               ⚡
             </div>
-            <span className="text-xl font-extrabold text-brand-900 tracking-tight">ContactZen</span>
+            <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/app" className="btn-secondary text-sm px-4 py-2">New Scan</Link>

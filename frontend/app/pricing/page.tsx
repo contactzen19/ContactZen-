@@ -11,7 +11,7 @@ function NavBar() {
             style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", boxShadow: "0 4px 14px rgba(124,58,237,0.25)" }}>
             ⚡
           </div>
-          <span className="text-xl font-extrabold text-brand-900 tracking-tight">ContactZen</span>
+          <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
         </Link>
         <div className="flex items-center gap-3">
           <Link href="/app" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">
@@ -36,7 +36,7 @@ const TIERS = [
     name: "Free",
     monthlyPrice: 0,
     annualPrice: 0,
-    description: "See what ContactZen can do with no commitment.",
+    description: "See what ReachAudit can do with no commitment.",
     cta: "Start Free",
     ctaHref: "/app",
     ctaStyle: "border-2 border-brand-600 text-brand-600 hover:bg-brand-50",
@@ -217,7 +217,7 @@ export default function PricingPage() {
                   a: "Never. Your contacts are processed in memory during the scan and immediately discarded. Nothing is written to a database. This is a core architectural decision, not an afterthought.",
                 },
                 {
-                  q: "What CRM access does ContactZen need?",
+                  q: "What CRM access does ReachAudit need?",
                   a: "Read-only access to your contacts. We cannot modify, delete, or export anything from your CRM. You can revoke access at any time from your HubSpot settings.",
                 },
                 {

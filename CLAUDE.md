@@ -1,7 +1,7 @@
-# ContactZen Project Rules
+# ReachAudit Project Rules
 
 ## Product
-ContactZen is a contact data hygiene tool for RevOps and sales teams.
+ReachAudit is an independent reachability audit tool for RevOps and sales teams.
 Primary MVP focus:
 1. Scan uploaded CSVs
 2. Validate emails

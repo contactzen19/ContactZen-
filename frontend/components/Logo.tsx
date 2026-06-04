@@ -7,10 +7,10 @@ export default function Logo() {
       </div>
       <div>
         <div className="text-3xl font-extrabold text-brand-900 leading-tight tracking-tight">
-          ContactZen
+          ReachAudit
         </div>
         <div className="text-sm font-medium text-brand-600 mt-0.5">
-          Contact Data Intelligence Platform
+          Independent Reachability Audits
         </div>
       </div>
     </div>

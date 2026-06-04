@@ -366,7 +366,7 @@ export default function Home() {
                 <div className="flex items-center justify-between text-xs text-gray-500 pt-1">
                   <span>Need an export template?</span>
                   <a
-                    href="/contactzen-export-template.csv"
+                    href="/reachaudit-export-template.csv"
                     download
                     className="text-brand-700 font-semibold hover:text-brand-800 underline underline-offset-2"
                   >
@@ -418,7 +418,7 @@ export default function Home() {
                         </svg>
                         Scanning contacts…
                       </span>
-                    ) : "Run ContactZen Scan"}
+                    ) : "Run ReachAudit Scan"}
                   </button>
                   {scanning && slowScan && (
                     <div className="mt-3 bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-sm text-brand-700">

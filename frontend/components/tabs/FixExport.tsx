@@ -48,7 +48,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "contactzen_zoominfo_credit_claim.csv";
+    a.download = "reachaudit_zoominfo_credit_claim.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -79,7 +79,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = type === "clean" ? "contactzen_clean.csv" : "contactzen_suppression.csv";
+      a.download = type === "clean" ? "reachaudit_clean.csv" : "reachaudit_suppression.csv";
       a.click();
       URL.revokeObjectURL(url);
     } catch {
@@ -102,7 +102,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
       <div>
         <h3 className="font-semibold text-brand-900">Apply Data Fixes</h3>
         <p className="text-sm text-gray-500 mt-1">
-          Select the fixes to apply. ContactZen will generate a clean contact list and a suppression list you can import directly into your CRM.
+          Select the fixes to apply. ReachAudit will generate a clean contact list and a suppression list you can import directly into your CRM.
         </p>
       </div>
 
@@ -259,18 +259,18 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
               <h3 className="font-bold text-brand-900">Contact Recovery Engine</h3>
               <span className="text-xs font-bold bg-brand-600 text-white px-2 py-0.5 rounded-full">Coming Soon</span>
             </div>
-            <p className="text-xs text-brand-600 font-medium">The future of ContactZen</p>
+            <p className="text-xs text-brand-600 font-medium">The future of ReachAudit</p>
           </div>
         </div>
 
         <p className="text-sm text-gray-700 leading-relaxed">
-          Every contact we suppress today goes into a <strong>recovery pool</strong> — not the trash. When ContactZen&apos;s recovery engine launches, we&apos;ll automatically find replacement emails and phone numbers for your suppressed contacts, validate them, and put the good ones back in your pipeline.
+          Every contact we suppress today goes into a <strong>recovery pool</strong> — not the trash. When ReachAudit&apos;s recovery engine launches, we&apos;ll automatically find replacement emails and phone numbers for your suppressed contacts, validate them, and put the good ones back in your pipeline.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { icon: "🏷️", title: "Suppress today", desc: "Bad contacts are quarantined, not deleted. They stay in HubSpot — just out of your active sequences." },
-            { icon: "🔍", title: "Recover tomorrow", desc: "ContactZen finds verified replacement contact info from trusted enrichment sources." },
+            { icon: "🔍", title: "Recover tomorrow", desc: "ReachAudit finds verified replacement contact info from trusted enrichment sources." },
             { icon: "✅", title: "Flip to active", desc: "Recovered contacts are validated and pushed back to HubSpot — clean, verified, ready to work." },
           ].map((s) => (
             <div key={s.title} className="bg-white border border-brand-100 rounded-xl p-4">

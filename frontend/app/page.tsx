@@ -15,15 +15,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" aria-label="ContactZen home" className="flex items-center gap-3">
+        <Link href="/" aria-label="ReachAudit home" className="flex items-center gap-3">
           <div
             className="w-9 h-9 rounded-[10px] flex items-center justify-center text-white flex-shrink-0"
             style={{
@@ -34,7 +32,7 @@ function NavBar() {
             <Zap className="w-5 h-5" aria-hidden="true" />
           </div>
           <span className="text-xl font-extrabold text-brand-900 tracking-tight">
-            ContactZen
+            ReachAudit
           </span>
         </Link>
 
@@ -133,7 +131,7 @@ function Hero() {
           </span>
         </h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Most sales teams trust their CRM data. ContactZen shows you what&apos;s actually usable — before you waste another sequence on a number that won&apos;t connect.
+          Most sales teams trust their CRM data. ReachAudit shows you what&apos;s actually usable — before you waste another sequence on a number that won&apos;t connect.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
@@ -143,12 +141,12 @@ function Hero() {
             <Sparkles className="w-4 h-4" aria-hidden="true" />
             See a Live Demo
           </Link>
-          <a
-            href={`${API_URL}/auth/hubspot`}
+          <Link
+            href="/app"
             className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-brand-400 text-gray-700 font-semibold text-base px-8 py-4 rounded-xl transition-colors"
           >
-            Connect HubSpot
-          </a>
+            Upload Your Own CSV
+          </Link>
         </div>
         <p className="text-sm text-gray-500 mt-4">
           No credit card required · No data stored · Read-only access
@@ -201,7 +199,7 @@ function ProductPreview() {
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
             <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-gray-400 font-mono max-w-xs mx-auto text-center">
-              contactzen.io/app
+              reachaudit.com/app
             </div>
           </div>
 
@@ -347,7 +345,7 @@ function PainSection() {
             You&apos;re not missing pipeline. You&apos;re dialing bad data.
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Enterprise direct dials are silently failing. Emails deliver. Phones don&apos;t connect. Your data vendor calls it valid — ContactZen shows you what&apos;s actually reachable.
+            Enterprise direct dials are silently failing. Emails deliver. Phones don&apos;t connect. Your data vendor calls it valid — ReachAudit shows you what&apos;s actually reachable.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -385,12 +383,12 @@ function HowItWorks() {
   const steps: Step[] = [
     {
       icon: Link2,
-      title: "Connect your CRM",
-      desc: "Connect HubSpot directly via OAuth, or upload a CSV export from any CRM. Takes 30 seconds.",
+      title: "Upload your contact list",
+      desc: "Drop a CSV export from any CRM — HubSpot, Salesforce, Apollo, ZoomInfo. Takes 30 seconds.",
     },
     {
       icon: Zap,
-      title: "ContactZen scans everything",
+      title: "ReachAudit scans everything",
       desc: "We check every contact for email deliverability, phone reachability, duplicates, field completeness, and source attribution.",
     },
     {
@@ -447,8 +445,8 @@ function TrustSection() {
     },
     {
       icon: Eye,
-      title: "Read-only CRM access",
-      desc: "ContactZen can only read your contacts. We cannot modify, delete, or export anything from your CRM.",
+      title: "Read-only by design",
+      desc: "ReachAudit only reads the contacts you upload. We never modify, delete, or write back to your CRM.",
     },
     {
       icon: Shield,
@@ -457,8 +455,8 @@ function TrustSection() {
     },
     {
       icon: Key,
-      title: "Revoke access any time",
-      desc: "You control the connection. Disconnect ContactZen from your HubSpot settings in one click, at any time.",
+      title: "You stay in control",
+      desc: "Your CSV is processed once and discarded. Nothing persists, nothing syncs, nothing leaves your hands.",
     },
   ];
 
@@ -468,7 +466,7 @@ function TrustSection() {
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Built for trust</h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Your contact data is sensitive. We designed ContactZen so you never have to wonder what happens to it.
+            Your contact data is sensitive. We designed ReachAudit so you never have to wonder what happens to it.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -506,7 +504,7 @@ function CTASection() {
           See what&apos;s actually usable in your CRM.
         </h2>
         <p className="text-brand-200 text-lg mb-10">
-          Upload a CSV or connect HubSpot. Get your reachability report in under 60 seconds.
+          Upload your CSV. Get your reachability report in under 60 seconds.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <Link
@@ -536,7 +534,7 @@ function Footer() {
   return (
     <footer className="bg-brand-900 py-8 px-6 text-center">
       <p className="text-brand-400 text-sm">
-        © 2026 ContactZen · Valid doesn&apos;t mean reachable. ·{" "}
+        © 2026 ReachAudit · Valid doesn&apos;t mean reachable. ·{" "}
         <a
           href="mailto:contactzen.joey@gmail.com"
           className="hover:text-white transition-colors"

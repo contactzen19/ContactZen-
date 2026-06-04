@@ -54,7 +54,7 @@ export default function ReportPage() {
             >
               ⚡
             </div>
-            <span className="text-xl font-extrabold text-brand-900 tracking-tight">ContactZen</span>
+            <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
           </div>
           <Link href="/app" className="btn-primary text-sm px-4 py-2">Run Your Own Scan</Link>
         </div>
@@ -63,7 +63,7 @@ export default function ReportPage() {
       <div className="max-w-4xl mx-auto px-6 py-8 space-y-6">
         {/* Report banner */}
         <div className="rounded-2xl p-6 text-white" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
-          <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-1">ContactZen Scan Report</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-1">ReachAudit Scan Report</p>
           <h1 className="text-2xl font-extrabold mb-1">
             {summary.total.toLocaleString()} contacts scanned
           </h1>
