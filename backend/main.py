@@ -10,7 +10,17 @@ from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 
-from analysis import apply_fixes, compute_scan, normalize_columns, guess_email_col, guess_source_col, guess_phone_col
+from analysis import (
+    apply_fixes,
+    compute_scan,
+    normalize_columns,
+    guess_email_col,
+    guess_source_col,
+    guess_phone_col,
+    guess_last_send_col,
+    guess_last_open_col,
+    guess_last_reply_col,
+)
 from roi import ROIInputs, calc_roi, audit_roi_from_legacy
 from signal_scoring import parse_hubspot_engagement, score_contact
 
@@ -67,6 +77,9 @@ async def get_columns(file: UploadFile = File(...)):
             "email": guess_email_col(df),
             "source": guess_source_col(df),
             "phone": guess_phone_col(df),
+            "last_send": guess_last_send_col(df),
+            "last_open": guess_last_open_col(df),
+            "last_reply": guess_last_reply_col(df),
         },
     }
 
@@ -77,6 +90,9 @@ async def scan(
     email_col: str = Form(...),
     source_col: Optional[str] = Form(None),
     phone_col: Optional[str] = Form(None),
+    last_send_col: Optional[str] = Form(None),
+    last_open_col: Optional[str] = Form(None),
+    last_reply_col: Optional[str] = Form(None),
     # ROI inputs
     number_of_reps: int = Form(25),
     emails_per_rep_per_week: int = Form(200),
@@ -107,6 +123,9 @@ async def scan(
         email_col=email_col,
         source_col=source_col if source_col else None,
         phone_col=phone_col if phone_col else None,
+        last_send_col=last_send_col if last_send_col else None,
+        last_open_col=last_open_col if last_open_col else None,
+        last_reply_col=last_reply_col if last_reply_col else None,
     )
 
     roi_inputs = ROIInputs(

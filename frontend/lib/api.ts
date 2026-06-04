@@ -27,18 +27,28 @@ export async function fetchColumns(file: File): Promise<ColumnsResponse> {
   return res.json();
 }
 
+export interface EngagementCols {
+  lastSendCol?: string | null;
+  lastOpenCol?: string | null;
+  lastReplyCol?: string | null;
+}
+
 export async function runScan(
   file: File,
   emailCol: string,
   sourceCol: string | null,
   phoneCol: string | null,
-  roi: ROIInputs
+  roi: ROIInputs,
+  engagement: EngagementCols = {}
 ): Promise<ScanResponse> {
   const form = new FormData();
   form.append("file", file);
   form.append("email_col", emailCol);
   if (sourceCol) form.append("source_col", sourceCol);
   if (phoneCol) form.append("phone_col", phoneCol);
+  if (engagement.lastSendCol) form.append("last_send_col", engagement.lastSendCol);
+  if (engagement.lastOpenCol) form.append("last_open_col", engagement.lastOpenCol);
+  if (engagement.lastReplyCol) form.append("last_reply_col", engagement.lastReplyCol);
   appendRoiFields(form, roi);
 
   const res = await fetch(`${API_URL}/api/scan`, { method: "POST", body: form });

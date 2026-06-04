@@ -240,11 +240,11 @@ def audit_roi_from_legacy(
     None (or 0 / non-positive — the UI's "not set" sentinel) we fall back to
     the methodology default and flag it as an estimate.
 
-    `unreachable_rate` proxies via `scan_results["contact_high_risk_rate"]` — the
-    broadest available signal today. This is not a perfect match for the locked
-    methodology definition (bounces + role changes + abandoned inboxes +
-    catch-all noise), and that gap should be closed when the scan engine is
-    upgraded.
+    `unreachable_rate` comes from `scan_results["unreachable_rate"]` — the
+    methodology-locked email-only metric (hard bounces + catch-all noise from a
+    CSV; role-change + abandoned-inbox surface as `detected: False` in
+    `unreachable_breakdown`). Falls back to `contact_high_risk_rate` only for
+    callers on the older scan response shape.
     """
     estimated: list[str] = []
 
@@ -285,7 +285,10 @@ def audit_roi_from_legacy(
         estimated.append("avg_contract_value")
 
     inputs = AuditROIInputs(
-        unreachable_rate=scan_results.get("contact_high_risk_rate", scan_results.get("high_risk_rate", 0.0)),
+        unreachable_rate=scan_results.get(
+            "unreachable_rate",
+            scan_results.get("contact_high_risk_rate", scan_results.get("high_risk_rate", 0.0)),
+        ),
         reps=legacy.number_of_reps,
         loaded_ote=ote,
         selling_time_pct=sell,

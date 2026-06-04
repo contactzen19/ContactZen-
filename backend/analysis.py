@@ -35,6 +35,40 @@ def guess_phone_col(df: pd.DataFrame) -> Optional[str]:
     return None
 
 
+def guess_last_send_col(df: pd.DataFrame) -> Optional[str]:
+    candidates = [
+        "last_email_send_date", "last_email_sent_date", "last_email_send",
+        "last_email_sent", "last_sent_date", "last_email_date",
+        "hs_email_last_send_date",
+    ]
+    for c in candidates:
+        if c in df.columns:
+            return c
+    return None
+
+
+def guess_last_open_col(df: pd.DataFrame) -> Optional[str]:
+    candidates = [
+        "last_email_open_date", "last_email_opened_date", "last_email_open",
+        "last_email_opened", "last_opened_date", "hs_email_last_open_date",
+    ]
+    for c in candidates:
+        if c in df.columns:
+            return c
+    return None
+
+
+def guess_last_reply_col(df: pd.DataFrame) -> Optional[str]:
+    candidates = [
+        "last_email_reply_date", "last_email_replied_date", "last_email_reply",
+        "last_email_replied", "last_replied_date", "hs_email_last_reply_date",
+    ]
+    for c in candidates:
+        if c in df.columns:
+            return c
+    return None
+
+
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     df.columns = [c.strip().lower() for c in df.columns]
     return df
@@ -90,11 +124,19 @@ def compute_duplicates(df: pd.DataFrame, email_col: str, phone_col: Optional[str
     return {"email_dupes": email_dupes, "phone_dupes": phone_dupes}
 
 
+# Methodology window for abandoned-inbox detection (locked at 12 months per
+# METHODOLOGY.md). Configurable in code; intentionally not exposed in the UI.
+ABANDONED_INBOX_WINDOW_DAYS = 365
+
+
 def compute_scan(
     df: pd.DataFrame,
     email_col: str,
     source_col: Optional[str] = None,
     phone_col: Optional[str] = None,
+    last_send_col: Optional[str] = None,
+    last_open_col: Optional[str] = None,
+    last_reply_col: Optional[str] = None,
 ) -> dict:
     df_out = df.copy()
 
@@ -109,6 +151,91 @@ def compute_scan(
     valid = int((df_out["cz_risk"] == "valid").sum())
     invalid_rate = round((invalid / total), 4) if total else 0.0
     high_risk_rate = round(((invalid + risky) / total), 4) if total else 0.0
+
+    # Methodology-locked "unreachable" definition (METHODOLOGY.md): hard bounces
+    # + role changes + abandoned inboxes + catch-all noise. Buckets are disjoint
+    # — each contact is counted in its highest-priority applicable bucket only.
+    # Priority order: hard_bounce > catch_all_or_disposable > abandoned_inbox.
+    # Role change requires title-shift enrichment and stays `detected: False`.
+    HARD_BOUNCE_REASONS = {"empty", "malformed", "syntax"}
+    CATCH_ALL_REASONS = {"disposable_domain_hint", "suspicious_structure"}
+
+    hard_bounce_mask = df_out["cz_reason"].isin(HARD_BOUNCE_REASONS)
+    catch_all_mask = df_out["cz_reason"].isin(CATCH_ALL_REASONS)
+    hard_bounce_count = int(hard_bounce_mask.sum())
+    catch_all_count = int(catch_all_mask.sum())
+
+    # Abandoned inbox: we've been emailing the contact and they haven't opened
+    # or replied within ABANDONED_INBOX_WINDOW_DAYS. Requires last_send_col plus
+    # at least one of last_open_col / last_reply_col — without an engagement
+    # signal we can't honestly claim the inbox is abandoned (just stale).
+    abandoned_detected = bool(
+        last_send_col and last_send_col in df_out.columns and (
+            (last_open_col and last_open_col in df_out.columns)
+            or (last_reply_col and last_reply_col in df_out.columns)
+        )
+    )
+    abandoned_count = 0
+
+    if abandoned_detected:
+        cutoff = pd.Timestamp.utcnow() - pd.Timedelta(days=ABANDONED_INBOX_WINDOW_DAYS)
+        last_send_ts = pd.to_datetime(df_out[last_send_col], utc=True, errors="coerce")
+
+        if last_open_col and last_open_col in df_out.columns:
+            last_open_ts = pd.to_datetime(df_out[last_open_col], utc=True, errors="coerce")
+        else:
+            last_open_ts = pd.Series(pd.NaT, index=df_out.index)
+
+        if last_reply_col and last_reply_col in df_out.columns:
+            last_reply_ts = pd.to_datetime(df_out[last_reply_col], utc=True, errors="coerce")
+        else:
+            last_reply_ts = pd.Series(pd.NaT, index=df_out.index)
+
+        has_send = last_send_ts.notna()
+        no_recent_open = last_open_ts.isna() | (last_open_ts < cutoff)
+        no_recent_reply = last_reply_ts.isna() | (last_reply_ts < cutoff)
+
+        abandoned_mask = has_send & no_recent_open & no_recent_reply
+        # Disjointness: a contact already counted as hard_bounce or catch_all
+        # cannot also be counted as abandoned.
+        abandoned_mask = abandoned_mask & ~hard_bounce_mask & ~catch_all_mask
+        abandoned_count = int(abandoned_mask.sum())
+
+    unreachable_total = hard_bounce_count + catch_all_count + abandoned_count
+    unreachable_rate = round(unreachable_total / total, 4) if total else 0.0
+
+    def _bucket(count: int, detected: bool, note: str) -> dict:
+        return {
+            "count": count,
+            "rate": round(count / total, 4) if total and detected else 0.0,
+            "detected": detected,
+            "note": note,
+        }
+
+    unreachable_breakdown = {
+        "hard_bounce": _bucket(
+            hard_bounce_count,
+            True,
+            "Syntactically dead emails — empty, malformed, or invalid format.",
+        ),
+        "catch_all_or_disposable": _bucket(
+            catch_all_count,
+            True,
+            "Disposable-domain hints and suspicious local-parts that typically catch-all.",
+        ),
+        "role_change": _bucket(
+            0,
+            False,
+            "Requires title-shift enrichment (ZoomInfo/Apollo). Connect an enrichment source to detect.",
+        ),
+        "abandoned_inbox": _bucket(
+            abandoned_count,
+            abandoned_detected,
+            "Contacts with sends on file but no open or reply in 12+ months."
+            if abandoned_detected
+            else "Requires last_email_send_date plus last_open_date or last_reply_date columns.",
+        ),
+    }
 
     # Phone scoring
     phone_invalid = phone_risky = phone_valid = 0
@@ -226,6 +353,8 @@ def compute_scan(
         "contact_risky": contact_risky,
         "contact_valid": contact_valid,
         "contact_high_risk_rate": contact_high_risk_rate,
+        "unreachable_rate": unreachable_rate,
+        "unreachable_breakdown": unreachable_breakdown,
         "source_breakdown": source_breakdown,
         "zoominfo_high_risk_rate": zoominfo_high_risk_rate,
         "bad_zoominfo_contacts": bad_zoominfo_contacts,
@@ -240,6 +369,9 @@ def compute_scan(
             "email": email_col,
             "source": source_col,
             "phone": phone_col,
+            "last_send": last_send_col,
+            "last_open": last_open_col,
+            "last_reply": last_reply_col,
         },
     }
 

@@ -29,6 +29,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     flag_enrichment: false,
   });
   const [loading, setLoading] = useState<"clean" | "suppression" | null>(null);
+  const [exportError, setExportError] = useState<string | null>(null);
 
   const downloadZoomInfoClaim = () => {
     const rows = scan.zoominfo_flagged_sample;
@@ -72,6 +73,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
   const download = async (type: "clean" | "suppression") => {
     if (!file) return;
     setLoading(type);
+    setExportError(null);
     try {
       const blob = await downloadFixed(file, emailCol, phoneCol, activeFixes, type);
       const url = URL.createObjectURL(blob);
@@ -80,8 +82,8 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
       a.download = type === "clean" ? "contactzen_clean.csv" : "contactzen_suppression.csv";
       a.click();
       URL.revokeObjectURL(url);
-    } catch (e) {
-      alert("Export failed: " + e);
+    } catch {
+      setExportError("Export failed. Please try again — if the problem persists, re-upload your file.");
     } finally {
       setLoading(null);
     }
@@ -131,21 +133,28 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
       </div>
 
       {file ? (
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={() => download("clean")}
-            disabled={!!loading}
-            className="btn-primary flex-1 flex items-center justify-center gap-2"
-          >
-            {loading === "clean" ? "Generating…" : "⬇ Download Clean Contact List"}
-          </button>
-          <button
-            onClick={() => download("suppression")}
-            disabled={!!loading}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2"
-          >
-            {loading === "suppression" ? "Generating…" : "⬇ Download Suppression List"}
-          </button>
+        <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={() => download("clean")}
+              disabled={!!loading}
+              className="btn-primary flex-1 flex items-center justify-center gap-2"
+            >
+              {loading === "clean" ? "Generating…" : "⬇ Download Clean Contact List"}
+            </button>
+            <button
+              onClick={() => download("suppression")}
+              disabled={!!loading}
+              className="btn-secondary flex-1 flex items-center justify-center gap-2"
+            >
+              {loading === "suppression" ? "Generating…" : "⬇ Download Suppression List"}
+            </button>
+          </div>
+          {exportError && (
+            <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+              {exportError}
+            </div>
+          )}
         </div>
       ) : (
         <div className="rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-gray-500 text-center">
@@ -285,7 +294,6 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
             <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Continuous monitoring</strong> — weekly scans against your live HubSpot data, no CSV required</li>
             <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Pre-sequence protection</strong> — flag risky contacts before they enter a sequence</li>
             <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Vendor scorecards</strong> — hold ZoomInfo, Apollo, and Lusha accountable with monthly quality reports</li>
-            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>HubSpot writeback</strong> — push risk scores and dispositions directly as contact properties</li>
           </ul>
         </div>
       </div>

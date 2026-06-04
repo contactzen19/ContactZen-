@@ -10,6 +10,8 @@ import ExecutiveSummary from "@/components/tabs/ExecutiveSummary";
 import RevOpsBreakdown from "@/components/tabs/RevOpsBreakdown";
 import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
+import AuditROISection from "@/components/AuditROISection";
+import SourceMap from "@/components/SourceMap";
 import ScorePanel from "@/components/ScorePanel";
 import AuthModal from "@/components/AuthModal";
 import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
@@ -93,6 +95,9 @@ export default function Home() {
   const [emailCol, setEmailCol] = useState("");
   const [sourceCol, setSourceCol] = useState("");
   const [phoneCol, setPhoneCol] = useState("");
+  const [lastSendCol, setLastSendCol] = useState("");
+  const [lastOpenCol, setLastOpenCol] = useState("");
+  const [lastReplyCol, setLastReplyCol] = useState("");
   const [roi, setRoi] = useState<ROIInputs>(DEFAULT_ROI);
   const [scanning, setScanning] = useState(false);
   const [slowScan, setSlowScan] = useState(false);
@@ -182,6 +187,9 @@ export default function Home() {
       setEmailCol(data.guesses.email ?? data.columns[0] ?? "");
       setSourceCol(data.guesses.source ?? "");
       setPhoneCol(data.guesses.phone ?? "");
+      setLastSendCol(data.guesses.last_send ?? "");
+      setLastOpenCol(data.guesses.last_open ?? "");
+      setLastReplyCol(data.guesses.last_reply ?? "");
     } catch {
       setError("Could not read this file. Please check that it's a valid CSV and try again.");
     }
@@ -193,7 +201,18 @@ export default function Home() {
     setError(null);
     setSaved(false);
     try {
-      const result = await runScan(file, emailCol, sourceCol || null, phoneCol || null, roi);
+      const result = await runScan(
+        file,
+        emailCol,
+        sourceCol || null,
+        phoneCol || null,
+        roi,
+        {
+          lastSendCol: lastSendCol || null,
+          lastOpenCol: lastOpenCol || null,
+          lastReplyCol: lastReplyCol || null,
+        },
+      );
       setScanResult(result.scan);
       setRoiResult(result.roi);
       setAuditRoi(result.audit_roi ?? null);
@@ -211,6 +230,9 @@ export default function Home() {
     setEmailCol("");
     setSourceCol("");
     setPhoneCol("");
+    setLastSendCol("");
+    setLastOpenCol("");
+    setLastReplyCol("");
     setScanResult(null);
     setRoiResult(null);
     setAuditRoi(null);
@@ -341,6 +363,16 @@ export default function Home() {
                     ✅ <strong>{file.name}</strong> — {totalRows.toLocaleString()} contacts · {columns.length} columns
                   </p>
                 )}
+                <div className="flex items-center justify-between text-xs text-gray-500 pt-1">
+                  <span>Need an export template?</span>
+                  <a
+                    href="/contactzen-export-template.csv"
+                    download
+                    className="text-brand-700 font-semibold hover:text-brand-800 underline underline-offset-2"
+                  >
+                    Download sample CSV ↓
+                  </a>
+                </div>
               </div>
 
               {/* Step 2 */}
@@ -355,10 +387,16 @@ export default function Home() {
                     emailCol={emailCol}
                     sourceCol={sourceCol}
                     phoneCol={phoneCol}
+                    lastSendCol={lastSendCol}
+                    lastOpenCol={lastOpenCol}
+                    lastReplyCol={lastReplyCol}
                     onChange={(key, val) => {
                       if (key === "emailCol") setEmailCol(val);
                       if (key === "sourceCol") setSourceCol(val);
                       if (key === "phoneCol") setPhoneCol(val);
+                      if (key === "lastSendCol") setLastSendCol(val);
+                      if (key === "lastOpenCol") setLastOpenCol(val);
+                      if (key === "lastReplyCol") setLastReplyCol(val);
                     }}
                   />
                 </div>
@@ -416,6 +454,33 @@ export default function Home() {
           {/* Results — vertical sections */}
           {scanResult && roiResult && (
             <>
+              {auditRoi && (
+                <div className="card">
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="w-1 h-6 rounded-full bg-brand-600" />
+                    <h2 className="font-bold text-brand-900 text-lg">Reachability Audit</h2>
+                  </div>
+                  <AuditROISection
+                    audit={auditRoi}
+                    unreachableRate={scanResult.unreachable_rate ?? scanResult.contact_high_risk_rate}
+                    unreachableBreakdown={scanResult.unreachable_breakdown}
+                  />
+                </div>
+              )}
+
+              {scanResult.source_breakdown && scanResult.source_breakdown.length > 0 && (
+                <div className="card">
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="w-1 h-6 rounded-full bg-brand-600" />
+                    <h2 className="font-bold text-brand-900 text-lg">Source Map</h2>
+                  </div>
+                  <SourceMap
+                    rows={scanResult.source_breakdown}
+                    annualDataSpend={roi.annual_data_cost}
+                  />
+                </div>
+              )}
+
               <div className="card">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-1 h-6 rounded-full bg-brand-600" />

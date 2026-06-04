@@ -1,4 +1,4 @@
-import { ScanResult, ROIResult, AuditROIResult } from "./types";
+import { ScanResult, ROIResult, AuditROIResult, UnreachableBreakdown } from "./types";
 
 export interface ReportSummary {
   total: number;
@@ -14,6 +14,8 @@ export interface ReportSummary {
   phone_valid: number;
   phone_missing: number;
   phone_high_risk_rate: number;
+  unreachable_rate?: number;
+  unreachable_breakdown?: UnreachableBreakdown;
   completeness_score: number;
   field_fill_rates: Record<string, number>;
   email_dupes: number;
@@ -43,6 +45,8 @@ export function buildSummary(scan: ScanResult, roi: ROIResult, numberOfReps: num
     phone_valid: scan.phone_valid,
     phone_missing: 0,
     phone_high_risk_rate: scan.phone_high_risk_rate,
+    unreachable_rate: scan.unreachable_rate,
+    unreachable_breakdown: scan.unreachable_breakdown,
     completeness_score: scan.completeness_score,
     field_fill_rates: scan.field_fill_rates,
     email_dupes: scan.email_dupes,
@@ -91,6 +95,8 @@ export function summaryToScanResult(s: ReportSummary): ScanResult {
     phone_risky: s.phone_risky,
     phone_valid: s.phone_valid,
     phone_high_risk_rate: s.phone_high_risk_rate,
+    unreachable_rate: s.unreachable_rate,
+    unreachable_breakdown: s.unreachable_breakdown,
     completeness_score: s.completeness_score,
     field_fill_rates: s.field_fill_rates,
     email_dupes: s.email_dupes,

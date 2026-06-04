@@ -1,3 +1,17 @@
+export interface UnreachableBucket {
+  count: number;
+  rate: number;
+  detected: boolean;
+  note: string;
+}
+
+export interface UnreachableBreakdown {
+  hard_bounce: UnreachableBucket;
+  catch_all_or_disposable: UnreachableBucket;
+  role_change: UnreachableBucket;
+  abandoned_inbox: UnreachableBucket;
+}
+
 export interface ScanResult {
   total: number;
   invalid: number;
@@ -13,6 +27,10 @@ export interface ScanResult {
   contact_risky: number;
   contact_valid: number;
   contact_high_risk_rate: number;
+  // Methodology-locked email-only unreachable rate + bucket breakdown.
+  // Optional on the type so older encoded reports without these fields still parse.
+  unreachable_rate?: number;
+  unreachable_breakdown?: UnreachableBreakdown;
   completeness_score: number;
   field_fill_rates: Record<string, number>;
   email_dupes: number;
@@ -22,7 +40,14 @@ export interface ScanResult {
   bad_zoominfo_contacts: number;
   zoominfo_flagged_sample: Record<string, unknown>[];
   high_risk_sample: Record<string, unknown>[];
-  col_guesses: { email: string | null; source: string | null; phone: string | null };
+  col_guesses: {
+    email: string | null;
+    source: string | null;
+    phone: string | null;
+    last_send?: string | null;
+    last_open?: string | null;
+    last_reply?: string | null;
+  };
 }
 
 export interface ROIResult {
@@ -73,7 +98,14 @@ export interface SourceRow {
 export interface ColumnsResponse {
   columns: string[];
   total_rows: number;
-  guesses: { email: string | null; source: string | null; phone: string | null };
+  guesses: {
+    email: string | null;
+    source: string | null;
+    phone: string | null;
+    last_send: string | null;
+    last_open: string | null;
+    last_reply: string | null;
+  };
 }
 
 export interface ROIInputs {

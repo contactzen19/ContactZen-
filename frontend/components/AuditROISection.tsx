@@ -1,15 +1,31 @@
 "use client";
-import { AuditROIResult, LeverResult } from "@/lib/types";
+import { AuditROIResult, LeverResult, UnreachableBreakdown } from "@/lib/types";
 
 const fmt = (x: number) => `$${Math.round(x).toLocaleString()}`;
 const fmtPct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;
+const fmtNum = (x: number) => x.toLocaleString();
+
+const BUCKET_LABELS: Record<keyof UnreachableBreakdown, string> = {
+  hard_bounce: "Hard bounces",
+  catch_all_or_disposable: "Catch-all / disposable",
+  role_change: "Role changes",
+  abandoned_inbox: "Abandoned inboxes",
+};
+
+const BUCKET_ORDER: (keyof UnreachableBreakdown)[] = [
+  "hard_bounce",
+  "catch_all_or_disposable",
+  "role_change",
+  "abandoned_inbox",
+];
 
 interface Props {
   audit: AuditROIResult;
   unreachableRate: number;
+  unreachableBreakdown?: UnreachableBreakdown;
 }
 
-export default function AuditROISection({ audit, unreachableRate }: Props) {
+export default function AuditROISection({ audit, unreachableRate, unreachableBreakdown }: Props) {
   return (
     <div className="space-y-6">
       {/* The Finding — single locked percentage */}
@@ -23,6 +39,9 @@ export default function AuditROISection({ audit, unreachableRate }: Props) {
           of contacts in this CRM cannot be reached
         </p>
       </div>
+
+      {/* Methodology bucket breakdown — what's detected vs. what needs CRM */}
+      {unreachableBreakdown && <MethodologyBreakdownCard breakdown={unreachableBreakdown} />}
 
       {/* Lever 1 — the headline */}
       <LeverCard order={1} lever={audit.wasted_rep_capacity} headline />
@@ -179,6 +198,59 @@ function DeliverabilityCard({
           ⚠️ Unreachable rate exceeds the blacklist threshold — the team is already self-throttling.
         </p>
       )}
+    </div>
+  );
+}
+
+function MethodologyBreakdownCard({ breakdown }: { breakdown: UnreachableBreakdown }) {
+  return (
+    <div className="card space-y-4">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-widest text-brand-700 mb-1">
+          Where the unreachable comes from
+        </p>
+        <p className="text-xs text-gray-500">
+          Methodology defines four buckets. Two are detectable from a CSV alone; two require CRM activity history.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {BUCKET_ORDER.map((key) => {
+          const bucket = breakdown[key];
+          const label = BUCKET_LABELS[key];
+          return (
+            <div
+              key={key}
+              className={`rounded-xl border p-4 space-y-1 ${
+                bucket.detected ? "border-brand-200 bg-brand-50" : "border-dashed border-gray-300 bg-gray-50"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-brand-900">{label}</p>
+                {bucket.detected ? (
+                  <span className="text-[10px] font-bold uppercase tracking-wide bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full">
+                    Detected
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold uppercase tracking-wide bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
+                    Needs CRM
+                  </span>
+                )}
+              </div>
+              {bucket.detected ? (
+                <p className="text-2xl font-extrabold text-brand-900">
+                  {fmtNum(bucket.count)}
+                  <span className="text-sm font-medium text-gray-400 ml-1">
+                    · {fmtPct(bucket.rate)}
+                  </span>
+                </p>
+              ) : (
+                <p className="text-2xl font-extrabold text-gray-400">—</p>
+              )}
+              <p className="text-xs text-gray-500 leading-relaxed">{bucket.note}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

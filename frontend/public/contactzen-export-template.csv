@@ -1,0 +1,6 @@
+email,first_name,last_name,company,title,phone,source,last_email_send_date,last_email_open_date,last_email_reply_date
+alice.smith@example.com,Alice,Smith,Acme Corp,VP Sales,5551234567,ZoomInfo,2026-05-15,2026-05-16,2026-05-22
+bob.jones@example.com,Bob,Jones,Beta Inc,Director of Operations,5552345678,Apollo,2024-03-10,,
+carol.lee@example.com,Carol,Lee,Gamma LLC,Chief Marketing Officer,5553456789,LinkedIn,2026-05-20,2026-05-21,
+david.kim@example.com,David,Kim,Delta Co,Sales Manager,5554567890,Cognism,2025-01-12,2025-01-13,2025-01-15
+emma.brown@example.com,Emma,Brown,Epsilon Ltd,Procurement Lead,5555678901,ZoomInfo,2025-11-08,,

@@ -81,7 +81,8 @@ export default function ReportPage() {
             </div>
             <AuditROISection
               audit={summary.audit_roi}
-              unreachableRate={scan.contact_high_risk_rate}
+              unreachableRate={summary.unreachable_rate ?? scan.contact_high_risk_rate}
+              unreachableBreakdown={summary.unreachable_breakdown}
             />
           </div>
         )}
