@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Zap, FileText, Globe, Map, Trash2, BarChart3 } from "lucide-react";
+import { Zap, Globe, Map, Trash2, BarChart3 } from "lucide-react";
 
 function NavBar() {
   return (
@@ -35,12 +35,7 @@ const DELIVERABLES = [
   {
     icon: Globe,
     title: "Shareable web report",
-    desc: "A live link your team can pass around in Slack, email, or a doc. Always up to date, no PDF version-creep.",
-  },
-  {
-    icon: FileText,
-    title: "Boardroom-ready PDF",
-    desc: "Same audit, exported for printing or attaching to the deck. Sized for executive review, not engineering review.",
+    desc: "A live link your team can pass around in Slack, email, or a doc. Always up to date, accessible across RevOps, sales leadership, and finance.",
   },
   {
     icon: Map,
@@ -73,7 +68,7 @@ const STEPS = [
   {
     n: 3,
     title: "Live readout in 5 business days",
-    desc: "We deliver the audit live to your team — RevOps, sales leadership, CFO if relevant — then hand off the shareable link and PDF.",
+    desc: "We deliver the audit live to your team — RevOps, sales leadership, CFO if relevant — then hand off the shareable web report link.",
   },
 ];
 
@@ -131,8 +126,8 @@ export default function PricingPage() {
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Reachability Audit</p>
-                <h2 className="text-2xl font-extrabold text-brand-900 mb-1">One engagement, two deliverables.</h2>
-                <p className="text-gray-500 text-sm">Shareable web report + boardroom PDF.</p>
+                <h2 className="text-2xl font-extrabold text-brand-900 mb-1">One engagement, four deliverables.</h2>
+                <p className="text-gray-500 text-sm">Web report · source map · ROI levers · suppression list.</p>
               </div>
               <div className="text-right">
                 <div className="flex items-end gap-1 justify-end">
@@ -159,7 +154,7 @@ export default function PricingPage() {
           <div className="mb-20">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-extrabold text-brand-900 mb-3">What you get</h2>
-              <p className="text-gray-500">Five deliverables — designed to be shareable across the org.</p>
+              <p className="text-gray-500">Four deliverables — built to move money before your next data vendor renewal.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {DELIVERABLES.map((d) => {
