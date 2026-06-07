@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
+import { Zap, FileText, Globe, Map, Trash2, BarChart3 } from "lucide-react";
 
 function NavBar() {
   return (
@@ -9,7 +9,7 @@ function NavBar() {
         <Link href="/" className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-[10px] flex items-center justify-center text-white text-base flex-shrink-0"
             style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", boxShadow: "0 4px 14px rgba(124,58,237,0.25)" }}>
-            ⚡
+            <Zap className="w-5 h-5" aria-hidden="true" />
           </div>
           <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
         </Link>
@@ -31,208 +31,192 @@ function NavBar() {
   );
 }
 
-const TIERS = [
+const DELIVERABLES = [
   {
-    name: "Free",
-    monthlyPrice: 0,
-    annualPrice: 0,
-    description: "See what ReachAudit can do with no commitment.",
-    cta: "Start Free",
-    ctaHref: "/app",
-    ctaStyle: "border-2 border-brand-600 text-brand-600 hover:bg-brand-50",
-    highlight: false,
-    features: [
-      { text: "Up to 5,000 contacts per scan", included: true },
-      { text: "1 scan per month", included: true },
-      { text: "HubSpot connection", included: true },
-      { text: "Email & phone reachability scoring", included: true },
-      { text: "Executive ROI report", included: true },
-      { text: "Clean CSV export", included: false },
-      { text: "Suppression list export", included: false },
-      { text: "Priority support", included: false },
-    ],
+    icon: Globe,
+    title: "Shareable web report",
+    desc: "A live link your team can pass around in Slack, email, or a doc. Always up to date, no PDF version-creep.",
   },
   {
-    name: "Pro",
-    monthlyPrice: 99,
-    annualPrice: 79,
-    description: "For RevOps teams who need to run clean data as an ongoing workflow.",
-    cta: "Get Started",
-    ctaHref: "https://calendly.com/contactzen-joey/new-meeting",
-    ctaStyle: "bg-brand-600 text-white hover:bg-brand-700",
-    highlight: true,
-    features: [
-      { text: "Up to 50,000 contacts per scan", included: true },
-      { text: "Unlimited scans", included: true },
-      { text: "HubSpot connection", included: true },
-      { text: "Email & phone reachability scoring", included: true },
-      { text: "Executive ROI report", included: true },
-      { text: "Clean CSV export", included: true },
-      { text: "Suppression list export", included: true },
-      { text: "Priority support", included: false },
-    ],
+    icon: FileText,
+    title: "Boardroom-ready PDF",
+    desc: "Same audit, exported for printing or attaching to the deck. Sized for executive review, not engineering review.",
   },
   {
-    name: "Team",
-    monthlyPrice: 299,
-    annualPrice: 239,
-    description: "For larger orgs that need unlimited scale and hands-on support.",
-    cta: "Book a Call",
-    ctaHref: "https://calendly.com/contactzen-joey/new-meeting",
-    ctaStyle: "border-2 border-brand-600 text-brand-600 hover:bg-brand-50",
-    highlight: false,
-    features: [
-      { text: "Unlimited contacts per scan", included: true },
-      { text: "Unlimited scans", included: true },
-      { text: "HubSpot connection", included: true },
-      { text: "Email & phone reachability scoring", included: true },
-      { text: "Executive ROI report", included: true },
-      { text: "Clean CSV export", included: true },
-      { text: "Suppression list export", included: true },
-      { text: "Priority support", included: true },
-    ],
+    icon: Map,
+    title: "Source map",
+    desc: "Which data provider's contacts are decayed, by what percentage, with the dollar cost mapped to your renewal — credit-recapture-ready.",
+  },
+  {
+    icon: BarChart3,
+    title: "ROI levers",
+    desc: "Three numbers your CFO will ask for: wasted rep capacity, recoverable pipeline, wasted data spend. Each one defended by methodology.",
+  },
+  {
+    icon: Trash2,
+    title: "Suppression list",
+    desc: "Cleanup-ready CSV. Hard bounces, role addresses, and abandoned inboxes flagged so your next sequence isn't burning sender reputation.",
   },
 ];
 
-function Check() {
-  return (
-    <svg className="w-5 h-5 text-brand-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
+const STEPS = [
+  {
+    n: 1,
+    title: "30-min scoping call",
+    desc: "We walk through your list size, data sources, current renewal timeline, and what you want the audit to answer. Free.",
+  },
+  {
+    n: 2,
+    title: "Secure CSV transfer",
+    desc: "You export your contact list from HubSpot, Salesforce, or any CRM. We process it in memory and discard it on completion. Nothing stored.",
+  },
+  {
+    n: 3,
+    title: "Live readout in 5 business days",
+    desc: "We deliver the audit live to your team — RevOps, sales leadership, CFO if relevant — then hand off the shareable link and PDF.",
+  },
+];
 
-function X() {
-  return (
-    <svg className="w-5 h-5 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
+const FAQ = [
+  {
+    q: "How fast is the turnaround?",
+    a: "Five business days from the moment we receive your CSV. Most audits complete in three.",
+  },
+  {
+    q: "What size list does this work for?",
+    a: "The $5,000 base engagement covers lists up to 25,000 contacts. Larger lists or recurring quarterly audits are scoped on the call.",
+  },
+  {
+    q: "Do you store our data?",
+    a: "No. Your CSV is processed in memory during the audit and discarded immediately after. Nothing is written to a database, nothing persists past the engagement.",
+  },
+  {
+    q: "What CRMs are supported?",
+    a: "Any CRM that can export a CSV — HubSpot, Salesforce, Outreach, Apollo, Pipedrive, custom systems. We're CRM-independent by design.",
+  },
+  {
+    q: "Can we do this as a recurring engagement?",
+    a: "Yes. Many teams run a quarterly audit aligned with their data provider's renewal cycle to support credit recapture conversations. Scoped per relationship.",
+  },
+  {
+    q: "What if the audit finds very little?",
+    a: "That's a result too — and worth knowing. You'll have an independent, methodology-defended baseline you can show leadership. We've never had an audit return zero, but if yours does, you'll have the receipt.",
+  },
+];
 
 export default function PricingPage() {
-  const [annual, setAnnual] = useState(false);
-
   return (
     <div className="min-h-screen bg-white">
       <NavBar />
 
       <div className="pt-32 pb-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
 
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-extrabold text-brand-900 tracking-tight mb-4">
-              Simple, transparent pricing
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-sm font-medium text-brand-700 mb-6">
+              <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
+              Engagement-based, not subscription
+            </div>
+            <h1 className="text-5xl font-extrabold text-brand-900 tracking-tight mb-4 leading-tight">
+              Audits scoped to your list,<br />not a SaaS seat count.
             </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-8">
-              A fraction of what you&apos;re spending on data providers today — with a clear picture of what it&apos;s actually costing you.
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+              You don&apos;t need a recurring tool. You need an independent answer — once, before your next data provider renewal.
             </p>
+          </div>
 
-            {/* Annual toggle */}
-            <div className="inline-flex items-center gap-3 bg-gray-100 rounded-full p-1">
-              <button
-                onClick={() => setAnnual(false)}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${!annual ? "bg-white text-brand-900 shadow-sm" : "text-gray-500"}`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setAnnual(true)}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${annual ? "bg-white text-brand-900 shadow-sm" : "text-gray-500"}`}
-              >
-                Annual
-                <span className="ml-2 text-xs font-bold text-brand-600">Save 20%</span>
-              </button>
+          {/* Pricing card */}
+          <div className="rounded-2xl border-2 border-brand-600 shadow-xl shadow-brand-100 p-10 mb-16 bg-white">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Reachability Audit</p>
+                <h2 className="text-2xl font-extrabold text-brand-900 mb-1">One engagement, two deliverables.</h2>
+                <p className="text-gray-500 text-sm">Shareable web report + boardroom PDF.</p>
+              </div>
+              <div className="text-right">
+                <div className="flex items-end gap-1 justify-end">
+                  <span className="text-sm text-gray-400 mb-2">Starts at</span>
+                  <span className="text-5xl font-extrabold text-brand-900">$5,000</span>
+                </div>
+                <p className="text-xs text-gray-400 mt-1">Up to 25,000 contacts · Quoted per engagement</p>
+              </div>
+            </div>
+            <a
+              href="https://calendly.com/contactzen-joey/new-meeting"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary w-full block text-center text-base py-4 rounded-xl"
+            >
+              Book a 30-min scoping call
+            </a>
+            <p className="text-xs text-gray-400 text-center mt-3">
+              No commitment on the call. We scope it together, then you decide.
+            </p>
+          </div>
+
+          {/* Deliverables */}
+          <div className="mb-20">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-extrabold text-brand-900 mb-3">What you get</h2>
+              <p className="text-gray-500">Five deliverables — designed to be shareable across the org.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {DELIVERABLES.map((d) => {
+                const Icon = d.icon;
+                return (
+                  <div
+                    key={d.title}
+                    className="flex gap-4 p-6 rounded-2xl bg-gray-50 border border-gray-100"
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-brand-50 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5 text-brand-600" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-brand-900 mb-1">{d.title}</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed">{d.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Tiers */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            {TIERS.map((tier) => (
-              <div
-                key={tier.name}
-                className={`rounded-2xl border p-8 relative ${
-                  tier.highlight
-                    ? "border-brand-600 shadow-xl shadow-brand-100"
-                    : "border-gray-200"
-                }`}
-              >
-                {tier.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="bg-brand-600 text-white text-xs font-bold px-4 py-1.5 rounded-full">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-
-                <div className="mb-6">
-                  <h2 className="text-xl font-extrabold text-brand-900 mb-1">{tier.name}</h2>
-                  <p className="text-gray-500 text-sm mb-4">{tier.description}</p>
-                  <div className="flex items-end gap-1">
-                    <span className="text-4xl font-extrabold text-brand-900">
-                      ${annual ? tier.annualPrice : tier.monthlyPrice}
-                    </span>
-                    {tier.monthlyPrice > 0 && (
-                      <span className="text-gray-400 text-sm mb-1">/mo</span>
-                    )}
-                  </div>
-                  {annual && tier.monthlyPrice > 0 && (
-                    <p className="text-xs text-brand-600 font-medium mt-1">
-                      Billed annually · Save ${(tier.monthlyPrice - tier.annualPrice) * 12}/yr
-                    </p>
-                  )}
-                </div>
-
-                <a
-                  href={tier.ctaHref}
-                  target={tier.ctaHref.startsWith("http") ? "_blank" : undefined}
-                  rel={tier.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`w-full block text-center font-semibold text-sm px-6 py-3 rounded-xl transition-colors mb-8 ${tier.ctaStyle}`}
+          {/* How it works */}
+          <div className="mb-20">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-extrabold text-brand-900 mb-3">How it works</h2>
+              <p className="text-gray-500">Scoping call to readout in under two weeks.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {STEPS.map((step) => (
+                <div
+                  key={step.n}
+                  className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm"
                 >
-                  {tier.cta}
-                </a>
+                  <div className="w-10 h-10 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center mb-4">
+                    {step.n}
+                  </div>
+                  <h3 className="font-bold text-brand-900 mb-2">{step.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
-                <ul className="space-y-3">
-                  {tier.features.map((f) => (
-                    <li key={f.text} className="flex items-center gap-3">
-                      {f.included ? <Check /> : <X />}
-                      <span className={`text-sm ${f.included ? "text-gray-700" : "text-gray-400"}`}>
-                        {f.text}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          {/* Who it's for */}
+          <div className="mb-20 rounded-2xl bg-gray-50 border border-gray-100 p-10">
+            <h2 className="text-2xl font-extrabold text-brand-900 mb-4 text-center">Who this is for</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-center leading-relaxed">
+              RevOps, CRO, and CFO teams at B2B sales orgs spending <strong>$50k+/year on data providers</strong> — ZoomInfo, Apollo, Cognism, LeadIQ. If your team is treating reachability as an assumption instead of a measurement, that&apos;s the gap we close.
+            </p>
           </div>
 
           {/* FAQ */}
-          <div className="mt-20 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-extrabold text-brand-900 text-center mb-8">Common questions</h2>
-            <div className="space-y-6">
-              {[
-                {
-                  q: "Do you store my contact data?",
-                  a: "Never. Your contacts are processed in memory during the scan and immediately discarded. Nothing is written to a database. This is a core architectural decision, not an afterthought.",
-                },
-                {
-                  q: "What CRM access does ReachAudit need?",
-                  a: "Read-only access to your contacts. We cannot modify, delete, or export anything from your CRM. You can revoke access at any time from your HubSpot settings.",
-                },
-                {
-                  q: "Can I try it before paying?",
-                  a: "Yes — the Free plan lets you scan up to 5,000 contacts with a full HubSpot connection and executive report. No credit card required.",
-                },
-                {
-                  q: "What happens when I hit my contact limit?",
-                  a: "We'll let you know and give you the option to upgrade. We don't cut off your scan mid-results.",
-                },
-                {
-                  q: "Is Salesforce supported?",
-                  a: "Salesforce is on our roadmap and coming soon on the Team plan. In the meantime, any CRM that exports a CSV works on all plans.",
-                },
-              ].map((item) => (
+          <div className="mb-16">
+            <h2 className="text-3xl font-extrabold text-brand-900 text-center mb-10">Common questions</h2>
+            <div className="space-y-6 max-w-2xl mx-auto">
+              {FAQ.map((item) => (
                 <div key={item.q} className="border-b border-gray-100 pb-6">
                   <h3 className="font-semibold text-brand-900 mb-2">{item.q}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{item.a}</p>
@@ -242,15 +226,20 @@ export default function PricingPage() {
           </div>
 
           {/* Bottom CTA */}
-          <div className="mt-16 text-center">
-            <p className="text-gray-500 mb-4">Not sure which plan is right for you?</p>
+          <div className="text-center rounded-2xl p-12" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
+            <h2 className="text-3xl font-extrabold text-white mb-3">
+              The hard part isn&apos;t deciding to audit.
+            </h2>
+            <p className="text-brand-200 text-lg mb-8 max-w-xl mx-auto">
+              It&apos;s deciding to audit before your next data provider renewal — while you still have leverage.
+            </p>
             <a
               href="https://calendly.com/contactzen-joey/new-meeting"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary px-8 py-3 text-base"
+              className="inline-block bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors"
             >
-              Book a 30-minute call
+              Book your scoping call
             </a>
           </div>
 

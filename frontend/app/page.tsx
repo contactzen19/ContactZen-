@@ -116,7 +116,7 @@ function Hero() {
       <div className="max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-sm font-medium text-brand-700 mb-8">
           <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
-          Built for RevOps &amp; Sales Leaders
+          Independent Reachability Audits
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold text-brand-900 leading-tight tracking-tight mb-6">
           Valid doesn&apos;t mean<br />
@@ -131,25 +131,27 @@ function Hero() {
           </span>
         </h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Most sales teams trust their CRM data. ReachAudit shows you what&apos;s actually usable — before you waste another sequence on a number that won&apos;t connect.
+          An independent audit of your CRM&apos;s reachability — sourced, scored, and dollarized. Run before your next data vendor renewal, while you still have leverage.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/app?demo=true"
+          <a
+            href="https://calendly.com/contactzen-joey/new-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary text-base px-8 py-4 rounded-xl inline-flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4" aria-hidden="true" />
-            See a Live Demo
-          </Link>
+            Book a Scoping Call
+          </a>
           <Link
-            href="/app"
+            href="/app?demo=true"
             className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-brand-400 text-gray-700 font-semibold text-base px-8 py-4 rounded-xl transition-colors"
           >
-            Upload Your Own CSV
+            See the Engine in Action
           </Link>
         </div>
         <p className="text-sm text-gray-500 mt-4">
-          No credit card required · No data stored · Read-only access
+          30-min scoping call · No commitment · 5-day audit turnaround
         </p>
       </div>
     </section>
@@ -182,10 +184,10 @@ function ProductPreview() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-3">
-            Here&apos;s what your data actually looks like.
+            What the audit shows you.
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            This is a real scan on 25,000 contacts from a mid-market B2B sales team. Results like this take under 60 seconds.
+            Anonymized view from a real audit — 25,000 contacts from a mid-market B2B team. Source attribution, dollarized waste, credit-recapture-ready.
           </p>
         </div>
 
@@ -297,19 +299,21 @@ function ProductPreview() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-sm text-gray-400 mb-4">Run this exact report on your own contacts in under 60 seconds.</p>
+          <p className="text-sm text-gray-400 mb-4">Want this on your own data? Try the engine free, or book a scoping call for the full audit.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="/app?demo=true"
+              href="https://calendly.com/contactzen-joey/new-meeting"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary px-6 py-3 text-sm font-semibold rounded-xl inline-block"
             >
-              Try with Demo Data →
+              Book a Scoping Call →
             </a>
             <a
-              href="/app"
+              href="/app?demo=true"
               className="btn-secondary px-6 py-3 text-sm font-semibold rounded-xl inline-block"
             >
-              Upload Your Own CSV
+              Try the Engine Free
             </a>
           </div>
         </div>
@@ -345,7 +349,7 @@ function PainSection() {
             You&apos;re not missing pipeline. You&apos;re dialing bad data.
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Enterprise direct dials are silently failing. Emails deliver. Phones don&apos;t connect. Your data vendor calls it valid — ReachAudit shows you what&apos;s actually reachable.
+            Your data vendor calls it valid. The phone doesn&apos;t connect. The audit is the difference between assuming reachability and measuring it — with the receipt your CFO will sign off on.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -383,18 +387,18 @@ function HowItWorks() {
   const steps: Step[] = [
     {
       icon: Link2,
-      title: "Upload your contact list",
-      desc: "Drop a CSV export from any CRM — HubSpot, Salesforce, Apollo, ZoomInfo. Takes 30 seconds.",
+      title: "30-min scoping call",
+      desc: "We walk through your list size, data sources, and renewal timeline. Free, no commitment.",
     },
     {
       icon: Zap,
-      title: "ReachAudit scans everything",
-      desc: "We check every contact for email deliverability, phone reachability, duplicates, field completeness, and source attribution.",
+      title: "Secure CSV transfer",
+      desc: "Export from HubSpot, Salesforce, or any CRM. We process in memory and discard on completion. Nothing stored.",
     },
     {
       icon: BarChart3,
-      title: "Get your executive report",
-      desc: "See your risk rate, ROI impact, worst offending sources, and a clean export — ready to act on immediately.",
+      title: "Live readout in 5 business days",
+      desc: "We deliver the audit live to your team — RevOps, sales leadership, CFO — then hand off the shareable link and PDF.",
     },
   ];
 
@@ -402,8 +406,8 @@ function HowItWorks() {
     <section className="py-20 px-6 bg-gray-50">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How it works</h2>
-          <p className="text-gray-500 text-lg">From connection to insight in under 60 seconds.</p>
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How the audit works</h2>
+          <p className="text-gray-500 text-lg">Scoping call to boardroom-ready readout in under two weeks.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, i) => {
@@ -501,29 +505,29 @@ function CTASection() {
     >
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="text-4xl font-extrabold text-white mb-4">
-          See what&apos;s actually usable in your CRM.
+          The hard part isn&apos;t deciding to audit.
         </h2>
         <p className="text-brand-200 text-lg mb-10">
-          Upload your CSV. Get your reachability report in under 60 seconds.
+          It&apos;s deciding to audit before your next data vendor renewal — while you still have leverage.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-          <Link
-            href="/app?demo=true"
-            className="bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors"
-          >
-            See a Live Demo
-          </Link>
           <a
             href="https://calendly.com/contactzen-joey/new-meeting"
             target="_blank"
             rel="noopener noreferrer"
+            className="bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors"
+          >
+            Book a Scoping Call
+          </a>
+          <Link
+            href="/app?demo=true"
             className="border-2 border-white/40 text-white font-bold text-base px-8 py-4 rounded-xl hover:bg-white/10 transition-colors"
           >
-            Book a Call
-          </a>
+            See the Engine in Action
+          </Link>
         </div>
         <p className="text-white/50 text-xs">
-          No credit card required · No data stored · Read-only access
+          30-min scoping call · No commitment · 5-day audit turnaround
         </p>
       </div>
     </section>
