@@ -15,14 +15,6 @@ export const metadata: Metadata = {
       "Valid doesn't mean reachable. See what's actually usable in your CRM.",
     url: "https://reachaudit.com",
     siteName: "ReachAudit",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ReachAudit — Valid doesn't mean reachable.",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -30,7 +22,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ReachAudit — Independent Reachability Audits for B2B Sales",
     description: "Valid doesn't mean reachable.",
-    images: ["/og-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
