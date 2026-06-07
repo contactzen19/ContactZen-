@@ -144,10 +144,10 @@ function Hero() {
             Book a Scoping Call
           </a>
           <Link
-            href="/app?demo=true"
+            href="/audit/sample"
             className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-brand-400 text-gray-700 font-semibold text-base px-8 py-4 rounded-xl transition-colors"
           >
-            See the Engine in Action
+            See a Sample Audit
           </Link>
         </div>
         <p className="text-sm text-gray-500 mt-4">
@@ -520,10 +520,10 @@ function CTASection() {
             Book a Scoping Call
           </a>
           <Link
-            href="/app?demo=true"
+            href="/audit/sample"
             className="border-2 border-white/40 text-white font-bold text-base px-8 py-4 rounded-xl hover:bg-white/10 transition-colors"
           >
-            See the Engine in Action
+            See a Sample Audit
           </Link>
         </div>
         <p className="text-white/50 text-xs">
