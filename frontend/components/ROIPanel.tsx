@@ -171,41 +171,6 @@ export default function ROIPanel({ values, onChange }: Props) {
         </div>
       </div>
 
-      <div className="border-t border-gray-100 pt-4">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-          Legacy Activity Inputs
-        </p>
-        <div className="space-y-3">
-          <Field
-            label="Rep Cost / Hour (Fallback)"
-            tooltipKey="rep_hourly_cost"
-            value={values.rep_hourly_cost}
-            onChange={set("rep_hourly_cost")}
-            prefix="$" min={10} max={250} step={5}
-          />
-          <Field
-            label="Cleanup Hours / Rep / Month"
-            tooltipKey="cleanup_hours_per_rep_per_month"
-            value={values.cleanup_hours_per_rep_per_month}
-            onChange={set("cleanup_hours_per_rep_per_month")}
-            min={0} max={40} step={0.5}
-          />
-          <Field
-            label="Emails / Rep / Week"
-            tooltipKey="emails_per_rep_per_week"
-            value={values.emails_per_rep_per_week}
-            onChange={set("emails_per_rep_per_week")}
-            min={0} max={5000} step={25}
-          />
-          <Field
-            label="New Contacts / Rep / Week"
-            tooltipKey="new_contacts_per_rep_per_week"
-            value={values.new_contacts_per_rep_per_week}
-            onChange={set("new_contacts_per_rep_per_week")}
-            min={0} max={2000} step={5}
-          />
-        </div>
-      </div>
     </div>
   );
 }

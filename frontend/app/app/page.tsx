@@ -298,26 +298,38 @@ export default function Home() {
           <div className="sticky top-24 space-y-4">
             {scanResult && roiResult ? (
               <>
-                {/* Post-scan: big number + actions */}
+                {/* Post-scan: headline + lever breakdown (methodology-locked) */}
                 <div className="rounded-xl p-5 text-white space-y-4" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-1">GTM Waste Detected</p>
-                    <p className="text-4xl font-extrabold">${Math.round(roiResult.total_annual_impact).toLocaleString()}</p>
-                    <p className="text-brand-200 text-xs mt-1">estimated annual impact</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-1">Annual Impact</p>
+                    <p className="text-4xl font-extrabold">
+                      ${Math.round(auditRoi?.headline_total_annual ?? roiResult.total_annual_impact).toLocaleString()}
+                    </p>
+                    <p className="text-brand-200 text-xs mt-1">
+                      {auditRoi ? "Lever 1 + Lever 3 · methodology-locked" : "estimated annual impact"}
+                    </p>
                   </div>
                   <div className="border-t border-white/20 pt-4 space-y-2.5">
                     <div className="flex justify-between text-sm">
-                      <span className="text-brand-200">Rep time waste</span>
-                      <span className="font-semibold">${Math.round(roiResult.rep_productivity_loss).toLocaleString()}</span>
+                      <span className="text-brand-200">Wasted rep capacity</span>
+                      <span className="font-semibold">
+                        ${Math.round(auditRoi?.wasted_rep_capacity.value ?? roiResult.rep_productivity_loss).toLocaleString()}
+                      </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-brand-200">Data vendor waste</span>
-                      <span className="font-semibold">${Math.round(roiResult.estimated_data_waste).toLocaleString()}</span>
+                      <span className="text-brand-200">Wasted data spend</span>
+                      <span className="font-semibold">
+                        ${Math.round(auditRoi?.wasted_data_spend.value ?? roiResult.estimated_data_waste).toLocaleString()}
+                      </span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-brand-200">Wasted emails / yr</span>
-                      <span className="font-semibold">{roiResult.wasted_emails.toLocaleString()}</span>
-                    </div>
+                    {auditRoi && (
+                      <div className="flex justify-between text-sm pt-2 mt-1 border-t border-white/10">
+                        <span className="text-brand-300 italic">Or: recoverable pipeline</span>
+                        <span className="font-semibold text-brand-100">
+                          ${Math.round(auditRoi.recoverable_pipeline.value).toLocaleString()}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* Actions */}
@@ -486,7 +498,7 @@ export default function Home() {
                   <div className="w-1 h-6 rounded-full bg-brand-600" />
                   <h2 className="font-bold text-brand-900 text-lg">Executive Summary</h2>
                 </div>
-                <ExecutiveSummary scan={scanResult} roi={roiResult} numberOfReps={roi.number_of_reps} />
+                <ExecutiveSummary scan={scanResult} roi={roiResult} numberOfReps={roi.number_of_reps} auditRoi={auditRoi ?? undefined} />
               </div>
 
               <div className="card">

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ScanResult, ROIResult } from "@/lib/types";
+import { ScanResult, ROIResult, AuditROIResult } from "@/lib/types";
 import MetricCard from "@/components/MetricCard";
 
 const fmt = (x: number) => `${(x * 100).toFixed(1)}%`;
@@ -45,24 +45,27 @@ function ActionItem({ level, action, why, rank, quickWin }: Action & { rank: num
   );
 }
 
-function getActions(scan: ScanResult, roi: ROIResult): Action[] {
+function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult): Action[] {
   const actions: Action[] = [];
+  const headlineImpact = auditRoi?.headline_total_annual ?? roi.total_annual_impact;
+  const repCapacity = auditRoi?.wasted_rep_capacity.value ?? roi.rep_productivity_loss;
+  const dataWaste = auditRoi?.wasted_data_spend.value ?? roi.estimated_data_waste;
 
   // --- Contact suppression ---
   if (scan.contact_high_risk_rate > 0.30) {
-    const impactShare = Math.round(roi.total_annual_impact * 0.7);
+    const impactShare = Math.round(repCapacity * 0.7);
     actions.push({
       level: "error",
       action: `Suppress ${fmtNum(scan.contact_invalid)} invalid contacts before your next sequence run`,
-      why: `${fmt(scan.contact_high_risk_rate)} of your database is flagged. Sending to these contacts drives bounces, harms sender reputation, and costs reps time on dead-end outreach. Estimated ${fmtDollar(impactShare)}/year in avoidable waste — the single highest-impact fix available.`,
+      why: `${fmt(scan.contact_high_risk_rate)} of your database is flagged. Sending to these contacts drives bounces, harms sender reputation, and costs reps time on dead-end outreach. Estimated ${fmtDollar(impactShare)}/year in recoverable selling capacity — the single highest-impact fix available.`,
       impact: impactShare,
     });
   } else if (scan.contact_high_risk_rate > 0.10) {
-    const impactShare = Math.round(roi.total_annual_impact * 0.5);
+    const impactShare = Math.round(repCapacity * 0.5);
     actions.push({
       level: "warning",
       action: `Suppress ${fmtNum(scan.contact_invalid)} at-risk contacts to protect deliverability`,
-      why: `${fmt(scan.contact_high_risk_rate)} contact risk rate. Even at moderate levels, sustained bouncing triggers inbox provider penalties — your sender score is a shared asset across every rep in your org. Estimated ${fmtDollar(impactShare)}/year in recoverable waste.`,
+      why: `${fmt(scan.contact_high_risk_rate)} contact risk rate. Even at moderate levels, sustained bouncing triggers inbox provider penalties — your sender score is a shared asset across every rep in your org. Estimated ${fmtDollar(impactShare)}/year in recoverable selling capacity.`,
       impact: impactShare,
     });
   }
@@ -103,7 +106,7 @@ function getActions(scan: ScanResult, roi: ROIResult): Action[] {
   // --- Completeness / enrichment ---
   if (scan.completeness_score < 70) {
     const gapContacts = Math.round(scan.total * (1 - scan.completeness_score / 100) * 0.4);
-    const dataWasteShare = Math.round(roi.estimated_data_waste * 0.4);
+    const dataWasteShare = Math.round(dataWaste * 0.4);
     actions.push({
       level: "info",
       action: `Enrich ~${fmtNum(gapContacts)} contacts missing key fields before your next sequence launch`,
@@ -113,24 +116,25 @@ function getActions(scan: ScanResult, roi: ROIResult): Action[] {
   }
 
   // --- Leadership SLA (only when impact is meaningful) ---
-  if (roi.total_annual_impact > 25000) {
+  if (headlineImpact > 25000) {
     actions.push({
       level: "info",
       action: `Share this report with your VP of Sales or RevOps lead to lock in a monthly hygiene SLA`,
-      why: `${fmtDollar(roi.total_annual_impact)} in estimated annual impact is a board-level number. Most teams don't act on data quality until they can quantify the cost — this report does that. Schedule a 15-minute review and use it to establish a recurring monthly scan cadence.`,
-      impact: roi.total_annual_impact * 0.05,
+      why: `${fmtDollar(headlineImpact)} in annual impact is a board-level number. Most teams don't act on data quality until they can quantify the cost — this report does that. Schedule a 15-minute review and use it to establish a recurring monthly scan cadence.`,
+      impact: headlineImpact * 0.05,
     });
   }
 
   return actions.sort((a, b) => b.impact - a.impact);
 }
 
-export default function ExecutiveSummary({ scan, roi, numberOfReps }: { scan: ScanResult; roi: ROIResult; numberOfReps: number }) {
+export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: { scan: ScanResult; roi: ROIResult; numberOfReps: number; auditRoi?: AuditROIResult }) {
   const [avgPipeline, setAvgPipeline] = useState(250000);
   const healthScore = Math.max(0, Math.min(100, Math.round(100 - scan.contact_high_risk_rate * 100)));
   const healthLabel = healthScore >= 90 ? "Healthy" : healthScore >= 75 ? "Moderate Risk" : healthScore >= 50 ? "High Risk" : "Critical";
   const pipelineAtRisk = Math.round(numberOfReps * avgPipeline * scan.high_risk_rate);
-  const actions = getActions(scan, roi);
+  const actions = getActions(scan, roi, auditRoi);
+  const headlineImpact = auditRoi?.headline_total_annual ?? roi.total_annual_impact;
 
   return (
     <div className="space-y-6">
@@ -144,13 +148,13 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps }: { scan: Sc
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <MetricCard label="Database Health" value={`${healthScore}/100`} sub={healthLabel} />
         <MetricCard label="Contact Risk Rate" value={fmt(scan.contact_high_risk_rate)} danger={scan.contact_high_risk_rate > 0.2} />
-        <MetricCard label="Est. Annual Impact" value={fmtDollar(roi.total_annual_impact)} />
-        <MetricCard label="Wasted Emails (Est.)" value={fmtNum(roi.wasted_emails)} />
+        <MetricCard label="Annual Impact" value={fmtDollar(headlineImpact)} sub={auditRoi ? "Lever 1 + Lever 3" : undefined} />
+        <MetricCard label="Email Risk Rate" value={fmt(scan.high_risk_rate)} />
       </div>
 
       {/* Secondary metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricCard label="Email Risk Rate" value={fmt(scan.high_risk_rate)} />
+        <MetricCard label="Unreachable Rate" value={fmt(scan.unreachable_rate ?? scan.contact_high_risk_rate)} />
         <MetricCard label="Phone Risk Rate" value={fmt(scan.phone_high_risk_rate)} />
         <MetricCard label="Data Completeness" value={`${scan.completeness_score}/100`} />
         <MetricCard label="Duplicate Records" value={fmtNum(scan.email_dupes)} />

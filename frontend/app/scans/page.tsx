@@ -108,7 +108,7 @@ export default function ScansPage() {
                 {[
                   { label: "Contacts", value: fmtNum(s.total) },
                   { label: "Risk Rate", value: fmt(s.contact_high_risk_rate) },
-                  { label: "Annual Impact", value: fmtDollar(s.roi.total_annual_impact) },
+                  { label: "Annual Impact", value: fmtDollar(s.audit_roi?.headline_total_annual ?? s.roi.total_annual_impact) },
                   { label: "Completeness", value: `${s.completeness_score}/100` },
                 ].map((m) => (
                   <div key={m.label} className="bg-gray-50 rounded-xl px-4 py-3">

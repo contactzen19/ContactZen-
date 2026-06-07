@@ -107,7 +107,7 @@ export default function ReportPage() {
             <div className="w-1 h-6 rounded-full bg-brand-600" />
             <h2 className="font-bold text-brand-900 text-lg">Executive Summary</h2>
           </div>
-          <ExecutiveSummary scan={scan} roi={roi} numberOfReps={summary.number_of_reps} />
+          <ExecutiveSummary scan={scan} roi={roi} numberOfReps={summary.number_of_reps} auditRoi={summary.audit_roi} />
         </div>
 
         {/* RevOps Breakdown */}

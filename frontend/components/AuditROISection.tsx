@@ -12,9 +12,12 @@ const BUCKET_LABELS: Record<keyof UnreachableBreakdown, string> = {
   abandoned_inbox: "Abandoned inboxes",
 };
 
-const BUCKET_ORDER: (keyof UnreachableBreakdown)[] = [
+const VALIDATION_BUCKETS: (keyof UnreachableBreakdown)[] = [
   "hard_bounce",
   "catch_all_or_disposable",
+];
+
+const ENGAGEMENT_BUCKETS: (keyof UnreachableBreakdown)[] = [
   "role_change",
   "abandoned_inbox",
 ];
@@ -203,18 +206,67 @@ function DeliverabilityCard({
 }
 
 function MethodologyBreakdownCard({ breakdown }: { breakdown: UnreachableBreakdown }) {
+  const subtotal = (keys: (keyof UnreachableBreakdown)[]) =>
+    keys.reduce((sum, k) => sum + (breakdown[k].detected ? breakdown[k].rate : 0), 0);
+  const validationRate = subtotal(VALIDATION_BUCKETS);
+  const engagementRate = subtotal(ENGAGEMENT_BUCKETS);
+
   return (
-    <div className="card space-y-4">
+    <div className="card space-y-5">
       <div>
         <p className="text-xs font-bold uppercase tracking-widest text-brand-700 mb-1">
           Where the unreachable comes from
         </p>
-        <p className="text-xs text-gray-500">
-          Methodology defines four buckets. Two are detectable from a CSV alone; two require CRM activity history.
+        <p className="text-xs text-gray-500 leading-relaxed">
+          Two distinct failure modes. <strong>Validation decay</strong> = the mailbox is dead. <strong>Engagement decay</strong> = the mailbox is alive but the person stopped showing up. Even valid mailboxes go dark — engagement decay catches what validation alone misses.
+        </p>
+      </div>
+
+      <DecaySection
+        title="Validation decay"
+        subtitle="Detectable from a CSV alone — addresses that won't deliver."
+        rate={validationRate}
+        keys={VALIDATION_BUCKETS}
+        breakdown={breakdown}
+      />
+
+      <DecaySection
+        title="Engagement decay"
+        subtitle="Requires CRM activity history — addresses that deliver but no longer reach anyone."
+        rate={engagementRate}
+        keys={ENGAGEMENT_BUCKETS}
+        breakdown={breakdown}
+      />
+    </div>
+  );
+}
+
+function DecaySection({
+  title,
+  subtitle,
+  rate,
+  keys,
+  breakdown,
+}: {
+  title: string;
+  subtitle: string;
+  rate: number;
+  keys: (keyof UnreachableBreakdown)[];
+  breakdown: UnreachableBreakdown;
+}) {
+  return (
+    <div className="border-t border-gray-100 pt-4 space-y-3">
+      <div className="flex items-baseline justify-between">
+        <div>
+          <p className="text-sm font-bold text-brand-900">{title}</p>
+          <p className="text-xs text-gray-500">{subtitle}</p>
+        </div>
+        <p className="text-lg font-extrabold text-brand-900 whitespace-nowrap">
+          {fmtPct(rate)} <span className="text-xs font-medium text-gray-400">subtotal</span>
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {BUCKET_ORDER.map((key) => {
+        {keys.map((key) => {
           const bucket = breakdown[key];
           const label = BUCKET_LABELS[key];
           return (
