@@ -23,6 +23,7 @@ from analysis import (
 )
 from roi import ROIInputs, calc_roi, audit_roi_from_legacy
 from signal_scoring import parse_hubspot_engagement, score_contact
+from vendor_signals import capture_scan_signals
 
 
 def sanitize(obj: Any) -> Any:
@@ -118,11 +119,14 @@ async def scan(
     if email_col not in df.columns:
         raise HTTPException(status_code=400, detail=f"Email column '{email_col}' not found in file.")
 
+    _source_col = source_col if source_col else None
+    _phone_col = phone_col if phone_col else None
+
     scan_results = compute_scan(
         df,
         email_col=email_col,
-        source_col=source_col if source_col else None,
-        phone_col=phone_col if phone_col else None,
+        source_col=_source_col,
+        phone_col=_phone_col,
         last_send_col=last_send_col if last_send_col else None,
         last_open_col=last_open_col if last_open_col else None,
         last_reply_col=last_reply_col if last_reply_col else None,
@@ -150,6 +154,13 @@ async def scan(
         mtg_to_deal_pct=mtg_to_deal_pct,
         avg_contract_value=avg_contract_value,
     )
+
+    # Anonymized vendor-quality signal capture. Best-effort: errors here are
+    # silent so the scan response is never blocked by telemetry.
+    try:
+        capture_scan_signals(df, email_col, _source_col, _phone_col)
+    except Exception:
+        pass
 
     return sanitize({"scan": scan_results, "roi": roi, "audit_roi": audit_roi})
 
@@ -392,6 +403,12 @@ async def scan_hubspot(
         mtg_to_deal_pct=mtg_to_deal_pct,
         avg_contract_value=avg_contract_value,
     )
+
+    # Anonymized vendor-quality signal capture (HubSpot path).
+    try:
+        capture_scan_signals(df, "email", "source", "phone")
+    except Exception:
+        pass
 
     return sanitize({"scan": scan_results, "roi": roi, "audit_roi": audit_roi})
 
