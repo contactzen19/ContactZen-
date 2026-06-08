@@ -497,6 +497,102 @@ function TrustSection() {
   );
 }
 
+function FAQSection() {
+  const faqs = [
+    {
+      q: "Won't HubSpot or Salesforce flag bounced contacts already?",
+      a: (
+        <>
+          <p className="mb-3">
+            They flag the letter after it comes back. We flag it before you mail it — and we catch the bad data CRMs are structurally blind to.
+          </p>
+          <p className="mb-3">
+            <strong className="text-brand-900">Bounces are a post-mortem.</strong> By the time HubSpot marks a contact as bounced, you&apos;ve already burned a sequence slot, the SDR&apos;s personalization time, your sender reputation, and a line in your pipeline forecast.
+          </p>
+          <p className="mb-3">
+            <strong className="text-brand-900">Bounces miss the biggest category — abandoned inboxes.</strong> The mailbox still accepts mail, but the person left a year ago. No bounce ever fires. HubSpot thinks the contact is healthy. We flag it as engagement decay.
+          </p>
+          <p>
+            <strong className="text-brand-900">CRMs don&apos;t attribute blame.</strong> HubSpot says &ldquo;this contact bounced.&rdquo; It doesn&apos;t say &ldquo;ZoomInfo shipped you 38% engagement decay — go claw back $X in vendor credit.&rdquo; That&apos;s a different conversation, with a different buyer.
+          </p>
+          <p className="mt-4 pt-4 border-t border-gray-200 italic text-brand-700">
+            HubSpot tells you the letter came back. We tell you nobody was ever reading the mail.
+          </p>
+        </>
+      ),
+    },
+    {
+      q: "How is this different from email validation tools like ZeroBounce or NeverBounce?",
+      a: (
+        <p>
+          Validators score the syntax of an email. We score the reachability of a human. That means engagement decay (alive mailbox, gone person), source attribution (which vendor shipped you the worst data), and dollarized waste — so you walk into the renewal meeting with a number, not a list.
+        </p>
+      ),
+    },
+    {
+      q: "What CRMs does this work with?",
+      a: (
+        <p>
+          Anything that can export a CSV — HubSpot, Salesforce, Pipedrive, Close, Outreach, Apollo. We process the file in memory and discard on completion. No integration, no install, no sync.
+        </p>
+      ),
+    },
+    {
+      q: "Do you store our contact data?",
+      a: (
+        <p>
+          No. Your CSV is processed in memory and discarded the moment the audit finishes. Nothing is written to a database, nothing syncs anywhere, nothing leaves your hands. The deliverable is yours — the data isn&apos;t ours to keep.
+        </p>
+      ),
+    },
+    {
+      q: "How long does the audit take, and what does it cost?",
+      a: (
+        <p>
+          Five business days from CSV handoff to live readout. Pricing depends on list size and number of sources — we scope it on the 30-minute call. No commitment to book it.
+        </p>
+      ),
+    },
+  ];
+
+  return (
+    <section className="py-20 px-6 bg-gray-50">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">
+            Common questions
+          </h2>
+          <p className="text-gray-500 text-lg">
+            The objections we hear most — answered up front.
+          </p>
+        </div>
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <details
+              key={i}
+              className="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+              open={i === 0}
+            >
+              <summary className="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors">
+                <span className="font-bold text-brand-900 text-base">{faq.q}</span>
+                <span
+                  className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 text-sm font-bold transition-transform group-open:rotate-45"
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </summary>
+              <div className="px-6 pb-6 text-gray-600 text-sm leading-relaxed">
+                {faq.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CTASection() {
   return (
     <section
@@ -559,6 +655,7 @@ export default function LandingPage() {
       <PainSection />
       <HowItWorks />
       <TrustSection />
+      <FAQSection />
       <CTASection />
       <Footer />
     </div>
