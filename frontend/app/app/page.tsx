@@ -468,10 +468,19 @@ export default function Home() {
             <>
               {auditRoi && (
                 <div className="card">
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className="w-1 h-6 rounded-full bg-brand-600" />
-                    <h2 className="font-bold text-brand-900 text-lg">Reachability Audit</h2>
+                  <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1 h-6 rounded-full bg-brand-600" />
+                      <h2 className="font-bold text-brand-900 text-lg">Reachability Audit</h2>
+                    </div>
+                    <p className="text-xs text-gray-400">
+                      {scanResult.total.toLocaleString()} contacts
+                      {" · scanned "}
+                      {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      {file?.name ? ` · ${file.name}` : ""}
+                    </p>
                   </div>
+                  <div className="border-t border-gray-100 mb-6" />
                   <AuditROISection
                     audit={auditRoi}
                     unreachableRate={scanResult.unreachable_rate ?? scanResult.contact_high_risk_rate}
@@ -509,13 +518,15 @@ export default function Home() {
                 <RevOpsBreakdown scan={scanResult} />
               </div>
 
-              <div className="card">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="w-1 h-6 rounded-full bg-red-500" />
-                  <h2 className="font-bold text-brand-900 text-lg">At-Risk Records</h2>
+              {scanResult.contact_invalid > 0 && (
+                <div className="card">
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="w-1 h-6 rounded-full bg-red-500" />
+                    <h2 className="font-bold text-brand-900 text-lg">At-Risk Records</h2>
+                  </div>
+                  <AtRiskRecords scan={scanResult} />
                 </div>
-                <AtRiskRecords scan={scanResult} />
-              </div>
+              )}
 
               {hubspotToken && (
                 <div className="card">
@@ -527,7 +538,7 @@ export default function Home() {
                 </div>
               )}
 
-              <div className="card">
+              <div className="card" id="fix-export">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-1 h-6 rounded-full bg-brand-600" />
                   <h2 className="font-bold text-brand-900 text-lg">Fix &amp; Export</h2>

@@ -108,28 +108,38 @@ export default function RevOpsBreakdown({ scan }: { scan: ScanResult }) {
         <h3 className="font-semibold text-brand-900 mb-1">Source Quality Breakdown</h3>
         {scan.source_breakdown ? (
           <>
-            <p className="text-xs text-gray-500 mb-4">Email risk rate by contact source.</p>
+            <p className="text-xs text-gray-500 mb-4">
+              Validation catches dead mailboxes. Engagement decay catches alive-but-abandoned ones — the part vendors don&apos;t show you.
+            </p>
             <div className="overflow-x-auto rounded-lg border border-gray-100">
               <table className="min-w-full text-sm">
                 <thead className="bg-brand-50">
                   <tr>
                     <th className="px-4 py-2 text-left font-semibold text-brand-700">Source</th>
-                    {["invalid", "risky", "valid"].map(c => (
-                      <th key={c} className="px-4 py-2 text-right font-semibold text-brand-700 capitalize">{c}</th>
-                    ))}
+                    <th className="px-4 py-2 text-right font-semibold text-brand-700">Invalid</th>
+                    <th className="px-4 py-2 text-right font-semibold text-brand-700">Risky</th>
+                    <th className="px-4 py-2 text-right font-semibold text-brand-700">Engagement decay</th>
+                    <th className="px-4 py-2 text-right font-semibold text-brand-700">Unreachable</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {scan.source_breakdown.map((row, i) => (
-                    <tr key={i} className="border-t border-gray-100 hover:bg-gray-50">
-                      <td className="px-4 py-2 text-gray-700 font-medium">{row.source}</td>
-                      {["invalid", "risky", "valid"].map(c => (
-                        <td key={c} className="px-4 py-2 text-right text-gray-600">
-                          {row[c as keyof typeof row] != null ? `${((row[c as keyof typeof row] as number) * 100).toFixed(1)}%` : "—"}
+                  {scan.source_breakdown.map((row, i) => {
+                    const unreach = row.unreachable_rate ?? 0;
+                    const decay = row.abandoned_rate ?? 0;
+                    return (
+                      <tr key={i} className="border-t border-gray-100 hover:bg-gray-50">
+                        <td className="px-4 py-2 text-gray-700 font-medium capitalize">{row.source}</td>
+                        <td className="px-4 py-2 text-right text-gray-600">{fmt(row.invalid ?? 0)}</td>
+                        <td className="px-4 py-2 text-right text-gray-600">{fmt(row.risky ?? 0)}</td>
+                        <td className={`px-4 py-2 text-right font-medium ${decay > 0 ? "text-amber-700" : "text-gray-400"}`}>
+                          {decay > 0 ? fmt(decay) : "—"}
                         </td>
-                      ))}
-                    </tr>
-                  ))}
+                        <td className={`px-4 py-2 text-right font-bold ${unreach > 0.05 ? "text-red-700" : "text-gray-700"}`}>
+                          {fmt(unreach)}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

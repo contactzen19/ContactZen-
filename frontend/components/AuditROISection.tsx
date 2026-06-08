@@ -41,6 +41,12 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
         <p className="text-brand-200 mt-3 text-base">
           of contacts in this CRM cannot be reached
         </p>
+        <a
+          href="#fix-export"
+          className="inline-flex items-center gap-2 mt-6 px-6 py-2.5 rounded-full bg-white text-brand-900 text-sm font-bold hover:bg-brand-50 transition-colors shadow-lg"
+        >
+          Get the clean list <span aria-hidden>→</span>
+        </a>
       </div>
 
       {/* Methodology bucket breakdown — what's detected vs. what needs CRM */}
@@ -269,27 +275,35 @@ function DecaySection({
         {keys.map((key) => {
           const bucket = breakdown[key];
           const label = BUCKET_LABELS[key];
+          const isClean = bucket.detected && bucket.count === 0;
+          const tileClass = !bucket.detected
+            ? "border-dashed border-gray-300 bg-gray-50"
+            : isClean
+              ? "border-green-200 bg-green-50"
+              : "border-brand-200 bg-brand-50";
           return (
             <div
               key={key}
-              className={`rounded-xl border p-4 space-y-1 ${
-                bucket.detected ? "border-brand-200 bg-brand-50" : "border-dashed border-gray-300 bg-gray-50"
-              }`}
+              className={`rounded-xl border p-4 space-y-1 ${tileClass}`}
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-brand-900">{label}</p>
-                {bucket.detected ? (
-                  <span className="text-[10px] font-bold uppercase tracking-wide bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full">
-                    Detected
-                  </span>
-                ) : (
+                {!bucket.detected ? (
                   <span className="text-[10px] font-bold uppercase tracking-wide bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
                     Needs CRM
+                  </span>
+                ) : isClean ? (
+                  <span className="text-[10px] font-bold uppercase tracking-wide bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                    Clean
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold uppercase tracking-wide bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full">
+                    Detected
                   </span>
                 )}
               </div>
               {bucket.detected ? (
-                <p className="text-2xl font-extrabold text-brand-900">
+                <p className={`text-2xl font-extrabold ${isClean ? "text-green-700" : "text-brand-900"}`}>
                   {fmtNum(bucket.count)}
                   <span className="text-sm font-medium text-gray-400 ml-1">
                     · {fmtPct(bucket.rate)}

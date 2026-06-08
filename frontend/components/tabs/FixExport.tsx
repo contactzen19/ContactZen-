@@ -89,13 +89,15 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     }
   };
 
+  // Hide fix options that have zero contacts in this scan — they're noise in
+  // the report. `flag_enrichment` has no count and always renders.
   const fixOptions = [
     { key: "suppress_invalid_email", label: "Remove invalid emails", count: scan.invalid, help: "Removes contacts with empty, malformed, or syntactically invalid email addresses." },
     { key: "tag_risky_email", label: "Tag risky emails", count: scan.risky, help: "Adds a cz_risky_email column to your export — keeps the contact, flags it for review or suppression in your CRM." },
     { key: "suppress_invalid_phone", label: "Remove invalid phone numbers", count: scan.phone_invalid, help: "Removes contacts with clearly malformed phone numbers.", disabled: !phoneCol },
     { key: "deduplicate_email", label: "Deduplicate by email", count: scan.email_dupes, help: "Keeps the first occurrence of each email, removes the rest." },
     { key: "flag_enrichment", label: "Flag contacts needing enrichment", count: null, help: "Adds a cz_needs_enrichment column — does not remove contacts." },
-  ];
+  ].filter(opt => opt.count === null || (opt.count ?? 0) > 0);
 
   return (
     <div className="space-y-6">

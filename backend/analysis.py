@@ -176,6 +176,7 @@ def compute_scan(
         )
     )
     abandoned_count = 0
+    abandoned_mask = pd.Series(False, index=df_out.index)
 
     if abandoned_detected:
         cutoff = pd.Timestamp.utcnow() - pd.Timedelta(days=ABANDONED_INBOX_WINDOW_DAYS)
@@ -200,6 +201,10 @@ def compute_scan(
         # cannot also be counted as abandoned.
         abandoned_mask = abandoned_mask & ~hard_bounce_mask & ~catch_all_mask
         abandoned_count = int(abandoned_mask.sum())
+
+    # Per-row engagement-decay flag, so per-source aggregations downstream can
+    # count abandoned inboxes without recomputing the cutoff logic.
+    df_out["_cz_abandoned"] = abandoned_mask
 
     unreachable_total = hard_bounce_count + catch_all_count + abandoned_count
     unreachable_rate = round(unreachable_total / total, 4) if total else 0.0
@@ -287,8 +292,16 @@ def compute_scan(
             .unstack(fill_value=0)
         )
         totals = df_out.groupby("_cz_source_norm").size().rename("total")
+        abandoned_per_source = (
+            df_out.groupby("_cz_source_norm")["_cz_abandoned"].sum().rename("count_abandoned")
+        )
 
-        merged = rates.join(counts.add_prefix("count_")).join(totals).reset_index()
+        merged = (
+            rates.join(counts.add_prefix("count_"))
+            .join(totals)
+            .join(abandoned_per_source)
+            .reset_index()
+        )
         merged = merged.rename(columns={"_cz_source_norm": "source"})
 
         rows = []
@@ -298,7 +311,11 @@ def compute_scan(
             count_invalid = int(r.get("count_invalid", 0))
             count_risky = int(r.get("count_risky", 0))
             count_valid = int(r.get("count_valid", 0))
+            count_abandoned = int(r.get("count_abandoned", 0))
             total_for_source = int(r.get("total", 0))
+            abandoned_rate = (
+                round(count_abandoned / total_for_source, 4) if total_for_source else 0.0
+            )
             rows.append({
                 "source": r["source"],
                 "total": total_for_source,
@@ -306,10 +323,12 @@ def compute_scan(
                 "count_risky": count_risky,
                 "count_valid": count_valid,
                 "count_bad": count_invalid + count_risky,
+                "count_abandoned": count_abandoned,
                 "invalid": round(invalid_rate, 4),
                 "risky": round(risky_rate, 4),
                 "valid": round(float(r.get("valid", 0.0)), 4),
-                "unreachable_rate": round(invalid_rate + risky_rate, 4),
+                "abandoned_rate": abandoned_rate,
+                "unreachable_rate": round(invalid_rate + risky_rate + abandoned_rate, 4),
             })
         rows.sort(key=lambda x: x["unreachable_rate"], reverse=True)
         source_breakdown = rows

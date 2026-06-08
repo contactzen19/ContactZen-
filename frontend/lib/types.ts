@@ -92,6 +92,8 @@ export interface SourceRow {
   count_risky?: number;
   count_valid?: number;
   count_bad?: number;
+  count_abandoned?: number;
+  abandoned_rate?: number;
   unreachable_rate?: number;
 }
 
