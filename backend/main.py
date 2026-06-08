@@ -45,7 +45,7 @@ ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",")]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
-    allow_origin_regex=r"https://(.*\.vercel\.app|contactzen\.io|.*\.contactzen\.io)",
+    allow_origin_regex=r"https://(.*\.vercel\.app|contactzen\.io|.*\.contactzen\.io|reachaudit\.com|.*\.reachaudit\.com)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
