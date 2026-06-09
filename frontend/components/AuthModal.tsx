@@ -40,7 +40,7 @@ export default function AuthModal({ onClose }: Props) {
           <div className="bg-brand-50 border border-brand-200 rounded-xl px-5 py-4 text-center space-y-2">
             <p className="text-2xl">📬</p>
             <p className="font-semibold text-brand-900">Check your email</p>
-            <p className="text-sm text-gray-500">We sent a sign-in link to <strong>{email}</strong>. Click it to save your scan — no password needed.</p>
+            <p className="text-sm text-gray-500">We sent a sign-in link to <strong>{email}</strong>. Click it to save your scan. No password needed.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">

@@ -57,7 +57,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "error",
       action: `Suppress ${fmtNum(scan.contact_invalid)} invalid contacts before your next sequence run`,
-      why: `${fmt(scan.contact_high_risk_rate)} of your database is flagged. Sending to these contacts drives bounces, harms sender reputation, and costs reps time on dead-end outreach. Estimated ${fmtDollar(impactShare)}/year in recoverable selling capacity — the single highest-impact fix available.`,
+      why: `${fmt(scan.contact_high_risk_rate)} of your database is flagged. Sending to these contacts drives bounces, harms sender reputation, and costs reps time on dead-end outreach. Estimated ${fmtDollar(impactShare)}/year in recoverable selling capacity. The single highest-impact fix available.`,
       impact: impactShare,
     });
   } else if (scan.contact_high_risk_rate > 0.10) {
@@ -65,7 +65,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "warning",
       action: `Suppress ${fmtNum(scan.contact_invalid)} at-risk contacts to protect deliverability`,
-      why: `${fmt(scan.contact_high_risk_rate)} contact risk rate. Even at moderate levels, sustained bouncing triggers inbox provider penalties — your sender score is a shared asset across every rep in your org. Estimated ${fmtDollar(impactShare)}/year in recoverable selling capacity.`,
+      why: `${fmt(scan.contact_high_risk_rate)} contact risk rate. Even at moderate levels, sustained bouncing triggers inbox provider penalties. Your sender score is a shared asset across every rep in your org. Estimated ${fmtDollar(impactShare)}/year in recoverable selling capacity.`,
       impact: impactShare,
     });
   }
@@ -76,7 +76,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "error",
       action: `File a ZoomInfo credit claim for ${fmtNum(scan.bad_zoominfo_contacts)} provably invalid contacts`,
-      why: `${fmt(scan.zoominfo_high_risk_rate)} of your ZoomInfo-sourced records are invalid or risky. Enterprise ZoomInfo contracts typically include credit SLAs for bad data — most teams never claim them because they can't document the bad records. Use the ZoomInfo Recovery table below as your proof. Estimated ~${fmtDollar(estimatedCredit)} in credits (at ~$3/contact).`,
+      why: `${fmt(scan.zoominfo_high_risk_rate)} of your ZoomInfo-sourced records are invalid or risky. Enterprise ZoomInfo contracts typically include credit SLAs for bad data. Most teams never claim them because they can't document the bad records. Use the ZoomInfo Recovery table below as your proof. Estimated ~${fmtDollar(estimatedCredit)} in credits (at ~$3/contact).`,
       impact: estimatedCredit,
     });
   }
@@ -86,7 +86,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "warning",
       action: `Deduplicate ${fmtNum(scan.email_dupes)} contacts before your next sequence enrollment`,
-      why: `Duplicates mean the same person receives the same email multiple times — triggering spam complaints, splitting engagement history, and inflating enrollment counts that distort your reporting. This is a one-click fix with ReachAudit's export.`,
+      why: `Duplicates mean the same person receives the same email multiple times. Triggers spam complaints, splits engagement history, and inflates enrollment counts that distort your reporting. This is a one-click fix with ReachAudit's export.`,
       impact: scan.email_dupes * 5,
       quickWin: true,
     });
@@ -98,7 +98,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "warning",
       action: `Replace or remove ${fmtNum(actualPhoneBad)} contacts with invalid or shared-line phone numbers`,
-      why: `${fmt(scan.phone_high_risk_rate)} of phone records are either malformed or suspected main-line/toll-free numbers. Dialing these wastes rep time and your dialer budget — these contacts are email-only until their phone data is corrected.`,
+      why: `${fmt(scan.phone_high_risk_rate)} of phone records are either malformed or suspected main-line/toll-free numbers. Dialing these wastes rep time and your dialer budget. These contacts are email-only until their phone data is corrected.`,
       impact: actualPhoneBad * 4,
     });
   }
@@ -110,7 +110,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "info",
       action: `Enrich ~${fmtNum(gapContacts)} contacts missing key fields before your next sequence launch`,
-      why: `Completeness score: ${scan.completeness_score}/100. Contacts missing name, title, or company can't be personalized — and generic outreach converts at a fraction of the rate. Tools like Clay, Clearbit, or Apollo can fill gaps in bulk. Recovering this data from vendors you already pay is worth ~${fmtDollar(dataWasteShare)}.`,
+      why: `Completeness score: ${scan.completeness_score}/100. Contacts missing name, title, or company can't be personalized. Generic outreach converts at a fraction of the rate. Tools like Clay, Clearbit, or Apollo can fill gaps in bulk. Recovering this data from vendors you already pay is worth ~${fmtDollar(dataWasteShare)}.`,
       impact: dataWasteShare,
     });
   }
@@ -120,7 +120,7 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     actions.push({
       level: "info",
       action: `Share this report with your VP of Sales or RevOps lead to lock in a monthly hygiene SLA`,
-      why: `${fmtDollar(headlineImpact)} in annual impact is a board-level number. Most teams don't act on data quality until they can quantify the cost — this report does that. Schedule a 15-minute review and use it to establish a recurring monthly scan cadence.`,
+      why: `${fmtDollar(headlineImpact)} in annual impact is a number big enough to escalate. Most teams don't act on data quality until they can quantify the cost. This report does that. Schedule a 15-minute review and use it to establish a recurring monthly scan cadence.`,
       impact: headlineImpact * 0.05,
     });
   }
@@ -169,7 +169,7 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: 
         <div className="card space-y-3">
           <div>
             <h3 className="font-semibold text-brand-900">Priority Actions</h3>
-            <p className="text-xs text-gray-500 mt-0.5">Ranked by estimated business impact — highest first.</p>
+            <p className="text-xs text-gray-500 mt-0.5">Ranked by estimated business impact. Highest first.</p>
           </div>
           {actions.map((a, i) => <ActionItem key={i} {...a} rank={i + 1} />)}
         </div>

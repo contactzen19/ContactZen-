@@ -62,19 +62,19 @@ function SampleContextBanner() {
   const expectations = [
     {
       label: "Credit-recapture documentation",
-      desc: "Defensible evidence for your next data vendor renewal — typically 20-25% of contract value",
+      desc: "Defensible evidence for your next data vendor renewal. Typically 20-25% of contract value.",
     },
     {
       label: "Vendor-by-vendor attribution",
-      desc: "Which data source contributes what % of bad data — ZoomInfo, Apollo, LinkedIn, organic",
+      desc: "Which data source contributes what % of bad data. ZoomInfo, Apollo, LinkedIn, organic.",
     },
     {
-      label: "Dollarized ROI math",
-      desc: "Rep time, vendor waste, pipeline exposure — methodology your CFO can defend",
+      label: "ROI math in dollars",
+      desc: "Rep time, vendor waste, pipeline exposure. Methodology your CFO can defend.",
     },
     {
       label: "Cleanup-ready suppression list",
-      desc: "CSV of every flagged contact with reason — ready to act on the day you receive it",
+      desc: "CSV of every flagged contact with reason. Ready to act on the day you receive it.",
     },
   ];
 
@@ -93,8 +93,8 @@ function SampleContextBanner() {
               This is what a ReachAudit deliverable looks like.
             </h2>
             <p className="text-amber-900 leading-relaxed max-w-3xl">
-              The audit below was prepared for a fictional mid-market B2B logistics company —{" "}
-              <strong>Northstar Logistics</strong> — to show format, structure, and methodology. After a 5-day
+              The audit below was prepared for a fictional mid-market B2B logistics company
+              (<strong>Northstar Logistics</strong>) to show format, structure, and methodology. After a 5-day
               ReachAudit engagement on your own contact database, you&apos;d receive the same deliverable, fully
               branded and based on your real data.
             </p>
@@ -286,7 +286,7 @@ function SourceAttribution({ report }: { report: AuditReport }) {
           <div>
             <h2 className="text-2xl font-extrabold text-brand-900 mb-2">Source attribution</h2>
             <p className="text-gray-500 max-w-2xl">
-              Where the bad data is coming from. This is the credit-recapture money shot — provably bad records
+              Where the bad data is coming from. This is the credit-recapture money shot. Provably bad records
               per vendor, eligible for credit claims under your enterprise SLA.
             </p>
           </div>
@@ -409,7 +409,7 @@ function ROIBreakdown({ report }: { report: AuditReport }) {
           </div>
           <p className="text-sm text-brand-700 max-w-md">
             Sum of recoverable rep capacity + data vendor waste. Pipeline exposure is shown separately as
-            opportunity cost — not double-counted here.
+            opportunity cost. Not double-counted here.
           </p>
         </div>
       </div>
@@ -421,7 +421,7 @@ function FlaggedSample({ report }: { report: AuditReport }) {
   return (
     <section className="px-6 py-12 bg-gray-50">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-2xl font-extrabold text-brand-900 mb-2">Flagged contacts — sample</h2>
+        <h2 className="text-2xl font-extrabold text-brand-900 mb-2">Flagged contacts · sample</h2>
         <p className="text-gray-500 mb-6 max-w-2xl">
           A representative sample of records flagged as invalid or risky. Full suppression list delivered as
           CSV with each engagement.

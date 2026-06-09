@@ -71,7 +71,7 @@ const SAMPLE: AuditReport = {
   auditor: "Joey Prindle, ReachAudit",
   headline: "Northstar is leaving $67,900 on the table annually",
   subheadline:
-    "31% of your contact database is unreachable. ZoomInfo is the primary contributor — and you have a credit-recapture window before your November renewal.",
+    "31% of your contact database is unreachable. ZoomInfo is the primary contributor. You have a credit-recapture window before your November renewal.",
   databaseSize: 47218,
   metrics: {
     contactRiskRate: 0.311,
@@ -131,7 +131,7 @@ const SAMPLE: AuditReport = {
     {
       email: "info@bigshipper.com",
       risk: "invalid",
-      reason: "Role address — mass reject risk",
+      reason: "Role address. Mass reject risk",
       source: "ZoomInfo",
     },
     {
@@ -143,19 +143,19 @@ const SAMPLE: AuditReport = {
     {
       email: "purchasing@globalfreight.net",
       risk: "risky",
-      reason: "Catch-all domain — unverifiable",
+      reason: "Catch-all domain. Unverifiable",
       source: "Apollo",
     },
     {
       email: "m.thompson@northcorpltd.com",
       risk: "invalid",
-      reason: "Mailbox quota exceeded — likely abandoned",
+      reason: "Mailbox quota exceeded. Likely abandoned",
       source: "ZoomInfo",
     },
     {
       email: "operations@shippingplus.org",
       risk: "risky",
-      reason: "Role address — mass reject risk",
+      reason: "Role address. Mass reject risk",
       source: "LinkedIn",
     },
     {
@@ -169,31 +169,31 @@ const SAMPLE: AuditReport = {
     {
       priority: "critical",
       title: "File a ZoomInfo credit claim for 9,160 provably invalid contacts before November renewal",
-      why: "41% of your ZoomInfo-sourced records are invalid or unreachable. Documented credit eligibility maxes at ~25% of annual contract value in typical goodwill negotiations — that's ~$6,000 against your $24K spend. Lower than the theoretical face value of the bad records, but defensible without burning the vendor relationship. We provide the documentation; you run the conversation.",
+      why: "41% of your ZoomInfo-sourced records are invalid or unreachable. Documented credit eligibility maxes at ~25% of annual contract value in typical goodwill negotiations. That's ~$6,000 against your $24K spend. Lower than the theoretical face value of the bad records, but defensible without burning the vendor relationship. We provide the documentation; you run the conversation.",
       estimatedImpact: 6000,
     },
     {
       priority: "critical",
       title: "Suppress 14,685 unreachable contacts before your next sequence enrollment",
-      why: "Continuing to email these contacts harms your sender reputation across every rep — 31% bounce rates trigger inbox provider penalties. Time-recovery math: 14 reps × $75K fully-loaded cost × 5% productive time conservatively redirected from dead-end outreach = $52,500/yr. Conservative on purpose — the real number is likely higher once you factor in context-switching and morale drag.",
+      why: "Continuing to email these contacts harms your sender reputation across every rep. 31% bounce rates trigger inbox provider penalties. Time-recovery math: 14 reps × $75K fully-loaded cost × 5% productive time conservatively redirected from dead-end outreach = $52,500/yr. Conservative on purpose. The real number is likely higher once you factor in context-switching and morale drag.",
       estimatedImpact: 52500,
     },
     {
       priority: "high",
       title: "Cut Apollo seat count by 30% based on ZoomInfo coverage overlap",
-      why: "62% of your Apollo contacts also exist in ZoomInfo with higher accuracy. You're paying twice for the same coverage. Apollo's value is in the orgs ZoomInfo doesn't reach well (mid-market SaaS) — keep a smaller exploration license. Estimated savings: ~$4,300/yr.",
+      why: "62% of your Apollo contacts also exist in ZoomInfo with higher accuracy. You're paying twice for the same coverage. Apollo's value is in the orgs ZoomInfo doesn't reach well (mid-market SaaS). Keep a smaller exploration license. Estimated savings: ~$4,300/yr.",
       estimatedImpact: 4300,
     },
     {
       priority: "high",
       title: "Deduplicate 2,104 duplicate records before next quarter's pipeline reporting",
-      why: "Duplicates inflate your TAM, distort conversion reporting, and result in the same prospect getting hit by multiple reps. Cleanup is straightforward — we've flagged each duplicate pair.",
+      why: "Duplicates inflate your TAM, distort conversion reporting, and result in the same prospect getting hit by multiple reps. Cleanup is straightforward. We've flagged each duplicate pair.",
       estimatedImpact: 5250,
     },
     {
       priority: "medium",
       title: "Add a 90-day verification cadence to all ZoomInfo and Apollo imports",
-      why: "B2B contact decay runs ~22% annually — without ongoing verification, your reachability rate will return to current levels within 18 months. A quarterly hygiene SLA prevents re-accumulation.",
+      why: "B2B contact decay runs ~22% annually. Without ongoing verification, your reachability rate will return to current levels within 18 months. A quarterly hygiene SLA prevents re-accumulation.",
       estimatedImpact: 8900,
     },
   ],

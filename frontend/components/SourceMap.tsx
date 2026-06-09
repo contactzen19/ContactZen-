@@ -147,7 +147,7 @@ export default function SourceMap({ rows, annualDataSpend }: Props) {
       {annualDataSpend && annualDataSpend > 0 && (
         <p className="text-xs text-gray-400 italic">
           Attributed spend = annual data spend × (this source&apos;s bad contacts ÷ total bad contacts).
-          Coarse allocation — tighten by entering per-vendor spend in a future release.
+          Coarse allocation. Tighten by entering per-vendor spend in a future release.
         </p>
       )}
     </div>

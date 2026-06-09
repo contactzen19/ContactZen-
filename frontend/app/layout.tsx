@@ -6,11 +6,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://reachaudit.com"),
-  title: "ReachAudit — Independent Reachability Audits for B2B Sales",
+  title: "ReachAudit | Independent Reachability Audits for B2B Sales",
   description:
-    "Find the unreachable contacts costing your sales team revenue. Independent audit of your list — what's reachable, what's wasted, what to recover.",
+    "Find the unreachable contacts costing your sales team revenue. Independent audit of your list. What's reachable, what's wasted, what to recover.",
   openGraph: {
-    title: "ReachAudit — Independent Reachability Audits for B2B Sales",
+    title: "ReachAudit | Independent Reachability Audits for B2B Sales",
     description:
       "Valid doesn't mean reachable. See what's actually usable in your CRM.",
     url: "https://reachaudit.com",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReachAudit — Independent Reachability Audits for B2B Sales",
+    title: "ReachAudit | Independent Reachability Audits for B2B Sales",
     description: "Valid doesn't mean reachable.",
   },
   icons: {

@@ -109,7 +109,7 @@ export default function RevOpsBreakdown({ scan }: { scan: ScanResult }) {
         {scan.source_breakdown ? (
           <>
             <p className="text-xs text-gray-500 mb-4">
-              Validation catches dead mailboxes. Engagement decay catches alive-but-abandoned ones — the part vendors don&apos;t show you.
+              Validation catches dead mailboxes. Engagement decay catches alive-but-abandoned ones. The part vendors don&apos;t show you.
             </p>
             <div className="overflow-x-auto rounded-lg border border-gray-100">
               <table className="min-w-full text-sm">

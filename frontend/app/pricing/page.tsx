@@ -40,7 +40,7 @@ const DELIVERABLES = [
   {
     icon: Map,
     title: "Source map",
-    desc: "Which data provider's contacts are decayed, by what percentage, with the dollar cost mapped to your renewal — credit-recapture-ready.",
+    desc: "Which data provider's contacts are decayed, by what percentage, with the dollar cost mapped to your renewal. Ready for the vendor conversation.",
   },
   {
     icon: BarChart3,
@@ -68,7 +68,7 @@ const STEPS = [
   {
     n: 3,
     title: "Live readout in 5 business days",
-    desc: "We deliver the audit live to your team — RevOps, sales leadership, CFO if relevant — then hand off the shareable web report link.",
+    desc: "We deliver the audit live to your team (RevOps, sales leadership, CFO if relevant). Then we hand off the shareable web report link.",
   },
 ];
 
@@ -87,7 +87,7 @@ const FAQ = [
   },
   {
     q: "What CRMs are supported?",
-    a: "Any CRM that can export a CSV — HubSpot, Salesforce, Outreach, Apollo, Pipedrive, custom systems. We're CRM-independent by design.",
+    a: "Any CRM that can export a CSV. HubSpot, Salesforce, Outreach, Apollo, Pipedrive, custom systems. We're CRM-independent by design.",
   },
   {
     q: "Can we do this as a recurring engagement?",
@@ -95,7 +95,7 @@ const FAQ = [
   },
   {
     q: "What if the audit finds very little?",
-    a: "That's a result too — and worth knowing. You'll have an independent, methodology-defended baseline you can show leadership. We've never had an audit return zero, but if yours does, you'll have the receipt.",
+    a: "That's a result too, and worth knowing. You'll have an independent, methodology-defended baseline you can show leadership. We've never had an audit return zero. If yours does, you'll have the receipt.",
   },
 ];
 
@@ -117,7 +117,7 @@ export default function PricingPage() {
               Audits scoped to your list,<br />not a SaaS seat count.
             </h1>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-              You don&apos;t need a recurring tool. You need an independent answer — once, before your next data provider renewal.
+              You don&apos;t need a recurring tool. You need an independent answer. Once, before your next data provider renewal.
             </p>
           </div>
 
@@ -154,7 +154,7 @@ export default function PricingPage() {
           <div className="mb-20">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-extrabold text-brand-900 mb-3">What you get</h2>
-              <p className="text-gray-500">Four deliverables — built to move money before your next data vendor renewal.</p>
+              <p className="text-gray-500">Four deliverables, built to move money before your next data vendor renewal.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {DELIVERABLES.map((d) => {
@@ -203,7 +203,7 @@ export default function PricingPage() {
           <div className="mb-20 rounded-2xl bg-gray-50 border border-gray-100 p-10">
             <h2 className="text-2xl font-extrabold text-brand-900 mb-4 text-center">Who this is for</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-center leading-relaxed">
-              RevOps, CRO, and CFO teams at B2B sales orgs spending <strong>$50k+/year on data providers</strong> — ZoomInfo, Apollo, Cognism, LeadIQ. If your team is treating reachability as an assumption instead of a measurement, that&apos;s the gap we close.
+              RevOps, CRO, and CFO teams at B2B sales orgs spending <strong>$50k+/year on data providers</strong> (ZoomInfo, Apollo, Cognism, LeadIQ). If your team is treating reachability as an assumption instead of a measurement, that&apos;s the gap we close.
             </p>
           </div>
 
@@ -226,7 +226,7 @@ export default function PricingPage() {
               The hard part isn&apos;t deciding to audit.
             </h2>
             <p className="text-brand-200 text-lg mb-8 max-w-xl mx-auto">
-              It&apos;s deciding to audit before your next data provider renewal — while you still have leverage.
+              It&apos;s deciding to audit before your next data provider renewal. While there&apos;s still time to call your rep.
             </p>
             <a
               href="https://calendly.com/contactzen-joey/new-meeting"

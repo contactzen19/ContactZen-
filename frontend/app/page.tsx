@@ -7,7 +7,6 @@ import {
   BarChart3,
   Lock,
   Eye,
-  Shield,
   Key,
   Menu,
   X,
@@ -131,7 +130,7 @@ function Hero() {
           </span>
         </h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          An independent audit of your CRM&apos;s reachability — sourced, scored, and dollarized. Run before your next data vendor renewal, while you still have leverage.
+          An independent audit of your CRM&apos;s reachability. Scored by vendor, priced in dollars. Run it before your next renewal.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
@@ -176,7 +175,7 @@ function ProductPreview() {
   const atRisk = [
     { email: "j.smith@techcorp.io", risk: "Invalid", reason: "Mailbox does not exist", source: "ZoomInfo" },
     { email: "ceo@oldstartup.com", risk: "Risky", reason: "Domain parked / inactive", source: "Apollo" },
-    { email: "mike.jones@bigco.com", risk: "Invalid", reason: "Role address — mass reject risk", source: "ZoomInfo" },
+    { email: "mike.jones@bigco.com", risk: "Invalid", reason: "Role address. Mass reject risk", source: "ZoomInfo" },
   ];
 
   return (
@@ -187,7 +186,7 @@ function ProductPreview() {
             What the audit shows you.
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            Anonymized view from a real audit — 25,000 contacts from a mid-market B2B team. Source attribution, dollarized waste, credit-recapture-ready.
+            Anonymized view from a real audit. 25,000 contacts from a mid-market B2B team. Source attribution, waste priced in dollars, ready for the vendor conversation.
           </p>
         </div>
 
@@ -267,7 +266,7 @@ function ProductPreview() {
 
             {/* At-risk sample */}
             <div className="bg-white rounded-xl border border-gray-100 p-4">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">At-Risk Records — Sample</p>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">At-Risk Records · Sample</p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -327,17 +326,17 @@ function PainSection() {
     {
       number: "28%",
       label:
-        "of contacts flagged high-risk in a real CRM scan — invalid, unreachable, or actively harmful to sender reputation",
+        "of contacts flagged high-risk in a real CRM scan. Invalid, unreachable, or actively harmful to sender reputation",
     },
     {
       number: "22%",
       label:
-        "of phone numbers invalid or missing — your dialers are burning credits on numbers that don't exist",
+        "of phone numbers invalid or missing. Your dialers are burning credits on numbers that don't exist",
     },
     {
       number: "0 of 25",
       label:
-        "enterprise direct dials connected in a real outreach test — every email delivered, zero phones reached",
+        "enterprise direct dials connected in a real outreach test. Every email delivered, zero phones reached",
     },
   ];
 
@@ -349,7 +348,7 @@ function PainSection() {
             You&apos;re not missing pipeline. You&apos;re dialing bad data.
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Your data vendor calls it valid. The phone doesn&apos;t connect. The audit is the difference between assuming reachability and measuring it — with the receipt your CFO will sign off on.
+            Your data vendor calls it valid. The phone doesn&apos;t connect. The audit is the difference between assuming reachability and measuring it. With the receipt your CFO will actually read.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -398,7 +397,7 @@ function HowItWorks() {
     {
       icon: BarChart3,
       title: "Live readout in 5 business days",
-      desc: "We deliver the audit live to your team — RevOps, sales leadership, CFO — then hand off the shareable link and PDF.",
+      desc: "We deliver the audit live to your team (RevOps, sales leadership, CFO). Then we hand off the link and PDF.",
     },
   ];
 
@@ -407,7 +406,7 @@ function HowItWorks() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How the audit works</h2>
-          <p className="text-gray-500 text-lg">Scoping call to boardroom-ready readout in under two weeks.</p>
+          <p className="text-gray-500 text-lg">Audit in your hands inside two weeks.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, i) => {
@@ -453,14 +452,9 @@ function TrustSection() {
       desc: "ReachAudit only reads the contacts you upload. We never modify, delete, or write back to your CRM.",
     },
     {
-      icon: Shield,
-      title: "SOC 2-aligned architecture",
-      desc: "Built from day one with security best practices. Process-and-discard data model minimizes your compliance surface.",
-    },
-    {
       icon: Key,
       title: "You stay in control",
-      desc: "Your CSV is processed once and discarded. Nothing persists, nothing syncs, nothing leaves your hands.",
+      desc: "No CRM connections. No syncing. The CSV you send is the only data we ever touch, and only for the length of the audit.",
     },
   ];
 
@@ -468,12 +462,12 @@ function TrustSection() {
     <section className="py-20 px-6 bg-white">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Built for trust</h2>
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">What happens to your data</h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Your contact data is sensitive. We designed ReachAudit so you never have to wonder what happens to it.
+            Your contact data is sensitive. We designed ReachAudit so you don&apos;t have to wonder.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {items.map((item) => {
             const Icon = item.icon;
             return (
@@ -504,16 +498,16 @@ function FAQSection() {
       a: (
         <>
           <p className="mb-3">
-            They flag the letter after it comes back. We flag it before you mail it — and we catch the bad data CRMs are structurally blind to.
+            They flag the letter after it comes back. We flag it before you mail it. Plus we catch the bad data CRMs are structurally blind to.
           </p>
           <p className="mb-3">
             <strong className="text-brand-900">Bounces are a post-mortem.</strong> By the time HubSpot marks a contact as bounced, you&apos;ve already burned a sequence slot, the SDR&apos;s personalization time, your sender reputation, and a line in your pipeline forecast.
           </p>
           <p className="mb-3">
-            <strong className="text-brand-900">Bounces miss the biggest category — abandoned inboxes.</strong> The mailbox still accepts mail, but the person left a year ago. No bounce ever fires. HubSpot thinks the contact is healthy. We flag it as engagement decay.
+            <strong className="text-brand-900">Bounces miss the biggest category. Abandoned inboxes.</strong> The mailbox still accepts mail, but the person left a year ago. No bounce ever fires. HubSpot thinks the contact is healthy. We flag it as engagement decay.
           </p>
           <p>
-            <strong className="text-brand-900">CRMs don&apos;t attribute blame.</strong> HubSpot says &ldquo;this contact bounced.&rdquo; It doesn&apos;t say &ldquo;ZoomInfo shipped you 38% engagement decay — go claw back $X in vendor credit.&rdquo; That&apos;s a different conversation, with a different buyer.
+            <strong className="text-brand-900">CRMs don&apos;t attribute blame.</strong> HubSpot says &ldquo;this contact bounced.&rdquo; It doesn&apos;t say &ldquo;ZoomInfo shipped you 38% engagement decay. Go claw back $X in vendor credit.&rdquo; That&apos;s a different conversation, with a different buyer.
           </p>
           <p className="mt-4 pt-4 border-t border-gray-200 italic text-brand-700">
             HubSpot tells you the letter came back. We tell you nobody was ever reading the mail.
@@ -525,7 +519,7 @@ function FAQSection() {
       q: "How is this different from email validation tools like ZeroBounce or NeverBounce?",
       a: (
         <p>
-          Validators score the syntax of an email. We score the reachability of a human. That means engagement decay (alive mailbox, gone person), source attribution (which vendor shipped you the worst data), and dollarized waste — so you walk into the renewal meeting with a number, not a list.
+          Validators score the syntax of an email. We score the reachability of a human. That means engagement decay (alive mailbox, gone person), source attribution (which vendor shipped you the worst data), and waste priced in dollars. So you walk into the renewal meeting with a number, not a list.
         </p>
       ),
     },
@@ -533,7 +527,7 @@ function FAQSection() {
       q: "What CRMs does this work with?",
       a: (
         <p>
-          Anything that can export a CSV — HubSpot, Salesforce, Pipedrive, Close, Outreach, Apollo. We process the file in memory and discard on completion. No integration, no install, no sync.
+          Anything that can export a CSV. HubSpot, Salesforce, Pipedrive, Close, Outreach, Apollo. We process the file in memory and discard on completion. No integration, no install, no sync.
         </p>
       ),
     },
@@ -541,7 +535,7 @@ function FAQSection() {
       q: "Do you store our contact data?",
       a: (
         <p>
-          No. Your CSV is processed in memory and discarded the moment the audit finishes. Nothing is written to a database, nothing syncs anywhere, nothing leaves your hands. The deliverable is yours — the data isn&apos;t ours to keep.
+          No. Your CSV is processed in memory and discarded the moment the audit finishes. Nothing is written to a database, nothing syncs anywhere, nothing leaves your hands. The deliverable is yours. The data isn&apos;t ours to keep.
         </p>
       ),
     },
@@ -549,7 +543,7 @@ function FAQSection() {
       q: "How long does the audit take, and what does it cost?",
       a: (
         <p>
-          Five business days from CSV handoff to live readout. Pricing depends on list size and number of sources — we scope it on the 30-minute call. No commitment to book it.
+          Five business days from CSV handoff to live readout. Pricing depends on list size and number of sources. We scope it on the 30-minute call. No commitment to book it.
         </p>
       ),
     },
@@ -563,7 +557,7 @@ function FAQSection() {
             Common questions
           </h2>
           <p className="text-gray-500 text-lg">
-            The objections we hear most — answered up front.
+            What everyone asks first.
           </p>
         </div>
         <div className="space-y-4">
@@ -604,7 +598,7 @@ function CTASection() {
           The hard part isn&apos;t deciding to audit.
         </h2>
         <p className="text-brand-200 text-lg mb-10">
-          It&apos;s deciding to audit before your next data vendor renewal — while you still have leverage.
+          It&apos;s deciding to audit before your next data vendor renewal. While there&apos;s still time to call your rep.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <a
@@ -636,10 +630,10 @@ function Footer() {
       <p className="text-brand-400 text-sm">
         © 2026 ReachAudit · Valid doesn&apos;t mean reachable. ·{" "}
         <a
-          href="mailto:contactzen.joey@gmail.com"
+          href="mailto:prindlejoey@gmail.com"
           className="hover:text-white transition-colors"
         >
-          contactzen.joey@gmail.com
+          prindlejoey@gmail.com
         </a>
       </p>
     </footer>

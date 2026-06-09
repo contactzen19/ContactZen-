@@ -64,7 +64,7 @@ export default function ScorePanel({ hubspotToken }: Props) {
         <div>
           <p className="font-semibold text-gray-900 text-sm">Signal Scoring Engine</p>
           <p className="text-xs text-gray-500">
-            Scores every contact by real engagement signals — opens, clicks, replies, calls, meetings.
+            Scores every contact by real engagement signals. Opens, clicks, replies, calls, meetings.
             Writes <code className="bg-orange-100 px-1 rounded">cz_score</code> and{" "}
             <code className="bg-orange-100 px-1 rounded">cz_score_tier</code> directly to HubSpot.
           </p>
@@ -147,7 +147,7 @@ export default function ScorePanel({ hubspotToken }: Props) {
                 🔥 {result.tiers.hot.toLocaleString()} Hot contacts ready to work
               </p>
               <p className="text-xs text-red-600 mb-3">
-                These contacts have recent high-intent signals — opened emails, clicked links, visited
+                These contacts have recent high-intent signals. Opened emails, clicked links, visited
                 your calendar. Create tasks now so your reps call them today.
               </p>
 

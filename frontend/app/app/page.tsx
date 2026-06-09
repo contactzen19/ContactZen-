@@ -41,7 +41,7 @@ function LeadCapture() {
     return (
       <div className="rounded-xl bg-brand-50 border border-brand-200 px-6 py-4 flex items-center gap-3">
         <span className="text-2xl">🎉</span>
-        <p className="text-sm font-medium text-brand-800">You&apos;re on the list — I&apos;ll be in touch soon.</p>
+        <p className="text-sm font-medium text-brand-800">You&apos;re on the list. I&apos;ll be in touch soon.</p>
       </div>
     );
   }
@@ -217,7 +217,7 @@ export default function Home() {
       setRoiResult(result.roi);
       setAuditRoi(result.audit_roi ?? null);
     } catch {
-      setError("Scan failed. Please try again — if the problem persists, check your file and column mapping.");
+      setError("Scan failed. Please try again. If the problem persists, check your file and column mapping.");
     } finally {
       setScanning(false);
     }
@@ -335,9 +335,9 @@ export default function Home() {
                 {/* Actions */}
                 <div className="card space-y-2">
                   <button onClick={handleCopyLink} className="btn-primary w-full flex items-center justify-center gap-2 text-sm py-2.5">
-                    {copied ? "✅ Copied — paste it anywhere" : "🔗 Share Report"}
+                    {copied ? "✅ Copied. Paste it anywhere" : "🔗 Share Report"}
                   </button>
-                  {!copied && <p className="text-xs text-gray-400 text-center">Copies a link — send it via email or Slack</p>}
+                  {!copied && <p className="text-xs text-gray-400 text-center">Copies a link. Send it via email or Slack</p>}
                   <button onClick={handleSave} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
                     {saved ? "✅ Saved" : "💾 Save Scan"}
                   </button>
@@ -372,7 +372,7 @@ export default function Home() {
                 <UploadZone onFile={handleFile} loading={scanning} />
                 {file && totalRows != null && (
                   <p className="text-sm text-gray-600">
-                    ✅ <strong>{file.name}</strong> — {totalRows.toLocaleString()} contacts · {columns.length} columns
+                    ✅ <strong>{file.name}</strong> · {totalRows.toLocaleString()} contacts · {columns.length} columns
                   </p>
                 )}
                 <div className="flex items-center justify-between text-xs text-gray-500 pt-1">
@@ -434,7 +434,7 @@ export default function Home() {
                   </button>
                   {scanning && slowScan && (
                     <div className="mt-3 bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-sm text-brand-700">
-                      Warming up the server — this can take 20–30 seconds on first use. Hang tight…
+                      Warming up the server. This can take 20–30 seconds on first use. Hang tight…
                     </div>
                   )}
                   {error && (
@@ -449,7 +449,7 @@ export default function Home() {
           {scanResult && roiResult && (
             <div className="flex flex-col sm:flex-row gap-3 lg:hidden">
               <button onClick={handleCopyLink} className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
-                {copied ? "✅ Copied — paste it anywhere" : "🔗 Share Report"}
+                {copied ? "✅ Copied. Paste it anywhere" : "🔗 Share Report"}
               </button>
               <button onClick={handleSave} className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
                 {saved ? "✅ Scan Saved" : "💾 Save Scan"}

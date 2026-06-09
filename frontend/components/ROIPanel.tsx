@@ -10,14 +10,14 @@ interface Props {
 const TOOLTIPS: Record<string, string> = {
   // Sales org
   number_of_reps: "Total number of quota-carrying sales reps in your org.",
-  loaded_ote: "Annual loaded OTE per rep — fully burdened base + variable + benefits + overhead. Leave 0 to fall back to the hourly-cost estimate (the report will flag it).",
+  loaded_ote: "Annual loaded OTE per rep. Fully burdened base + variable + benefits + overhead. Leave 0 to fall back to the hourly-cost estimate (the report will flag it).",
   selling_time_pct: "Share of working hours your reps actually spend selling vs. admin, hunting, data hygiene, internal meetings. Industry actual is ~35% (SBI / RAIN). Leave 0 for that default.",
   annual_data_cost: "What you spend annually on data providers like ZoomInfo, Apollo, or Lusha.",
   // Pipeline funnel (audit fact-finder)
   list_coverage_pct: "% of the contact list reps actually work in a given year. Leave 0 to use the 40% methodology default.",
   reply_rate: "Reply rate to outbound cadences. Leave 0 to use the 1.5% methodology default.",
   mtg_to_deal_pct: "Meeting-to-closed-won conversion. Leave 0 to use the 20% methodology default.",
-  avg_contract_value: "Average closed-won contract value. Leave 0 if unknown — the recoverable-pipeline lever will show $0 and be flagged as an estimate.",
+  avg_contract_value: "Average closed-won contract value. Leave 0 if unknown. The recoverable-pipeline lever will show $0 and be flagged as an estimate.",
   // Legacy (kept for the existing summary widgets)
   rep_hourly_cost: "Fallback if Loaded OTE is blank: hourly cost × 2,080 hrs is used to estimate annual loaded OTE.",
   cleanup_hours_per_rep_per_month: "How many hours each rep spends per month manually cleaning or verifying contact data.",

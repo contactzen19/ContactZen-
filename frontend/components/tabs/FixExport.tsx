@@ -83,7 +83,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      setExportError("Export failed. Please try again — if the problem persists, re-upload your file.");
+      setExportError("Export failed. Please try again. If the problem persists, re-upload your file.");
     } finally {
       setLoading(null);
     }
@@ -93,10 +93,10 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
   // the report. `flag_enrichment` has no count and always renders.
   const fixOptions = [
     { key: "suppress_invalid_email", label: "Remove invalid emails", count: scan.invalid, help: "Removes contacts with empty, malformed, or syntactically invalid email addresses." },
-    { key: "tag_risky_email", label: "Tag risky emails", count: scan.risky, help: "Adds a cz_risky_email column to your export — keeps the contact, flags it for review or suppression in your CRM." },
+    { key: "tag_risky_email", label: "Tag risky emails", count: scan.risky, help: "Adds a cz_risky_email column to your export. Keeps the contact, flags it for review or suppression in your CRM." },
     { key: "suppress_invalid_phone", label: "Remove invalid phone numbers", count: scan.phone_invalid, help: "Removes contacts with clearly malformed phone numbers.", disabled: !phoneCol },
     { key: "deduplicate_email", label: "Deduplicate by email", count: scan.email_dupes, help: "Keeps the first occurrence of each email, removes the rest." },
-    { key: "flag_enrichment", label: "Flag contacts needing enrichment", count: null, help: "Adds a cz_needs_enrichment column — does not remove contacts." },
+    { key: "flag_enrichment", label: "Flag contacts needing enrichment", count: null, help: "Adds a cz_needs_enrichment column. Does not remove contacts." },
   ].filter(opt => opt.count === null || (opt.count ?? 0) > 0);
 
   return (
@@ -173,7 +173,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
               <p className="font-semibold text-gray-900 text-sm">ZoomInfo Credit Claim</p>
               <p className="text-xs text-gray-500 mt-0.5">
                 {fmtNum(scan.bad_zoominfo_contacts)} ZoomInfo-sourced contacts are invalid or unreachable.
-                Enterprise ZoomInfo contracts typically include credit SLAs for provably bad data — most teams never claim them because they can&apos;t document it. This file is your proof.
+                Enterprise ZoomInfo contracts typically include credit SLAs for provably bad data. Most teams never claim them because they can&apos;t document it. This file is your proof.
               </p>
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
 
           {writeback === "error" && (
             <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-              Writeback failed. Your HubSpot session may have expired — reconnect and try again.
+              Writeback failed. Your HubSpot session may have expired. Reconnect and try again.
             </div>
           )}
 
@@ -266,14 +266,14 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
         </div>
 
         <p className="text-sm text-gray-700 leading-relaxed">
-          Every contact we suppress today goes into a <strong>recovery pool</strong> — not the trash. When ReachAudit&apos;s recovery engine launches, we&apos;ll automatically find replacement emails and phone numbers for your suppressed contacts, validate them, and put the good ones back in your pipeline.
+          Every contact we suppress today goes into a <strong>recovery pool</strong>, not the trash. When ReachAudit&apos;s recovery engine launches, we&apos;ll automatically find replacement emails and phone numbers for your suppressed contacts, validate them, and put the good ones back in your pipeline.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { icon: "🏷️", title: "Suppress today", desc: "Bad contacts are quarantined, not deleted. They stay in HubSpot — just out of your active sequences." },
+            { icon: "🏷️", title: "Suppress today", desc: "Bad contacts are quarantined, not deleted. They stay in HubSpot. Just out of your active sequences." },
             { icon: "🔍", title: "Recover tomorrow", desc: "ReachAudit finds verified replacement contact info from trusted enrichment sources." },
-            { icon: "✅", title: "Flip to active", desc: "Recovered contacts are validated and pushed back to HubSpot — clean, verified, ready to work." },
+            { icon: "✅", title: "Flip to active", desc: "Recovered contacts are validated and pushed back to HubSpot. Clean, verified, ready to work." },
           ].map((s) => (
             <div key={s.title} className="bg-white border border-brand-100 rounded-xl p-4">
               <div className="text-2xl mb-2">{s.icon}</div>
@@ -286,16 +286,16 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
         <div className="bg-brand-600 rounded-xl px-5 py-4 text-white">
           <p className="text-sm font-semibold mb-0.5">What this means for your team</p>
           <p className="text-xs text-brand-200 leading-relaxed">
-            If even 10% of your suppressed contacts are recoverable, that&apos;s pipeline you already paid for — coming back to life automatically. No new data spend. No manual research. Just recovered revenue.
+            If even 10% of your suppressed contacts are recoverable, that&apos;s pipeline you already paid for, coming back to life automatically. No new data spend. No manual research. Just recovered revenue.
           </p>
         </div>
 
         <div className="border-t border-brand-200 pt-4">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Also on the roadmap</p>
           <ul className="text-sm text-gray-600 space-y-2">
-            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Continuous monitoring</strong> — weekly scans against your live HubSpot data, no CSV required</li>
-            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Pre-sequence protection</strong> — flag risky contacts before they enter a sequence</li>
-            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Vendor scorecards</strong> — hold ZoomInfo, Apollo, and Lusha accountable with monthly quality reports</li>
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Continuous monitoring.</strong> Weekly scans against your live HubSpot data, no CSV required</li>
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Pre-sequence protection.</strong> Flag risky contacts before they enter a sequence</li>
+            <li className="flex items-center gap-2"><span className="text-brand-400">→</span> <strong>Vendor scorecards.</strong> Hold ZoomInfo, Apollo, and Lusha accountable with monthly quality reports</li>
           </ul>
         </div>
       </div>

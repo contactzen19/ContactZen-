@@ -81,7 +81,7 @@ export default function ColumnSelector({
             Engagement columns
           </p>
           <p className="text-xs text-gray-500 mt-0.5">
-            Map these to unlock the abandoned-inbox bucket — the reachability layer NeverBounce can&apos;t see. Leave blank if your export doesn&apos;t include them.
+            Map these to unlock the abandoned-inbox bucket. The reachability layer NeverBounce can&apos;t see. Leave blank if your export doesn&apos;t include them.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

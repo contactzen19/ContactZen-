@@ -74,7 +74,7 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
         </p>
         <p className="text-4xl font-extrabold text-brand-900">{fmt(audit.headline_total_annual)}</p>
         <p className="text-xs text-gray-500 italic">
-          Lever 2 is shown separately — same rep-hours, alternate framing. Stacking would double-count.
+          Lever 2 is shown separately. Same rep-hours, alternate framing. Stacking would double-count.
         </p>
       </div>
 
@@ -149,14 +149,14 @@ function Lever2ChoiceCard({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
         <div className="bg-gray-50 rounded-xl p-5 text-center">
           <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">
-            Option A — paying for ghosts
+            Option A · paying for ghosts
           </p>
           <p className="text-3xl font-extrabold text-gray-800">{fmt(wastedCapacity)}</p>
           <p className="text-xs text-gray-500 mt-1">in wasted selling capacity</p>
         </div>
         <div className="bg-green-50 rounded-xl p-5 text-center border border-green-200">
           <p className="text-xs text-green-700 font-semibold uppercase tracking-wide mb-1">
-            Option B — redirect the hours
+            Option B · redirect the hours
           </p>
           <p className="text-3xl font-extrabold text-green-700">{fmt(recoverablePipeline.value)}</p>
           <p className="text-xs text-green-700 mt-1">in recoverable pipeline</p>
@@ -189,7 +189,7 @@ function DeliverabilityCard({
       </p>
       <p className="text-sm text-gray-700 mb-4 leading-relaxed">
         Google + Yahoo enforce a bulk-sender bounce rate <strong>under {fmtPct(target)}</strong> (effective Feb 2024).
-        Above {fmtPct(blacklist, 0)} triggers blacklisting that throttles every rep&apos;s outbound — including the
+        Above {fmtPct(blacklist, 0)} triggers blacklisting that throttles every rep&apos;s outbound. Including the
         good contacts.
       </p>
       <div className="grid grid-cols-3 gap-3 text-center">
@@ -204,7 +204,7 @@ function DeliverabilityCard({
       </div>
       {audit.deliverability_at_risk && (
         <p className="text-sm text-red-700 mt-4 font-medium">
-          ⚠️ Unreachable rate exceeds the blacklist threshold — the team is already self-throttling.
+          ⚠️ Unreachable rate exceeds the blacklist threshold. The team is already self-throttling.
         </p>
       )}
     </div>
@@ -224,13 +224,13 @@ function MethodologyBreakdownCard({ breakdown }: { breakdown: UnreachableBreakdo
           Where the unreachable comes from
         </p>
         <p className="text-xs text-gray-500 leading-relaxed">
-          Two distinct failure modes. <strong>Validation decay</strong> = the mailbox is dead. <strong>Engagement decay</strong> = the mailbox is alive but the person stopped showing up. Even valid mailboxes go dark — engagement decay catches what validation alone misses.
+          Two distinct failure modes. <strong>Validation decay</strong> = the mailbox is dead. <strong>Engagement decay</strong> = the mailbox is alive but the person stopped showing up. Even valid mailboxes go dark. Engagement decay catches what validation alone misses.
         </p>
       </div>
 
       <DecaySection
         title="Validation decay"
-        subtitle="Detectable from a CSV alone — addresses that won't deliver."
+        subtitle="Detectable from a CSV alone. Addresses that won't deliver."
         rate={validationRate}
         keys={VALIDATION_BUCKETS}
         breakdown={breakdown}
@@ -238,7 +238,7 @@ function MethodologyBreakdownCard({ breakdown }: { breakdown: UnreachableBreakdo
 
       <DecaySection
         title="Engagement decay"
-        subtitle="Requires CRM activity history — addresses that deliver but no longer reach anyone."
+        subtitle="Requires CRM activity history. Addresses that deliver but no longer reach anyone."
         rate={engagementRate}
         keys={ENGAGEMENT_BUCKETS}
         breakdown={breakdown}
