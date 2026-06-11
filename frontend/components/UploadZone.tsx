@@ -8,7 +8,7 @@ interface Props {
 
 export default function UploadZone({ onFile, loading }: Props) {
   const [dragging, setDragging] = useState(false);
-  const [loadingDemo, setLoadingDemo] = useState(false);
+  const [loadingDemo, setLoadingDemo] = useState<"quick" | "volume" | null>(null);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -17,19 +17,27 @@ export default function UploadZone({ onFile, loading }: Props) {
     if (file?.name.endsWith(".csv")) onFile(file);
   }, [onFile]);
 
-  const handleDemoData = useCallback(async (e: React.MouseEvent) => {
+  const loadDemo = useCallback(async (e: React.MouseEvent, which: "quick" | "volume") => {
     e.preventDefault();
     e.stopPropagation();
-    setLoadingDemo(true);
+    setLoadingDemo(which);
     try {
-      const res = await fetch("/demo_contacts.csv");
+      const name = which === "volume" ? "demo_contacts_500k.csv" : "demo_contacts.csv";
+      const res = await fetch(`/${name}`);
       const blob = await res.blob();
-      const file = new File([blob], "demo_contacts.csv", { type: "text/csv" });
+      const file = new File([blob], name, { type: "text/csv" });
       onFile(file);
     } finally {
-      setLoadingDemo(false);
+      setLoadingDemo(null);
     }
   }, [onFile]);
+
+  const spinner = (
+    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+    </svg>
+  );
 
   return (
     <div className="space-y-3">
@@ -63,25 +71,33 @@ export default function UploadZone({ onFile, loading }: Props) {
         <div className="flex-1 h-px bg-gray-200" />
       </div>
 
-      <button
-        onClick={handleDemoData}
-        disabled={loading || loadingDemo}
-        className="w-full flex items-center justify-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 hover:bg-brand-100 transition-colors disabled:opacity-50 disabled:pointer-events-none"
-      >
-        {loadingDemo ? (
-          <>
-            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-            </svg>
-            Loading demo data…
-          </>
-        ) : (
-          <>
-            ✨ Try with 25,000 sample contacts
-          </>
-        )}
-      </button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button
+          onClick={(e) => loadDemo(e, "quick")}
+          disabled={loading || loadingDemo !== null}
+          className="flex items-center justify-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 hover:bg-brand-100 transition-colors disabled:opacity-50 disabled:pointer-events-none"
+        >
+          {loadingDemo === "quick" ? (
+            <>{spinner} Loading demo…</>
+          ) : (
+            <>✨ Quick demo · 25,000 contacts</>
+          )}
+        </button>
+        <button
+          onClick={(e) => loadDemo(e, "volume")}
+          disabled={loading || loadingDemo !== null}
+          className="flex flex-col items-center justify-center rounded-xl border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50 transition-colors disabled:opacity-50 disabled:pointer-events-none"
+        >
+          {loadingDemo === "volume" ? (
+            <span className="flex items-center gap-2">{spinner} Loading 500K rows…</span>
+          ) : (
+            <>
+              <span>💪 Run it at volume · 500,000</span>
+              <span className="text-[10px] font-normal text-gray-400">enterprise-scale scan, ~30 seconds</span>
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }
