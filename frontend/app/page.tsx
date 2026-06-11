@@ -507,7 +507,7 @@ function FAQSection() {
             <strong className="text-brand-900">Bounces miss the biggest category. Abandoned inboxes.</strong> The mailbox still accepts mail, but the person left a year ago. No bounce ever fires. HubSpot thinks the contact is healthy. We flag it as engagement decay.
           </p>
           <p>
-            <strong className="text-brand-900">CRMs don&apos;t attribute blame.</strong> HubSpot says &ldquo;this contact bounced.&rdquo; It doesn&apos;t say &ldquo;ZoomInfo shipped you 38% engagement decay. Go claw back $X in vendor credit.&rdquo; That&apos;s a different conversation, with a different buyer.
+            <strong className="text-brand-900">CRMs don&apos;t attribute blame.</strong> HubSpot says &ldquo;this contact bounced.&rdquo; It doesn&apos;t say &ldquo;ZoomInfo shipped you 38% engagement decay, and your real cost per reachable contact is nearly double the rate card.&rdquo; That&apos;s a different conversation, with a different buyer.
           </p>
           <p className="mt-4 pt-4 border-t border-gray-200 italic text-brand-700">
             HubSpot tells you the letter came back. We tell you nobody was ever reading the mail.

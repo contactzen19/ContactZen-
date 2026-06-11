@@ -48,7 +48,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "reachaudit_zoominfo_credit_claim.csv";
+    a.download = "reachaudit_zoominfo_evidence_file.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -164,16 +164,18 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
         </div>
       )}
 
-      {/* ZoomInfo Credit Claim */}
+      {/* ZoomInfo Evidence File — renewal documentation first, credits as
+          the demoted upside line (buyer's-side positioning, DIRECTION.md). */}
       {scan.zoominfo_flagged_sample.length > 0 && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-5 space-y-3">
           <div className="flex items-start gap-3">
             <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5">ZI</div>
             <div>
-              <p className="font-semibold text-gray-900 text-sm">ZoomInfo Credit Claim</p>
+              <p className="font-semibold text-gray-900 text-sm">ZoomInfo Evidence File</p>
               <p className="text-xs text-gray-500 mt-0.5">
-                {fmtNum(scan.bad_zoominfo_contacts)} ZoomInfo-sourced contacts are invalid or unreachable.
-                Enterprise ZoomInfo contracts typically include credit SLAs for provably bad data. Most teams never claim them because they can&apos;t document it. This file is your proof.
+                {fmtNum(scan.bad_zoominfo_contacts)} ZoomInfo-sourced contacts are invalid or unreachable,
+                documented record by record. This is what you bring to the renewal: the vendor has all the
+                data in that conversation, and this file is your side of the table.
               </p>
             </div>
           </div>
@@ -181,25 +183,25 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
             {costPerCredit > 0 ? (
               <>
                 <p className="font-medium text-red-800">
-                  Estimated credit claim: ~${wastedCreditValue.toLocaleString()}
+                  Documented waste: ~${wastedCreditValue.toLocaleString()}
                 </p>
                 <div className="text-xs text-gray-500 space-y-1">
-                  <p>{fmtNum(scan.bad_zoominfo_contacts)} bad contacts × ${costPerCredit.toFixed(2)}/credit = <strong>${wastedCreditValue.toLocaleString()}</strong> in provably wasted credits</p>
+                  <p>{fmtNum(scan.bad_zoominfo_contacts)} bad contacts × ${costPerCredit.toFixed(2)}/credit = <strong>${wastedCreditValue.toLocaleString()}</strong> paid for contacts you cannot reach</p>
                   <p className="text-gray-400">Based on {numberOfReps} reps × {CREDITS_PER_REP_PER_MONTH.toLocaleString()} credits/month = ${(annualDataCost / totalAnnualCredits * 100).toFixed(1)}¢ per credit</p>
                 </div>
               </>
             ) : annualDataCost > 0 ? (
-              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set number of reps in the ROI panel to calculate exact credit value.</p>
+              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set number of reps in the ROI panel to put a dollar figure on the documented waste.</p>
             ) : (
-              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set your annual data cost and rep count in the ROI panel to estimate credit value.</p>
+              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set your annual data cost and rep count in the ROI panel to put a dollar figure on the documented waste.</p>
             )}
-            <p className="text-xs text-gray-400">Bring this file to your next ZoomInfo renewal or account review conversation.</p>
+            <p className="text-xs text-gray-400">Where your contract includes data quality terms, this file supports a credit conversation as well.</p>
           </div>
           <button
             onClick={downloadZoomInfoClaim}
             className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
           >
-            ⬇ Download ZoomInfo Credit Claim CSV
+            ⬇ Download ZoomInfo Evidence File CSV
           </button>
         </div>
       )}

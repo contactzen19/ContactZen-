@@ -1,8 +1,8 @@
 "use client";
 import { SourceRow } from "@/lib/types";
 
-// Known data-vendor source names. Membership = the "credit recapture"
-// conversation applies; the row gets a badge and a callout in the panel.
+// Known data-vendor source names. Membership = paid vendor: the row gets a
+// badge here and the vendor appears in the Vendor Scorecard with spend input.
 // Match is substring-on-lowercased-source, so "ZoomInfo - Enterprise" still hits.
 const KNOWN_VENDORS: { match: string; label: string }[] = [
   { match: "zoominfo", label: "ZoomInfo" },

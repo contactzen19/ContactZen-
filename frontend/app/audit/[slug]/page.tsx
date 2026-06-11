@@ -61,8 +61,8 @@ function MinimalNav() {
 function SampleContextBanner() {
   const expectations = [
     {
-      label: "Credit-recapture documentation",
-      desc: "Defensible evidence for your next data vendor renewal. Typically 20-25% of contract value.",
+      label: "Vendor evidence file",
+      desc: "Defensible, record-by-record documentation for your next data vendor renewal.",
     },
     {
       label: "Vendor-by-vendor attribution",
@@ -286,16 +286,16 @@ function SourceAttribution({ report }: { report: AuditReport }) {
           <div>
             <h2 className="text-2xl font-extrabold text-brand-900 mb-2">Source attribution</h2>
             <p className="text-gray-500 max-w-2xl">
-              Where the bad data is coming from. This is the credit-recapture money shot. Provably bad records
-              per vendor, eligible for credit claims under your enterprise SLA.
+              Where the bad data is coming from, vendor by vendor. Provably bad records per source,
+              documented record by record. This is what you take into the renewal.
             </p>
           </div>
           {totalCredit > 0 && (
-            <div className="bg-green-50 border border-green-200 rounded-xl px-5 py-4 text-right">
-              <p className="text-xs font-semibold uppercase tracking-wider text-green-700 mb-1">
-                Est. Credit Recoverable
+            <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 text-right">
+              <p className="text-xs font-semibold uppercase tracking-wider text-red-700 mb-1">
+                Spend on Unreachable Contacts
               </p>
-              <p className="text-2xl font-extrabold text-green-700">{fmtMoney(totalCredit)}</p>
+              <p className="text-2xl font-extrabold text-red-700">{fmtMoney(totalCredit)}</p>
             </div>
           )}
         </div>
@@ -305,7 +305,7 @@ function SourceAttribution({ report }: { report: AuditReport }) {
             <div className="col-span-2 text-right">Contacts</div>
             <div className="col-span-2 text-right">Bad Rate</div>
             <div className="col-span-2 text-right">Annual Spend</div>
-            <div className="col-span-2 text-right">Credit Eligible</div>
+            <div className="col-span-2 text-right">Documented Waste</div>
           </div>
           {report.sources.map((s) => {
             const badContacts = Math.round(s.contactCount * s.badRate);
@@ -327,7 +327,7 @@ function SourceAttribution({ report }: { report: AuditReport }) {
                   </div>
                   <div className="col-span-2 text-right">
                     {s.creditEligible ? (
-                      <span className="text-sm font-bold text-green-700">{fmtMoney(s.creditEligible)}</span>
+                      <span className="text-sm font-bold text-red-700">{fmtMoney(s.creditEligible)}</span>
                     ) : (
                       <span className="text-sm text-gray-300">—</span>
                     )}

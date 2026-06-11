@@ -70,14 +70,15 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     });
   }
 
-  // --- ZoomInfo credit recapture ---
+  // --- ZoomInfo renewal leverage. Recapture is upside, never the promise:
+  // the renewal number is the lead, the evidence file is the byproduct. ---
   if (scan.zoominfo_high_risk_rate && scan.zoominfo_high_risk_rate > 0.20 && scan.bad_zoominfo_contacts > 0) {
-    const estimatedCredit = scan.bad_zoominfo_contacts * 3;
+    const estimatedLeverage = scan.bad_zoominfo_contacts * 3;
     actions.push({
       level: "error",
-      action: `File a ZoomInfo credit claim for ${fmtNum(scan.bad_zoominfo_contacts)} provably invalid contacts`,
-      why: `${fmt(scan.zoominfo_high_risk_rate)} of your ZoomInfo-sourced records are invalid or risky. Enterprise ZoomInfo contracts typically include credit SLAs for bad data. Most teams never claim them because they can't document the bad records. Use the ZoomInfo Recovery table below as your proof. Estimated ~${fmtDollar(estimatedCredit)} in credits (at ~$3/contact).`,
-      impact: estimatedCredit,
+      action: `Take this audit into your next ZoomInfo renewal`,
+      why: `${fmt(scan.zoominfo_high_risk_rate)} of your ZoomInfo-sourced records are invalid or risky, which means your real cost per reachable contact runs well above the rate card. Enter your annual spend in the Vendor Scorecard above for the right-sized renewal number. The ZoomInfo Evidence File below documents every flagged record, and where your contract includes data quality terms, it supports a credit conversation too.`,
+      impact: estimatedLeverage,
     });
   }
 
@@ -175,12 +176,15 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: 
         </div>
       )}
 
-      {/* ZoomInfo recovery */}
+      {/* ZoomInfo evidence file — documentation for the renewal conversation.
+          Credits are the demoted upside line, never the headline. */}
       {scan.zoominfo_flagged_sample.length > 0 && (
         <div className="card space-y-3">
-          <h3 className="font-semibold text-brand-900">ZoomInfo Recovery Opportunity</h3>
+          <h3 className="font-semibold text-brand-900">ZoomInfo Evidence File</h3>
           <p className="text-sm text-gray-600">
-            These ZoomInfo-sourced contacts were flagged as invalid or risky and may qualify for vendor credit recapture.
+            Every ZoomInfo-sourced contact flagged as invalid or risky, documented record by record.
+            This is what you bring to the renewal. Where your contract includes data quality terms,
+            it supports a credit conversation as well.
           </p>
           <div className="overflow-x-auto rounded-lg border border-gray-100">
             <table className="min-w-full text-xs">

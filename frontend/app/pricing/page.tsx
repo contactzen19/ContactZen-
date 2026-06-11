@@ -91,7 +91,7 @@ const FAQ = [
   },
   {
     q: "Can we do this as a recurring engagement?",
-    a: "Yes. Many teams run a quarterly audit aligned with their data provider's renewal cycle to support credit recapture conversations. Scoped per relationship.",
+    a: "Yes. Many teams run a quarterly audit aligned with their data provider's renewal cycle, so they walk into that conversation knowing their cost per reachable contact and what a right-sized contract looks like. Scoped per relationship.",
   },
   {
     q: "What if the audit finds very little?",
