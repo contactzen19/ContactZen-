@@ -23,9 +23,6 @@ export const metadata: Metadata = {
     title: "ReachAudit | Independent Reachability Audits for B2B Sales",
     description: "Valid doesn't mean reachable.",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export const viewport: Viewport = {

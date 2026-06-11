@@ -312,7 +312,7 @@ export default function Home() {
                       ${Math.round(auditRoi?.headline_total_annual ?? roiResult.total_annual_impact).toLocaleString()}
                     </p>
                     <p className="text-brand-200 text-xs mt-1">
-                      {auditRoi ? "Lever 1 + Lever 3 · methodology-locked" : "estimated annual impact"}
+                      {auditRoi ? "wasted payroll + wasted data spend" : "estimated annual impact"}
                     </p>
                   </div>
                   <div className="border-t border-white/20 pt-4 space-y-2.5">
@@ -539,7 +539,7 @@ export default function Home() {
               <div className="card">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-1 h-6 rounded-full bg-brand-600" />
-                  <h2 className="font-bold text-brand-900 text-lg">RevOps Breakdown</h2>
+                  <h2 className="font-bold text-brand-900 text-lg">Detailed Findings</h2>
                 </div>
                 <RevOpsBreakdown scan={scanResult} />
               </div>

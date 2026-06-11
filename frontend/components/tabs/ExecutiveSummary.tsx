@@ -148,15 +148,15 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: 
       {/* Top metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <MetricCard label="Database Health" value={`${healthScore}/100`} sub={healthLabel} />
-        <MetricCard label="Contact Risk Rate" value={fmt(scan.contact_high_risk_rate)} danger={scan.contact_high_risk_rate > 0.2} />
-        <MetricCard label="Annual Impact" value={fmtDollar(headlineImpact)} sub={auditRoi ? "Lever 1 + Lever 3" : undefined} />
-        <MetricCard label="Email Risk Rate" value={fmt(scan.high_risk_rate)} />
+        <MetricCard label="Contacts at Risk" value={fmt(scan.contact_high_risk_rate)} danger={scan.contact_high_risk_rate > 0.2} />
+        <MetricCard label="Annual Impact" value={fmtDollar(headlineImpact)} sub={auditRoi ? "wasted payroll + data spend" : undefined} />
+        <MetricCard label="Risky Emails" value={fmt(scan.high_risk_rate)} />
       </div>
 
       {/* Secondary metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricCard label="Unreachable Rate" value={fmt(scan.unreachable_rate ?? scan.contact_high_risk_rate)} />
-        <MetricCard label="Phone Risk Rate" value={fmt(scan.phone_high_risk_rate)} />
+        <MetricCard label="Unreachable Contacts" value={fmt(scan.unreachable_rate ?? scan.contact_high_risk_rate)} />
+        <MetricCard label="Risky Phone Numbers" value={fmt(scan.phone_high_risk_rate)} />
         <MetricCard label="Data Completeness" value={`${scan.completeness_score}/100`} />
         <MetricCard label="Duplicate Records" value={fmtNum(scan.email_dupes)} />
       </div>
@@ -209,7 +209,7 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: 
 
       {/* Pipeline exposure */}
       <div className="card space-y-4">
-        <h3 className="font-semibold text-brand-900">Org-Wide Revenue Exposure</h3>
+        <h3 className="font-semibold text-brand-900">Revenue at Risk Across the Team</h3>
         <p className="text-xs text-gray-500">Adjust the inputs to estimate how contact decay affects pipeline across your sales org.</p>
         <div className="flex items-center gap-3">
           <label className="text-sm text-gray-600 whitespace-nowrap">Avg Pipeline / Rep ($)</label>

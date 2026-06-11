@@ -5,6 +5,17 @@ const fmt = (x: number) => `$${Math.round(x).toLocaleString()}`;
 const fmtPct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;
 const fmtNum = (x: number) => x.toLocaleString();
 
+// Plain-English names for backend estimate flags (snake_case field keys).
+// Must match the labels in ROIPanel so the user can find the input to fix.
+const ESTIMATE_LABELS: Record<string, string> = {
+  loaded_ote: "cost per rep",
+  selling_time_pct: "time spent selling",
+  list_coverage_pct: "share of database worked",
+  reply_rate: "reply rate",
+  mtg_to_deal_pct: "meetings that become deals",
+  avg_contract_value: "revenue per closed deal",
+};
+
 const BUCKET_LABELS: Record<keyof UnreachableBreakdown, string> = {
   hard_bounce: "Hard bounces",
   catch_all_or_disposable: "Catch-all / disposable",
@@ -52,10 +63,10 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
       {/* Methodology bucket breakdown — what's detected vs. what needs CRM */}
       {unreachableBreakdown && <MethodologyBreakdownCard breakdown={unreachableBreakdown} />}
 
-      {/* Lever 1 — the headline */}
-      <LeverCard order={1} lever={audit.wasted_rep_capacity} headline />
+      {/* Wasted rep capacity — the headline */}
+      <LeverCard lever={audit.wasted_rep_capacity} headline />
 
-      {/* Lever 2 — the choice framing (NOT summed with Lever 1) */}
+      {/* Recoverable pipeline — the choice framing (NOT summed with capacity) */}
       <Lever2ChoiceCard
         wastedCapacity={audit.wasted_rep_capacity.value}
         recoverablePipeline={audit.recoverable_pipeline}
@@ -64,17 +75,18 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
       {/* Deliverability multiplier */}
       <DeliverabilityCard audit={audit} unreachableRate={unreachableRate} />
 
-      {/* Lever 3 — footnote */}
-      <LeverCard order={3} lever={audit.wasted_data_spend} />
+      {/* Wasted data spend — footnote */}
+      <LeverCard lever={audit.wasted_data_spend} />
 
       {/* Headline total */}
       <div className="card border-brand-300 border-2 space-y-3">
         <p className="text-xs font-bold uppercase tracking-widest text-brand-700">
-          Total Annual Impact (Lever 1 + Lever 3)
+          Total Annual Impact
         </p>
         <p className="text-4xl font-extrabold text-brand-900">{fmt(audit.headline_total_annual)}</p>
-        <p className="text-xs text-gray-500 italic">
-          Lever 2 is shown separately. Same rep-hours, alternate framing. Stacking would double-count.
+        <p className="text-xs text-gray-500">
+          Wasted selling capacity plus wasted data spend. Recoverable pipeline is shown
+          separately above, never added in, so nothing is counted twice.
         </p>
       </div>
 
@@ -82,12 +94,12 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
       {audit.estimated_fields.length > 0 && (
         <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
           <p className="text-xs font-bold uppercase tracking-widest text-amber-800 mb-2">
-            Inputs flagged as estimates
+            Where we used industry defaults
           </p>
           <p className="text-xs text-amber-900 leading-relaxed">
-            The following inputs used methodology defaults rather than client-confirmed numbers:{" "}
-            <strong>{audit.estimated_fields.join(", ")}</strong>. Refining these in the fact-finder will tighten the
-            audit further.
+            You didn&apos;t confirm these numbers, so we used conservative industry defaults:{" "}
+            <strong>{audit.estimated_fields.map(f => ESTIMATE_LABELS[f] ?? f).join(", ")}</strong>.
+            Enter your real numbers in the panel and the dollar figures tighten.
           </p>
         </div>
       )}
@@ -96,11 +108,9 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
 }
 
 function LeverCard({
-  order,
   lever,
   headline = false,
 }: {
-  order: number;
   lever: LeverResult;
   headline?: boolean;
 }) {
@@ -108,7 +118,7 @@ function LeverCard({
     <div className={`card space-y-3 ${headline ? "border-brand-300 border-2" : ""}`}>
       <div className="flex items-baseline justify-between">
         <p className="text-xs font-bold uppercase tracking-widest text-brand-700">
-          Lever {order} · {lever.label}
+          {lever.label}
         </p>
         {lever.is_estimate && (
           <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">
@@ -135,7 +145,7 @@ function Lever2ChoiceCard({
     <div className="card border-amber-200 border-2 space-y-4">
       <div className="flex items-baseline justify-between">
         <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
-          Lever 2 · Either / Or
+          The Same Hours, Two Ways to Count Them
         </p>
         {recoverablePipeline.is_estimate && (
           <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">
@@ -144,7 +154,9 @@ function Lever2ChoiceCard({
         )}
       </div>
       <p className="text-sm text-gray-600">
-        Same rep-hours as Lever 1, framed two ways. A CFO who senses these stacked walks the meeting.
+        The hours your reps spend on unreachable contacts are either money burned or
+        pipeline missed. Pick whichever frame fits your business. We show both and never
+        add them together, so the math stays honest.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
         <div className="bg-gray-50 rounded-xl p-5 text-center">
