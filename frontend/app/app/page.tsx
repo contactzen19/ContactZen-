@@ -184,6 +184,15 @@ export default function Home() {
     setVendorRollup(null);
     setError(null);
     setSaved(false);
+    // Sample files prefill realistic deal economics so the demo's pipeline
+    // math is compelling out of the box. Real uploads keep the user's inputs.
+    if (f.name.startsWith("demo_contacts")) {
+      setRoi(prev => ({
+        ...prev,
+        loaded_ote: prev.loaded_ote || 150000,
+        avg_contract_value: prev.avg_contract_value || 25000,
+      }));
+    }
     try {
       const data = await fetchColumns(f);
       setColumns(data.columns);
@@ -198,6 +207,9 @@ export default function Home() {
       setError("Could not read this file. Please check that it's a valid CSV and try again.");
     }
   }, []);
+
+  const isSampleFile = !!file?.name.startsWith("demo_contacts");
+  const overFreeCap = totalRows != null && totalRows > 50000 && !isSampleFile;
 
   const handleScan = async () => {
     if (!file || !emailCol) return;
@@ -216,6 +228,7 @@ export default function Home() {
           lastOpenCol: lastOpenCol || null,
           lastReplyCol: lastReplyCol || null,
         },
+        isSampleFile,
       );
       setScanResult(result.scan);
       setRoiResult(result.roi);
@@ -420,8 +433,35 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Step 3 */}
-              {columns.length > 0 && (
+              {/* Step 3 — free scans cap at 50K rows; larger files are a paid
+                  engagement. Sample (demo) files are exempt: they exist to
+                  prove scale. The backend enforces the same cap. */}
+              {columns.length > 0 && overFreeCap && (
+                <div className="card border-2 border-brand-300">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
+                    <h2 className="font-semibold text-brand-900">This file is engagement-sized</h2>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Your file has <strong>{totalRows?.toLocaleString()}</strong> contacts. Free scans
+                    cover up to 50,000. At this scale the audit is a working engagement: we run your
+                    full file, deliver the report, and walk your team through it.
+                  </p>
+                  <a
+                    href="https://calendly.com/contactzen-joey/new-meeting"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary w-full text-base py-3 inline-flex items-center justify-center"
+                  >
+                    Book your audit call
+                  </a>
+                  <p className="text-xs text-gray-400 mt-3 text-center">
+                    Want a feel for it first? The sample demos above run the full experience.
+                  </p>
+                </div>
+              )}
+
+              {columns.length > 0 && !overFreeCap && (
                 <div className="card">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
@@ -569,7 +609,7 @@ export default function Home() {
                   <div className="w-1 h-6 rounded-full bg-brand-600" />
                   <h2 className="font-bold text-brand-900 text-lg">Fix &amp; Export</h2>
                 </div>
-                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} hubspotToken={hubspotToken} annualDataCost={roi.annual_data_cost} numberOfReps={roi.number_of_reps} />
+                <FixExport scan={scanResult} file={file} emailCol={emailCol} phoneCol={phoneCol || null} hubspotToken={hubspotToken} annualDataCost={roi.annual_data_cost} numberOfReps={roi.number_of_reps} isSample={isSampleFile} />
               </div>
             </>
           )}

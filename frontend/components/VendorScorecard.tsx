@@ -22,8 +22,10 @@ const VENDOR_LABELS: Record<string, string> = {
 
 // Known vendors get their brand label; unknown sources (niche lead vendors,
 // custom CRM values) display their raw name from the backend rollup.
-const label = (vendor: string, display?: string) =>
+// Exported for every surface that names a vendor (evidence file, exports).
+export const vendorLabel = (vendor: string, display?: string) =>
   VENDOR_LABELS[vendor] ?? display ?? vendor.charAt(0).toUpperCase() + vendor.slice(1);
+const label = vendorLabel;
 
 const fmtNum = (x: number) => x.toLocaleString();
 const fmtPct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;

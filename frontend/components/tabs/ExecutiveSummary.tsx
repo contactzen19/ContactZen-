@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ScanResult, ROIResult, AuditROIResult } from "@/lib/types";
 import MetricCard from "@/components/MetricCard";
+import { vendorLabel } from "@/components/VendorScorecard";
 
 const fmt = (x: number) => `${(x * 100).toFixed(1)}%`;
 const fmtNum = (x: number) => x.toLocaleString();
@@ -45,6 +46,19 @@ function ActionItem({ level, action, why, rank, quickWin }: Action & { rank: num
   );
 }
 
+// Worst paid vendor in this file; falls back to the legacy zoominfo_* fields
+// so older encoded reports still render their evidence section.
+function getWorstVendor(scan: ScanResult) {
+  return scan.worst_vendor ?? (scan.zoominfo_flagged_sample?.length
+    ? {
+        vendor: "zoominfo", display: "zoominfo", total: 0,
+        count_bad: scan.bad_zoominfo_contacts,
+        high_risk_rate: scan.zoominfo_high_risk_rate,
+        flagged_sample: scan.zoominfo_flagged_sample,
+      }
+    : null);
+}
+
 function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult): Action[] {
   const actions: Action[] = [];
   const headlineImpact = auditRoi?.headline_total_annual ?? roi.total_annual_impact;
@@ -70,14 +84,17 @@ function getActions(scan: ScanResult, roi: ROIResult, auditRoi?: AuditROIResult)
     });
   }
 
-  // --- ZoomInfo renewal leverage. Recapture is upside, never the promise:
+  // --- Vendor renewal leverage. Vendor-neutral: names whichever paid vendor
+  // scored worst in THIS file. Recapture is upside, never the promise:
   // the renewal number is the lead, the evidence file is the byproduct. ---
-  if (scan.zoominfo_high_risk_rate && scan.zoominfo_high_risk_rate > 0.20 && scan.bad_zoominfo_contacts > 0) {
-    const estimatedLeverage = scan.bad_zoominfo_contacts * 3;
+  const wv = getWorstVendor(scan);
+  const wvName = wv ? vendorLabel(wv.vendor, wv.display) : null;
+  if (wv && wvName && wv.high_risk_rate && wv.high_risk_rate > 0.20 && wv.count_bad > 0) {
+    const estimatedLeverage = wv.count_bad * 3;
     actions.push({
       level: "error",
-      action: `Take this audit into your next ZoomInfo renewal`,
-      why: `${fmt(scan.zoominfo_high_risk_rate)} of your ZoomInfo-sourced records are invalid or risky, which means your real cost per reachable contact runs well above the rate card. Enter your annual spend in the Vendor Scorecard above for the right-sized renewal number. The ZoomInfo Evidence File below documents every flagged record, and where your contract includes data quality terms, it supports a credit conversation too.`,
+      action: `Take this audit into your next ${wvName} conversation`,
+      why: `${fmt(wv.high_risk_rate)} of your ${wvName}-sourced records are invalid or risky, which means your real cost per reachable contact runs well above what you're paying. Enter your annual spend in the Vendor Scorecard above for the right-sized number. The ${wvName} Evidence File below documents every flagged record, and where your contract includes data quality terms, it supports a credit conversation too.`,
       impact: estimatedLeverage,
     });
   }
@@ -135,6 +152,8 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: 
   const healthLabel = healthScore >= 90 ? "Healthy" : healthScore >= 75 ? "Moderate Risk" : healthScore >= 50 ? "High Risk" : "Critical";
   const pipelineAtRisk = Math.round(numberOfReps * avgPipeline * scan.high_risk_rate);
   const actions = getActions(scan, roi, auditRoi);
+  const wv = getWorstVendor(scan);
+  const wvName = wv ? vendorLabel(wv.vendor, wv.display) : null;
   const headlineImpact = auditRoi?.headline_total_annual ?? roi.total_annual_impact;
 
   return (
@@ -178,23 +197,23 @@ export default function ExecutiveSummary({ scan, roi, numberOfReps, auditRoi }: 
 
       {/* ZoomInfo evidence file — documentation for the renewal conversation.
           Credits are the demoted upside line, never the headline. */}
-      {scan.zoominfo_flagged_sample.length > 0 && (
+      {wv && wvName && wv.flagged_sample.length > 0 && (
         <div className="card space-y-3">
-          <h3 className="font-semibold text-brand-900">ZoomInfo Evidence File</h3>
+          <h3 className="font-semibold text-brand-900">{wvName} Evidence File</h3>
           <p className="text-sm text-gray-600">
-            Every ZoomInfo-sourced contact flagged as invalid or risky, documented record by record.
-            This is what you bring to the renewal. Where your contract includes data quality terms,
-            it supports a credit conversation as well.
+            Every {wvName}-sourced contact flagged as invalid or risky, documented record by record.
+            This is what you bring to the renewal or your next order. Where your contract includes
+            data quality terms, it supports a credit conversation as well.
           </p>
           <div className="overflow-x-auto rounded-lg border border-gray-100">
             <table className="min-w-full text-xs">
               <thead className="bg-brand-50">
-                <tr>{Object.keys(scan.zoominfo_flagged_sample[0] ?? {}).map(k => (
+                <tr>{Object.keys(wv.flagged_sample[0] ?? {}).map(k => (
                   <th key={k} className="px-3 py-2 text-left font-semibold text-brand-700 uppercase tracking-wide">{k}</th>
                 ))}</tr>
               </thead>
               <tbody>
-                {scan.zoominfo_flagged_sample.slice(0, 10).map((row, i) => (
+                {wv.flagged_sample.slice(0, 10).map((row, i) => (
                   <tr key={i} className="border-t border-gray-100 hover:bg-gray-50">
                     {Object.values(row).map((v, j) => (
                       <td key={j} className="px-3 py-2 text-gray-700">{String(v ?? "")}</td>

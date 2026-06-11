@@ -274,6 +274,7 @@ def compute_scan(
     zoominfo_high_risk_rate = None
     bad_zoominfo_contacts = 0
     zoominfo_flagged_sample = []
+    worst_vendor = None
 
     if source_col and source_col in df_out.columns:
         s = df_out[source_col].astype(str).str.lower().fillna("")
@@ -344,6 +345,35 @@ def compute_scan(
             sample_cols = [c for c in ["first_name", "last_name", "company", "title", email_col, "cz_risk", "cz_reason"] if c in zi_flagged.columns]
             zoominfo_flagged_sample = zi_flagged[sample_cols].head(200).to_dict(orient="records")
 
+        # Vendor-neutral evidence file: the worst PAID vendor by flagged-record
+        # count, whoever it is. The independent referee can't have one vendor's
+        # name hardcoded into the report. (Legacy zoominfo_* fields above are
+        # kept so older encoded reports still render.)
+        from vendor_scorecard import _vendor_key
+        vendor_keys = df_out["_cz_source_norm"].map(lambda v: _vendor_key(v))
+        df_out["_cz_vendor_key"] = vendor_keys.map(lambda t: t[0])
+        paid_display = {t[0]: t[1] for t in vendor_keys if t[2]}
+        if paid_display:
+            flagged_mask = df_out["cz_risk"].isin(["invalid", "risky"])
+            bad_by_vendor = (
+                df_out[flagged_mask & df_out["_cz_vendor_key"].isin(paid_display)]
+                .groupby("_cz_vendor_key").size()
+            )
+            if len(bad_by_vendor):
+                worst_key = bad_by_vendor.idxmax()
+                wv = df_out[df_out["_cz_vendor_key"] == worst_key]
+                wv_flagged = wv[wv["cz_risk"].isin(["invalid", "risky"])]
+                sample_cols = [c for c in ["first_name", "last_name", "company", "title", email_col, "cz_risk", "cz_reason"] if c in wv_flagged.columns]
+                worst_vendor = {
+                    "vendor": worst_key,
+                    "display": paid_display[worst_key],
+                    "total": int(len(wv)),
+                    "count_bad": int(len(wv_flagged)),
+                    "high_risk_rate": round(len(wv_flagged) / len(wv), 4) if len(wv) else None,
+                    "flagged_sample": wv_flagged[sample_cols].head(200).to_dict(orient="records"),
+                }
+        df_out.drop(columns=["_cz_vendor_key"], inplace=True)
+
     # Completeness and duplicates
     completeness = compute_completeness(df_out, email_col, phone_col)
     dupes = compute_duplicates(df_out, email_col, phone_col)
@@ -378,6 +408,7 @@ def compute_scan(
         "zoominfo_high_risk_rate": zoominfo_high_risk_rate,
         "bad_zoominfo_contacts": bad_zoominfo_contacts,
         "zoominfo_flagged_sample": zoominfo_flagged_sample,
+        "worst_vendor": worst_vendor,
         "completeness_score": completeness["completeness_score"],
         "field_fill_rates": completeness["field_fill_rates"],
         "email_dupes": dupes["email_dupes"],

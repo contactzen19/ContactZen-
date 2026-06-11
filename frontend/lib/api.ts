@@ -53,7 +53,8 @@ export async function runScan(
   sourceCol: string | null,
   phoneCol: string | null,
   roi: ROIInputs,
-  engagement: EngagementCols = {}
+  engagement: EngagementCols = {},
+  isSample = false
 ): Promise<ScanResponse> {
   const form = new FormData();
   form.append("file", file);
@@ -63,6 +64,7 @@ export async function runScan(
   if (engagement.lastSendCol) form.append("last_send_col", engagement.lastSendCol);
   if (engagement.lastOpenCol) form.append("last_open_col", engagement.lastOpenCol);
   if (engagement.lastReplyCol) form.append("last_reply_col", engagement.lastReplyCol);
+  if (isSample) form.append("is_sample", "true");
   appendRoiFields(form, roi);
 
   const res = await fetch(`${API_URL}/api/scan`, { method: "POST", body: form });
@@ -171,7 +173,8 @@ export async function downloadFixed(
   emailCol: string,
   phoneCol: string | null,
   fixes: string[],
-  exportType: "clean" | "suppression"
+  exportType: "clean" | "suppression",
+  isSample = false
 ): Promise<Blob> {
   const form = new FormData();
   form.append("file", file);
@@ -179,6 +182,7 @@ export async function downloadFixed(
   if (phoneCol) form.append("phone_col", phoneCol);
   form.append("fixes", fixes.join(","));
   form.append("export_type", exportType);
+  if (isSample) form.append("is_sample", "true");
 
   const res = await fetch(`${API_URL}/api/fix`, { method: "POST", body: form });
   if (!res.ok) throw new Error(await res.text());

@@ -73,7 +73,9 @@ export default function AuditROISection({ audit, unreachableRate, unreachableBre
       />
 
       {/* Deliverability multiplier */}
-      <DeliverabilityCard audit={audit} unreachableRate={unreachableRate} />
+      <DeliverabilityCard
+        hardBounceRate={unreachableBreakdown?.hard_bounce?.detected ? unreachableBreakdown.hard_bounce.rate : null}
+      />
 
       {/* Wasted data spend — footnote */}
       <LeverCard lever={audit.wasted_data_spend} />
@@ -166,57 +168,82 @@ function Lever2ChoiceCard({
           <p className="text-3xl font-extrabold text-gray-800">{fmt(wastedCapacity)}</p>
           <p className="text-xs text-gray-500 mt-1">in wasted selling capacity</p>
         </div>
-        <div className="bg-green-50 rounded-xl p-5 text-center border border-green-200">
-          <p className="text-xs text-green-700 font-semibold uppercase tracking-wide mb-1">
-            Option B · redirect the hours
-          </p>
-          <p className="text-3xl font-extrabold text-green-700">{fmt(recoverablePipeline.value)}</p>
-          <p className="text-xs text-green-700 mt-1">in recoverable pipeline</p>
-        </div>
+        {recoverablePipeline.value > 0 ? (
+          <div className="bg-green-50 rounded-xl p-5 text-center border border-green-200">
+            <p className="text-xs text-green-700 font-semibold uppercase tracking-wide mb-1">
+              Option B · redirect the hours
+            </p>
+            <p className="text-3xl font-extrabold text-green-700">{fmt(recoverablePipeline.value)}</p>
+            <p className="text-xs text-green-700 mt-1">in recoverable pipeline</p>
+          </div>
+        ) : (
+          <div className="bg-green-50 rounded-xl p-5 text-center border border-dashed border-green-300 flex flex-col items-center justify-center">
+            <p className="text-xs text-green-700 font-semibold uppercase tracking-wide mb-1">
+              Option B · redirect the hours
+            </p>
+            <p className="text-sm text-green-800">
+              Enter <strong>revenue per closed deal</strong> in the panel to see what these
+              hours could produce in pipeline instead.
+            </p>
+          </div>
+        )}
       </div>
-      <p className="text-xs text-gray-400 font-mono">{recoverablePipeline.formula}</p>
+      {recoverablePipeline.value > 0 && (
+        <p className="text-xs text-gray-400 font-mono">{recoverablePipeline.formula}</p>
+      )}
     </div>
   );
 }
 
-function DeliverabilityCard({
-  audit,
-  unreachableRate,
-}: {
-  audit: AuditROIResult;
-  unreachableRate: number;
-}) {
-  const target = audit.deliverability_target_bounce_rate;
-  const blacklist = audit.deliverability_blacklist_threshold;
-  const overTarget = unreachableRate > target;
+// Every number here is defensible. Google publishes a SPAM-COMPLAINT ceiling
+// (0.3%, Feb 2024 bulk-sender rules), not a bounce threshold. Bounce guidance
+// (~2% reputation damage, ~5% platform suspension territory) is industry/ESP
+// practice and labeled as such. We compare the HARD-BOUNCE share of the list,
+// not the whole unreachable rate.
+const BOUNCE_REPUTATION_GUIDANCE = 0.02;
+const BOUNCE_SUSPENSION_ZONE = 0.05;
+
+function DeliverabilityCard({ hardBounceRate }: { hardBounceRate: number | null }) {
+  if (hardBounceRate == null) return null;
+  const overGuidance = hardBounceRate > BOUNCE_REPUTATION_GUIDANCE;
+  const inSuspensionZone = hardBounceRate > BOUNCE_SUSPENSION_ZONE;
 
   return (
     <div
       className={`rounded-xl border-2 p-5 ${
-        audit.deliverability_at_risk ? "border-red-300 bg-red-50" : "border-gray-200 bg-white"
+        overGuidance ? "border-red-300 bg-red-50" : "border-gray-200 bg-white"
       }`}
     >
       <p className="text-xs font-bold uppercase tracking-widest text-gray-700 mb-2">
         Deliverability Risk
       </p>
       <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-        Google + Yahoo enforce a bulk-sender bounce rate <strong>under {fmtPct(target)}</strong> (effective Feb 2024).
-        Above {fmtPct(blacklist, 0)} triggers blacklisting that throttles every rep&apos;s outbound. Including the
-        good contacts.
+        If you emailed this list today, about <strong>{fmtPct(hardBounceRate)}</strong> would hard-bounce.
+        Mailbox providers treat sustained hard-bounce rates above ~{fmtPct(BOUNCE_REPUTATION_GUIDANCE, 0)} as
+        a sender-reputation problem, and sending platforms like HubSpot throttle or suspend accounts
+        around {fmtPct(BOUNCE_SUSPENSION_ZONE, 0)}+ to protect their own infrastructure.
       </p>
       <div className="grid grid-cols-3 gap-3 text-center">
-        <ThresholdTile label="Required floor" value={`< ${fmtPct(target)}`} />
-        <ThresholdTile label="Blacklist above" value={fmtPct(blacklist, 0)} />
+        <ThresholdTile label="Reputation guidance" value={`< ${fmtPct(BOUNCE_REPUTATION_GUIDANCE, 0)}`} />
+        <ThresholdTile label="Suspension territory" value={`${fmtPct(BOUNCE_SUSPENSION_ZONE, 0)}+`} />
         <ThresholdTile
-          label="Your rate"
-          value={fmtPct(unreachableRate)}
-          tone={overTarget ? "danger" : "ok"}
+          label="Your hard-bounce rate"
+          value={fmtPct(hardBounceRate)}
+          tone={overGuidance ? "danger" : "ok"}
           emphasis
         />
       </div>
-      {audit.deliverability_at_risk && (
-        <p className="text-sm text-red-700 mt-4 font-medium">
-          ⚠️ Unreachable rate exceeds the blacklist threshold. The team is already self-throttling.
+      <p className="text-xs text-gray-500 mt-4 leading-relaxed">
+        And this is domain-wide: sales sequences send from your reps&apos; own inboxes, so a bad
+        list burns every rep&apos;s deliverability at once, including to good contacts. Google and
+        Yahoo&apos;s bulk-sender rules (Feb 2024) apply to your domain once it sends about 5,000
+        emails a day to Gmail, with a 0.3% spam-complaint ceiling. A 25-rep team at 200 sends each
+        is already there.
+      </p>
+      {inSuspensionZone && (
+        <p className="text-sm text-red-700 mt-3 font-medium">
+          ⚠️ This hard-bounce rate is in platform-suspension territory. Every send from this list
+          damages the domain.
         </p>
       )}
     </div>

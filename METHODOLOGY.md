@@ -109,11 +109,12 @@ renewal date required.
 
 ## The Multiplier — Deliverability Risk *(the fear)*
 
-Not a dollar line. The fear that closes.
+Not a dollar line. The fear that closes. **Every claim below is defensible — get these right, because email-ops people will check.**
 
-As of **February 2024**, Google and Yahoo enforce bulk-sender bounce rates **< 0.3%**. Above ~5% is blacklist territory — which throttles *every rep's* outbound at once, including the good contacts.
-
-If their unreachable % exceeds 5%, they are already self-throttling and do not know it.
+- **Google/Yahoo bulk-sender rules (Feb 2024)** apply to a *domain* sending ~5,000+ emails/day to Gmail. 25 reps × 200 sends/day qualifies. Their published ceiling is a **0.3% spam-complaint rate** (target < 0.1%). Google publishes **no bounce-rate threshold** — never claim one.
+- **Hard bounces** hurt through sender reputation: industry guidance treats sustained hard-bounce rates **above ~2%** as reputation damage; sending platforms (HubSpot etc.) throttle or **suspend accounts around ~5%+** to protect their own IPs. Label these as industry/ESP practice, not Google rules.
+- **The "doesn't HubSpot protect us?" answer:** no. Sequences and 1:1 sales emails send from the reps' own mailboxes — the company domain takes the reputation damage directly. Marketing sends through an ESP are policed by the ESP itself: it suspends *you* to protect its infrastructure. Either way a bad list stops your outbound, including to good contacts.
+- **Compare the audit's hard-bounce bucket** (not the whole unreachable %) against the 2% guidance. Overstating this comparison is how the whole report gets discounted.
 
 ---
 

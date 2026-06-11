@@ -122,9 +122,18 @@ Pre-empt the double-count objection before anyone senses it.
 
 ### 7. Deliverability — the fear *(2 min)*
 
-> "Google and Yahoo enforce bulk-sender bounce rates under 0.3%. Your email side
-> is at X%. Above ~5% you're in blacklist territory — which throttles every
-> rep's email at once, including to the good leads."
+> "If you emailed this list today, about X% would hard-bounce. Sender-reputation
+> guidance says keep that under 2%, and sending platforms start suspending
+> accounts around 5%. And this lands on your whole domain: your reps send from
+> their own inboxes, so a bad list burns every rep's deliverability at once,
+> including to the good leads."
+
+If they ask whether their platform protects them: "No — sequences send from
+your reps' own mailboxes, so the damage is yours. And on platform sends,
+HubSpot protects itself by suspending you." (Defensibility note: Google's
+published Feb 2024 ceiling is a 0.3% SPAM-COMPLAINT rate for domains sending
+5,000+/day to Gmail. There is no published Google bounce threshold — don't
+claim one.)
 
 Financial-services bonus: their brand cannot afford to look like a spam shop to
 a 65-year-old retiree's inbox provider.

@@ -64,6 +64,24 @@ def read_csv_upload(file: UploadFile) -> pd.DataFrame:
     return normalize_columns(df)
 
 
+# Free scans are capped: above this, the audit is a paid engagement.
+# Sample (demo) files are exempt so the showroom can prove scale.
+FREE_SCAN_ROW_CAP = 50_000
+
+
+def enforce_row_cap(df: pd.DataFrame, is_sample: bool) -> None:
+    if is_sample or len(df) <= FREE_SCAN_ROW_CAP:
+        return
+    raise HTTPException(
+        status_code=413,
+        detail=(
+            f"This file has {len(df):,} contacts. Free scans cover up to "
+            f"{FREE_SCAN_ROW_CAP:,} — audits at this scale are a working "
+            f"engagement. Book a call and we'll run it together."
+        ),
+    )
+
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
@@ -112,12 +130,14 @@ async def scan(
     reply_rate: float = Form(0.0),
     mtg_to_deal_pct: float = Form(0.0),
     avg_contract_value: float = Form(0.0),
+    is_sample: bool = Form(False),
 ):
     """
     Core scan endpoint. Processes the uploaded CSV, returns scan results and ROI.
     Contact records are processed in memory and never persisted.
     """
     df = read_csv_upload(file)
+    enforce_row_cap(df, is_sample)
 
     if email_col not in df.columns:
         raise HTTPException(status_code=400, detail=f"Email column '{email_col}' not found in file.")
@@ -199,12 +219,14 @@ async def fix_and_export(
     phone_col: Optional[str] = Form(None),
     fixes: str = Form(""),  # comma-separated list of fix names
     export_type: str = Form("clean"),  # "clean" or "suppression"
+    is_sample: bool = Form(False),
 ):
     """
     Apply selected fixes and stream back the result as a CSV download.
     The file is processed in memory and never stored.
     """
     df = read_csv_upload(file)
+    enforce_row_cap(df, is_sample)
 
     if email_col not in df.columns:
         raise HTTPException(status_code=400, detail=f"Email column '{email_col}' not found.")

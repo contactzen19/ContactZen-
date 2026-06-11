@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ScanResult } from "@/lib/types";
 import { downloadFixed, writebackToHubSpot } from "@/lib/api";
+import { vendorLabel } from "@/components/VendorScorecard";
 
 const fmtNum = (x: number) => x.toLocaleString();
 
@@ -13,14 +14,26 @@ interface Props {
   hubspotToken?: string | null;
   annualDataCost?: number;
   numberOfReps?: number;
+  isSample?: boolean;
 }
 
 const CREDITS_PER_REP_PER_MONTH = 1000;
 
-export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken, annualDataCost = 0, numberOfReps = 0 }: Props) {
+export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken, annualDataCost = 0, numberOfReps = 0, isSample = false }: Props) {
+  // Vendor-neutral evidence file: worst paid vendor in THIS file (legacy
+  // zoominfo_* fields as fallback for older encoded reports).
+  const wv = scan.worst_vendor ?? (scan.zoominfo_flagged_sample?.length
+    ? {
+        vendor: "zoominfo", display: "zoominfo", total: 0,
+        count_bad: scan.bad_zoominfo_contacts,
+        high_risk_rate: scan.zoominfo_high_risk_rate,
+        flagged_sample: scan.zoominfo_flagged_sample,
+      }
+    : null);
+  const wvName = wv ? vendorLabel(wv.vendor, wv.display) : "";
   const totalAnnualCredits = numberOfReps > 0 ? numberOfReps * CREDITS_PER_REP_PER_MONTH * 12 : 0;
   const costPerCredit = totalAnnualCredits > 0 ? annualDataCost / totalAnnualCredits : 0;
-  const wastedCreditValue = Math.round(scan.bad_zoominfo_contacts * costPerCredit);
+  const wastedCreditValue = Math.round((wv?.count_bad ?? 0) * costPerCredit);
   const [fixes, setFixes] = useState<Record<string, boolean>>({
     suppress_invalid_email: true,
     tag_risky_email: false,
@@ -32,7 +45,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
   const [exportError, setExportError] = useState<string | null>(null);
 
   const downloadZoomInfoClaim = () => {
-    const rows = scan.zoominfo_flagged_sample;
+    const rows = wv?.flagged_sample ?? [];
     if (!rows.length) return;
     const headers = Object.keys(rows[0]);
     const csv = [
@@ -48,7 +61,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "reachaudit_zoominfo_evidence_file.csv";
+    a.download = "reachaudit_vendor_evidence_file.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -75,7 +88,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
     setLoading(type);
     setExportError(null);
     try {
-      const blob = await downloadFixed(file, emailCol, phoneCol, activeFixes, type);
+      const blob = await downloadFixed(file, emailCol, phoneCol, activeFixes, type, isSample);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -164,18 +177,22 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
         </div>
       )}
 
-      {/* ZoomInfo Evidence File — renewal documentation first, credits as
-          the demoted upside line (buyer's-side positioning, DIRECTION.md). */}
-      {scan.zoominfo_flagged_sample.length > 0 && (
+      {/* Vendor Evidence File — names whichever paid vendor scored worst in
+          this file. Renewal documentation first, credits as the demoted
+          upside line (buyer's-side positioning, DIRECTION.md). */}
+      {wv && wv.flagged_sample.length > 0 && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-5 space-y-3">
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5">ZI</div>
+            <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5">
+              {wvName.slice(0, 2).toUpperCase()}
+            </div>
             <div>
-              <p className="font-semibold text-gray-900 text-sm">ZoomInfo Evidence File</p>
+              <p className="font-semibold text-gray-900 text-sm">{wvName} Evidence File</p>
               <p className="text-xs text-gray-500 mt-0.5">
-                {fmtNum(scan.bad_zoominfo_contacts)} ZoomInfo-sourced contacts are invalid or unreachable,
-                documented record by record. This is what you bring to the renewal: the vendor has all the
-                data in that conversation, and this file is your side of the table.
+                {fmtNum(wv.count_bad)} {wvName}-sourced contacts are invalid or unreachable,
+                documented record by record. This is what you bring to the renewal or your next
+                order: the vendor has all the data in that conversation, and this file is your
+                side of the table.
               </p>
             </div>
           </div>
@@ -186,14 +203,14 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
                   Documented waste: ~${wastedCreditValue.toLocaleString()}
                 </p>
                 <div className="text-xs text-gray-500 space-y-1">
-                  <p>{fmtNum(scan.bad_zoominfo_contacts)} bad contacts × ${costPerCredit.toFixed(2)}/credit = <strong>${wastedCreditValue.toLocaleString()}</strong> paid for contacts you cannot reach</p>
+                  <p>{fmtNum(wv.count_bad)} bad contacts × ${costPerCredit.toFixed(2)}/credit = <strong>${wastedCreditValue.toLocaleString()}</strong> paid for contacts you cannot reach</p>
                   <p className="text-gray-400">Based on {numberOfReps} reps × {CREDITS_PER_REP_PER_MONTH.toLocaleString()} credits/month = ${(annualDataCost / totalAnnualCredits * 100).toFixed(1)}¢ per credit</p>
                 </div>
               </>
             ) : annualDataCost > 0 ? (
-              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set number of reps in the ROI panel to put a dollar figure on the documented waste.</p>
+              <p className="text-xs text-gray-500">{fmtNum(wv.count_bad)} contacts flagged. Set number of reps in the ROI panel to put a dollar figure on the documented waste.</p>
             ) : (
-              <p className="text-xs text-gray-500">{fmtNum(scan.bad_zoominfo_contacts)} contacts flagged. Set your annual data cost and rep count in the ROI panel to put a dollar figure on the documented waste.</p>
+              <p className="text-xs text-gray-500">{fmtNum(wv.count_bad)} contacts flagged. Set your annual data cost and rep count in the ROI panel to put a dollar figure on the documented waste.</p>
             )}
             <p className="text-xs text-gray-400">Where your contract includes data quality terms, this file supports a credit conversation as well.</p>
           </div>
@@ -201,7 +218,7 @@ export default function FixExport({ scan, file, emailCol, phoneCol, hubspotToken
             onClick={downloadZoomInfoClaim}
             className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
           >
-            ⬇ Download ZoomInfo Evidence File CSV
+            ⬇ Download {wvName} Evidence File CSV
           </button>
         </div>
       )}

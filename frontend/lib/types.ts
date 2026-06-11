@@ -39,6 +39,16 @@ export interface ScanResult {
   zoominfo_high_risk_rate: number | null;
   bad_zoominfo_contacts: number;
   zoominfo_flagged_sample: Record<string, unknown>[];
+  // Vendor-neutral evidence file: worst paid vendor by flagged-record count.
+  // Optional so older encoded reports (zoominfo_* era) still parse.
+  worst_vendor?: {
+    vendor: string;
+    display: string;
+    total: number;
+    count_bad: number;
+    high_risk_rate: number | null;
+    flagged_sample: Record<string, unknown>[];
+  } | null;
   high_risk_sample: Record<string, unknown>[];
   col_guesses: {
     email: string | null;
