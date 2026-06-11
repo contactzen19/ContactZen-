@@ -2,7 +2,7 @@
 
 > Living document. Source of truth for what comes next. Updated as work lands.
 
-Last updated: **2026-06-02**
+Last updated: **2026-06-10**
 
 ---
 
@@ -27,6 +27,8 @@ The single highest-leverage move: turn what the code already computes into the *
 - [ ] Build the report artifact — hosted HTML at `contactzen.io/reports/<token>`, PDF export
 - [ ] Lock the "unreachable" definition end-to-end (one term, one calculation)
 - [ ] Vendor attribution: support CSV upload with source field, map to known vendors (ZoomInfo, Apollo, Clay, manual)
+- [ ] **Vendor Scorecard — cost per reachable contact (CPRC).** Spend input per detected vendor → total spend ÷ reachable contacts delivered, side-by-side across vendors, right-sized renewal line. Flagship metric per `DIRECTION.md` ("the buyer's side of the table"). Debuts in the pilot report.
+- [ ] Demote credit recapture everywhere (landing, report, talk track) to one upside line — never the promise
 - [ ] Deliver first pilot audit (IT leader, 1.5M contacts) — full report, full conversation
 - [ ] Capture pilot reaction as case study material
 
