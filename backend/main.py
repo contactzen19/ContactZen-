@@ -21,8 +21,11 @@ from analysis import (
     guess_last_open_col,
     guess_last_reply_col,
 )
+from pydantic import BaseModel
+
 from roi import ROIInputs, calc_roi, audit_roi_from_legacy
 from signal_scoring import parse_hubspot_engagement, score_contact
+from vendor_scorecard import build_scorecard, rollup_vendors
 from vendor_signals import capture_scan_signals
 
 
@@ -162,7 +165,31 @@ async def scan(
     except Exception:
         pass
 
-    return sanitize({"scan": scan_results, "roi": roi, "audit_roi": audit_roi})
+    # Canonical-vendor reachability rollup (no cost data yet — the frontend
+    # prompts for per-vendor spend and calls /api/vendor-scorecard).
+    vendor_rollup = rollup_vendors(scan_results.get("source_breakdown"))
+
+    return sanitize({
+        "scan": scan_results,
+        "roi": roi,
+        "audit_roi": audit_roi,
+        "vendor_rollup": vendor_rollup,
+    })
+
+
+class VendorScorecardRequest(BaseModel):
+    source_breakdown: list[dict]
+    vendor_spend: dict[str, float]
+
+
+@app.post("/api/vendor-scorecard")
+async def vendor_scorecard(req: VendorScorecardRequest):
+    """Cost-per-reachable-contact table. Stateless: takes the scan's
+    source_breakdown plus a per-vendor annual spend map, returns CPRC,
+    reachability premium, and the right-sized renewal line per vendor.
+    All money math stays server-side so prospect-facing numbers remain
+    methodology-locked."""
+    return sanitize(build_scorecard(req.source_breakdown, req.vendor_spend))
 
 
 @app.post("/api/fix")

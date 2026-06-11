@@ -46,11 +46,29 @@ SOURCE_ALIASES: dict[str, str] = {
     "rocketreach": "rocketreach", "rocket reach": "rocketreach",
     "hunter": "hunter", "hunter.io": "hunter",
     "organic": "organic", "inbound": "organic", "website": "organic", "form fill": "organic",
-    "manual": "manual", "manual entry": "manual",
+    "website form": "organic", "web form": "organic",
+    "manual": "manual", "manual entry": "manual", "manual import": "manual",
     "import": "import", "csv": "import", "csv import": "import",
+    "legacy crm": "import", "crm import": "import",
     "referral": "referral",
     "event": "event", "conference": "event", "trade show": "event",
 }
+
+# Paid-vendor names safe for substring fallback ("ZoomInfo Export Q2" →
+# zoominfo). Only distinctive names; deliberately excludes generic words
+# like "import" or "event" that would false-positive.
+VENDOR_SUBSTRINGS: list[tuple[str, str]] = [
+    ("zoominfo", "zoominfo"),
+    ("apollo", "apollo"),
+    ("lusha", "lusha"),
+    ("cognism", "cognism"),
+    ("leadiq", "leadiq"),
+    ("seamless", "seamless"),
+    ("clearbit", "clearbit"),
+    ("rocketreach", "rocketreach"),
+    ("salesnavigator", "linkedin"),
+    ("linkedin", "linkedin"),
+]
 
 
 def normalize_source(raw: Any) -> tuple[str, str]:
@@ -70,6 +88,11 @@ def normalize_source(raw: Any) -> tuple[str, str]:
     soft = re.sub(r"[^a-z0-9]", "", key)
     for alias, canonical in SOURCE_ALIASES.items():
         if re.sub(r"[^a-z0-9]", "", alias) == soft:
+            return canonical, s
+    # Substring fallback for distinctive paid-vendor names, so values like
+    # "ZoomInfo Export Q2" still attribute to the vendor.
+    for needle, canonical in VENDOR_SUBSTRINGS:
+        if needle in soft:
             return canonical, s
     return "other", s
 
