@@ -7,22 +7,18 @@ interface Props {
   onChange: (vals: ROIInputs) => void;
 }
 
+// Deeper methodology context lives in the tooltip. The plain-English "what is
+// this and why does it matter" lives in the always-visible hint under each
+// field. A prospect should never need the tooltip to fill the form.
 const TOOLTIPS: Record<string, string> = {
-  // Sales org
-  number_of_reps: "Total number of quota-carrying sales reps in your org.",
-  loaded_ote: "Annual loaded OTE per rep. Fully burdened base + variable + benefits + overhead. Leave 0 to fall back to the hourly-cost estimate (the report will flag it).",
-  selling_time_pct: "Share of working hours your reps actually spend selling vs. admin, hunting, data hygiene, internal meetings. Industry actual is ~35% (SBI / RAIN). Leave 0 for that default.",
-  annual_data_cost: "What you spend annually on data providers like ZoomInfo, Apollo, or Lusha.",
-  // Pipeline funnel (audit fact-finder)
-  list_coverage_pct: "% of the contact list reps actually work in a given year. Leave 0 to use the 40% methodology default.",
-  reply_rate: "Reply rate to outbound cadences. Leave 0 to use the 1.5% methodology default.",
-  mtg_to_deal_pct: "Meeting-to-closed-won conversion. Leave 0 to use the 20% methodology default.",
-  avg_contract_value: "Average closed-won contract value. Leave 0 if unknown. The recoverable-pipeline lever will show $0 and be flagged as an estimate.",
-  // Legacy (kept for the existing summary widgets)
-  rep_hourly_cost: "Fallback if Loaded OTE is blank: hourly cost × 2,080 hrs is used to estimate annual loaded OTE.",
-  cleanup_hours_per_rep_per_month: "How many hours each rep spends per month manually cleaning or verifying contact data.",
-  emails_per_rep_per_week: "Average outbound emails sent per rep per week.",
-  new_contacts_per_rep_per_week: "How many new contacts each rep adds to the CRM per week from all sources.",
+  number_of_reps: "Headcount drives the wasted-capacity math: every rep's paid hours are partly spent on contacts that can't reply.",
+  loaded_ote: "Loaded cost = base + commission + benefits + overhead. The report multiplies this by headcount, selling time, and your unreachable rate.",
+  selling_time_pct: "SBI and RAIN Group field studies put real selling time near 35% of the work week. We default to that on purpose: conservative numbers survive CFO scrutiny.",
+  annual_data_cost: "Used for the wasted-spend line (spend x unreachable %). Per-vendor spend gets its own treatment in the Vendor Scorecard after the scan.",
+  list_coverage_pct: "Without this, the pipeline math would assume reps touch every record, which inflates the number. 40% is the methodology default.",
+  reply_rate: "Cold outbound reply rates typically land between 1% and 3%. Default is a conservative 1.5%.",
+  mtg_to_deal_pct: "Of the meetings your team books, the share that becomes closed-won revenue. Default 20%.",
+  avg_contract_value: "Average first-year revenue from one closed deal. Without it, the recoverable-pipeline number shows $0 and is flagged.",
 };
 
 function Tooltip({ text }: { text: string }) {
@@ -38,7 +34,7 @@ function Tooltip({ text }: { text: string }) {
         ?
       </button>
       {show && (
-        <div className="absolute left-5 top-0 z-50 w-52 bg-gray-900 text-white text-xs rounded-lg px-3 py-2 leading-relaxed shadow-xl">
+        <div className="absolute left-5 top-0 z-50 w-56 bg-gray-900 text-white text-xs rounded-lg px-3 py-2 leading-relaxed shadow-xl">
           {text}
         </div>
       )}
@@ -46,8 +42,9 @@ function Tooltip({ text }: { text: string }) {
   );
 }
 
-function Field({ label, tooltipKey, value, onChange, min, max, step, prefix, suffix, placeholder }: {
+function Field({ label, hint, tooltipKey, value, onChange, min, max, step, prefix, suffix, placeholder }: {
   label: string;
+  hint: string;
   tooltipKey: string;
   value: number;
   onChange: (v: number) => void;
@@ -60,7 +57,7 @@ function Field({ label, tooltipKey, value, onChange, min, max, step, prefix, suf
 }) {
   return (
     <div>
-      <label className="flex items-center text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide">
+      <label className="flex items-center text-[13px] font-semibold text-gray-700 mb-1">
         {label}
         <Tooltip text={TOOLTIPS[tooltipKey]} />
       </label>
@@ -82,6 +79,16 @@ function Field({ label, tooltipKey, value, onChange, min, max, step, prefix, suf
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">{suffix}</span>
         )}
       </div>
+      <p className="text-[11px] text-gray-400 mt-1 leading-snug">{hint}</p>
+    </div>
+  );
+}
+
+function GroupHeader({ title, payoff }: { title: string; payoff: string }) {
+  return (
+    <div className="mb-3">
+      <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">{title}</p>
+      <p className="text-[11px] text-brand-600 font-medium mt-0.5">{payoff}</p>
     </div>
   );
 }
@@ -94,19 +101,29 @@ export default function ROIPanel({ values, onChange }: Props) {
   const set = (key: keyof ROIInputs) => (v: number) => onChange({ ...values, [key]: v });
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
+      <p className="text-[11px] text-gray-400 leading-relaxed">
+        Fill in what you know. Anything left blank uses a conservative industry
+        default, and the report marks it as an estimate.
+      </p>
+
       <div>
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Sales Org</p>
-        <div className="space-y-3">
+        <GroupHeader
+          title="What your team costs"
+          payoff="Sets the headline: payroll spent on contacts that can't reply"
+        />
+        <div className="space-y-4">
           <Field
-            label="Number of Reps"
+            label="Reps doing outbound"
+            hint="Anyone who prospects: SDRs, AEs, full-cycle reps."
             tooltipKey="number_of_reps"
             value={values.number_of_reps}
             onChange={set("number_of_reps")}
             min={1} max={5000}
           />
           <Field
-            label="Loaded OTE / Rep (Annual)"
+            label="Cost per rep, per year"
+            hint="Salary + commission + benefits. Rule of thumb: base pay x 1.3. Blank = $75K default."
             tooltipKey="loaded_ote"
             value={values.loaded_ote}
             onChange={set("loaded_ote")}
@@ -114,7 +131,25 @@ export default function ROIPanel({ values, onChange }: Props) {
             placeholder="e.g. 150,000"
           />
           <Field
-            label="Annual Data Provider Cost"
+            label="Time actually spent selling"
+            hint="The rest goes to admin, meetings, and CRM cleanup. Industry average: 35%."
+            tooltipKey="selling_time_pct"
+            value={pctVal(values.selling_time_pct)}
+            onChange={pctSet(set("selling_time_pct"))}
+            suffix="%" min={0} max={100} step={1}
+          />
+        </div>
+      </div>
+
+      <div className="border-t border-gray-100 pt-4">
+        <GroupHeader
+          title="What your data costs"
+          payoff="Sets the wasted-spend line and powers the Vendor Scorecard"
+        />
+        <div className="space-y-4">
+          <Field
+            label="Data & lead spend, per year"
+            hint="Everything you pay for contact data: ZoomInfo, Apollo, purchased lead lists."
             tooltipKey="annual_data_cost"
             value={values.annual_data_cost}
             onChange={set("annual_data_cost")}
@@ -124,44 +159,38 @@ export default function ROIPanel({ values, onChange }: Props) {
       </div>
 
       <div className="border-t border-gray-100 pt-4">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">
-          Audit Fact-Finder
-        </p>
-        <p className="text-[11px] text-gray-400 mb-3 leading-relaxed">
-          Confirmed values tighten the report. Blank fields fall back to methodology defaults and get
-          flagged on-page.
-        </p>
-        <div className="space-y-3">
+        <GroupHeader
+          title="What a deal is worth"
+          payoff="Sets the upside: pipeline those wasted hours could have produced"
+        />
+        <div className="space-y-4">
           <Field
-            label="Selling Time"
-            tooltipKey="selling_time_pct"
-            value={pctVal(values.selling_time_pct)}
-            onChange={pctSet(set("selling_time_pct"))}
-            suffix="%" min={0} max={100} step={1}
-          />
-          <Field
-            label="List Coverage / Year"
+            label="Share of database worked per year"
+            hint="The % of your contacts reps actually touch. Most teams: around 40%."
             tooltipKey="list_coverage_pct"
             value={pctVal(values.list_coverage_pct)}
             onChange={pctSet(set("list_coverage_pct"))}
             suffix="%" min={0} max={100} step={1}
           />
           <Field
-            label="Reply Rate"
+            label="Cold outreach reply rate"
+            hint="Replies per 100 cold emails. Typical: 1% to 3%."
             tooltipKey="reply_rate"
             value={pctVal(values.reply_rate)}
             onChange={pctSet(set("reply_rate"))}
             suffix="%" min={0} max={100} step={0.1}
           />
           <Field
-            label="Meeting → Closed Won"
+            label="Meetings that become deals"
+            hint="Of the meetings booked, the % that close. Typical: around 20%."
             tooltipKey="mtg_to_deal_pct"
             value={pctVal(values.mtg_to_deal_pct)}
             onChange={pctSet(set("mtg_to_deal_pct"))}
             suffix="%" min={0} max={100} step={1}
           />
           <Field
-            label="Avg Contract Value"
+            label="Revenue per closed deal"
+            hint="Average first-year contract value."
             tooltipKey="avg_contract_value"
             value={values.avg_contract_value}
             onChange={set("avg_contract_value")}
