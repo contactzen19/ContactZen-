@@ -20,8 +20,10 @@ const VENDOR_LABELS: Record<string, string> = {
   "6sense": "6sense",
 };
 
-const label = (vendor: string) =>
-  VENDOR_LABELS[vendor] ?? vendor.charAt(0).toUpperCase() + vendor.slice(1);
+// Known vendors get their brand label; unknown sources (niche lead vendors,
+// custom CRM values) display their raw name from the backend rollup.
+const label = (vendor: string, display?: string) =>
+  VENDOR_LABELS[vendor] ?? display ?? vendor.charAt(0).toUpperCase() + vendor.slice(1);
 
 const fmtNum = (x: number) => x.toLocaleString();
 const fmtPct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;
@@ -79,7 +81,7 @@ export default function VendorScorecard({ rollup, sourceBreakdown }: Props) {
           {paidVendors.map(v => (
             <label key={v.vendor} className="block">
               <span className="block text-xs font-semibold text-gray-600 mb-1">
-                {label(v.vendor)}
+                {label(v.vendor, v.display)}
                 <span className="font-normal text-gray-400"> · {fmtNum(v.total)} contacts</span>
               </span>
               <input
@@ -115,7 +117,7 @@ export default function VendorScorecard({ rollup, sourceBreakdown }: Props) {
             Cost per reachable contact
           </p>
           <p className="text-3xl font-extrabold mb-1">
-            {label(card.headline.vendor)}: {fmtUnit(card.headline.cost_per_contact)} per contact,{" "}
+            {label(card.headline.vendor, card.headline.display)}: {fmtUnit(card.headline.cost_per_contact)} per contact,{" "}
             {fmtUnit(card.headline.cost_per_reachable)} per reachable contact
           </p>
           {card.headline.overpay_dollars != null && card.headline.overpay_dollars > 0 && (
@@ -148,7 +150,7 @@ export default function VendorScorecard({ rollup, sourceBreakdown }: Props) {
           <tbody>
             {rows.map(v => (
               <tr key={v.vendor} className="border-t border-gray-100 hover:bg-gray-50">
-                <td className="px-4 py-2 font-medium text-gray-800">{label(v.vendor)}</td>
+                <td className="px-4 py-2 font-medium text-gray-800">{label(v.vendor, v.display)}</td>
                 <td className="px-4 py-2 text-right text-gray-600">{fmtNum(v.total)}</td>
                 <td className="px-4 py-2 text-right text-gray-600">{fmtNum(v.count_reachable)}</td>
                 <td

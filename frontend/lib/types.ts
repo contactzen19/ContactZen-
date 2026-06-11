@@ -101,6 +101,7 @@ export interface SourceRow {
 // Cost fields arrive only from /api/vendor-scorecard once spend is entered.
 export interface VendorRollupRow {
   vendor: string;
+  display?: string;          // raw vendor name for sources not in the alias map
   is_paid_vendor: boolean;
   raw_sources: string[];
   total: number;
@@ -123,6 +124,7 @@ export interface VendorScorecardResponse {
   vendors: VendorRollupRow[];
   headline: {
     vendor: string;
+    display?: string;
     cost_per_contact: number;
     cost_per_reachable: number;
     overpay_dollars: number | null;

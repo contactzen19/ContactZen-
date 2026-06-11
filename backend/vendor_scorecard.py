@@ -33,23 +33,45 @@ REACHABLE_DEFINITION = (
 NON_VENDOR_SOURCES = {"organic", "manual", "import", "referral", "event", "unknown", "other"}
 
 
+def _vendor_key(raw) -> tuple[str, str, bool]:
+    """(rollup key, display name, is_paid_vendor) for a raw source value.
+
+    Known vendors merge under their canonical name. Unrecognized sources keep
+    their own identity instead of collapsing into "other" — lead-buying shops
+    purchase from niche vendors our alias map will never know, and each one
+    needs its own scorecard row with its own spend input. Unknown sources are
+    treated as paid candidates: the buyer knows which ones cost money, and a
+    blank spend input costs nothing.
+    """
+    canonical, raw_clean = normalize_source(raw)
+    if canonical != "other":
+        return canonical, canonical, canonical not in NON_VENDOR_SOURCES
+    key = raw_clean.strip().lower()
+    if not key or key == "other":
+        return "other", "other", False
+    # compute_scan lowercases sources before they reach us, so original casing
+    # is gone either way — title case reads best on the report.
+    return key, raw_clean.strip().title(), True
+
+
 def rollup_vendors(source_breakdown: Optional[list[dict]]) -> list[dict]:
-    """Group the scan's per-source rows by canonical vendor.
+    """Group the scan's per-source rows by vendor.
 
     Raw source values ("ZoomInfo Export", "zoominfo") merge via
-    vendor_signals.normalize_source so the scorecard speaks in vendors,
-    not CRM source strings. Reachable = total - invalid - risky - abandoned,
-    matching the unreachable_rate convention in analysis.compute_scan.
+    vendor_signals.normalize_source; unrecognized sources stay distinct (see
+    _vendor_key). Reachable = total - invalid - risky - abandoned, matching
+    the unreachable_rate convention in analysis.compute_scan.
     """
     if not source_breakdown:
         return []
 
     agg: dict[str, dict] = {}
     for row in source_breakdown:
-        vendor, _ = normalize_source(row.get("source"))
+        vendor, display, is_paid = _vendor_key(row.get("source"))
         a = agg.setdefault(vendor, {
             "vendor": vendor,
-            "is_paid_vendor": vendor not in NON_VENDOR_SOURCES,
+            "display": display,
+            "is_paid_vendor": is_paid,
             "raw_sources": [],
             "total": 0,
             "count_bad": 0,
@@ -84,7 +106,7 @@ def build_scorecard(source_breakdown: Optional[list[dict]],
     so the frontend renders a prompt instead of a fake number.
     """
     vendor_spend = {
-        normalize_source(k)[0]: float(v)
+        _vendor_key(k)[0]: float(v)
         for k, v in (vendor_spend or {}).items()
         if v is not None and float(v) > 0
     }
@@ -123,6 +145,7 @@ def build_scorecard(source_breakdown: Optional[list[dict]],
         worst = max(priced, key=lambda v: v["cost_per_reachable"])
         headline = {
             "vendor": worst["vendor"],
+            "display": worst["display"],
             "cost_per_contact": worst["cost_per_contact"],
             "cost_per_reachable": worst["cost_per_reachable"],
             "overpay_dollars": worst["overpay_dollars"],
