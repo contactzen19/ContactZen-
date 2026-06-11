@@ -630,10 +630,10 @@ function Footer() {
       <p className="text-brand-400 text-sm">
         © 2026 ReachAudit · Valid doesn&apos;t mean reachable. ·{" "}
         <a
-          href="mailto:prindlejoey@gmail.com"
+          href="mailto:joey@reachaudit.com"
           className="hover:text-white transition-colors"
         >
-          prindlejoey@gmail.com
+          joey@reachaudit.com
         </a>
       </p>
     </footer>
