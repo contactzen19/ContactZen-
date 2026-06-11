@@ -13,7 +13,7 @@ interface Props {
 const TOOLTIPS: Record<string, string> = {
   number_of_reps: "Headcount drives the wasted-capacity math: every rep's paid hours are partly spent on contacts that can't reply.",
   loaded_ote: "Loaded cost = base + commission + benefits + overhead. The report multiplies this by headcount, selling time, and your unreachable rate.",
-  selling_time_pct: "SBI and RAIN Group field studies put real selling time near 35% of the work week. We default to that on purpose: conservative numbers survive CFO scrutiny.",
+  selling_time_pct: "Salesforce, SBI, and RAIN Group field studies all land between 28% and 35% of the week spent actually selling. We use the top of that range as a floor: it keeps the waste number conservative. A higher selling share makes the number bigger.",
   annual_data_cost: "Used for the wasted-spend line (spend x unreachable %). Per-vendor spend gets its own treatment in the Vendor Scorecard after the scan.",
   list_coverage_pct: "Without this, the pipeline math would assume reps touch every record, which inflates the number. 40% is the methodology default.",
   reply_rate: "Cold outbound reply rates typically land between 1% and 3%. Default is a conservative 1.5%.",
@@ -99,12 +99,13 @@ const pctVal = (v: number) => Math.round(v * 1000) / 10;
 
 export default function ROIPanel({ values, onChange }: Props) {
   const set = (key: keyof ROIInputs) => (v: number) => onChange({ ...values, [key]: v });
+  const [showFineTune, setShowFineTune] = useState(false);
 
   return (
     <div className="space-y-6">
       <p className="text-[11px] text-gray-400 leading-relaxed">
-        Fill in what you know. Anything left blank uses a conservative industry
-        default, and the report marks it as an estimate.
+        Four numbers you already know. Everything else has a research-backed
+        default, marked as an estimate in the report.
       </p>
 
       <div>
@@ -129,14 +130,6 @@ export default function ROIPanel({ values, onChange }: Props) {
             onChange={set("loaded_ote")}
             prefix="$" min={0} max={1_000_000} step={5000}
             placeholder="e.g. 150,000"
-          />
-          <Field
-            label="Time actually spent selling"
-            hint="The rest goes to admin, meetings, and CRM cleanup. Industry average: 35%."
-            tooltipKey="selling_time_pct"
-            value={pctVal(values.selling_time_pct)}
-            onChange={pctSet(set("selling_time_pct"))}
-            suffix="%" min={0} max={100} step={1}
           />
         </div>
       </div>
@@ -165,30 +158,6 @@ export default function ROIPanel({ values, onChange }: Props) {
         />
         <div className="space-y-4">
           <Field
-            label="Share of database worked per year"
-            hint="The % of your contacts reps actually touch. Most teams: around 40%."
-            tooltipKey="list_coverage_pct"
-            value={pctVal(values.list_coverage_pct)}
-            onChange={pctSet(set("list_coverage_pct"))}
-            suffix="%" min={0} max={100} step={1}
-          />
-          <Field
-            label="Cold outreach reply rate"
-            hint="Replies per 100 cold emails. Typical: 1% to 3%."
-            tooltipKey="reply_rate"
-            value={pctVal(values.reply_rate)}
-            onChange={pctSet(set("reply_rate"))}
-            suffix="%" min={0} max={100} step={0.1}
-          />
-          <Field
-            label="Meetings that become deals"
-            hint="Of the meetings booked, the % that close. Typical: around 20%."
-            tooltipKey="mtg_to_deal_pct"
-            value={pctVal(values.mtg_to_deal_pct)}
-            onChange={pctSet(set("mtg_to_deal_pct"))}
-            suffix="%" min={0} max={100} step={1}
-          />
-          <Field
             label="Revenue per closed deal"
             hint="Average first-year contract value."
             tooltipKey="avg_contract_value"
@@ -198,6 +167,68 @@ export default function ROIPanel({ values, onChange }: Props) {
             placeholder="e.g. 25,000"
           />
         </div>
+      </div>
+
+      {/* Conversion ratios live behind a fold: most leaders can't pull these
+          from a CRM, and asking up front creates friction. Defaults carry the
+          math; confirmed values tighten it. */}
+      <div className="border-t border-gray-100 pt-4">
+        <button
+          type="button"
+          onClick={() => setShowFineTune(s => !s)}
+          className="w-full flex items-start justify-between text-left gap-2"
+        >
+          <div>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+              Fine-tune the math
+            </p>
+            <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">
+              Optional. Most teams don&apos;t track these, so we apply
+              research-backed defaults and flag them in the report. Open this
+              only if you know your numbers.
+            </p>
+          </div>
+          <span className="text-gray-400 text-base leading-none mt-0.5">
+            {showFineTune ? "−" : "+"}
+          </span>
+        </button>
+
+        {showFineTune && (
+          <div className="space-y-4 mt-4">
+            <Field
+              label="Time actually spent selling"
+              hint="Studies put it at 28% to 35% of the week; the rest is admin and meetings. We default to 35% as the floor. If your team sells more, the waste number gets bigger, not smaller."
+              tooltipKey="selling_time_pct"
+              value={pctVal(values.selling_time_pct)}
+              onChange={pctSet(set("selling_time_pct"))}
+              suffix="%" min={0} max={100} step={1}
+            />
+            <Field
+              label="Share of database worked per year"
+              hint="Almost nobody tracks this. Default: reps touch about 40% of the database in a year."
+              tooltipKey="list_coverage_pct"
+              value={pctVal(values.list_coverage_pct)}
+              onChange={pctSet(set("list_coverage_pct"))}
+              suffix="%" min={0} max={100} step={1}
+            />
+            <Field
+              label="Cold outreach reply rate"
+              hint="Your sequencer or dialer shows this. Typical: 1% to 3%. Default 1.5%."
+              tooltipKey="reply_rate"
+              value={pctVal(values.reply_rate)}
+              onChange={pctSet(set("reply_rate"))}
+              suffix="%" min={0} max={100} step={0.1}
+            />
+            <Field
+              label="Meetings that become deals"
+              hint="Gut feel is fine here. Default: 20% of booked meetings close."
+              tooltipKey="mtg_to_deal_pct"
+              value={pctVal(values.mtg_to_deal_pct)}
+              onChange={pctSet(set("mtg_to_deal_pct"))}
+              suffix="%" min={0} max={100} step={1}
+            />
+          </div>
+        )}
       </div>
 
     </div>

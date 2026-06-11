@@ -158,6 +158,7 @@ the promise.
 
 | Objection | Response |
 | --- | --- |
+| "Our reps sell way more than 35% of their time." | "Even better — that makes the waste number bigger, not smaller. More selling hours against the same dead list means more payroll burned. 35% is the conservative floor from Salesforce and RAIN field studies; tell me your number and I'll rerun it live." |
 | "Our lead vendor guarantees quality." | "They grade their own homework. This is the independent measurement — and your own file is the evidence. If their numbers and mine disagree, we can both look at the same records." |
 | "How do you define reachable?" | Restate the locked definition. Offer the record-by-record file. Never improvise a second definition. |
 | "We can clean this ourselves." | "You can — verification tools are cheap. What they can't tell you is which vendor sold you the dead records and what you're really paying per reachable lead. That's the part that changes your next purchase order." |

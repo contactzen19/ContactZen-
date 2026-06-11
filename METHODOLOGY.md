@@ -28,6 +28,13 @@ Reps × Loaded OTE × Selling-Time% × Unreachable%
 **Defaults:**
 - `Selling-Time%` = **35%** *(SBI / RAIN Group industry actuals — conservative on purpose so a CFO cannot pick the number apart)*
 
+> **The 35% objection flip.** When a sales leader bristles — "my reps sell way
+> more than 35% of the time" — agree with them. Selling time *scales the waste
+> number up*: more selling hours against the same unreachable list means more
+> payroll burned. 35% is the floor, used so the math can never be accused of
+> inflation. *"If your team sells 60% of the time, this number nearly doubles —
+> happy to rerun it with your number."*
+
 Worked example: 25 reps × $75K × 35% × 40% = **$262,500 / yr** in paid capacity spent on ghosts.
 Per rep ≈ **$10,500 / yr**. Scales with headcount, hits their own payroll. This is the line that stops the room.
 
