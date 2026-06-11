@@ -12,10 +12,11 @@ import AtRiskRecords from "@/components/tabs/AtRiskRecords";
 import FixExport from "@/components/tabs/FixExport";
 import AuditROISection from "@/components/AuditROISection";
 import SourceMap from "@/components/SourceMap";
+import VendorScorecard from "@/components/VendorScorecard";
 import ScorePanel from "@/components/ScorePanel";
 import AuthModal from "@/components/AuthModal";
 import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
-import { ROIInputs, ScanResult, ROIResult, AuditROIResult } from "@/lib/types";
+import { ROIInputs, ScanResult, ROIResult, AuditROIResult, VendorRollupRow } from "@/lib/types";
 import { encodeReport, buildSummary } from "@/lib/report";
 import { saveScan } from "@/lib/scans";
 import { getSupabase } from "@/lib/supabase";
@@ -105,6 +106,7 @@ export default function Home() {
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [roiResult, setRoiResult] = useState<ROIResult | null>(null);
   const [auditRoi, setAuditRoi] = useState<AuditROIResult | null>(null);
+  const [vendorRollup, setVendorRollup] = useState<VendorRollupRow[] | null>(null);
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
@@ -159,6 +161,7 @@ export default function Home() {
             setScanResult(result.scan);
             setRoiResult(result.roi);
             setAuditRoi(result.audit_roi ?? null);
+            setVendorRollup(result.vendor_rollup ?? null);
             setColumns(["email", "phone", "first_name", "last_name", "company", "title", "source"]);
             setEmailCol("email");
             setPhoneCol("phone");
@@ -178,6 +181,7 @@ export default function Home() {
     setFile(f);
     setScanResult(null);
     setRoiResult(null);
+    setVendorRollup(null);
     setError(null);
     setSaved(false);
     try {
@@ -216,6 +220,7 @@ export default function Home() {
       setScanResult(result.scan);
       setRoiResult(result.roi);
       setAuditRoi(result.audit_roi ?? null);
+      setVendorRollup(result.vendor_rollup ?? null);
     } catch {
       setError("Scan failed. Please try again. If the problem persists, check your file and column mapping.");
     } finally {
@@ -236,6 +241,7 @@ export default function Home() {
     setScanResult(null);
     setRoiResult(null);
     setAuditRoi(null);
+    setVendorRollup(null);
     setError(null);
     setCopied(false);
     setSaved(false);
@@ -498,6 +504,26 @@ export default function Home() {
                   <SourceMap
                     rows={scanResult.source_breakdown}
                     annualDataSpend={roi.annual_data_cost}
+                  />
+                </div>
+              )}
+
+              {vendorRollup &&
+                vendorRollup.some(v => v.is_paid_vendor) &&
+                scanResult.source_breakdown &&
+                scanResult.source_breakdown.length > 0 && (
+                <div className="card">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-1 h-6 rounded-full bg-brand-600" />
+                    <h2 className="font-bold text-brand-900 text-lg">Vendor Scorecard</h2>
+                  </div>
+                  <p className="text-sm text-gray-500 mb-6">
+                    Vendors price per credit or per seat. This is what you pay per contact
+                    that is actually reachable.
+                  </p>
+                  <VendorScorecard
+                    rollup={vendorRollup}
+                    sourceBreakdown={scanResult.source_breakdown}
                   />
                 </div>
               )}

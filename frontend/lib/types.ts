@@ -97,6 +97,40 @@ export interface SourceRow {
   unreachable_rate?: number;
 }
 
+// Canonical-vendor reachability rollup, returned with every scan.
+// Cost fields arrive only from /api/vendor-scorecard once spend is entered.
+export interface VendorRollupRow {
+  vendor: string;
+  is_paid_vendor: boolean;
+  raw_sources: string[];
+  total: number;
+  count_bad: number;
+  count_abandoned: number;
+  count_unreachable: number;
+  count_reachable: number;
+  unreachable_rate: number;
+  reachable_rate: number;
+  // Priced fields (null until spend is supplied)
+  annual_spend?: number | null;
+  cost_per_contact?: number | null;
+  cost_per_reachable?: number | null;
+  reachability_premium_pct?: number | null;
+  right_sized_spend?: number | null;
+  overpay_dollars?: number | null;
+}
+
+export interface VendorScorecardResponse {
+  vendors: VendorRollupRow[];
+  headline: {
+    vendor: string;
+    cost_per_contact: number;
+    cost_per_reachable: number;
+    overpay_dollars: number | null;
+  } | null;
+  total_overpay_dollars: number | null;
+  reachable_definition: string;
+}
+
 export interface ColumnsResponse {
   columns: string[];
   total_rows: number;

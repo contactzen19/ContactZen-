@@ -1,6 +1,20 @@
-import { ColumnsResponse, ROIInputs, ScanResult, ROIResult, AuditROIResult } from "./types";
+import {
+  ColumnsResponse,
+  ROIInputs,
+  ScanResult,
+  ROIResult,
+  AuditROIResult,
+  SourceRow,
+  VendorRollupRow,
+  VendorScorecardResponse,
+} from "./types";
 
-export type ScanResponse = { scan: ScanResult; roi: ROIResult; audit_roi?: AuditROIResult };
+export type ScanResponse = {
+  scan: ScanResult;
+  roi: ROIResult;
+  audit_roi?: AuditROIResult;
+  vendor_rollup?: VendorRollupRow[];
+};
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -135,6 +149,19 @@ export async function setDisposition(
   form.append("contact_id", contactId);
   form.append("disposition", disposition);
   const res = await fetch(`${API_URL}/api/hubspot/set-disposition`, { method: "POST", body: form });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+export async function fetchVendorScorecard(
+  sourceBreakdown: SourceRow[],
+  vendorSpend: Record<string, number>,
+): Promise<VendorScorecardResponse> {
+  const res = await fetch(`${API_URL}/api/vendor-scorecard`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ source_breakdown: sourceBreakdown, vendor_spend: vendorSpend }),
+  });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }

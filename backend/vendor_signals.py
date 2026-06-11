@@ -45,6 +45,9 @@ SOURCE_ALIASES: dict[str, str] = {
     "clearbit": "clearbit",
     "rocketreach": "rocketreach", "rocket reach": "rocketreach",
     "hunter": "hunter", "hunter.io": "hunter",
+    "clay": "clay", "clay.com": "clay",
+    "uplead": "uplead", "up lead": "uplead",
+    "6sense": "6sense", "sixsense": "6sense",
     "organic": "organic", "inbound": "organic", "website": "organic", "form fill": "organic",
     "website form": "organic", "web form": "organic",
     "manual": "manual", "manual entry": "manual", "manual import": "manual",
@@ -68,6 +71,9 @@ VENDOR_SUBSTRINGS: list[tuple[str, str]] = [
     ("rocketreach", "rocketreach"),
     ("salesnavigator", "linkedin"),
     ("linkedin", "linkedin"),
+    ("uplead", "uplead"),
+    ("6sense", "6sense"),
+    # "clay" deliberately absent: too short and common for substring matching.
 ]
 
 

@@ -129,25 +129,20 @@ export default function SourceMap({ rows, annualDataSpend }: Props) {
         </table>
       </div>
 
-      {/* Credit recapture callout */}
-      {totalBadAcrossVendors > 0 && annualDataSpend && annualDataSpend > 0 && (
-        <div className="rounded-xl border-2 border-amber-200 bg-amber-50 p-5 space-y-2">
-          <p className="text-xs font-bold uppercase tracking-widest text-amber-800">
-            Vendor credit-recapture lever
-          </p>
-          <p className="text-sm text-amber-900 leading-relaxed">
-            <strong>{fmtNum(totalBadAcrossVendors)}</strong> bad contacts trace back to paid data vendors.
-            Most enterprise contracts include data-quality SLAs that nobody claims because nobody can document
-            the bad records. The attributed-spend column is your starting position for that conversation.
-          </p>
-        </div>
+      {/* Recapture, demoted to one line. The renewal conversation lives in the
+          Vendor Scorecard (cost per reachable contact), not here. */}
+      {totalBadAcrossVendors > 0 && (
+        <p className="text-xs text-gray-500">
+          {fmtNum(totalBadAcrossVendors)} bad contacts trace back to paid data vendors.
+          Where your contract includes data quality terms, this table is the evidence file.
+        </p>
       )}
 
       {/* Attribution disclaimer */}
       {annualDataSpend && annualDataSpend > 0 && (
         <p className="text-xs text-gray-400 italic">
           Attributed spend = annual data spend × (this source&apos;s bad contacts ÷ total bad contacts).
-          Coarse allocation. Tighten by entering per-vendor spend in a future release.
+          Coarse allocation. For per-vendor cost, see the Vendor Scorecard below.
         </p>
       )}
     </div>
