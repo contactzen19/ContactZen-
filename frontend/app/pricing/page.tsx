@@ -1,16 +1,18 @@
 "use client";
 import Link from "next/link";
-import { Zap, Globe, Map, Trash2, BarChart3 } from "lucide-react";
+import { Globe, Map, Trash2, BarChart3 } from "lucide-react";
 
 function NavBar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-[10px] flex items-center justify-center text-white text-base flex-shrink-0"
-            style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", boxShadow: "0 4px 14px rgba(124,58,237,0.25)" }}>
-            <Zap className="w-5 h-5" aria-hidden="true" />
-          </div>
+          <img
+            src="/ra-logo.png"
+            alt=""
+            className="w-9 h-9 flex-shrink-0"
+            style={{ filter: "drop-shadow(0 4px 14px rgba(124,58,237,0.25))" }}
+          />
           <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
         </Link>
         <div className="flex items-center gap-3">

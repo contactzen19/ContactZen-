@@ -40,12 +40,12 @@ export default function ScansPage() {
       <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div
-              className="w-9 h-9 rounded-[10px] flex items-center justify-center text-white text-base flex-shrink-0"
-              style={{ background: "linear-gradient(135deg, #7C3AED, #9F67FF)", boxShadow: "0 4px 14px rgba(124,58,237,0.25)" }}
-            >
-              ⚡
-            </div>
+            <img
+              src="/ra-logo.png"
+              alt=""
+              className="w-9 h-9 flex-shrink-0"
+              style={{ filter: "drop-shadow(0 4px 14px rgba(124,58,237,0.25))" }}
+            />
             <span className="text-xl font-extrabold text-brand-900 tracking-tight">ReachAudit</span>
           </div>
           <div className="flex items-center gap-3">

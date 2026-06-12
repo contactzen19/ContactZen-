@@ -38,15 +38,16 @@ export default async function Image() {
               boxShadow: "0 8px 24px rgba(124,58,237,0.5)",
             }}
           >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="white"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              style={{
+                color: "white",
+                fontSize: 26,
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+              }}
             >
-              <path d="M13 2L3 14h7l-1 8 11-14h-7l0-6z" />
-            </svg>
+              RA
+            </div>
           </div>
           <div
             style={{

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  Zap,
   AlertCircle,
   TrendingDown,
   DollarSign,
@@ -29,15 +28,12 @@ function MinimalNav() {
     <nav className="border-b border-gray-100 bg-white">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 rounded-[10px] flex items-center justify-center text-white flex-shrink-0"
-            style={{
-              background: "linear-gradient(135deg, #7C3AED, #9F67FF)",
-              boxShadow: "0 4px 14px rgba(124,58,237,0.25)",
-            }}
-          >
-            <Zap className="w-5 h-5" aria-hidden="true" />
-          </div>
+          <img
+            className="w-9 h-9 flex-shrink-0"
+            style={{ filter: "drop-shadow(0 4px 14px rgba(124,58,237,0.25))" }}
+            src="/ra-logo.png"
+            alt=""
+          />
           <div className="flex flex-col">
             <span className="text-lg font-extrabold text-brand-900 tracking-tight leading-none">
               ReachAudit
