@@ -19,7 +19,7 @@ import { fetchColumns, runScan, runHubSpotScan } from "@/lib/api";
 import { ROIInputs, ScanResult, ROIResult, AuditROIResult, VendorRollupRow } from "@/lib/types";
 import { encodeReport, buildSummary } from "@/lib/report";
 import { saveScan } from "@/lib/scans";
-import { getSupabase } from "@/lib/supabase";
+import { getSupabase, authEnabled } from "@/lib/supabase";
 
 function LeadCapture() {
   const [email, setEmail] = useState("");
@@ -291,14 +291,14 @@ export default function Home() {
               <Link href="/scans" className="text-sm text-gray-600 hover:text-brand-600 transition-colors font-medium">
                 My Scans
               </Link>
-            ) : (
+            ) : authEnabled() ? (
               <button
                 onClick={() => setShowAuth(true)}
                 className="text-sm text-gray-600 hover:text-brand-600 transition-colors font-medium"
               >
                 Sign In
               </button>
-            )}
+            ) : null}
             <a
               href="https://calendly.com/contactzen-joey/new-meeting"
               target="_blank"
@@ -357,9 +357,11 @@ export default function Home() {
                     {copied ? "✅ Copied. Paste it anywhere" : "🔗 Share Report"}
                   </button>
                   {!copied && <p className="text-xs text-gray-400 text-center">Copies a link. Send it via email or Slack</p>}
-                  <button onClick={handleSave} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
-                    {saved ? "✅ Saved" : "💾 Save Scan"}
-                  </button>
+                  {authEnabled() && (
+                    <button onClick={handleSave} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
+                      {saved ? "✅ Saved" : "💾 Save Scan"}
+                    </button>
+                  )}
                   <button onClick={handleReset} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm py-2.5">
                     ↩ New Scan
                   </button>
@@ -497,9 +499,11 @@ export default function Home() {
               <button onClick={handleCopyLink} className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
                 {copied ? "✅ Copied. Paste it anywhere" : "🔗 Share Report"}
               </button>
-              <button onClick={handleSave} className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
-                {saved ? "✅ Scan Saved" : "💾 Save Scan"}
-              </button>
+              {authEnabled() && (
+                <button onClick={handleSave} className="btn-secondary flex-1 flex items-center justify-center gap-2 text-sm py-2.5">
+                  {saved ? "✅ Scan Saved" : "💾 Save Scan"}
+                </button>
+              )}
               <button onClick={handleReset} className="btn-secondary flex items-center justify-center gap-2 text-sm py-2.5 px-5">
                 ↩ New Scan
               </button>
