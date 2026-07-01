@@ -12,7 +12,7 @@ export default function Logo() {
           ReachAudit
         </div>
         <div className="text-sm font-medium text-brand-600 mt-0.5">
-          Independent Reachability Audits
+          Monthly reachability and compliance
         </div>
       </div>
     </div>
