@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/audit/:slug*",
-        destination: "/app",
+        destination: "/sample",
         permanent: false,
       },
     ];

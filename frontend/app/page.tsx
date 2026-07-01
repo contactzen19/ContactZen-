@@ -41,6 +41,12 @@ function NavBar() {
             Free score
           </Link>
           <Link
+            href="/sample"
+            className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors"
+          >
+            Sample
+          </Link>
+          <Link
             href="/pricing"
             className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors"
           >
@@ -82,6 +88,13 @@ function NavBar() {
               onClick={() => setIsOpen(false)}
             >
               Free score
+            </Link>
+            <Link
+              href="/sample"
+              className="text-base font-medium text-gray-700 hover:text-brand-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Sample
             </Link>
             <Link
               href="/pricing"
@@ -137,14 +150,12 @@ function Hero() {
             <Sparkles className="w-4 h-4" aria-hidden="true" />
             Score your list free
           </Link>
-          <a
-            href="https://calendly.com/joey-reachaudit/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/sample"
             className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-brand-400 text-gray-700 font-semibold text-base px-8 py-4 rounded-xl transition-colors"
           >
-            Book a call
-          </a>
+            See a sample
+          </Link>
         </div>
         <p className="text-sm text-gray-500 mt-4">
           No signup · No data stored · Takes a minute
