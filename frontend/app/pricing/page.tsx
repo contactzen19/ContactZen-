@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
-import { Globe, Map, Trash2, BarChart3 } from "lucide-react";
+import { ShieldCheck, Phone, ListChecks, Map } from "lucide-react";
+
+const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 
 function NavBar() {
   return (
@@ -17,15 +19,15 @@ function NavBar() {
         </Link>
         <div className="flex items-center gap-3">
           <Link href="/app" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">
-            Try the Tool
+            Free score
           </Link>
           <a
-            href="https://calendly.com/contactzen-joey/new-meeting"
+            href={CALENDLY}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary text-sm px-4 py-2"
           >
-            Book a Call
+            Book a call
           </a>
         </div>
       </div>
@@ -35,69 +37,69 @@ function NavBar() {
 
 const DELIVERABLES = [
   {
-    icon: Globe,
-    title: "Shareable web report",
-    desc: "A live link your team can pass around in Slack, email, or a doc. Always up to date, accessible across RevOps, sales leadership, and finance.",
+    icon: ListChecks,
+    title: "A ranked call list",
+    desc: "Every lead sorted best to worst to call, so your team works the top of the sheet instead of guessing top to bottom. The thing you open Monday morning.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Do Not Call, handled",
+    desc: "Every number checked against the National registry and re-checked every 30 days, with a dated record. We flag what to skip so you call the rest with confidence. The decision to call stays yours.",
+  },
+  {
+    icon: Phone,
+    title: "Real phone info",
+    desc: "Cell vs landline, live vs disconnected, on every callable record. Not just a number on file, a number that actually rings.",
   },
   {
     icon: Map,
-    title: "Source map",
-    desc: "Which data provider's contacts are decayed, by what percentage, with the dollar cost mapped to your renewal. Ready for the vendor conversation.",
-  },
-  {
-    icon: BarChart3,
-    title: "ROI levers",
-    desc: "Three numbers your CFO will ask for: wasted rep capacity, recoverable pipeline, wasted data spend. Each one defended by methodology.",
-  },
-  {
-    icon: Trash2,
-    title: "Suppression list",
-    desc: "Cleanup-ready CSV. Hard bounces, role addresses, and abandoned inboxes flagged so your next sequence isn't burning sender reputation.",
+    title: "Reachability and source",
+    desc: "Independent email and phone verification, plus which source sent the dead records. We don't sell data, so the read is honest.",
   },
 ];
 
 const STEPS = [
   {
     n: 1,
-    title: "30-min scoping call",
-    desc: "We walk through your list size, data sources, current renewal timeline, and what you want the audit to answer. Free.",
+    title: "Send us your list",
+    desc: "Export the list you already own from your lead vendor or CRM. Or start with a free score first, it takes a minute.",
   },
   {
     n: 2,
-    title: "Secure CSV transfer",
-    desc: "You export your contact list from HubSpot, Salesforce, or any CRM. We process it in memory and discard it on completion. Nothing stored.",
+    title: "We get it ready",
+    desc: "Live email check, phone info, and a Do Not Call scrub. We process it and discard it. We don't sell data, so the read is honest.",
   },
   {
     n: 3,
-    title: "Live readout in 5 business days",
-    desc: "We deliver the audit live to your team (RevOps, sales leadership, CFO if relevant). Then we hand off the shareable web report link.",
+    title: "We keep it current",
+    desc: "You get a clean, ranked, compliant list, and we refresh it every 30 days so it never goes stale.",
   },
 ];
 
 const FAQ = [
   {
-    q: "How fast is the turnaround?",
-    a: "Five business days from the moment we receive your CSV. Most audits complete in three.",
+    q: "How much does it cost?",
+    a: "It's a monthly plan, and the price depends on your list size, starting around $149/mo for a single book. Start with a free score and we'll walk you through it on a quick call. No commitment to try it.",
   },
   {
-    q: "What size list does this work for?",
-    a: "The $5,000 base engagement covers lists up to 25,000 contacts. Larger lists or recurring quarterly audits are scoped on the call.",
+    q: "How do you handle Do Not Call compliance?",
+    a: "We check every number against the National Do Not Call registry, re-check it every 30 days, and hand you a dated record. We flag what's on the list so you skip it. The decision to call stays with you, which keeps the compliance call where it belongs.",
   },
   {
-    q: "Do you store our data?",
-    a: "No. Your CSV is processed in memory during the audit and discarded immediately after. Nothing is written to a database, nothing persists past the engagement.",
+    q: "Why is it monthly and not a one-time thing?",
+    a: "Because compliance goes stale. The Do Not Call list changes, your list ages, and new leads come in. A scrub is only good for about 30 days, so we keep it current every month instead of leaving you to redo it.",
   },
   {
-    q: "What CRMs are supported?",
-    a: "Any CRM that can export a CSV. HubSpot, Salesforce, Outreach, Apollo, Pipedrive, custom systems. We're CRM-independent by design.",
+    q: "Is this the same as enrichment, or what my CRM does?",
+    a: "No. Enrichment fills in missing fields. We tell you who's actually reachable, whether the number is real and callable, and we keep the whole list compliant every month. On any CSV, nothing to install.",
   },
   {
-    q: "Can we do this as a recurring engagement?",
-    a: "Yes. Many teams run a quarterly audit aligned with their data provider's renewal cycle, so they walk into that conversation knowing their cost per reachable contact and what a right-sized contract looks like. Scoped per relationship.",
+    q: "Do you store my data?",
+    a: "No. Your list is used only to run the score and audit, then discarded. We keep aggregate counts for your report, never your contact records.",
   },
   {
-    q: "What if the audit finds very little?",
-    a: "That's a result too, and worth knowing. You'll have an independent, methodology-defended baseline you can show leadership. We've never had an audit return zero. If yours does, you'll have the receipt.",
+    q: "What do you need from me?",
+    a: "A CSV with names, emails, and phone numbers. If it shows where each lead came from, we can also tell you which source sent the dead records.",
   },
 ];
 
@@ -113,50 +115,51 @@ export default function PricingPage() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-sm font-medium text-brand-700 mb-6">
               <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
-              Engagement-based, not subscription
+              Simple monthly pricing
             </div>
             <h1 className="text-5xl font-extrabold text-brand-900 tracking-tight mb-4 leading-tight">
-              Audits scoped to your list,<br />not a SaaS seat count.
+              Know who to call,<br />and keep it that way.
             </h1>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-              You don&apos;t need a recurring tool. You need an independent answer. Once, before your next data provider renewal.
+              We keep the list you bought cleaned, checked against the Do Not Call list, and ranked by who to call first. Every month. Start with a free score.
             </p>
           </div>
 
-          {/* Pricing card */}
-          <div className="rounded-2xl border-2 border-brand-600 shadow-xl shadow-brand-100 p-10 mb-16 bg-white">
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Reachability Audit</p>
-                <h2 className="text-2xl font-extrabold text-brand-900 mb-1">One engagement, four deliverables.</h2>
-                <p className="text-gray-500 text-sm">Web report · source map · ROI levers · suppression list.</p>
-              </div>
-              <div className="text-right">
-                <div className="flex items-end gap-1 justify-end">
-                  <span className="text-sm text-gray-400 mb-2">Starts at</span>
-                  <span className="text-5xl font-extrabold text-brand-900">$5,000</span>
-                </div>
-                <p className="text-xs text-gray-400 mt-1">Up to 25,000 contacts · Quoted per engagement</p>
-              </div>
+          {/* Two ways in: free score + monthly plan */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            {/* Free score */}
+            <div className="rounded-2xl border border-gray-200 shadow-sm p-8 bg-white flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Start here</p>
+              <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Free score</h2>
+              <p className="text-3xl font-extrabold text-brand-900 mb-3">$0</p>
+              <p className="text-gray-500 text-sm mb-6 flex-1">
+                Upload the list you bought and see how many of the leads you can actually reach. No signup, no data stored.
+              </p>
+              <Link href="/app" className="btn-secondary w-full block text-center text-base py-3 rounded-xl">
+                Score your list free
+              </Link>
             </div>
-            <a
-              href="https://calendly.com/contactzen-joey/new-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary w-full block text-center text-base py-4 rounded-xl"
-            >
-              Book a 30-min scoping call
-            </a>
-            <p className="text-xs text-gray-400 text-center mt-3">
-              No commitment on the call. We scope it together, then you decide.
-            </p>
+
+            {/* Monthly plan */}
+            <div className="rounded-2xl border-2 border-brand-600 shadow-xl shadow-brand-100 p-8 bg-white flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Then keep it handled</p>
+              <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Monthly plan</h2>
+              <p className="text-3xl font-extrabold text-brand-900 mb-1">from $149<span className="text-lg text-gray-400 font-bold">/mo</span></p>
+              <p className="text-xs text-gray-400 mb-3">priced by your list size</p>
+              <p className="text-gray-500 text-sm mb-6 flex-1">
+                We clean your list, check it against the Do Not Call list, rank it by who to call first, and keep it current every month.
+              </p>
+              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn-primary w-full block text-center text-base py-3 rounded-xl">
+                Book a call
+              </a>
+            </div>
           </div>
 
           {/* Deliverables */}
           <div className="mb-20">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-extrabold text-brand-900 mb-3">What you get</h2>
-              <p className="text-gray-500">Four deliverables, built to move money before your next data vendor renewal.</p>
+              <h2 className="text-3xl font-extrabold text-brand-900 mb-3">What you get every month</h2>
+              <p className="text-gray-500">A list your team can work, not just a cleaner spreadsheet.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {DELIVERABLES.map((d) => {
@@ -183,7 +186,7 @@ export default function PricingPage() {
           <div className="mb-20">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-extrabold text-brand-900 mb-3">How it works</h2>
-              <p className="text-gray-500">Scoping call to readout in under two weeks.</p>
+              <p className="text-gray-500">You buy the leads. We do the rest, every month.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {STEPS.map((step) => (
@@ -205,7 +208,7 @@ export default function PricingPage() {
           <div className="mb-20 rounded-2xl bg-gray-50 border border-gray-100 p-10">
             <h2 className="text-2xl font-extrabold text-brand-900 mb-4 text-center">Who this is for</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-center leading-relaxed">
-              RevOps, CRO, and CFO teams at B2B sales orgs spending <strong>$50k+/year on data providers</strong> (ZoomInfo, Apollo, Cognism, LeadIQ). If your team is treating reachability as an assumption instead of a measurement, that&apos;s the gap we close.
+              Teams that buy lead lists and call them: <strong>insurance agencies (P&amp;C, Medicare, life), and any sales shop working purchased leads</strong>. If you&apos;re paying for leads and want to know who&apos;s worth calling and who&apos;s on the Do Not Call list, that&apos;s what we handle.
             </p>
           </div>
 
@@ -225,19 +228,27 @@ export default function PricingPage() {
           {/* Bottom CTA */}
           <div className="text-center rounded-2xl p-12" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
             <h2 className="text-3xl font-extrabold text-white mb-3">
-              The hard part isn&apos;t deciding to audit.
+              See what your list is really worth.
             </h2>
             <p className="text-brand-200 text-lg mb-8 max-w-xl mx-auto">
-              It&apos;s deciding to audit before your next data provider renewal. While there&apos;s still time to call your rep.
+              Start with a free score. If it helps, we&apos;ll keep it cleaned, compliant, and ranked every month.
             </p>
-            <a
-              href="https://calendly.com/contactzen-joey/new-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors"
-            >
-              Book your scoping call
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/app"
+                className="inline-block bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors"
+              >
+                Score your list free
+              </Link>
+              <a
+                href={CALENDLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block border-2 border-white/40 text-white font-bold text-base px-8 py-4 rounded-xl hover:bg-white/10 transition-colors"
+              >
+                Book a call
+              </a>
+            </div>
           </div>
 
         </div>
