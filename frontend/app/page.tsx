@@ -382,7 +382,7 @@ function HowItWorks() {
     {
       icon: Phone,
       title: "You just call",
-      desc: "Open a clean, ranked, compliant list and go. No guessing, no rule-reading, no second-guessing.",
+      desc: "You get a clean, ranked list that's safe to call. Start at the top and work down.",
     },
   ];
 
