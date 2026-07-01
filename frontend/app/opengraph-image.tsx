@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "ReachAudit | Valid doesn't mean reachable.";
+export const alt = "ReachAudit | Know who to call, and that you're safe to.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -95,22 +95,22 @@ export default async function Image() {
                 letterSpacing: "0.15em",
               }}
             >
-              Independent Reachability Audits
+              Monthly reachability and compliance
             </div>
           </div>
 
           <div
             style={{
-              fontSize: 108,
+              fontSize: 72,
               fontWeight: 800,
               color: "white",
-              letterSpacing: "-0.04em",
-              lineHeight: 1.0,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
               display: "flex",
               flexDirection: "column",
             }}
           >
-            <div>Valid doesn&apos;t mean</div>
+            <div>Know who to call,</div>
             <div
               style={{
                 background: "linear-gradient(135deg, #C4A8FF, #FFFFFF)",
@@ -118,7 +118,7 @@ export default async function Image() {
                 color: "transparent",
               }}
             >
-              reachable.
+              and that you&apos;re safe to.
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@ export default async function Image() {
               fontWeight: 500,
             }}
           >
-            Find the unreachable contacts costing your sales team revenue.
+            A free score of how many of your leads you can actually reach.
           </div>
           <div
             style={{

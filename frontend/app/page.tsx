@@ -2,9 +2,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  Zap,
-  Link2,
-  BarChart3,
+  ShoppingCart,
+  RefreshCw,
+  Phone,
   Lock,
   Eye,
   Key,
@@ -38,7 +38,7 @@ function NavBar() {
             href="/app"
             className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors"
           >
-            Try the Tool
+            Free score
           </Link>
           <Link
             href="/pricing"
@@ -47,12 +47,12 @@ function NavBar() {
             Pricing
           </Link>
           <a
-            href="https://calendly.com/contactzen-joey/new-meeting"
+            href="https://calendly.com/joey-reachaudit/30min"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary text-sm px-4 py-2"
           >
-            Book a Call
+            Book a call
           </a>
         </div>
 
@@ -81,7 +81,7 @@ function NavBar() {
               className="text-base font-medium text-gray-700 hover:text-brand-600 transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Try the Tool
+              Free score
             </Link>
             <Link
               href="/pricing"
@@ -91,13 +91,13 @@ function NavBar() {
               Pricing
             </Link>
             <a
-              href="https://calendly.com/contactzen-joey/new-meeting"
+              href="https://calendly.com/joey-reachaudit/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary text-sm px-4 py-2 text-center"
               onClick={() => setIsOpen(false)}
             >
-              Book a Call
+              Book a call
             </a>
           </div>
         </div>
@@ -112,10 +112,10 @@ function Hero() {
       <div className="max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-sm font-medium text-brand-700 mb-8">
           <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
-          Independent Reachability Audits
+          Monthly reachability and compliance
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold text-brand-900 leading-tight tracking-tight mb-6">
-          Valid doesn&apos;t mean<br />
+          Know exactly who to call,<br />
           <span
             style={{
               background: "linear-gradient(135deg, #7C3AED, #9F67FF)",
@@ -123,31 +123,31 @@ function Hero() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            reachable.
+            and that you&apos;re safe to.
           </span>
         </h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          An independent audit of your CRM&apos;s reachability. Scored by vendor, priced in dollars. Run it before your next renewal.
+          Drop in your leads and get a free score of how many you can actually reach. If you want, we keep it handled every month: cleaned, checked against the Do Not Call list, and sorted so you always know who to call first.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="https://calendly.com/contactzen-joey/new-meeting"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/app"
             className="btn-primary text-base px-8 py-4 rounded-xl inline-flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4" aria-hidden="true" />
-            Book a Scoping Call
-          </a>
-          <Link
-            href="/audit/sample"
+            Score your list free
+          </Link>
+          <a
+            href="https://calendly.com/joey-reachaudit/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-brand-400 text-gray-700 font-semibold text-base px-8 py-4 rounded-xl transition-colors"
           >
-            See a Sample Audit
-          </Link>
+            Book a call
+          </a>
         </div>
         <p className="text-sm text-gray-500 mt-4">
-          30-min scoping call · No commitment · 5-day audit turnaround
+          No signup · No data stored · Takes a minute
         </p>
       </div>
     </section>
@@ -156,23 +156,22 @@ function Hero() {
 
 function ProductPreview() {
   const metrics = [
-    { label: "Contacts Scanned", value: "25,412", sub: "full database" },
-    { label: "High-Risk Rate", value: "28.4%", sub: "7,217 flagged", highlight: true },
-    { label: "Invalid Emails", value: "3,841", sub: "hard bounces incoming" },
-    { label: "GTM Waste", value: "$94,200", sub: "estimated annual" },
+    { label: "Leads scored", value: "4,015", sub: "your uploaded list" },
+    { label: "Reachable now", value: "3,733", sub: "ready to work", highlight: true },
+    { label: "On Do Not Call", value: "8", sub: "flagged to skip" },
+    { label: "No cell on file", value: "1,880", sub: "no number to call" },
   ];
 
-  const sources = [
-    { name: "ZoomInfo", pct: 41, bad: 38, color: "#EF4444" },
-    { name: "Apollo", pct: 27, bad: 22, color: "#F97316" },
-    { name: "Organic / Inbound", pct: 19, bad: 4, color: "#22C55E" },
-    { name: "LinkedIn", pct: 13, bad: 11, color: "#F59E0B" },
+  const reachBreakdown = [
+    { label: "Safe to call", value: "4,007" },
+    { label: "Live email", value: "3,694" },
+    { label: "On Do Not Call (flagged)", value: "8" },
   ];
 
-  const atRisk = [
-    { email: "j.smith@techcorp.io", risk: "Invalid", reason: "Mailbox does not exist", source: "ZoomInfo" },
-    { email: "ceo@oldstartup.com", risk: "Risky", reason: "Domain parked / inactive", source: "Apollo" },
-    { email: "mike.jones@bigco.com", risk: "Invalid", reason: "Role address. Mass reject risk", source: "ZoomInfo" },
+  const callFirst = [
+    { rank: 1, name: "Michael B.", city: "Saint Paul", action: "Call + email" },
+    { rank: 2, name: "Susan K.", city: "Saint Paul", action: "Call + email" },
+    { rank: 3, name: "David L.", city: "Minneapolis", action: "Call + email" },
   ];
 
   return (
@@ -180,10 +179,10 @@ function ProductPreview() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-3">
-            What the audit shows you.
+            What your free score shows you.
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            Anonymized view from a real audit. 25,000 contacts from a mid-market B2B team. Source attribution, waste priced in dollars, ready for the vendor conversation.
+            An example from a real audit. Every number here comes from a real client&apos;s list, not a guess. Your score is measured on your own file.
           </p>
         </div>
 
@@ -208,83 +207,75 @@ function ProductPreview() {
               {metrics.map((m) => (
                 <div
                   key={m.label}
-                  className={`rounded-xl p-4 border ${m.highlight ? "bg-red-50 border-red-200" : "bg-white border-gray-100"}`}
+                  className={`rounded-xl p-4 border ${m.highlight ? "bg-green-50 border-green-200" : "bg-white border-gray-100"}`}
                 >
                   <p className="text-xs text-gray-400 font-medium mb-1">{m.label}</p>
-                  <p className={`text-2xl font-extrabold ${m.highlight ? "text-red-600" : "text-brand-900"}`}>{m.value}</p>
+                  <p className={`text-2xl font-extrabold ${m.highlight ? "text-green-600" : "text-brand-900"}`}>{m.value}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{m.sub}</p>
                 </div>
               ))}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Source breakdown */}
+              {/* Who to call first */}
               <div className="bg-white rounded-xl border border-gray-100 p-4">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Source Quality Breakdown</p>
-                <div className="space-y-3">
-                  {sources.map((s) => (
-                    <div key={s.name}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-gray-700">{s.name}</span>
-                        <span className="text-xs font-bold" style={{ color: s.color }}>{s.bad}% bad</span>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Who to call first</p>
+                <div className="space-y-2">
+                  {callFirst.map((c) => (
+                    <div key={c.rank} className="flex items-center justify-between border-b border-gray-50 last:border-0 pb-2 last:pb-0">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-bold text-brand-600 w-4">{c.rank}</span>
+                        <div>
+                          <p className="text-sm font-medium text-gray-700">{c.name}</p>
+                          <p className="text-xs text-gray-400">{c.city}</p>
+                        </div>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all"
-                          style={{ width: `${s.bad}%`, background: s.color, opacity: 0.7 }}
-                        />
-                      </div>
+                      <span className="text-xs font-semibold text-green-600">{c.action}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* ROI callout */}
+              {/* Reachable summary */}
               <div className="rounded-xl p-4 text-white space-y-3" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
-                <p className="text-xs font-bold uppercase tracking-widest text-brand-300">GTM Waste Detected</p>
-                <p className="text-4xl font-extrabold">$94,200</p>
-                <p className="text-brand-200 text-xs">estimated annual impact</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-300">Reachable right now</p>
+                <p className="text-4xl font-extrabold">3,733</p>
+                <p className="text-brand-200 text-xs">of 4,015 leads</p>
                 <div className="border-t border-white/20 pt-3 space-y-1.5">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-brand-200">Rep time wasted</span>
-                    <span className="font-semibold">$61,400</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-brand-200">Data vendor waste</span>
-                    <span className="font-semibold">$32,800</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-brand-200">Bad emails / yr</span>
-                    <span className="font-semibold">46,000+</span>
-                  </div>
+                  {reachBreakdown.map((b) => (
+                    <div key={b.label} className="flex justify-between text-sm">
+                      <span className="text-brand-200">{b.label}</span>
+                      <span className="font-semibold">{b.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* At-risk sample */}
+            {/* Top of call list sample */}
             <div className="bg-white rounded-xl border border-gray-100 p-4">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">At-Risk Records · Sample</p>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Top of your call list · Sample</p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="text-left text-xs text-gray-400 border-b border-gray-100">
-                      <th className="pb-2 font-medium">Email</th>
-                      <th className="pb-2 font-medium">Risk</th>
-                      <th className="pb-2 font-medium hidden sm:table-cell">Reason</th>
-                      <th className="pb-2 font-medium hidden md:table-cell">Source</th>
+                      <th className="pb-2 font-medium">#</th>
+                      <th className="pb-2 font-medium">Name</th>
+                      <th className="pb-2 font-medium hidden sm:table-cell">City</th>
+                      <th className="pb-2 font-medium hidden md:table-cell">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {atRisk.map((r) => (
-                      <tr key={r.email} className="border-b border-gray-50 last:border-0">
-                        <td className="py-2 font-mono text-xs text-gray-600">{r.email}</td>
-                        <td className="py-2">
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${r.risk === "Invalid" ? "bg-red-100 text-red-700" : "bg-yellow-100 text-yellow-700"}`}>
-                            {r.risk}
+                    {callFirst.map((c) => (
+                      <tr key={c.rank} className="border-b border-gray-50 last:border-0">
+                        <td className="py-2 text-xs font-bold text-brand-600">{c.rank}</td>
+                        <td className="py-2 text-sm text-gray-600">{c.name}</td>
+                        <td className="py-2 text-xs text-gray-500 hidden sm:table-cell">{c.city}</td>
+                        <td className="py-2 hidden md:table-cell">
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">
+                            {c.action}
                           </span>
                         </td>
-                        <td className="py-2 text-xs text-gray-500 hidden sm:table-cell">{r.reason}</td>
-                        <td className="py-2 text-xs text-gray-400 hidden md:table-cell">{r.source}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -295,21 +286,21 @@ function ProductPreview() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-sm text-gray-400 mb-4">Want this on your own data? Try the engine free, or book a scoping call for the full audit.</p>
+          <p className="text-sm text-gray-400 mb-4">Want this on your own list? Score it free, or book a call to keep it handled every month.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="https://calendly.com/contactzen-joey/new-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/app"
               className="btn-primary px-6 py-3 text-sm font-semibold rounded-xl inline-block"
             >
-              Book a Scoping Call →
-            </a>
+              Score your list free →
+            </Link>
             <a
-              href="/app?demo=true"
+              href="https://calendly.com/joey-reachaudit/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-secondary px-6 py-3 text-sm font-semibold rounded-xl inline-block"
             >
-              Try the Engine Free
+              Book a call
             </a>
           </div>
         </div>
@@ -318,22 +309,28 @@ function ProductPreview() {
   );
 }
 
-function PainSection() {
-  const stats = [
+type MonthlyItem = {
+  title: string;
+  desc: string;
+};
+
+function MonthlySection() {
+  const items: MonthlyItem[] = [
     {
-      number: "28%",
-      label:
-        "of contacts flagged high-risk in a real CRM scan. Invalid, unreachable, or actively harmful to sender reputation",
+      title: "Do Not Call scrub",
+      desc: "Every number checked against the National registry and re-checked every 30 days, with a dated record. Dial knowing you're clean.",
     },
     {
-      number: "22%",
-      label:
-        "of phone numbers invalid or missing. Your dialers are burning credits on numbers that don't exist",
+      title: "A clean, current list",
+      desc: "Dead emails and bad numbers flagged, so your time goes to people you can actually reach.",
     },
     {
-      number: "0 of 25",
-      label:
-        "enterprise direct dials connected in a real outreach test. Every email delivered, zero phones reached",
+      title: "Who to call first",
+      desc: "Everyone ranked top to bottom, so your best prospects are always at the top of the list.",
+    },
+    {
+      title: "The rules, handled",
+      desc: "Plain guidance on how to call and text this list the right way, so you reach out with confidence.",
     },
   ];
 
@@ -342,29 +339,20 @@ function PainSection() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">
-            You&apos;re not missing pipeline. You&apos;re dialing bad data.
+            What we handle for you, every month.
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Your data vendor calls it valid. The phone doesn&apos;t connect. The audit is the difference between assuming reachability and measuring it. With the receipt your CFO will actually read.
+            Compliance isn&apos;t a one-time thing. Your list ages, the Do Not Call list changes, and new leads come in. Every month, we keep it handled.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((s) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {items.map((item) => (
             <div
-              key={s.number}
-              className="text-center p-8 rounded-2xl bg-gray-50 border border-gray-100"
+              key={item.title}
+              className="p-6 rounded-2xl bg-gray-50 border border-gray-100"
             >
-              <div
-                className="text-4xl font-extrabold mb-2"
-                style={{
-                  background: "linear-gradient(135deg, #7C3AED, #9F67FF)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                {s.number}
-              </div>
-              <p className="text-gray-600 font-medium">{s.label}</p>
+              <h3 className="font-bold text-brand-900 mb-2">{item.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -382,19 +370,19 @@ type Step = {
 function HowItWorks() {
   const steps: Step[] = [
     {
-      icon: Link2,
-      title: "30-min scoping call",
-      desc: "We walk through your list size, data sources, and renewal timeline. Free, no commitment.",
+      icon: ShoppingCart,
+      title: "You buy the leads",
+      desc: "From SalesGenie or wherever you already buy. We don't sell leads and we don't pick your list.",
     },
     {
-      icon: Zap,
-      title: "Secure CSV transfer",
-      desc: "Export from HubSpot, Salesforce, or any CRM. We process in memory and discard on completion. Nothing stored.",
+      icon: RefreshCw,
+      title: "We handle the rest",
+      desc: "Cleaned, checked against the Do Not Call list, ranked by who to call first, and kept current every 30 days.",
     },
     {
-      icon: BarChart3,
-      title: "Live readout in 5 business days",
-      desc: "We deliver the audit live to your team (RevOps, sales leadership, CFO). Then we hand off the link and PDF.",
+      icon: Phone,
+      title: "You just call",
+      desc: "Open a clean, ranked, compliant list and go. No guessing, no rule-reading, no second-guessing.",
     },
   ];
 
@@ -402,8 +390,8 @@ function HowItWorks() {
     <section className="py-20 px-6 bg-gray-50">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How the audit works</h2>
-          <p className="text-gray-500 text-lg">Audit in your hands inside two weeks.</p>
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How it works</h2>
+          <p className="text-gray-500 text-lg">You buy the leads. We do the rest, every month.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, i) => {
@@ -440,18 +428,18 @@ function TrustSection() {
   const items: TrustItem[] = [
     {
       icon: Lock,
-      title: "We never store your contacts",
-      desc: "Your data is processed in memory and immediately discarded. Nothing is written to a database.",
+      title: "We never store your list",
+      desc: "Your leads are processed in memory and immediately discarded. Nothing is written to a database.",
     },
     {
       icon: Eye,
-      title: "Read-only by design",
-      desc: "ReachAudit only reads the contacts you upload. We never modify, delete, or write back to your CRM.",
+      title: "We work for you, not the seller",
+      desc: "We don't sell you leads or pick your vendor. We're the outside check on the list you already own.",
     },
     {
       icon: Key,
-      title: "You stay in control",
-      desc: "No CRM connections. No syncing. The CSV you send is the only data we ever touch, and only for the length of the audit.",
+      title: "You own the calls",
+      desc: "We get the list and the plan ready and keep it clean. You pick up the phone. Your customers, your relationships.",
     },
   ];
 
@@ -459,9 +447,9 @@ function TrustSection() {
     <section className="py-20 px-6 bg-white">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">What happens to your data</h2>
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Where we stand</h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Your contact data is sensitive. We designed ReachAudit so you don&apos;t have to wonder.
+            Your leads are yours. We designed ReachAudit so you don&apos;t have to wonder.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -491,56 +479,42 @@ function TrustSection() {
 function FAQSection() {
   const faqs = [
     {
-      q: "Won't HubSpot or Salesforce flag bounced contacts already?",
-      a: (
-        <>
-          <p className="mb-3">
-            They flag the letter after it comes back. We flag it before you mail it. Plus we catch the bad data CRMs are structurally blind to.
-          </p>
-          <p className="mb-3">
-            <strong className="text-brand-900">Bounces are a post-mortem.</strong> By the time HubSpot marks a contact as bounced, you&apos;ve already burned a sequence slot, the SDR&apos;s personalization time, your sender reputation, and a line in your pipeline forecast.
-          </p>
-          <p className="mb-3">
-            <strong className="text-brand-900">Bounces miss the biggest category. Abandoned inboxes.</strong> The mailbox still accepts mail, but the person left a year ago. No bounce ever fires. HubSpot thinks the contact is healthy. We flag it as engagement decay.
-          </p>
-          <p>
-            <strong className="text-brand-900">CRMs don&apos;t attribute blame.</strong> HubSpot says &ldquo;this contact bounced.&rdquo; It doesn&apos;t say &ldquo;ZoomInfo shipped you 38% engagement decay, and your real cost per reachable contact is nearly double the rate card.&rdquo; That&apos;s a different conversation, with a different buyer.
-          </p>
-          <p className="mt-4 pt-4 border-t border-gray-200 italic text-brand-700">
-            HubSpot tells you the letter came back. We tell you nobody was ever reading the mail.
-          </p>
-        </>
-      ),
-    },
-    {
-      q: "How is this different from email validation tools like ZeroBounce or NeverBounce?",
+      q: "Do I have to buy leads from you?",
       a: (
         <p>
-          Validators score the syntax of an email. We score the reachability of a human. That means engagement decay (alive mailbox, gone person), source attribution (which vendor shipped you the worst data), and waste priced in dollars. So you walk into the renewal meeting with a number, not a list.
+          No. You buy your leads wherever you already do. We&apos;re the step right after, the one that keeps them clean, compliant, and ranked so you know who to call first. We don&apos;t sell leads and we don&apos;t pick your vendor.
         </p>
       ),
     },
     {
-      q: "What CRMs does this work with?",
+      q: "How do you handle Do Not Call compliance?",
       a: (
         <p>
-          Anything that can export a CSV. HubSpot, Salesforce, Pipedrive, Close, Outreach, Apollo. We process the file in memory and discard on completion. No integration, no install, no sync.
+          We check every number against the National Do Not Call registry, re-check it every 30 days, and hand you a dated record. We flag what&apos;s on the list so you skip it. The decision to call stays with you, which keeps the compliance call where it belongs.
         </p>
       ),
     },
     {
-      q: "Do you store our contact data?",
+      q: "Is this just an email checker?",
       a: (
         <p>
-          No. Your CSV is processed in memory and discarded the moment the audit finishes. Nothing is written to a database, nothing syncs anywhere, nothing leaves your hands. The deliverable is yours. The data isn&apos;t ours to keep.
+          No. An email checker tells you whether an address is valid. We tell you who&apos;s actually reachable across email and phone, who to call first, and we keep the whole list compliant and current every month.
         </p>
       ),
     },
     {
-      q: "How long does the audit take, and what does it cost?",
+      q: "Do you store my list?",
       a: (
         <p>
-          Five business days from CSV handoff to live readout. Pricing depends on list size and number of sources. We scope it on the 30-minute call. No commitment to book it.
+          No. Your file is processed in memory and discarded the moment the score finishes. Nothing is written to a database, nothing syncs anywhere. The deliverable is yours. The data isn&apos;t ours to keep.
+        </p>
+      ),
+    },
+    {
+      q: "What does it cost?",
+      a: (
+        <p>
+          It&apos;s a monthly plan, and the price depends on your list size. Start with a free score, and if it&apos;s useful we&apos;ll walk you through keeping it handled every month. No commitment to try it.
         </p>
       ),
     },
@@ -592,29 +566,29 @@ function CTASection() {
     >
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="text-4xl font-extrabold text-white mb-4">
-          The hard part isn&apos;t deciding to audit.
+          See what your list is really worth.
         </h2>
         <p className="text-brand-200 text-lg mb-10">
-          It&apos;s deciding to audit before your next data vendor renewal. While there&apos;s still time to call your rep.
+          Get a free score in a minute. If it&apos;s useful, we&apos;ll keep it handled from there.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-          <a
-            href="https://calendly.com/contactzen-joey/new-meeting"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/app"
             className="bg-white text-brand-700 font-bold text-base px-8 py-4 rounded-xl hover:bg-brand-50 transition-colors"
           >
-            Book a Scoping Call
-          </a>
-          <Link
-            href="/audit/sample"
+            Score your list free
+          </Link>
+          <a
+            href="https://calendly.com/joey-reachaudit/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="border-2 border-white/40 text-white font-bold text-base px-8 py-4 rounded-xl hover:bg-white/10 transition-colors"
           >
-            See a Sample Audit
-          </Link>
+            Book a call
+          </a>
         </div>
         <p className="text-white/50 text-xs">
-          30-min scoping call · No commitment · 5-day audit turnaround
+          No signup · No data stored · Takes a minute
         </p>
       </div>
     </section>
@@ -625,7 +599,7 @@ function Footer() {
   return (
     <footer className="bg-brand-900 py-8 px-6 text-center">
       <p className="text-brand-400 text-sm">
-        © 2026 ReachAudit · Valid doesn&apos;t mean reachable. ·{" "}
+        © 2026 ReachAudit · Cleaned, compliant, and ranked. Every month. ·{" "}
         <a
           href="mailto:joey@reachaudit.com"
           className="hover:text-white transition-colors"
@@ -643,7 +617,7 @@ export default function LandingPage() {
       <NavBar />
       <Hero />
       <ProductPreview />
-      <PainSection />
+      <MonthlySection />
       <HowItWorks />
       <TrustSection />
       <FAQSection />
