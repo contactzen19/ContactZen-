@@ -8,13 +8,15 @@ export const metadata = {
 
 const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 
+// Names below are fictional placeholders. Never use real client contacts here,
+// even partially masked — DNC-registered people especially must never appear.
 const CALL_FIRST = [
-  { rank: 1, name: "Michael B.", city: "Saint Paul", tier: "A", action: "Call + email" },
-  { rank: 2, name: "Susan K.", city: "Saint Paul", tier: "A", action: "Call + email" },
-  { rank: 3, name: "David L.", city: "Minneapolis", tier: "A", action: "Call + email" },
-  { rank: 4, name: "Karen N.", city: "Bloomington", tier: "B", action: "Email first" },
-  { rank: 5, name: "Robert P.", city: "Rochester", tier: "C", action: "Call only" },
-  { rank: 6, name: "Linda M.", city: "Duluth", tier: "C", action: "Call only" },
+  { rank: 1, name: "Marisol R.", city: "Saint Paul", tier: "A", action: "Call + email" },
+  { rank: 2, name: "Desmond K.", city: "Saint Paul", tier: "A", action: "Call + email" },
+  { rank: 3, name: "Annika L.", city: "Minneapolis", tier: "A", action: "Call + email" },
+  { rank: 4, name: "Tobias M.", city: "Bloomington", tier: "B", action: "Email first" },
+  { rank: 5, name: "Priya S.", city: "Rochester", tier: "C", action: "Call only" },
+  { rank: 6, name: "Franco D.", city: "Duluth", tier: "C", action: "Call only" },
 ];
 
 const TIERS = [
@@ -25,9 +27,9 @@ const TIERS = [
 ];
 
 const DNC = [
-  { name: "Justin N.", city: "Saint Paul" },
-  { name: "Betty B.", city: "Saint Paul" },
-  { name: "Connie J.", city: "Plainview" },
+  { name: "Quentin H.", city: "Saint Paul" },
+  { name: "Greta W.", city: "Minneapolis" },
+  { name: "Darnell P.", city: "Rochester" },
 ];
 
 const MONTHLY = [
@@ -91,7 +93,7 @@ export default function SamplePage() {
               <div className="absolute -top-1 -bottom-1 w-0.5 bg-brand-900" style={{ left: "93%" }} />
             </div>
             <div className="flex justify-between text-xs text-gray-400">
-              <span>0</span><span>typical 3-month-old list: 85–95</span><span>100</span>
+              <span>0</span><span>typical 3-month-old list: 85 to 95</span><span>100</span>
             </div>
             <p className="text-brand-900 mt-5">
               <strong>3,733 of 4,015 leads are reachable right now.</strong> The list is in good shape for its age. Here&apos;s what&apos;s in it and where to start.
@@ -103,9 +105,9 @@ export default function SamplePage() {
             <h2 className="text-sm text-gray-500 mb-3">What&apos;s in the list</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-green-600">3,733</p><p className="text-xs text-gray-500 mt-0.5">reachable right now</p></div>
-              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">268</p><p className="text-xs text-gray-500 mt-0.5">flagged to skip</p></div>
+              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">282</p><p className="text-xs text-gray-500 mt-0.5">not reachable right now</p></div>
               <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">8</p><p className="text-xs text-gray-500 mt-0.5">on the Do Not Call list</p></div>
-              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">1,880</p><p className="text-xs text-gray-500 mt-0.5">no cell on file</p></div>
+              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">2,586</p><p className="text-xs text-gray-500 mt-0.5">no cell on file</p></div>
             </div>
           </div>
 

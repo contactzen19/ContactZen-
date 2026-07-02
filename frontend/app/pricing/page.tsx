@@ -79,7 +79,7 @@ const STEPS = [
 const FAQ = [
   {
     q: "How much does it cost?",
-    a: "It's a monthly plan, and the price depends on your list size, starting around $149/mo for a single book. Start with a free score and we'll walk you through it on a quick call. No commitment to try it.",
+    a: "It's a monthly plan, and the price depends on your list size, starting around $199/mo for a single book. Start with a free score and we'll walk you through it on a quick call. No commitment to try it.",
   },
   {
     q: "How do you handle Do Not Call compliance?",
@@ -95,7 +95,7 @@ const FAQ = [
   },
   {
     q: "Do you store my data?",
-    a: "No. Your list is used only to run the score and audit, then discarded. We keep aggregate counts for your report, never your contact records.",
+    a: "No. Your contact records are never stored. Your file is used only to run the score and audit, then discarded. We keep only the summary numbers for your report, never the contacts themselves.",
   },
   {
     q: "What do you need from me?",
@@ -144,7 +144,7 @@ export default function PricingPage() {
             <div className="rounded-2xl border-2 border-brand-600 shadow-xl shadow-brand-100 p-8 bg-white flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Then keep it handled</p>
               <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Monthly plan</h2>
-              <p className="text-3xl font-extrabold text-brand-900 mb-1">from $149<span className="text-lg text-gray-400 font-bold">/mo</span></p>
+              <p className="text-3xl font-extrabold text-brand-900 mb-1">from $199<span className="text-lg text-gray-400 font-bold">/mo</span></p>
               <p className="text-xs text-gray-400 mb-3">priced by your list size</p>
               <p className="text-gray-500 text-sm mb-6 flex-1">
                 We clean your list, check it against the Do Not Call list, rank it by who to call first, and keep it current every month.

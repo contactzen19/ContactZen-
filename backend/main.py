@@ -181,7 +181,9 @@ async def scan(
     # Anonymized vendor-quality signal capture. Best-effort: errors here are
     # silent so the scan response is never blocked by telemetry.
     try:
-        capture_scan_signals(df, email_col, _source_col, _phone_col)
+        # account_id=None until auth is wired; the public index gate stays shut
+        # by design while it's null (a cell can't reach 5 distinct customers).
+        capture_scan_signals(df, email_col, _source_col, _phone_col, account_id=None)
     except Exception:
         pass
 
@@ -455,7 +457,9 @@ async def scan_hubspot(
 
     # Anonymized vendor-quality signal capture (HubSpot path).
     try:
-        capture_scan_signals(df, "email", "source", "phone")
+        # TODO: pass the HubSpot portal id as account_id here once available —
+        # it's the natural de-identified per-customer key for index gating.
+        capture_scan_signals(df, "email", "source", "phone", account_id=None)
     except Exception:
         pass
 

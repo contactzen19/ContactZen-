@@ -148,7 +148,8 @@ export default function FreeScore() {
   const needAttention = scan ? scan.contact_invalid + scan.contact_risky : 0;
   const invalidEmails = scan?.invalid ?? 0;
   const health = scan ? Math.max(0, Math.min(100, Math.round(100 - scan.contact_high_risk_rate * 100))) : 0;
-  const healthLabel = health >= 90 ? "Healthy" : health >= 75 ? "Good shape" : health >= 50 ? "Worth a cleanup" : "Worth a cleanup";
+  const healthLabel = health >= 90 ? "Healthy" : health >= 75 ? "Good shape" : health >= 50 ? "Worth a cleanup" : "Needs attention";
+  const healthColor = health >= 75 ? "text-green-600" : health >= 50 ? "text-amber-600" : "text-red-600";
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -266,7 +267,7 @@ export default function FreeScore() {
             <div className="card">
               <div className="flex items-baseline justify-between mb-2">
                 <span className="text-sm text-gray-500">Reachability score</span>
-                <span className="text-sm text-green-600 font-medium">{healthLabel}</span>
+                <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
               </div>
               <div className="flex items-baseline gap-2 mb-3">
                 <span className="text-4xl font-extrabold text-brand-900">{health}</span>

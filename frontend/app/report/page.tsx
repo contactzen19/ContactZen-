@@ -128,7 +128,7 @@ export default function ReportPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/app" className="btn-primary px-8 py-3">Run Your Own Scan →</Link>
             <a
-              href="https://calendly.com/contactzen-joey/new-meeting"
+              href="https://calendly.com/joey-reachaudit/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary px-8 py-3"

@@ -200,7 +200,7 @@ const SAMPLE: AuditReport = {
   nextSteps: {
     summary:
       "We recommend filing the ZoomInfo credit claim within the next 30 days, ahead of your November renewal conversation. We can support the claim conversation directly if helpful, and re-audit post-cleanup to validate the new baseline.",
-    calendlyUrl: "https://calendly.com/contactzen-joey/new-meeting",
+    calendlyUrl: "https://calendly.com/joey-reachaudit/30min",
   },
 };
 

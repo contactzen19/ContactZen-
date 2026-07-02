@@ -42,7 +42,7 @@ function MinimalNav() {
           </div>
         </Link>
         <a
-          href="https://calendly.com/contactzen-joey/new-meeting"
+          href="https://calendly.com/joey-reachaudit/30min"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-primary text-sm px-4 py-2"
@@ -109,7 +109,7 @@ function SampleContextBanner() {
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <a
-            href="https://calendly.com/contactzen-joey/new-meeting"
+            href="https://calendly.com/joey-reachaudit/30min"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-amber-700 hover:bg-amber-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"

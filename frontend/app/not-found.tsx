@@ -17,20 +17,20 @@ export default function NotFound() {
         <p className="text-8xl font-extrabold text-brand-200 mb-4">404</p>
         <h1 className="text-2xl font-bold text-brand-900 mb-3">This page doesn&apos;t exist.</h1>
         <p className="text-gray-500 mb-8">
-          The link may be broken or the page may have moved. Head back and scan your contacts instead.
+          The link may be broken or the page may have moved.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="/app?demo=true"
+            href="/app"
             className="btn-primary px-6 py-3 text-sm font-semibold rounded-xl"
           >
-            Try the Live Demo
+            Score your list free
           </Link>
           <Link
             href="/"
             className="btn-secondary px-6 py-3 text-sm font-semibold rounded-xl"
           >
-            Go Home
+            Go home
           </Link>
         </div>
       </div>

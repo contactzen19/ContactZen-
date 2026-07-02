@@ -1,8 +1,10 @@
 """
 Vendor signal capture for the ReachAudit Vendor Index.
 
-What we store: per-row signal about source quality (hashed domain + outcome).
-What we never store: the raw email, name, phone, company, or any PII.
+What we store: per-row signal about source quality (one-way hashed domain,
+domain_type freemail/corporate, declared source, verification outcome, and a
+de-identified account_id). What we never store: the raw email, name, phone,
+company, or any PII.
 
 Each /api/scan run writes one row per contact to Supabase. Aggregating across
 audits builds the benchmark dataset — "ZoomInfo SaaS contacts under 500
@@ -14,6 +16,7 @@ Failure is non-fatal: if Supabase is unreachable, the scan still succeeds.
 from __future__ import annotations
 
 import hashlib
+import hmac
 import os
 import re
 import uuid
@@ -30,6 +33,15 @@ SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 VENDOR_SIGNALS_ENABLED = bool(SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)
 TABLE = "vendor_signals"
 BATCH_SIZE = 500
+
+# Optional pepper for domain hashing. If set, domains are HMAC-SHA256'd with this
+# secret instead of plain SHA-256, so a leaked table cannot be dictionary-reversed
+# to plaintext domains. The key is constant across audits, so the same domain
+# still hashes the same way and cross-audit aggregation is unchanged.
+# NOTE: setting (or changing) the pepper starts a NEW hashing regime — hashes will
+# not match rows written under a different/absent pepper. Enable it while the table
+# is empty/early and do NOT rotate it, or historical aggregation breaks.
+DOMAIN_HASH_PEPPER = os.getenv("REACHAUDIT_DOMAIN_HASH_PEPPER", "")
 
 
 # Canonical source names. Anything not in this map maps to its lowercased
@@ -103,12 +115,8 @@ def normalize_source(raw: Any) -> tuple[str, str]:
     return "other", s
 
 
-def hash_domain(email: Any) -> Optional[str]:
-    """
-    SHA-256 of the lowercased domain part of an email. Unsalted on purpose —
-    aggregation across audits requires the same domain → same hash.
-    Returns None if there's no extractable domain.
-    """
+def _domain_of(email: Any) -> Optional[str]:
+    """Lowercased domain part of an email, or None if not extractable."""
     if email is None:
         return None
     s = str(email).strip().lower()
@@ -117,7 +125,51 @@ def hash_domain(email: Any) -> Optional[str]:
     domain = s.rsplit("@", 1)[1]
     if not domain or "." not in domain:
         return None
+    return domain
+
+
+def hash_domain(email: Any) -> Optional[str]:
+    """
+    One-way hash of the lowercased domain part of an email. The local part (the
+    piece that identifies the person) is discarded first, so this is not personal
+    data — a domain is shared by many people.
+
+    Deterministic across audits (same domain → same hash) so the benchmark can
+    aggregate. If REACHAUDIT_DOMAIN_HASH_PEPPER is set, uses HMAC-SHA256 with that
+    key; otherwise plain SHA-256 (backward compatible). Returns None if there's no
+    extractable domain.
+    """
+    domain = _domain_of(email)
+    if domain is None:
+        return None
+    if DOMAIN_HASH_PEPPER:
+        return hmac.new(
+            DOMAIN_HASH_PEPPER.encode("utf-8"), domain.encode("utf-8"), hashlib.sha256
+        ).hexdigest()
     return hashlib.sha256(domain.encode("utf-8")).hexdigest()
+
+
+# Consumer / personal mailbox providers. An address on one of these is a personal
+# inbox, not a company domain — a sole-proprietor's personal domain can edge toward
+# PII, so we flag these (decision 2026-06-16: "flag but keep") so the benchmark can
+# include or exclude them, and keep them out of any public/sensitive surface.
+FREEMAIL_DOMAINS = {
+    "gmail.com", "googlemail.com", "yahoo.com", "ymail.com", "rocketmail.com",
+    "hotmail.com", "outlook.com", "live.com", "msn.com", "hotmail.co.uk",
+    "aol.com", "icloud.com", "me.com", "mac.com",
+    "proton.me", "protonmail.com", "pm.me",
+    "gmx.com", "gmx.net", "mail.com", "yandex.com", "zoho.com",
+    "comcast.net", "verizon.net", "att.net", "sbcglobal.net", "cox.net",
+}
+
+
+def classify_domain_type(email: Any) -> Optional[str]:
+    """'freemail' for consumer mailbox providers, 'corporate' otherwise.
+    None if no extractable domain."""
+    domain = _domain_of(email)
+    if domain is None:
+        return None
+    return "freemail" if domain in FREEMAIL_DOMAINS else "corporate"
 
 
 def find_first_col(df: pd.DataFrame, candidates: list[str]) -> Optional[str]:
@@ -164,10 +216,13 @@ def build_signal_rows(
     source_col: Optional[str],
     phone_col: Optional[str],
     scan_id: str,
+    account_id: Optional[str] = None,
 ) -> list[dict]:
     """
     Build per-row anonymized signal records. No PII. One row per CSV record
-    that has a hashable domain.
+    that has a hashable domain. `account_id` is a de-identified per-customer id
+    (not PII) used downstream to gate the public index on distinct-customer count;
+    None until auth is wired.
     """
     industry_col = find_first_col(df, INDUSTRY_COL_HINTS)
     size_col = find_first_col(df, COMPANY_SIZE_COL_HINTS)
@@ -190,7 +245,9 @@ def build_signal_rows(
         source_normalized, source_raw_clean = normalize_source(src)
         rows.append({
             "scan_id": scan_id,
+            "account_id": account_id,
             "domain_hash": domain_h,
+            "domain_type": classify_domain_type(email),
             "source_normalized": source_normalized,
             "source_raw": source_raw_clean or None,
             "email_risk": email_r,
@@ -247,16 +304,18 @@ def capture_scan_signals(
     email_col: str,
     source_col: Optional[str],
     phone_col: Optional[str],
+    account_id: Optional[str] = None,
 ) -> dict:
     """
     Top-level capture entry point. Builds rows, submits, returns a small
     status dict. Never raises — failure here cannot break the scan response.
+    `account_id` is the de-identified per-customer id (None until auth is wired).
     """
     if not VENDOR_SIGNALS_ENABLED:
         return {"enabled": False, "captured": 0}
     scan_id = str(uuid.uuid4())
     try:
-        rows = build_signal_rows(df, email_col, source_col, phone_col, scan_id)
+        rows = build_signal_rows(df, email_col, source_col, phone_col, scan_id, account_id)
     except Exception as exc:
         return {"enabled": True, "captured": 0, "error": f"build error: {exc}"}
     inserted, error = submit_signals(rows)

@@ -170,19 +170,20 @@ function ProductPreview() {
     { label: "Leads scored", value: "4,015", sub: "your uploaded list" },
     { label: "Reachable now", value: "3,733", sub: "ready to work", highlight: true },
     { label: "On Do Not Call", value: "8", sub: "flagged to skip" },
-    { label: "No cell on file", value: "1,880", sub: "no number to call" },
+    { label: "No cell on file", value: "2,586", sub: "no number to call" },
   ];
 
   const reachBreakdown = [
-    { label: "Safe to call", value: "4,007" },
+    { label: "Not on Do Not Call", value: "4,007" },
     { label: "Live email", value: "3,694" },
     { label: "On Do Not Call (flagged)", value: "8" },
   ];
 
+  // Fictional placeholder names — never real client contacts, even masked.
   const callFirst = [
-    { rank: 1, name: "Michael B.", city: "Saint Paul", action: "Call + email" },
-    { rank: 2, name: "Susan K.", city: "Saint Paul", action: "Call + email" },
-    { rank: 3, name: "David L.", city: "Minneapolis", action: "Call + email" },
+    { rank: 1, name: "Marisol R.", city: "Saint Paul", action: "Call + email" },
+    { rank: 2, name: "Desmond K.", city: "Saint Paul", action: "Call + email" },
+    { rank: 3, name: "Annika L.", city: "Minneapolis", action: "Call + email" },
   ];
 
   return (
@@ -440,7 +441,7 @@ function TrustSection() {
     {
       icon: Lock,
       title: "We never store your list",
-      desc: "Your leads are processed in memory and immediately discarded. Nothing is written to a database.",
+      desc: "Your leads are processed in memory and immediately discarded. We keep only the summary numbers for your report, never your contacts.",
     },
     {
       icon: Eye,
@@ -517,7 +518,7 @@ function FAQSection() {
       q: "Do you store my list?",
       a: (
         <p>
-          No. Your file is processed in memory and discarded the moment the score finishes. Nothing is written to a database, nothing syncs anywhere. The deliverable is yours. The data isn&apos;t ours to keep.
+          No. Your contact records are never stored. Your file is processed in memory and discarded the moment the score finishes. We keep only the summary numbers for your report, never the contacts themselves.
         </p>
       ),
     },
