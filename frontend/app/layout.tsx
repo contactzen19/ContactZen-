@@ -6,11 +6,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://reachaudit.com"),
-  title: "ReachAudit | Know who to call, and that you're safe to",
+  title: "ReachAudit | Valid doesn't mean reachable",
   description:
-    "Drop in the leads you bought and get a free reachability score. We keep your list cleaned, checked against the Do Not Call list, and ranked by who to call first. Every month.",
+    "Your lead vendor says the contact is valid. We show you who you can actually reach. Free reachability score, then a clean, compliant, ranked list your team can work.",
   openGraph: {
-    title: "ReachAudit | Know who to call, and that you're safe to",
+    title: "ReachAudit | Valid doesn't mean reachable",
     description:
       "A free score of how many of your leads you can actually reach, plus a clean, compliant, ranked list kept current every month.",
     url: "https://reachaudit.com",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReachAudit | Know who to call, and that you're safe to",
+    title: "ReachAudit | Valid doesn't mean reachable",
     description: "A free reachability score, then a clean, compliant, ranked list kept current every month.",
   },
 };

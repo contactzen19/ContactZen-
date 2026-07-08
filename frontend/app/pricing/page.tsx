@@ -55,7 +55,7 @@ const DELIVERABLES = [
   {
     icon: Map,
     title: "Reachability and source",
-    desc: "Independent email and phone verification, plus which source sent the dead records. We don't sell data, so the read is honest.",
+    desc: "Independent email and phone verification, plus which source sent the dead records. We don't sell data.",
   },
 ];
 
@@ -68,7 +68,7 @@ const STEPS = [
   {
     n: 2,
     title: "We get it ready",
-    desc: "Live email check, phone info, and a Do Not Call scrub. We process it and discard it. We don't sell data, so the read is honest.",
+    desc: "Live email check, phone info, and a Do Not Call scrub. We process your file and discard it. We never keep or sell your data.",
   },
   {
     n: 3,

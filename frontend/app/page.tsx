@@ -128,7 +128,7 @@ function Hero() {
           Monthly reachability and compliance
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold text-brand-900 leading-tight tracking-tight mb-6">
-          Know exactly who to call,<br />
+          Valid doesn&apos;t mean<br />
           <span
             style={{
               background: "linear-gradient(135deg, #7C3AED, #9F67FF)",
@@ -136,11 +136,14 @@ function Hero() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            and that you&apos;re safe to.
+            reachable.
           </span>
         </h1>
+        <p className="text-lg md:text-xl font-semibold text-brand-900 max-w-2xl mx-auto mb-4">
+          Valid means the record looks right. Reachable means a real person answers.
+        </p>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Drop in your leads and get a free score of how many you can actually reach. If you want, we keep it handled every month: cleaned, checked against the Do Not Call list, and sorted so you always know who to call first.
+          Your lead vendor only checks the first one. We score the second. See how many of your leads your team can actually work, free, and if you want, we keep it that way: clean, compliant, and ranked.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
@@ -159,6 +162,55 @@ function Hero() {
         </div>
         <p className="text-sm text-gray-500 mt-4">
           No signup · No data stored · Takes a minute
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ReachableDefinition() {
+  const checks = [
+    {
+      n: 1,
+      title: "The email lands",
+      desc: "A live mailbox a real person reads. Not an address that just looks right. Dead domains and abandoned inboxes fail this check.",
+    },
+    {
+      n: 2,
+      title: "The phone rings",
+      desc: "A working number with a person on the other end, flagged cell or landline. Disconnected and dead lines fail this check.",
+    },
+    {
+      n: 3,
+      title: "You're allowed to reach out",
+      desc: "Not on the National Do Not Call registry, with a dated record proving you checked before you dialed.",
+    },
+  ];
+
+  return (
+    <section className="py-16 px-6 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-3">
+            So what counts as reachable?
+          </h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            A lead is reachable when a real person would answer if you reached out today. That takes passing all three checks.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {checks.map((c) => (
+            <div key={c.n} className="p-6 rounded-2xl bg-gray-50 border border-gray-100">
+              <div className="w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center mb-3">
+                {c.n}
+              </div>
+              <h3 className="font-bold text-brand-900 mb-1">{c.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-gray-500 text-base mt-8 max-w-2xl mx-auto">
+          Miss any one of the three and that lead costs your team time or risk instead of revenue. Your score counts the ones that pass.
         </p>
       </div>
     </section>
@@ -298,7 +350,7 @@ function ProductPreview() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-sm text-gray-400 mb-4">Want this on your own list? Score it free, or book a call to keep it handled every month.</p>
+          <p className="text-sm text-gray-400 mb-4">Want this on your own list? Score it free, or book a call to keep it handled.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/app"
@@ -351,10 +403,10 @@ function MonthlySection() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">
-            What we handle for you, every month.
+            Your team sells. We handle the data.
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Compliance isn&apos;t a one-time thing. Your list ages, the Do Not Call list changes, and new leads come in. Every month, we keep it handled.
+            Dead numbers, stale emails, and Do Not Call checks should never be a salesperson&apos;s job. We take the data work off your team&apos;s plate so their day goes to people they can actually close. And because lists age and the registry changes, we keep it handled month after month.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -384,12 +436,12 @@ function HowItWorks() {
     {
       icon: ShoppingCart,
       title: "You buy the leads",
-      desc: "From SalesGenie or wherever you already buy. We don't sell leads and we don't pick your list.",
+      desc: "From wherever you already buy, or the book of contacts you already have. We don't sell leads and we don't pick your list.",
     },
     {
       icon: RefreshCw,
       title: "We handle the rest",
-      desc: "Cleaned, checked against the Do Not Call list, ranked by who to call first, and kept current every 30 days.",
+      desc: "Every email checked live, every phone flagged cell or landline, dead lines and dead inboxes pulled out. Every number runs against the Do Not Call registry with a dated record you can point to. Then the whole list gets ranked by who to call first and kept current every 30 days.",
     },
     {
       icon: Phone,
@@ -403,7 +455,7 @@ function HowItWorks() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How it works</h2>
-          <p className="text-gray-500 text-lg">You buy the leads. We do the rest, every month.</p>
+          <p className="text-gray-500 text-lg">You buy the leads. We do the rest.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, i) => {
@@ -424,6 +476,48 @@ function HowItWorks() {
               </div>
             );
           })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhoWeHelp() {
+  return (
+    <section className="py-20 px-6 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl font-extrabold text-brand-900 mb-4">Who we help</h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Different desks, same problem: nobody has time to babysit lead data.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-8 rounded-2xl bg-gray-50 border border-gray-100 flex flex-col">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-3">
+              The owner who buys leads
+            </p>
+            <p className="text-gray-600 text-sm leading-relaxed flex-1">
+              You run the shop, take care of customers, and buy leads because there&apos;s no time to prospect. There&apos;s definitely no time to figure out which of those leads are callable, who&apos;s on the Do Not Call list, and what you can legally text. We hand you a clean, ranked, compliant list. You just call. One agency owner brought us 4,015 purchased leads; we flagged the 8 Do Not Call numbers hiding in them and handed back 3,733 she could work that same day.
+            </p>
+          </div>
+          <div className="p-8 rounded-2xl bg-gray-50 border border-gray-100 flex flex-col">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-3">
+              The shop with a sales team
+            </p>
+            <p className="text-gray-600 text-sm leading-relaxed flex-1">
+              You&apos;ve got producers on the phones and years of contacts sitting in the CRM, and nobody knows which half of it is dead. We score the whole book for reachability, flag what&apos;s gone, and hand your data back clean enough to trust. That matters double if you&apos;re putting AI on top of your pipeline: AI on dirty data is just faster wrong answers.
+            </p>
+          </div>
+          <div className="p-8 rounded-2xl bg-brand-900 border border-brand-900 flex flex-col">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-3">
+              Why I built this
+            </p>
+            <p className="text-brand-100 text-sm leading-relaxed flex-1">
+              I&apos;ve spent a decade in sales, and everywhere I went the CRM data was a mess and adding legit prospects to the pool was the biggest hurdle. For the last few years I lived it weekly: pull 500 plus contacts from the data enrichment companies, craft the best outreach I could, then watch 30 to 40 percent of them turn out to be dead on arrival. Time wasted, money wasted, no good solution. So I built it. ReachAudit is the referee I wished existed: independent, on your side of the table, with no leads to sell you.
+            </p>
+            <p className="text-brand-300 text-sm font-semibold mt-4">Joey Prindle, founder</p>
+          </div>
         </div>
       </div>
     </section>
@@ -611,7 +705,7 @@ function Footer() {
   return (
     <footer className="bg-brand-900 py-8 px-6 text-center">
       <p className="text-brand-400 text-sm">
-        © 2026 ReachAudit · Cleaned, compliant, and ranked. Every month. ·{" "}
+        © 2026 ReachAudit · Clean, compliant, and ranked. ·{" "}
         <a
           href="mailto:joey@reachaudit.com"
           className="hover:text-white transition-colors"
@@ -628,9 +722,11 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       <NavBar />
       <Hero />
+      <ReachableDefinition />
       <ProductPreview />
       <MonthlySection />
       <HowItWorks />
+      <WhoWeHelp />
       <TrustSection />
       <FAQSection />
       <CTASection />
