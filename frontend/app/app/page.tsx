@@ -1,6 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Logo from "@/components/Logo";
 import UploadZone from "@/components/UploadZone";
 import { fetchColumns, runScan, quickPhoneCheck, PhoneQuickResult } from "@/lib/api";
@@ -130,26 +130,13 @@ function Metric({ label, value, tone }: { label: string; value: string; tone?: "
 
 const QUICK_CHECK_CAP = 10;
 const QUICK_PHONE_CAP = 5;
+const QUICK_MAX_CONTACTS = 5;
 
-function parseQuickInput(text: string): { emails: string[]; phones: string[] } {
-  const emails = new Set<string>();
-  const phones = new Set<string>();
-  for (const chunk of text.split(/[\n,;]+/)) {
-    const t = chunk.trim();
-    if (!t) continue;
-    if (t.includes("@")) {
-      for (const w of t.split(/\s+/)) if (w.includes("@")) emails.add(w);
-    } else {
-      const digits = t.replace(/\D/g, "");
-      if (digits.length === 10 || (digits.length === 11 && digits.startsWith("1"))) {
-        phones.add(t);
-      }
-    }
-  }
-  return {
-    emails: Array.from(emails).slice(0, QUICK_CHECK_CAP),
-    phones: Array.from(phones).slice(0, QUICK_PHONE_CAP),
-  };
+type QuickRow = { email: string; phone: string };
+
+function isPhoneish(p: string): boolean {
+  const d = p.replace(/\D/g, "");
+  return d.length === 10 || (d.length === 11 && d.startsWith("1"));
 }
 
 export default function FreeScore() {
@@ -161,18 +148,19 @@ export default function FreeScore() {
   const [scanning, setScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [scan, setScan] = useState<ScanResult | null>(null);
-  const [mode, setMode] = useState<"upload" | "paste">("upload");
-  const [pasteText, setPasteText] = useState("");
+  const [mode, setMode] = useState<"upload" | "paste">("paste");
+  const [rows, setRows] = useState<QuickRow[]>([
+    { email: "", phone: "" },
+    { email: "", phone: "" },
+    { email: "", phone: "" },
+  ]);
   const [scanLabel, setScanLabel] = useState("");
   const [phoneResults, setPhoneResults] = useState<PhoneQuickResult[]>([]);
   const [phoneNote, setPhoneNote] = useState<string | null>(null);
 
-  // Phones default to the lower-friction paste mode.
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(max-width: 640px)").matches) {
-      setMode("paste");
-    }
-  }, []);
+  const setRow = (i: number, field: keyof QuickRow, value: string) => {
+    setRows((prev) => prev.map((r, idx) => (idx === i ? { ...r, [field]: value } : r)));
+  };
 
   const handleFile = useCallback(async (f: File) => {
     setFile(f);
@@ -190,11 +178,17 @@ export default function FreeScore() {
     }
   }, []);
 
-  const quickInput = parseQuickInput(pasteText);
-  const quickCount = quickInput.emails.length + quickInput.phones.length;
+  const quickEmails = Array.from(
+    new Set(rows.map((r) => r.email.trim()).filter((e) => e.includes("@")))
+  ).slice(0, QUICK_CHECK_CAP);
+  const quickPhones = Array.from(
+    new Set(rows.map((r) => r.phone.trim()).filter(isPhoneish))
+  ).slice(0, QUICK_PHONE_CAP);
+  const quickCount = quickEmails.length + quickPhones.length;
 
   const handleQuickCheck = async () => {
-    const { emails, phones } = quickInput;
+    const emails = quickEmails;
+    const phones = quickPhones;
     if (emails.length === 0 && phones.length === 0) return;
     setScanning(true);
     setError(null);
@@ -289,7 +283,11 @@ export default function FreeScore() {
     setPhoneCol("");
     setScan(null);
     setError(null);
-    setPasteText("");
+    setRows([
+      { email: "", phone: "" },
+      { email: "", phone: "" },
+      { email: "", phone: "" },
+    ]);
     setScanLabel("");
     setPhoneResults([]);
     setPhoneNote(null);
@@ -320,7 +318,7 @@ export default function FreeScore() {
             <div>
               <h1 className="text-2xl font-extrabold text-brand-900 mb-2">Score your list free</h1>
               <p className="text-gray-500">
-                Type in a few emails or drop in the whole list you bought. See how many you can actually reach. No signup, no data stored, takes a minute.
+                Real email and phone reachability, checked live. Type in a few contacts or drop in the whole list you bought. No signup, no data stored, takes a minute.
               </p>
             </div>
 
@@ -333,7 +331,7 @@ export default function FreeScore() {
                   onClick={() => { setMode("paste"); setError(null); }}
                   className={`flex-1 rounded-lg px-3 py-2 transition-colors ${mode === "paste" ? "bg-white text-brand-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
                 >
-                  Check a few emails
+                  Check emails + phones
                 </button>
                 <button
                   type="button"
@@ -348,17 +346,47 @@ export default function FreeScore() {
 
               {mode === "paste" ? (
                 <>
-                  <textarea
-                    value={pasteText}
-                    onChange={(e) => setPasteText(e.target.value)}
-                    rows={5}
-                    inputMode="email"
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    placeholder={"Type or paste up to 10 emails or 5 phone numbers, one per line\n\nname@agency.com\n(612) 555-0148"}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white resize-none"
-                  />
+                  <p className="text-sm text-gray-600">
+                    Live email and phone reachability, per contact. Fill in either field or both.
+                  </p>
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Email</label>
+                      <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Phone</label>
+                    </div>
+                    {rows.map((row, i) => (
+                      <div key={i} className="grid grid-cols-2 gap-2">
+                        <input
+                          type="email"
+                          inputMode="email"
+                          autoCapitalize="none"
+                          autoCorrect="off"
+                          spellCheck={false}
+                          value={row.email}
+                          onChange={(e) => setRow(i, "email", e.target.value)}
+                          placeholder="name@agency.com"
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                        />
+                        <input
+                          type="tel"
+                          inputMode="tel"
+                          value={row.phone}
+                          onChange={(e) => setRow(i, "phone", e.target.value)}
+                          placeholder="(612) 555-0148"
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                        />
+                      </div>
+                    ))}
+                    {rows.length < QUICK_MAX_CONTACTS && (
+                      <button
+                        type="button"
+                        onClick={() => setRows((prev) => [...prev, { email: "", phone: "" }])}
+                        className="text-sm font-semibold text-brand-700 hover:text-brand-800"
+                      >
+                        + Add another contact
+                      </button>
+                    )}
+                  </div>
                   <button
                     onClick={handleQuickCheck}
                     disabled={scanning || quickCount === 0}
@@ -373,12 +401,12 @@ export default function FreeScore() {
                         Checking…
                       </span>
                     ) : quickCount === 0 ? "Check reachability" : `Check ${[
-                        quickInput.emails.length ? `${quickInput.emails.length} ${quickInput.emails.length === 1 ? "email" : "emails"}` : "",
-                        quickInput.phones.length ? `${quickInput.phones.length} ${quickInput.phones.length === 1 ? "phone" : "phones"}` : "",
+                        quickEmails.length ? `${quickEmails.length} ${quickEmails.length === 1 ? "email" : "emails"}` : "",
+                        quickPhones.length ? `${quickPhones.length} ${quickPhones.length === 1 ? "phone" : "phones"}` : "",
                       ].filter(Boolean).join(" + ")}`}
                   </button>
                   <p className="text-xs text-gray-500">
-                    Checks the first {QUICK_CHECK_CAP} emails and {QUICK_PHONE_CAP} phone numbers it finds. Got a whole list? Switch tabs and upload the CSV.
+                    Live checks, real answers: does the email land, does the phone ring, cell or landline. Got a whole list? Switch tabs and upload the CSV.
                   </p>
                 </>
               ) : (
