@@ -526,7 +526,7 @@ function FAQSection() {
       q: "What does it cost?",
       a: (
         <p>
-          It&apos;s a monthly plan, and the price depends on your list size. Start with a free score, and if it&apos;s useful we&apos;ll walk you through keeping it handled every month. No commitment to try it.
+          A one-time audit of a single book of leads is $199. If you want it kept clean and compliant every month, that&apos;s a monthly plan priced by your list size. Start with a free score, no commitment to try it.
         </p>
       ),
     },
