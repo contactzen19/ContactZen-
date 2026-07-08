@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { useState, useCallback, useEffect } from "react";
 import Logo from "@/components/Logo";
 import UploadZone from "@/components/UploadZone";
-import { fetchColumns, runScan } from "@/lib/api";
+import { fetchColumns, runScan, quickPhoneCheck, PhoneQuickResult } from "@/lib/api";
 import { ROIInputs, ScanResult } from "@/lib/types";
 import { getSupabase } from "@/lib/supabase";
 
@@ -25,6 +25,25 @@ function logScanEvent(mode: "upload" | "paste", scan: ScanResult) {
     }).then(() => {});
   } catch {
     // Logging must never break the score.
+  }
+}
+
+function logPhoneEvent(results: PhoneQuickResult[]) {
+  try {
+    const sb = getSupabase();
+    if (!sb) return;
+    void sb.from("scan_events").insert({
+      mode: "phone",
+      leads: results.length,
+      score: null,
+      reachable: results.filter((r) => r.verdict === "live").length,
+      flagged: results.filter((r) => r.verdict === "dead").length,
+      dead_emails: null,
+      referrer: typeof document !== "undefined" ? document.referrer || null : null,
+      is_mobile: typeof window !== "undefined" ? window.matchMedia("(max-width: 640px)").matches : null,
+    }).then(() => {});
+  } catch {
+    // Logging must never break the check.
   }
 }
 
@@ -110,16 +129,27 @@ function Metric({ label, value, tone }: { label: string; value: string; tone?: "
 }
 
 const QUICK_CHECK_CAP = 10;
+const QUICK_PHONE_CAP = 5;
 
-function parseQuickEmails(text: string): string[] {
-  return Array.from(
-    new Set(
-      text
-        .split(/[\s,;]+/)
-        .map((s) => s.trim())
-        .filter((s) => s.includes("@"))
-    )
-  ).slice(0, QUICK_CHECK_CAP);
+function parseQuickInput(text: string): { emails: string[]; phones: string[] } {
+  const emails = new Set<string>();
+  const phones = new Set<string>();
+  for (const chunk of text.split(/[\n,;]+/)) {
+    const t = chunk.trim();
+    if (!t) continue;
+    if (t.includes("@")) {
+      for (const w of t.split(/\s+/)) if (w.includes("@")) emails.add(w);
+    } else {
+      const digits = t.replace(/\D/g, "");
+      if (digits.length === 10 || (digits.length === 11 && digits.startsWith("1"))) {
+        phones.add(t);
+      }
+    }
+  }
+  return {
+    emails: Array.from(emails).slice(0, QUICK_CHECK_CAP),
+    phones: Array.from(phones).slice(0, QUICK_PHONE_CAP),
+  };
 }
 
 export default function FreeScore() {
@@ -134,6 +164,8 @@ export default function FreeScore() {
   const [mode, setMode] = useState<"upload" | "paste">("upload");
   const [pasteText, setPasteText] = useState("");
   const [scanLabel, setScanLabel] = useState("");
+  const [phoneResults, setPhoneResults] = useState<PhoneQuickResult[]>([]);
+  const [phoneNote, setPhoneNote] = useState<string | null>(null);
 
   // Phones default to the lower-friction paste mode.
   useEffect(() => {
@@ -158,33 +190,70 @@ export default function FreeScore() {
     }
   }, []);
 
-  const quickEmails = parseQuickEmails(pasteText);
+  const quickInput = parseQuickInput(pasteText);
+  const quickCount = quickInput.emails.length + quickInput.phones.length;
 
   const handleQuickCheck = async () => {
-    if (quickEmails.length === 0) return;
+    const { emails, phones } = quickInput;
+    if (emails.length === 0 && phones.length === 0) return;
     setScanning(true);
     setError(null);
-    const csv = "email\n" + quickEmails.join("\n");
-    const f = new File([csv], "quick-check.csv", { type: "text/csv" });
-    setFile(f);
-    setScanLabel(`Quick check · ${quickEmails.length} ${quickEmails.length === 1 ? "email" : "emails"}`);
-    try {
-      const result = await runScan(
-        f,
-        "email",
-        null,
-        null,
-        SILENT_ROI,
-        { lastSendCol: null, lastOpenCol: null, lastReplyCol: null },
-        false,
-      );
-      setScan(result.scan);
-      logScanEvent("paste", result.scan);
-    } catch {
-      setError("Check failed. Please try again in a moment.");
-    } finally {
-      setScanning(false);
+    setPhoneNote(null);
+
+    const parts: string[] = [];
+    if (emails.length) parts.push(`${emails.length} ${emails.length === 1 ? "email" : "emails"}`);
+    if (phones.length) parts.push(`${phones.length} ${phones.length === 1 ? "phone" : "phones"}`);
+    setScanLabel(`Quick check · ${parts.join(" · ")}`);
+
+    let newScan: ScanResult | null = null;
+    let newPhones: PhoneQuickResult[] = [];
+
+    if (emails.length) {
+      const csv = "email\n" + emails.join("\n");
+      const f = new File([csv], "quick-check.csv", { type: "text/csv" });
+      setFile(f);
+      try {
+        const result = await runScan(
+          f,
+          "email",
+          null,
+          null,
+          SILENT_ROI,
+          { lastSendCol: null, lastOpenCol: null, lastReplyCol: null },
+          false,
+        );
+        newScan = result.scan;
+        logScanEvent("paste", result.scan);
+      } catch {
+        setError("Check failed. Please try again in a moment.");
+        setScanning(false);
+        return;
+      }
     }
+
+    if (phones.length) {
+      try {
+        const pr = await quickPhoneCheck(phones);
+        newPhones = pr.results;
+        logPhoneEvent(newPhones);
+      } catch {
+        // Phone checking may be off (not configured) or rate limited.
+        setPhoneNote(
+          emails.length
+            ? "Phone checking isn't available right now, so this score covers the emails only."
+            : null
+        );
+        if (!emails.length) {
+          setError("Phone checking isn't available right now. Try emails, or book a call for a full audit.");
+          setScanning(false);
+          return;
+        }
+      }
+    }
+
+    setScan(newScan);
+    setPhoneResults(newPhones);
+    setScanning(false);
   };
 
   const overCap = totalRows != null && totalRows > 50000;
@@ -222,6 +291,8 @@ export default function FreeScore() {
     setError(null);
     setPasteText("");
     setScanLabel("");
+    setPhoneResults([]);
+    setPhoneNote(null);
   };
 
   const total = scan?.total ?? 0;
@@ -244,7 +315,7 @@ export default function FreeScore() {
       </header>
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-6">
-        {!scan && (
+        {!scan && phoneResults.length === 0 && (
           <>
             <div>
               <h1 className="text-2xl font-extrabold text-brand-900 mb-2">Score your list free</h1>
@@ -285,12 +356,12 @@ export default function FreeScore() {
                     autoCapitalize="none"
                     autoCorrect="off"
                     spellCheck={false}
-                    placeholder={"Type or paste up to 10 emails, one per line\n\nname@agency.com\nowner@theiragency.com"}
+                    placeholder={"Type or paste up to 10 emails or 5 phone numbers, one per line\n\nname@agency.com\n(612) 555-0148"}
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white resize-none"
                   />
                   <button
                     onClick={handleQuickCheck}
-                    disabled={scanning || quickEmails.length === 0}
+                    disabled={scanning || quickCount === 0}
                     className="btn-primary w-full text-base py-3 disabled:opacity-50"
                   >
                     {scanning ? (
@@ -301,10 +372,13 @@ export default function FreeScore() {
                         </svg>
                         Checking…
                       </span>
-                    ) : quickEmails.length === 0 ? "Check reachability" : `Check ${quickEmails.length} ${quickEmails.length === 1 ? "email" : "emails"}`}
+                    ) : quickCount === 0 ? "Check reachability" : `Check ${[
+                        quickInput.emails.length ? `${quickInput.emails.length} ${quickInput.emails.length === 1 ? "email" : "emails"}` : "",
+                        quickInput.phones.length ? `${quickInput.phones.length} ${quickInput.phones.length === 1 ? "phone" : "phones"}` : "",
+                      ].filter(Boolean).join(" + ")}`}
                   </button>
                   <p className="text-xs text-gray-500">
-                    Checks the first {QUICK_CHECK_CAP} addresses it finds. Got a whole list? Switch tabs and upload the CSV.
+                    Checks the first {QUICK_CHECK_CAP} emails and {QUICK_PHONE_CAP} phone numbers it finds. Got a whole list? Switch tabs and upload the CSV.
                   </p>
                 </>
               ) : (
@@ -391,36 +465,76 @@ export default function FreeScore() {
           </>
         )}
 
-        {scan && (
+        {(scan || phoneResults.length > 0) && (
           <>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500">Your reachability score</p>
                 <h1 className="text-xl font-extrabold text-brand-900">{scanLabel || file?.name}</h1>
-                <p className="text-xs text-gray-400 mt-0.5">{total.toLocaleString()} leads · no data stored</p>
+                <p className="text-xs text-gray-400 mt-0.5">no data stored</p>
               </div>
               <button onClick={reset} className="btn-secondary text-sm py-2 px-4">New score</button>
             </div>
 
-            <div className="card">
-              <div className="flex items-baseline justify-between mb-2">
-                <span className="text-sm text-gray-500">Reachability score</span>
-                <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
-              </div>
-              <div className="flex items-baseline gap-2 mb-3">
-                <span className="text-4xl font-extrabold text-brand-900">{health}</span>
-                <span className="text-gray-400">/ 100</span>
-              </div>
-              <p className="text-brand-900">
-                <strong>{reachable.toLocaleString()} of your {total.toLocaleString()} leads are reachable right now.</strong> Here&apos;s what&apos;s in the file.
-              </p>
-            </div>
+            {scan && (
+              <>
+                <div className="card">
+                  <div className="flex items-baseline justify-between mb-2">
+                    <span className="text-sm text-gray-500">Reachability score</span>
+                    <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-4xl font-extrabold text-brand-900">{health}</span>
+                    <span className="text-gray-400">/ 100</span>
+                  </div>
+                  <p className="text-brand-900">
+                    <strong>{reachable.toLocaleString()} of your {total.toLocaleString()} leads are reachable right now.</strong> Here&apos;s what&apos;s in the file.
+                  </p>
+                </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Metric label="reachable right now" value={reachable.toLocaleString()} tone="good" />
-              <Metric label="flagged to skip" value={needAttention.toLocaleString()} />
-              <Metric label="dead emails" value={invalidEmails.toLocaleString()} />
-            </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <Metric label="reachable right now" value={reachable.toLocaleString()} tone="good" />
+                  <Metric label="flagged to skip" value={needAttention.toLocaleString()} />
+                  <Metric label="dead emails" value={invalidEmails.toLocaleString()} />
+                </div>
+              </>
+            )}
+
+            {phoneNote && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800">{phoneNote}</div>
+            )}
+
+            {phoneResults.length > 0 && (
+              <div className="card">
+                <h2 className="font-bold text-brand-900 text-lg mb-3">Phone check</h2>
+                <div className="space-y-2">
+                  {phoneResults.map((r) => (
+                    <div key={r.phone} className="flex items-center justify-between rounded-lg bg-gray-50 border border-gray-100 px-4 py-3">
+                      <span className="font-mono text-sm text-brand-900">{r.phone}</span>
+                      <span className="flex items-center gap-2 text-sm">
+                        {r.phone_type && (
+                          <span className="text-gray-500">{r.phone_type === "Mobile" ? "Cell" : r.phone_type}</span>
+                        )}
+                        <span
+                          className={`font-semibold px-2 py-0.5 rounded-full text-xs ${
+                            r.verdict === "live"
+                              ? "bg-green-100 text-green-700"
+                              : r.verdict === "dead"
+                              ? "bg-red-100 text-red-700"
+                              : "bg-gray-200 text-gray-600"
+                          }`}
+                        >
+                          {r.verdict === "live" ? "Rings" : r.verdict === "dead" ? "Dead line" : "Unknown"}
+                        </span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-400 mt-3">
+                  Live line check: connected status and line type. Do Not Call status is part of the full audit.
+                </p>
+              </div>
+            )}
 
             <div className="card space-y-4">
               <div>
@@ -434,7 +548,7 @@ export default function FreeScore() {
               </a>
             </div>
 
-            <LeadCapture context={{ score: health, leads: total, label: scanLabel || file?.name || "" }} />
+            <LeadCapture context={{ score: health, leads: scan ? total : phoneResults.length, label: scanLabel || file?.name || "" }} />
           </>
         )}
       </div>

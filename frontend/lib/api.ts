@@ -33,6 +33,24 @@ function appendRoiFields(form: FormData, roi: ROIInputs) {
   form.append("avg_contract_value", String(roi.avg_contract_value));
 }
 
+export interface PhoneQuickResult {
+  phone: string;
+  verdict: "live" | "dead" | "unknown";
+  phone_type: string | null;
+}
+
+export async function quickPhoneCheck(
+  phones: string[]
+): Promise<{ results: PhoneQuickResult[]; checked: number }> {
+  const res = await fetch(`${API_URL}/api/phone-quick`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phones }),
+  });
+  if (!res.ok) throw new Error(String(res.status));
+  return res.json();
+}
+
 export async function fetchColumns(file: File): Promise<ColumnsResponse> {
   const form = new FormData();
   form.append("file", file);

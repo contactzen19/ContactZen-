@@ -1,12 +1,15 @@
 import io
 import math
 import os
+import re
+import threading
+import time
 from datetime import datetime, timezone
 from typing import Any, Optional
 
 import pandas as pd
 import requests as http
-from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 
@@ -85,6 +88,88 @@ def enforce_row_cap(df: pd.DataFrame, is_sample: bool) -> None:
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+# --- Free-tool phone quick check ---------------------------------------------
+# HARD RULE (Joey, 2026-07-08): the free tool must NEVER show, store, or use
+# Do Not Call registry data. This endpoint uses RPV Turbo Standard ONLY
+# (connected status + line type; the product returns no DNC fields at all).
+# Never point this at DNC Lookup / DNC Plus. If the vendor response ever grows
+# a DNC-looking field, it is dropped: we only read `status` and `phone_type`.
+# DNC checks are the paid product, per customer, on that customer's own SAN.
+
+RPV_ENDPOINT = "https://api.realvalidation.com/rpvWebService/Turbo.php"
+PHONE_QUICK_CAP = 5           # numbers per request
+PHONE_QUICK_DAILY_IP = 25     # numbers per IP per rolling 24h
+_phone_rl_lock = threading.Lock()
+_phone_rl: dict[str, list[float]] = {}
+
+
+def _phone_rate_ok(ip: str, n: int) -> bool:
+    """True if this IP may check n more numbers in the rolling 24h window."""
+    now = time.time()
+    with _phone_rl_lock:
+        stamps = [t for t in _phone_rl.get(ip, []) if now - t < 86400]
+        if len(stamps) + n > PHONE_QUICK_DAILY_IP:
+            _phone_rl[ip] = stamps
+            return False
+        stamps.extend([now] * n)
+        _phone_rl[ip] = stamps
+        return True
+
+
+class PhoneQuickRequest(BaseModel):
+    phones: list[str]
+
+
+@app.post("/api/phone-quick")
+async def phone_quick(req: PhoneQuickRequest, request: Request):
+    token = os.environ.get("RPV_TOKEN", "").strip()
+    if not token:
+        raise HTTPException(status_code=503, detail="Phone checking is not configured.")
+
+    # Normalize to unique 10-digit US numbers, capped.
+    seen: set[str] = set()
+    phones: list[str] = []
+    for raw in req.phones:
+        digits = re.sub(r"\D", "", str(raw))
+        if len(digits) == 11 and digits.startswith("1"):
+            digits = digits[1:]
+        if len(digits) == 10 and digits not in seen:
+            seen.add(digits)
+            phones.append(digits)
+        if len(phones) >= PHONE_QUICK_CAP:
+            break
+    if not phones:
+        raise HTTPException(status_code=400, detail="No valid 10-digit US phone numbers found.")
+
+    fwd = request.headers.get("x-forwarded-for", "")
+    ip = (fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "unknown"))
+    if not _phone_rate_ok(ip, len(phones)):
+        raise HTTPException(status_code=429, detail="Daily free phone-check limit reached. Book a call for a full audit.")
+
+    results = []
+    for p in phones:
+        try:
+            r = http.get(RPV_ENDPOINT, params={"output": "json", "phone": p, "token": token}, timeout=8)
+            data = r.json() if r.ok else {}
+        except Exception:
+            data = {}
+        status = str(data.get("status", "unknown")).strip().lower()
+        phone_type = str(data.get("phone_type") or "").strip() or None
+        if status.startswith("connected") or status == "busy":
+            verdict = "live"
+        elif status.startswith("disconnected") or status in ("unreachable", "invalid phone", "invalid-phone", "restricted"):
+            verdict = "dead"
+        else:
+            verdict = "unknown"
+        results.append({
+            "phone": f"({p[0:3]}) {p[3:6]}-{p[6:]}",
+            "verdict": verdict,
+            "phone_type": phone_type,
+        })
+
+    return {"results": results, "checked": len(results)}
 
 
 @app.post("/api/columns")
