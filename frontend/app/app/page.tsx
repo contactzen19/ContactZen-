@@ -65,6 +65,8 @@ const SILENT_ROI: ROIInputs = {
 };
 
 const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
+const STRIPE_AUDIT = "https://buy.stripe.com/3cIfZi98L1XW8tsfazb7y01";
+const FREE_UPLOAD_CAP = 500;
 
 function LeadCapture({ context }: { context?: { score: number; leads: number; label: string } }) {
   const [email, setEmail] = useState("");
@@ -250,7 +252,7 @@ export default function FreeScore() {
     setScanning(false);
   };
 
-  const overCap = totalRows != null && totalRows > 50000;
+  const overCap = totalRows != null && totalRows > FREE_UPLOAD_CAP;
 
   const handleScan = async () => {
     if (!file || !emailCol) return;
@@ -435,9 +437,12 @@ export default function FreeScore() {
               <div className="card border-2 border-brand-300 space-y-3">
                 <h2 className="font-semibold text-brand-900">That&apos;s a big list</h2>
                 <p className="text-sm text-gray-600">
-                  Your file has {totalRows?.toLocaleString()} leads. For a list this size, let&apos;s hop on a quick call and I&apos;ll run the whole thing for you.
+                  Your file has {totalRows?.toLocaleString()} leads. The free score covers up to {FREE_UPLOAD_CAP} contacts. For the whole list, the one-time audit covers up to 5,000 contacts for $199, or book a call and we&apos;ll figure out the right fit.
                 </p>
-                <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-base py-3 inline-flex items-center justify-center">
+                <a href={STRIPE_AUDIT} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-base py-3 inline-flex items-center justify-center">
+                  Buy the $199 audit
+                </a>
+                <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn-secondary w-full text-base py-3 inline-flex items-center justify-center">
                   Book a call
                 </a>
               </div>

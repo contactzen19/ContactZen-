@@ -498,7 +498,7 @@ function WhoWeHelp() {
               The owner who buys leads
             </p>
             <p className="text-gray-600 text-sm leading-relaxed flex-1">
-              You run the shop, take care of customers, and buy leads because there&apos;s no time to prospect. There&apos;s definitely no time to figure out which of those leads are callable, who&apos;s on the Do Not Call list, and what you can legally text. We hand you a clean, ranked, compliant list. You just call. One agency owner brought us 4,015 purchased leads; we flagged the 8 Do Not Call numbers hiding in them and handed back 3,733 she could work that same day.
+              You run the shop, take care of customers, and buy leads because there&apos;s no time to prospect. There&apos;s definitely no time to figure out which of those leads are callable, who&apos;s on the Do Not Call list, and who you can legally text. We hand you a clean, ranked, compliant list. You just call. One agency owner brought us 4,015 purchased leads; we flagged the 8 Do Not Call numbers hiding in them and handed back 3,733 she could work that same day.
             </p>
           </div>
           <div className="p-8 rounded-2xl bg-gray-50 border border-gray-100 flex flex-col">
@@ -514,9 +514,9 @@ function WhoWeHelp() {
               Why I built this
             </p>
             <p className="text-brand-100 text-sm leading-relaxed flex-1">
-              I&apos;ve spent a decade in sales, and everywhere I went the CRM data was a mess and adding legit prospects to the pool was the biggest hurdle. For the last few years I lived it weekly: pull 500 plus contacts from the data enrichment companies, craft the best outreach I could, then watch 1 in 4 of them turn out to be dead on arrival. Time wasted, money wasted, no good solution. So I built it. ReachAudit is the referee I wished existed: independent, on your side of the table, with no leads to sell you.
+              &ldquo;I&apos;ve spent a decade in sales, and everywhere I went the CRM data was a mess and adding legit prospects to the pool was the biggest hurdle. For the last few years I lived it weekly: pull 500 plus contacts from the data enrichment companies, craft the best outreach I could, then watch 1 in 4 of them turn out to be dead on arrival. Time wasted, money wasted, no good solution. So I built it. ReachAudit is the referee I wished existed: independent, on your side of the table, with no leads to sell you.&rdquo;
             </p>
-            <p className="text-brand-300 text-sm font-semibold mt-4">Joey Prindle, founder</p>
+            <p className="text-brand-300 text-sm font-semibold mt-4">Joey Prindle, Founder</p>
           </div>
         </div>
       </div>
@@ -620,7 +620,7 @@ function FAQSection() {
       q: "What does it cost?",
       a: (
         <p>
-          A one-time audit of a single book of leads is $199. If you want it kept clean and compliant every month, that&apos;s a monthly plan priced by your list size. Start with a free score, no commitment to try it.
+          The free score covers up to 500 contacts. A one-time audit is $199 for lists up to 5,000 contacts. If you want it kept clean and compliant every month, that&apos;s a monthly plan priced by your list size. No commitment to try it.
         </p>
       ),
     },
@@ -675,7 +675,7 @@ function CTASection() {
           See what your list is really worth.
         </h2>
         <p className="text-brand-200 text-lg mb-10">
-          Get a free score in a minute. If it&apos;s useful, we&apos;ll keep it handled from there.
+          Score up to 500 contacts free, in about a minute. If you want the whole list handled, that&apos;s what we do.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <Link

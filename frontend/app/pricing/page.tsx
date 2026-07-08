@@ -80,7 +80,7 @@ const STEPS = [
 const FAQ = [
   {
     q: "How much does it cost?",
-    a: "A one-time audit of a single book of leads is $199, and you can buy it right on this page. The monthly plan depends on your list size, starting around $199/mo. Start with a free score if you want to see the shape of your list first. No commitment to try it.",
+    a: "The free score covers up to 500 contacts. A one-time audit is $199 for lists up to 5,000 contacts, and you can buy it right on this page. The monthly plan depends on your list size, starting around $199/mo. Bigger than 5,000? Book a call and we'll price it straight.",
   },
   {
     q: "How do you handle Do Not Call compliance?",
@@ -132,9 +132,10 @@ export default function PricingPage() {
             <div className="rounded-2xl border border-gray-200 shadow-sm p-8 bg-white flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Start here</p>
               <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Free score</h2>
-              <p className="text-3xl font-extrabold text-brand-900 mb-3">$0</p>
+              <p className="text-3xl font-extrabold text-brand-900 mb-1">$0</p>
+              <p className="text-xs text-gray-400 mb-3">up to 500 contacts</p>
               <p className="text-gray-500 text-sm mb-6 flex-1">
-                Upload the list you bought and see how many of the leads you can actually reach. No signup, no data stored.
+                Check a few contacts by hand or upload a list of up to 500. See how many you can actually reach. No signup, no data stored.
               </p>
               <Link href="/app" className="btn-secondary w-full block text-center text-base py-3 rounded-xl">
                 Score your list free
@@ -146,7 +147,7 @@ export default function PricingPage() {
               <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">One list, done right</p>
               <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Contact List Audit</h2>
               <p className="text-3xl font-extrabold text-brand-900 mb-1">$199<span className="text-lg text-gray-400 font-bold"> one time</span></p>
-              <p className="text-xs text-gray-400 mb-3">for a single book of leads</p>
+              <p className="text-xs text-gray-400 mb-3">for lists up to 5,000 contacts</p>
               <p className="text-gray-500 text-sm mb-6 flex-1">
                 Live email check, phone info, a Do Not Call scrub, and a graded report with a cleaned, ranked list back in your hands.
               </p>
