@@ -68,59 +68,6 @@ const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 const STRIPE_AUDIT = "https://buy.stripe.com/3cIfZi98L1XW8tsfazb7y01";
 const FREE_UPLOAD_CAP = 500;
 
-function LeadCapture({ context }: { context?: { score: number; leads: number; label: string } }) {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [sending, setSending] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    await fetch("https://formspree.io/f/xykbydze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        ...(context ? { their_score: context.score, leads_scanned: context.leads, scan_type: context.label } : {}),
-      }),
-    });
-    setSubmitted(true);
-    setSending(false);
-  };
-
-  if (submitted) {
-    return (
-      <div className="rounded-xl bg-brand-50 border border-brand-200 px-6 py-4">
-        <p className="text-sm font-medium text-brand-800">Got it. I&apos;ll be in touch soon.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="rounded-xl bg-brand-600 px-6 py-5 text-white">
-      <p className="font-semibold text-lg mb-1">Want your list handled every month?</p>
-      <p className="text-brand-200 text-sm mb-4">Leave your email and I&apos;ll reach out to get you set up.</p>
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="email"
-          required
-          placeholder="you@agency.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 rounded-lg px-4 py-2 text-sm text-gray-900 outline-none"
-        />
-        <button
-          type="submit"
-          disabled={sending}
-          className="bg-white text-brand-700 font-semibold text-sm px-5 py-2 rounded-lg hover:bg-brand-50 transition-colors disabled:opacity-50"
-        >
-          {sending ? "Sending…" : "Send"}
-        </button>
-      </form>
-    </div>
-  );
-}
-
 function Metric({ label, value, tone }: { label: string; value: string; tone?: "good" }) {
   return (
     <div className="rounded-xl p-4 bg-gray-50 border border-gray-100">
@@ -159,6 +106,9 @@ export default function FreeScore() {
   const [scanLabel, setScanLabel] = useState("");
   const [phoneResults, setPhoneResults] = useState<PhoneQuickResult[]>([]);
   const [phoneNote, setPhoneNote] = useState<string | null>(null);
+  const [unlocked, setUnlocked] = useState(false);
+  const [gateEmail, setGateEmail] = useState("");
+  const [gateSending, setGateSending] = useState(false);
 
   const setRow = (i: number, field: keyof QuickRow, value: string) => {
     setRows((prev) => prev.map((r, idx) => (idx === i ? { ...r, [field]: value } : r)));
@@ -293,6 +243,30 @@ export default function FreeScore() {
     setScanLabel("");
     setPhoneResults([]);
     setPhoneNote(null);
+    setUnlocked(false);
+    setGateEmail("");
+  };
+
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setGateSending(true);
+    try {
+      await fetch("https://formspree.io/f/xykbydze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: gateEmail,
+          source: "score_unlock",
+          their_score: scan ? Math.max(0, Math.min(100, Math.round(100 - scan.contact_high_risk_rate * 100))) : null,
+          leads_scanned: scan ? scan.total : phoneResults.length,
+          scan_type: scanLabel || file?.name || "",
+        }),
+      });
+    } catch {
+      // Never hold the breakdown hostage to a network hiccup.
+    }
+    setUnlocked(true);
+    setGateSending(false);
   };
 
   const total = scan?.total ?? 0;
@@ -510,64 +484,91 @@ export default function FreeScore() {
             </div>
 
             {scan && (
-              <>
-                <div className="card">
-                  <div className="flex items-baseline justify-between mb-2">
-                    <span className="text-sm text-gray-500">Reachability score</span>
-                    <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
-                  </div>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-4xl font-extrabold text-brand-900">{health}</span>
-                    <span className="text-gray-400">/ 100</span>
-                  </div>
-                  <p className="text-brand-900">
-                    <strong>{reachable.toLocaleString()} of your {total.toLocaleString()} leads are reachable right now.</strong> Here&apos;s what&apos;s in the file.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <Metric label="reachable right now" value={reachable.toLocaleString()} tone="good" />
-                  <Metric label="flagged to skip" value={needAttention.toLocaleString()} />
-                  <Metric label="dead emails" value={invalidEmails.toLocaleString()} />
-                </div>
-              </>
-            )}
-
-            {phoneNote && (
-              <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800">{phoneNote}</div>
-            )}
-
-            {phoneResults.length > 0 && (
               <div className="card">
-                <h2 className="font-bold text-brand-900 text-lg mb-3">Phone check</h2>
-                <div className="space-y-2">
-                  {phoneResults.map((r) => (
-                    <div key={r.phone} className="flex items-center justify-between rounded-lg bg-gray-50 border border-gray-100 px-4 py-3">
-                      <span className="font-mono text-sm text-brand-900">{r.phone}</span>
-                      <span className="flex items-center gap-2 text-sm">
-                        {r.phone_type && (
-                          <span className="text-gray-500">{r.phone_type === "Mobile" ? "Cell" : r.phone_type}</span>
-                        )}
-                        <span
-                          className={`font-semibold px-2 py-0.5 rounded-full text-xs ${
-                            r.verdict === "live"
-                              ? "bg-green-100 text-green-700"
-                              : r.verdict === "dead"
-                              ? "bg-red-100 text-red-700"
-                              : "bg-gray-200 text-gray-600"
-                          }`}
-                        >
-                          {r.verdict === "live" ? "Rings" : r.verdict === "dead" ? "Dead line" : "Unknown"}
-                        </span>
-                      </span>
-                    </div>
-                  ))}
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className="text-sm text-gray-500">Reachability score</span>
+                  <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
                 </div>
-                <p className="text-xs text-gray-400 mt-3">
-                  Live line check: connected status and line type. Do Not Call status is part of the full audit.
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span className="text-4xl font-extrabold text-brand-900">{health}</span>
+                  <span className="text-gray-400">/ 100</span>
+                </div>
+                <p className="text-brand-900">
+                  <strong>{reachable.toLocaleString()} of your {total.toLocaleString()} leads are reachable right now.</strong> The breakdown shows which checks passed and failed.
                 </p>
               </div>
             )}
+
+            {phoneNote && unlocked && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800">{phoneNote}</div>
+            )}
+
+            <div className={unlocked ? "space-y-6" : "relative"}>
+              <div className={unlocked ? "space-y-6" : "space-y-6 blur-sm pointer-events-none select-none"} aria-hidden={!unlocked}>
+                {scan && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <Metric label="reachable right now" value={reachable.toLocaleString()} tone="good" />
+                    <Metric label="flagged to skip" value={needAttention.toLocaleString()} />
+                    <Metric label="dead emails" value={invalidEmails.toLocaleString()} />
+                  </div>
+                )}
+
+                {phoneResults.length > 0 && (
+                  <div className="card">
+                    <h2 className="font-bold text-brand-900 text-lg mb-3">Phone check</h2>
+                    <div className="space-y-2">
+                      {phoneResults.map((r) => (
+                        <div key={r.phone} className="flex items-center justify-between rounded-lg bg-gray-50 border border-gray-100 px-4 py-3">
+                          <span className="font-mono text-sm text-brand-900">{r.phone}</span>
+                          <span className="flex items-center gap-2 text-sm">
+                            {r.phone_type && (
+                              <span className="text-gray-500">{r.phone_type === "Mobile" ? "Cell" : r.phone_type}</span>
+                            )}
+                            <span
+                              className={`font-semibold px-2 py-0.5 rounded-full text-xs ${
+                                r.verdict === "live"
+                                  ? "bg-green-100 text-green-700"
+                                  : r.verdict === "dead"
+                                  ? "bg-red-100 text-red-700"
+                                  : "bg-gray-200 text-gray-600"
+                              }`}
+                            >
+                              {r.verdict === "live" ? "Rings" : r.verdict === "dead" ? "Dead line" : "Unknown"}
+                            </span>
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-gray-400 mt-3">
+                      Live line check: connected status and line type. Do Not Call status is part of the full audit.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {!unlocked && (
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <form onSubmit={handleUnlock} className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 w-full max-w-sm space-y-3">
+                    <p className="font-bold text-brand-900 text-lg">See the full breakdown</p>
+                    <p className="text-sm text-gray-500">
+                      Which checks passed, which failed, and the phone verdicts. Drop your email and it unlocks.
+                    </p>
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@agency.com"
+                      value={gateEmail}
+                      onChange={(e) => setGateEmail(e.target.value)}
+                      className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                    />
+                    <button type="submit" disabled={gateSending} className="btn-primary w-full py-2.5 disabled:opacity-50">
+                      {gateSending ? "Unlocking…" : "Unlock the breakdown"}
+                    </button>
+                    <p className="text-xs text-gray-400">No spam. It lets me follow up if something in your list looks off.</p>
+                  </form>
+                </div>
+              )}
+            </div>
 
             <div className="card space-y-4">
               <div>
@@ -581,7 +582,6 @@ export default function FreeScore() {
               </a>
             </div>
 
-            <LeadCapture context={{ score: health, leads: scan ? total : phoneResults.length, label: scanLabel || file?.name || "" }} />
           </>
         )}
       </div>
