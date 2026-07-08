@@ -143,7 +143,7 @@ function Hero() {
           Valid means the record looks right. Reachable means a real person answers.
         </p>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Your lead vendor only checks the first one. We score the second. See how many of your leads your team can actually work, free, and if you want, we keep it that way: clean, compliant, and ranked.
+          See how many of your leads your team can actually work, free. If you want, we keep it that way: clean, compliant, and ranked.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
@@ -210,7 +210,7 @@ function ReachableDefinition() {
           ))}
         </div>
         <p className="text-center text-gray-500 text-base mt-8 max-w-2xl mx-auto">
-          Miss any one of the three and that lead costs your team time or risk instead of revenue. Your score counts the ones that pass.
+          Miss any one of the three and that lead costs your team time and revenue. Your score counts the ones that pass.
         </p>
       </div>
     </section>
