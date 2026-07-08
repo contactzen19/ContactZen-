@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShieldCheck, Phone, ListChecks, Map } from "lucide-react";
 
 const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
+const STRIPE_AUDIT = "https://buy.stripe.com/3cIfZi98L1XW8tsfazb7y01";
 
 function NavBar() {
   return (
@@ -79,15 +80,15 @@ const STEPS = [
 const FAQ = [
   {
     q: "How much does it cost?",
-    a: "It's a monthly plan, and the price depends on your list size, starting around $199/mo for a single book. Start with a free score and we'll walk you through it on a quick call. No commitment to try it.",
+    a: "A one-time audit of a single book of leads is $199, and you can buy it right on this page. The monthly plan depends on your list size, starting around $199/mo. Start with a free score if you want to see the shape of your list first. No commitment to try it.",
   },
   {
     q: "How do you handle Do Not Call compliance?",
     a: "We check every number against the National Do Not Call registry, re-check it every 30 days, and hand you a dated record. We flag what's on the list so you skip it. The decision to call stays with you, which keeps the compliance call where it belongs.",
   },
   {
-    q: "Why is it monthly and not a one-time thing?",
-    a: "Because compliance goes stale. The Do Not Call list changes, your list ages, and new leads come in. A scrub is only good for about 30 days, so we keep it current every month instead of leaving you to redo it.",
+    q: "Should I do the one-time audit or the monthly plan?",
+    a: "The audit is right if you have one list and want it cleaned, checked, and ranked once. But compliance goes stale. The Do Not Call list changes, your list ages, and new leads come in, so a scrub is only good for about 30 days. If your team calls every week, the monthly plan keeps you covered instead of leaving you to redo it.",
   },
   {
     q: "Is this the same as enrichment, or what my CRM does?",
@@ -115,7 +116,7 @@ export default function PricingPage() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-sm font-medium text-brand-700 mb-6">
               <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
-              Simple monthly pricing
+              Simple pricing
             </div>
             <h1 className="text-5xl font-extrabold text-brand-900 tracking-tight mb-4 leading-tight">
               Know who to call,<br />and keep it that way.
@@ -125,8 +126,8 @@ export default function PricingPage() {
             </p>
           </div>
 
-          {/* Two ways in: free score + monthly plan */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          {/* Three ways in: free score, one-time audit, monthly plan */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {/* Free score */}
             <div className="rounded-2xl border border-gray-200 shadow-sm p-8 bg-white flex flex-col">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Start here</p>
@@ -140,9 +141,23 @@ export default function PricingPage() {
               </Link>
             </div>
 
-            {/* Monthly plan */}
+            {/* One-time audit */}
             <div className="rounded-2xl border-2 border-brand-600 shadow-xl shadow-brand-100 p-8 bg-white flex flex-col">
-              <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Then keep it handled</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">One list, done right</p>
+              <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Contact List Audit</h2>
+              <p className="text-3xl font-extrabold text-brand-900 mb-1">$199<span className="text-lg text-gray-400 font-bold"> one time</span></p>
+              <p className="text-xs text-gray-400 mb-3">for a single book of leads</p>
+              <p className="text-gray-500 text-sm mb-6 flex-1">
+                Live email check, phone info, a Do Not Call scrub, and a graded report with a cleaned, ranked list back in your hands.
+              </p>
+              <a href={STRIPE_AUDIT} target="_blank" rel="noopener noreferrer" className="btn-primary w-full block text-center text-base py-3 rounded-xl">
+                Buy the audit
+              </a>
+            </div>
+
+            {/* Monthly plan */}
+            <div className="rounded-2xl border border-gray-200 shadow-sm p-8 bg-white flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Then keep it handled</p>
               <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Monthly plan</h2>
               <p className="text-3xl font-extrabold text-brand-900 mb-1">from $199<span className="text-lg text-gray-400 font-bold">/mo</span></p>
               <p className="text-xs text-gray-400 mb-3">priced by your list size</p>
