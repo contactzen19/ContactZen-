@@ -1,10 +1,32 @@
 "use client";
 export const dynamic = "force-dynamic";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Logo from "@/components/Logo";
 import UploadZone from "@/components/UploadZone";
 import { fetchColumns, runScan } from "@/lib/api";
 import { ROIInputs, ScanResult } from "@/lib/types";
+import { getSupabase } from "@/lib/supabase";
+
+// Anonymous usage ping: summary numbers only, never contacts. The site
+// promises "no data stored" about the user's list — keep it that way.
+function logScanEvent(mode: "upload" | "paste", scan: ScanResult) {
+  try {
+    const sb = getSupabase();
+    if (!sb) return;
+    void sb.from("scan_events").insert({
+      mode,
+      leads: scan.total,
+      score: Math.max(0, Math.min(100, Math.round(100 - scan.contact_high_risk_rate * 100))),
+      reachable: scan.contact_valid,
+      flagged: scan.contact_invalid + scan.contact_risky,
+      dead_emails: scan.invalid,
+      referrer: typeof document !== "undefined" ? document.referrer || null : null,
+      is_mobile: typeof window !== "undefined" ? window.matchMedia("(max-width: 640px)").matches : null,
+    }).then(() => {});
+  } catch {
+    // Logging must never break the score.
+  }
+}
 
 // The backend scan still takes ROI inputs. We pass quiet defaults and never
 // show them. This tool is a free reachability score, not an ROI fact-finder.
@@ -25,7 +47,7 @@ const SILENT_ROI: ROIInputs = {
 
 const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 
-function LeadCapture() {
+function LeadCapture({ context }: { context?: { score: number; leads: number; label: string } }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -36,7 +58,10 @@ function LeadCapture() {
     await fetch("https://formspree.io/f/xykbydze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({
+        email,
+        ...(context ? { their_score: context.score, leads_scanned: context.leads, scan_type: context.label } : {}),
+      }),
     });
     setSubmitted(true);
     setSending(false);
@@ -84,6 +109,19 @@ function Metric({ label, value, tone }: { label: string; value: string; tone?: "
   );
 }
 
+const QUICK_CHECK_CAP = 10;
+
+function parseQuickEmails(text: string): string[] {
+  return Array.from(
+    new Set(
+      text
+        .split(/[\s,;]+/)
+        .map((s) => s.trim())
+        .filter((s) => s.includes("@"))
+    )
+  ).slice(0, QUICK_CHECK_CAP);
+}
+
 export default function FreeScore() {
   const [file, setFile] = useState<File | null>(null);
   const [columns, setColumns] = useState<string[]>([]);
@@ -93,9 +131,20 @@ export default function FreeScore() {
   const [scanning, setScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [scan, setScan] = useState<ScanResult | null>(null);
+  const [mode, setMode] = useState<"upload" | "paste">("upload");
+  const [pasteText, setPasteText] = useState("");
+  const [scanLabel, setScanLabel] = useState("");
+
+  // Phones default to the lower-friction paste mode.
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 640px)").matches) {
+      setMode("paste");
+    }
+  }, []);
 
   const handleFile = useCallback(async (f: File) => {
     setFile(f);
+    setScanLabel(f.name);
     setScan(null);
     setError(null);
     try {
@@ -108,6 +157,35 @@ export default function FreeScore() {
       setError("Could not read this file. Please upload a valid CSV and try again.");
     }
   }, []);
+
+  const quickEmails = parseQuickEmails(pasteText);
+
+  const handleQuickCheck = async () => {
+    if (quickEmails.length === 0) return;
+    setScanning(true);
+    setError(null);
+    const csv = "email\n" + quickEmails.join("\n");
+    const f = new File([csv], "quick-check.csv", { type: "text/csv" });
+    setFile(f);
+    setScanLabel(`Quick check · ${quickEmails.length} ${quickEmails.length === 1 ? "email" : "emails"}`);
+    try {
+      const result = await runScan(
+        f,
+        "email",
+        null,
+        null,
+        SILENT_ROI,
+        { lastSendCol: null, lastOpenCol: null, lastReplyCol: null },
+        false,
+      );
+      setScan(result.scan);
+      logScanEvent("paste", result.scan);
+    } catch {
+      setError("Check failed. Please try again in a moment.");
+    } finally {
+      setScanning(false);
+    }
+  };
 
   const overCap = totalRows != null && totalRows > 50000;
 
@@ -126,6 +204,7 @@ export default function FreeScore() {
         false,
       );
       setScan(result.scan);
+      logScanEvent("upload", result.scan);
     } catch {
       setError("Scan failed. Please try again in a moment.");
     } finally {
@@ -141,6 +220,8 @@ export default function FreeScore() {
     setPhoneCol("");
     setScan(null);
     setError(null);
+    setPasteText("");
+    setScanLabel("");
   };
 
   const total = scan?.total ?? 0;
@@ -168,30 +249,87 @@ export default function FreeScore() {
             <div>
               <h1 className="text-2xl font-extrabold text-brand-900 mb-2">Score your list free</h1>
               <p className="text-gray-500">
-                Drop in the list you bought and see how many of the leads you can actually reach. No signup, no data stored, takes a minute.
+                Type in a few emails or drop in the whole list you bought. See how many you can actually reach. No signup, no data stored, takes a minute.
               </p>
             </div>
 
             <div className="card space-y-4">
-              <UploadZone onFile={handleFile} loading={scanning} />
-              {file && totalRows != null && (
-                <p className="text-sm text-gray-600">
-                  <strong>{file.name}</strong> · {totalRows.toLocaleString()} leads
-                </p>
-              )}
-              <div className="flex items-center justify-between text-xs text-gray-500 pt-1">
-                <span>Not sure about the format?</span>
-                <a
-                  href="/reachaudit-export-template.csv"
-                  download
-                  className="text-brand-700 font-semibold hover:text-brand-800 underline underline-offset-2"
+              <div className="flex rounded-xl bg-gray-100 p-1 text-sm font-semibold" role="tablist">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "paste"}
+                  onClick={() => { setMode("paste"); setError(null); }}
+                  className={`flex-1 rounded-lg px-3 py-2 transition-colors ${mode === "paste" ? "bg-white text-brand-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
                 >
-                  Download a sample CSV
-                </a>
+                  Check a few emails
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "upload"}
+                  onClick={() => { setMode("upload"); setError(null); }}
+                  className={`flex-1 rounded-lg px-3 py-2 transition-colors ${mode === "upload" ? "bg-white text-brand-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+                >
+                  Score a whole list
+                </button>
               </div>
+
+              {mode === "paste" ? (
+                <>
+                  <textarea
+                    value={pasteText}
+                    onChange={(e) => setPasteText(e.target.value)}
+                    rows={5}
+                    inputMode="email"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    placeholder={"Type or paste up to 10 emails, one per line\n\nname@agency.com\nowner@theiragency.com"}
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white resize-none"
+                  />
+                  <button
+                    onClick={handleQuickCheck}
+                    disabled={scanning || quickEmails.length === 0}
+                    className="btn-primary w-full text-base py-3 disabled:opacity-50"
+                  >
+                    {scanning ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                        </svg>
+                        Checking…
+                      </span>
+                    ) : quickEmails.length === 0 ? "Check reachability" : `Check ${quickEmails.length} ${quickEmails.length === 1 ? "email" : "emails"}`}
+                  </button>
+                  <p className="text-xs text-gray-500">
+                    Checks the first {QUICK_CHECK_CAP} addresses it finds. Got a whole list? Switch tabs and upload the CSV.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <UploadZone onFile={handleFile} loading={scanning} />
+                  {file && totalRows != null && (
+                    <p className="text-sm text-gray-600">
+                      <strong>{file.name}</strong> · {totalRows.toLocaleString()} leads
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between text-xs text-gray-500 pt-1">
+                    <span>Not sure about the format?</span>
+                    <a
+                      href="/reachaudit-export-template.csv"
+                      download
+                      className="text-brand-700 font-semibold hover:text-brand-800 underline underline-offset-2"
+                    >
+                      Download a sample CSV
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
 
-            {columns.length > 0 && overCap && (
+            {mode === "upload" && columns.length > 0 && overCap && (
               <div className="card border-2 border-brand-300 space-y-3">
                 <h2 className="font-semibold text-brand-900">That&apos;s a big list</h2>
                 <p className="text-sm text-gray-600">
@@ -203,7 +341,7 @@ export default function FreeScore() {
               </div>
             )}
 
-            {columns.length > 0 && !overCap && (
+            {mode === "upload" && columns.length > 0 && !overCap && (
               <div className="card space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -258,7 +396,7 @@ export default function FreeScore() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500">Your reachability score</p>
-                <h1 className="text-xl font-extrabold text-brand-900">{file?.name}</h1>
+                <h1 className="text-xl font-extrabold text-brand-900">{scanLabel || file?.name}</h1>
                 <p className="text-xs text-gray-400 mt-0.5">{total.toLocaleString()} leads · no data stored</p>
               </div>
               <button onClick={reset} className="btn-secondary text-sm py-2 px-4">New score</button>
@@ -296,7 +434,7 @@ export default function FreeScore() {
               </a>
             </div>
 
-            <LeadCapture />
+            <LeadCapture context={{ score: health, leads: total, label: scanLabel || file?.name || "" }} />
           </>
         )}
       </div>
