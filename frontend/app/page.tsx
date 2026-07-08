@@ -507,13 +507,13 @@ function WhoWeHelp() {
             </p>
           </div>
           <div className="p-8 rounded-2xl bg-brand-900 border border-brand-900 flex flex-col">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-200 mb-3">
               Why I built this
             </p>
             <p className="text-brand-100 text-sm leading-relaxed flex-1">
               &ldquo;I&apos;ve spent a decade in sales, and everywhere I went the CRM data was a mess and adding legit prospects to the pool was the biggest hurdle. For the last few years I lived it weekly: pull 500 plus contacts from the data enrichment companies, craft the best outreach I could, then watch 1 in 4 of them turn out to be dead on arrival. Time wasted, money wasted, no good solution. So I built it. ReachAudit is the referee I wished existed: independent, on your side of the table, with no leads to sell you.&rdquo;
             </p>
-            <p className="text-brand-300 text-sm font-semibold mt-4">Joey Prindle, Founder</p>
+            <p className="text-brand-200 text-sm font-semibold mt-4">Joey Prindle, Founder</p>
           </div>
         </div>
       </div>
