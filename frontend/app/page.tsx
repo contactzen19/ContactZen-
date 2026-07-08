@@ -452,7 +452,7 @@ function HowItWorks() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-3xl font-extrabold text-brand-900 mb-4">How it works</h2>
-          <p className="text-gray-500 text-lg">You buy the leads. We do the rest.</p>
+          <p className="text-gray-500 text-lg">From the list you bought to your first dial.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, i) => {
