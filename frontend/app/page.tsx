@@ -158,7 +158,7 @@ function Hero() {
           </Link>
         </div>
         <p className="text-sm text-gray-500 mt-4">
-          No signup · No data stored · Takes a minute
+          No signup for quick checks · No data stored · Takes a minute
         </p>
       </div>
     </section>
@@ -617,7 +617,7 @@ function FAQSection() {
       q: "What does it cost?",
       a: (
         <p>
-          The free score covers up to 500 contacts. A one-time audit is $199 for lists up to 5,000 contacts. If you want it kept clean and compliant every month, that&apos;s a monthly plan priced by your list size. No commitment to try it.
+          The free score covers up to 50 contacts. A one-time audit is $199 for lists up to 5,000 contacts. If you want it kept clean and compliant every month, that&apos;s a monthly plan priced by your list size. No commitment to try it.
         </p>
       ),
     },
@@ -672,7 +672,7 @@ function CTASection() {
           See what your list is really worth.
         </h2>
         <p className="text-brand-200 text-lg mb-10">
-          Score up to 500 contacts free, in about a minute. If you want the whole list handled, that&apos;s what we do.
+          Score up to 50 contacts free, in about a minute. If you want the whole list handled, that&apos;s what we do.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <Link
@@ -691,7 +691,7 @@ function CTASection() {
           </a>
         </div>
         <p className="text-white/50 text-xs">
-          No signup · No data stored · Takes a minute
+          No signup for quick checks · No data stored · Takes a minute
         </p>
       </div>
     </section>

@@ -80,7 +80,7 @@ const STEPS = [
 const FAQ = [
   {
     q: "How much does it cost?",
-    a: "The free score covers up to 500 contacts. A one-time audit is $199 for lists up to 5,000 contacts, and you can buy it right on this page. The monthly plan depends on your list size, starting around $199/mo. Bigger than 5,000? Book a call and we'll price it straight.",
+    a: "The free score covers up to 50 contacts. A one-time audit is $199 for lists up to 5,000 contacts, and you can buy it right on this page. The monthly plan depends on your list size, starting around $199/mo. Bigger than 5,000? Book a call and we'll price it straight.",
   },
   {
     q: "How do you handle Do Not Call compliance?",
@@ -133,9 +133,9 @@ export default function PricingPage() {
               <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Start here</p>
               <h2 className="text-2xl font-extrabold text-brand-900 mb-1">Free score</h2>
               <p className="text-3xl font-extrabold text-brand-900 mb-1">$0</p>
-              <p className="text-xs text-gray-400 mb-3">up to 500 contacts</p>
+              <p className="text-xs text-gray-400 mb-3">up to 50 contacts</p>
               <p className="text-gray-500 text-sm mb-6 flex-1">
-                Check a few contacts by hand or upload a list of up to 500. See how many you can actually reach. No signup, no data stored.
+                Check a few contacts by hand or upload a list of up to 50. See how many you can actually reach. Quick checks need no signup, whole-list scores just take an email. Your list is never stored.
               </p>
               <Link href="/app" className="btn-secondary w-full block text-center text-base py-3 rounded-xl">
                 Score your list free

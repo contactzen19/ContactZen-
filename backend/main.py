@@ -100,9 +100,21 @@ def health():
 
 RPV_ENDPOINT = "https://api.realvalidation.com/rpvWebService/Turbo.php"
 PHONE_QUICK_CAP = 5           # numbers per request
-PHONE_QUICK_DAILY_IP = 25     # numbers per IP per rolling 24h
+PHONE_QUICK_DAILY_IP = 10     # numbers per IP per rolling 24h (2 full runs)
 _phone_rl_lock = threading.Lock()
 _phone_rl: dict[str, list[float]] = {}
+
+# Global daily budget on free RPV lookups, across ALL users. Rate limits stop
+# people; this cap stops surprises — worst case spend is bounded no matter how
+# many IPs hit the tool. Overridable via env without a deploy.
+RPV_FREE_DAILY_CAP = int(os.getenv("RPV_FREE_DAILY_CAP", "300"))
+_rpv_budget_lock = threading.Lock()
+_rpv_budget = {"day": "", "count": 0}
+
+
+def _client_ip(request: Request) -> str:
+    fwd = request.headers.get("x-forwarded-for", "")
+    return fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "unknown")
 
 
 def _phone_rate_ok(ip: str, n: int) -> bool:
@@ -115,6 +127,38 @@ def _phone_rate_ok(ip: str, n: int) -> bool:
             return False
         stamps.extend([now] * n)
         _phone_rl[ip] = stamps
+        return True
+
+
+def _rpv_budget_ok(n: int) -> bool:
+    """True if n more free lookups fit today's global budget. Resets at UTC midnight."""
+    today = time.strftime("%Y-%m-%d", time.gmtime())
+    with _rpv_budget_lock:
+        if _rpv_budget["day"] != today:
+            _rpv_budget["day"] = today
+            _rpv_budget["count"] = 0
+        if _rpv_budget["count"] + n > RPV_FREE_DAILY_CAP:
+            return False
+        _rpv_budget["count"] += n
+        return True
+
+
+# Uploaded-list scans per IP per rolling 24h. Quick checks (tiny synthesized
+# CSVs, <=10 rows) don't count against this — only real list uploads do.
+SCAN_UPLOAD_DAILY_IP = 5
+_scan_rl_lock = threading.Lock()
+_scan_rl: dict[str, list[float]] = {}
+
+
+def _scan_rate_ok(ip: str) -> bool:
+    now = time.time()
+    with _scan_rl_lock:
+        stamps = [t for t in _scan_rl.get(ip, []) if now - t < 86400]
+        if len(stamps) + 1 > SCAN_UPLOAD_DAILY_IP:
+            _scan_rl[ip] = stamps
+            return False
+        stamps.append(now)
+        _scan_rl[ip] = stamps
         return True
 
 
@@ -143,10 +187,11 @@ async def phone_quick(req: PhoneQuickRequest, request: Request):
     if not phones:
         raise HTTPException(status_code=400, detail="No valid 10-digit US phone numbers found.")
 
-    fwd = request.headers.get("x-forwarded-for", "")
-    ip = (fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "unknown"))
+    ip = _client_ip(request)
     if not _phone_rate_ok(ip, len(phones)):
         raise HTTPException(status_code=429, detail="Daily free phone-check limit reached. Book a call for a full audit.")
+    if not _rpv_budget_ok(len(phones)):
+        raise HTTPException(status_code=429, detail="Free phone checks are done for today. Email checks still work, or book a call for a full audit.")
 
     results = []
     for p in phones:
@@ -193,6 +238,7 @@ async def get_columns(file: UploadFile = File(...)):
 
 @app.post("/api/scan")
 async def scan(
+    request: Request,
     file: UploadFile = File(...),
     email_col: str = Form(...),
     source_col: Optional[str] = Form(None),
@@ -223,6 +269,13 @@ async def scan(
     """
     df = read_csv_upload(file)
     enforce_row_cap(df, is_sample)
+
+    # Rolling daily limit on real list uploads (quick checks are exempt).
+    if not is_sample and len(df) > 10 and not _scan_rate_ok(_client_ip(request)):
+        raise HTTPException(
+            status_code=429,
+            detail="That's the daily limit on free list scores. Come back tomorrow, or book a call and we'll run the whole thing together.",
+        )
 
     if email_col not in df.columns:
         raise HTTPException(status_code=400, detail=f"Email column '{email_col}' not found in file.")

@@ -66,7 +66,7 @@ const SILENT_ROI: ROIInputs = {
 
 const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 const STRIPE_AUDIT = "https://buy.stripe.com/3cIfZi98L1XW8tsfazb7y01";
-const FREE_UPLOAD_CAP = 500;
+const FREE_UPLOAD_CAP = 50;
 
 function Metric({ label, value, tone }: { label: string; value: string; tone?: "good" }) {
   return (
@@ -204,8 +204,12 @@ export default function FreeScore() {
 
   const overCap = totalRows != null && totalRows > FREE_UPLOAD_CAP;
 
+  // Whole-list scores are email-gated (quick checks stay open). This is the
+  // free tool's lead capture and its friction against drive-by list dumping.
+  const gateEmailOk = /^\S+@\S+\.\S+$/.test(gateEmail.trim());
+
   const handleScan = async () => {
-    if (!file || !emailCol) return;
+    if (!file || !emailCol || !gateEmailOk) return;
     setScanning(true);
     setError(null);
     try {
@@ -220,8 +224,33 @@ export default function FreeScore() {
       );
       setScan(result.scan);
       logScanEvent("upload", result.scan);
-    } catch {
-      setError("Scan failed. Please try again in a moment.");
+      // Email was collected up front, so the breakdown is already unlocked.
+      setUnlocked(true);
+      // Best-effort lead capture; never blocks the score.
+      fetch("https://formspree.io/f/xykbydze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: gateEmail.trim(),
+          source: "upload_gate",
+          their_score: Math.max(0, Math.min(100, Math.round(100 - result.scan.contact_high_risk_rate * 100))),
+          leads_scanned: result.scan.total,
+          scan_type: file.name,
+        }),
+      }).catch(() => {});
+    } catch (e) {
+      // Surface the backend's own message (rate limits, row caps) when it
+      // sends one; fall back to the generic line otherwise.
+      let msg = "Scan failed. Please try again in a moment.";
+      if (e instanceof Error) {
+        try {
+          const detail = JSON.parse(e.message)?.detail;
+          if (typeof detail === "string" && detail) msg = detail;
+        } catch {
+          // Not a structured backend error; keep the generic message.
+        }
+      }
+      setError(msg);
     } finally {
       setScanning(false);
     }
@@ -294,7 +323,7 @@ export default function FreeScore() {
             <div>
               <h1 className="text-2xl font-extrabold text-brand-900 mb-2">Score your list free</h1>
               <p className="text-gray-500">
-                Real email and phone reachability, checked live. Type in a few contacts or drop in the whole list you bought. No signup, no data stored, takes a minute.
+                Real email and phone reachability, checked live. Type in a few contacts or drop in the whole list you bought. Quick checks need no signup. Whole-list scores just take an email. Either way your list is never stored.
               </p>
             </div>
 
@@ -411,7 +440,7 @@ export default function FreeScore() {
               <div className="card border-2 border-brand-300 space-y-3">
                 <h2 className="font-semibold text-brand-900">That&apos;s a big list</h2>
                 <p className="text-sm text-gray-600">
-                  Your file has {totalRows?.toLocaleString()} leads. The free score covers up to {FREE_UPLOAD_CAP} contacts. For the whole list, the one-time audit covers up to 5,000 contacts for $199, or book a call and we&apos;ll figure out the right fit.
+                  Your file has {totalRows?.toLocaleString()} leads. The free score covers up to {`${FREE_UPLOAD_CAP} contacts`}. For the whole list, the one-time audit covers up to 5,000 contacts for $199, or book a call and we&apos;ll figure out the right fit.
                 </p>
                 <a href={STRIPE_AUDIT} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-base py-3 inline-flex items-center justify-center">
                   Buy the $199 audit
@@ -449,7 +478,20 @@ export default function FreeScore() {
                     </select>
                   </div>
                 </div>
-                <button onClick={handleScan} disabled={scanning || !emailCol} className="btn-primary w-full text-base py-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Your email</label>
+                  <input
+                    type="email"
+                    value={gateEmail}
+                    onChange={(e) => setGateEmail(e.target.value)}
+                    placeholder="you@yourcompany.com"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                  />
+                  <p className="text-xs text-gray-400 mt-1.5">
+                    Whole-list scores take an email so the free tool stays free. Your list itself is never stored.
+                  </p>
+                </div>
+                <button onClick={handleScan} disabled={scanning || !emailCol || !gateEmailOk} className="btn-primary w-full text-base py-3">
                   {scanning ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
