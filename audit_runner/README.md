@@ -1,16 +1,22 @@
 # ReachAudit Audit Runner
 
 The internal machine that turns a customer's list into the audit deliverable.
-Spec: `../ReachAudit_Audit_Runner_Spec_Phase1_2026-07-10.md`. Status: **M1–M3
-built** (ingest + email verify + phone/DNC + analyze/roadmap). M4 report
-draft, M5 monthly delta — not yet.
+Spec: `../ReachAudit_Audit_Runner_Spec_Phase1_2026-07-10.md`. Status:
+**Phase 1 complete (M1–M5).**
 
-One run now produces: `audit_summary.txt` (the numbers incl. per-vendor CPRC
-when `vendor_spend` is in client.yaml), `evidence.csv` (record-by-record
-verdicts), and `<Client>_Action_Roadmap.xlsx` (tiered call list, five tabs,
-same format as the first customer deliverable — now with verified line type
-and DNC gating every call action). Live outputs land in `deliver/`; mock
-outputs are suffixed `_MOCK` and stay in `work/`.
+One run produces: `audit_summary.txt` (the numbers incl. per-vendor CPRC),
+`evidence.csv` (record-by-record verdicts), `<Client>_Action_Roadmap.xlsx`
+(tiered call list, five tabs, verified line type + DNC gating), and
+`report_draft.md` (the 9-section report, ~90% filled, estimates flagged).
+Whenever a previous run folder exists, the month-over-month delta (went
+dead, new DNC, emails died) is computed automatically and appended to the
+draft. The run ends by printing the review checklist — nothing ships until
+a human checks every box. Live outputs land in `deliver/`; mock outputs are
+suffixed `_MOCK` and stay in `work/`.
+
+The report draft pulls fact-finder inputs from client.yaml's `roi:` block
+(reps, loaded_comp, acv, annual_data_spend, ...). Anything missing uses the
+locked default and is flagged as an estimate in the draft.
 
 ## Run an audit
 
