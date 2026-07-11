@@ -68,6 +68,41 @@ const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 const STRIPE_AUDIT = "https://buy.stripe.com/3cIfZi98L1XW8tsfazb7y01";
 const FREE_UPLOAD_CAP = 50;
 
+// Canned sample result so a cold visitor can see the payoff before doing any
+// work. Never sent to the backend, never logged to scan_events.
+const SAMPLE_SCAN: ScanResult = {
+  total: 10,
+  invalid: 3,
+  risky: 1,
+  valid: 6,
+  invalid_rate: 0.3,
+  high_risk_rate: 0.4,
+  phone_invalid: 1,
+  phone_risky: 0,
+  phone_valid: 2,
+  phone_high_risk_rate: 0.33,
+  contact_invalid: 3,
+  contact_risky: 1,
+  contact_valid: 6,
+  contact_high_risk_rate: 0.4,
+  completeness_score: 100,
+  field_fill_rates: {},
+  email_dupes: 0,
+  phone_dupes: 0,
+  source_breakdown: null,
+  zoominfo_high_risk_rate: null,
+  bad_zoominfo_contacts: 0,
+  zoominfo_flagged_sample: [],
+  high_risk_sample: [],
+  col_guesses: { email: "email", source: null, phone: null },
+};
+
+const SAMPLE_PHONES: PhoneQuickResult[] = [
+  { phone: "(612) 555-0148", verdict: "live", phone_type: "Mobile" },
+  { phone: "(952) 555-0134", verdict: "dead", phone_type: "Landline" },
+  { phone: "(763) 555-0119", verdict: "live", phone_type: "Landline" },
+];
+
 function Metric({ label, value, tone }: { label: string; value: string; tone?: "good" }) {
   return (
     <div className="rounded-xl p-4 bg-gray-50 border border-gray-100">
@@ -109,6 +144,18 @@ export default function FreeScore() {
   const [unlocked, setUnlocked] = useState(false);
   const [gateEmail, setGateEmail] = useState("");
   const [gateSending, setGateSending] = useState(false);
+  const [demo, setDemo] = useState(false);
+
+  // Renders the results view with canned data. No backend call, no scan_events
+  // row, no email gate — it's a preview of the payoff, not a real check.
+  const showSample = () => {
+    setDemo(true);
+    setScan(SAMPLE_SCAN);
+    setPhoneResults(SAMPLE_PHONES);
+    setScanLabel("Sample: 10 purchased leads");
+    setUnlocked(true);
+    setError(null);
+  };
 
   const setRow = (i: number, field: keyof QuickRow, value: string) => {
     setRows((prev) => prev.map((r, idx) => (idx === i ? { ...r, [field]: value } : r)));
@@ -274,6 +321,7 @@ export default function FreeScore() {
     setPhoneNote(null);
     setUnlocked(false);
     setGateEmail("");
+    setDemo(false);
   };
 
   const handleUnlock = async (e: React.FormEvent) => {
@@ -325,6 +373,16 @@ export default function FreeScore() {
               <p className="text-gray-500">
                 Real email and phone reachability, checked live. Type in a few contacts or drop in the whole list you bought. Quick checks need no signup. Whole-list scores just take an email. Either way your list is never stored.
               </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Same engine we run monthly audits on for our first agency customers.
+              </p>
+              <button
+                type="button"
+                onClick={showSample}
+                className="mt-3 text-sm font-semibold text-brand-700 hover:text-brand-800 underline underline-offset-2"
+              >
+                Not sure what you&apos;ll get? See a sample score first
+              </button>
             </div>
 
             <div className="card space-y-4">
@@ -516,13 +574,18 @@ export default function FreeScore() {
 
         {(scan || phoneResults.length > 0) && (
           <>
+            {demo && (
+              <div className="bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-sm text-brand-900">
+                <strong>This is a sample</strong> showing what a real check looks like: 10 purchased leads, scored live. Your own check takes about 30 seconds and no signup.
+              </div>
+            )}
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Your reachability score</p>
+                <p className="text-sm text-gray-500">{demo ? "Sample reachability score" : "Your reachability score"}</p>
                 <h1 className="text-xl font-extrabold text-brand-900">{scanLabel || file?.name}</h1>
                 <p className="text-xs text-gray-400 mt-0.5">no data stored</p>
               </div>
-              <button onClick={reset} className="btn-secondary text-sm py-2 px-4">New score</button>
+              <button onClick={reset} className="btn-secondary text-sm py-2 px-4">{demo ? "Check my own free" : "New score"}</button>
             </div>
 
             {scan && (
@@ -536,7 +599,7 @@ export default function FreeScore() {
                   <span className="text-gray-400">/ 100</span>
                 </div>
                 <p className="text-brand-900">
-                  <strong>{reachable.toLocaleString()} of your {total.toLocaleString()} leads are reachable right now.</strong> The breakdown shows which checks passed and failed.
+                  <strong>{reachable.toLocaleString()} of {demo ? "the" : "your"} {total.toLocaleString()} leads {demo ? "in this sample" : ""} are reachable right now.</strong> The breakdown shows which checks passed and failed.
                 </p>
               </div>
             )}
