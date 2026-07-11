@@ -25,3 +25,30 @@ out/
 .vscode/
 *.swp
 .claude/
+
+# Secrets (never commit — any name variant)
+.zerobounce_key
+zerobounce_key
+.rpv_token
+rpv_token
+.supabase_stats
+*.key
+
+# Outputs / working files
+reachaudit_verify_53_results.csv
+.vercel
+.~lock.*
+
+# Business records & customer data — this repo is for code and the site only.
+# These live on disk + backups, never in git.
+Business_Records/
+ReachAudit_EIN_CP575.pdf
+ReachAudit_LLC_Records.md
+CUSTOMERS.md
+ReachAudit_Pipeline_Tracker*.xlsx
+prospects.xlsx
+linkedin_outreach.xlsx
+*batch_*.csv
+*send_ready*.csv
+ReachAudit_phones_*.csv
+Joey Prindle Resume*
