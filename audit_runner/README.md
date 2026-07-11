@@ -1,9 +1,16 @@
 # ReachAudit Audit Runner
 
 The internal machine that turns a customer's list into the audit deliverable.
-Spec: `../ReachAudit_Audit_Runner_Spec_Phase1_2026-07-10.md`. Status: **M1 + M2
-built** (ingest + email verify + phone/DNC). M3 analyze/roadmap, M4 report
+Spec: `../ReachAudit_Audit_Runner_Spec_Phase1_2026-07-10.md`. Status: **M1–M3
+built** (ingest + email verify + phone/DNC + analyze/roadmap). M4 report
 draft, M5 monthly delta — not yet.
+
+One run now produces: `audit_summary.txt` (the numbers incl. per-vendor CPRC
+when `vendor_spend` is in client.yaml), `evidence.csv` (record-by-record
+verdicts), and `<Client>_Action_Roadmap.xlsx` (tiered call list, five tabs,
+same format as the first customer deliverable — now with verified line type
+and DNC gating every call action). Live outputs land in `deliver/`; mock
+outputs are suffixed `_MOCK` and stay in `work/`.
 
 ## Run an audit
 

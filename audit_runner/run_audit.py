@@ -15,7 +15,10 @@ and the RPV account switched to that SAN. --skip-phone runs email-only.
 --mock-phone runs the phone step with FAKE lookups (testing only; outputs
 are suffixed _MOCK and never delivered).
 
-Coming next: M3 analyze+roadmap, M4 report draft, M5 --monthly delta mode.
+After verification, analyze + roadmap run automatically (offline, free):
+the audit summary, the evidence CSV, and the Priority Call List xlsx.
+
+Coming next: M4 report draft, M5 --monthly delta mode.
 """
 from __future__ import annotations
 
@@ -24,6 +27,8 @@ import json
 import sys
 from datetime import date, datetime
 
+import analyze
+import build_roadmap
 import clientcfg
 import ingest
 import verify_email
@@ -126,6 +131,14 @@ def main() -> None:
             print(f"    Compliance record -> {phone_result['compliance_record']}")
             print(f"    Next rescrub due: {cfg.get('next_rescrub')}")
 
+    # Analyze + roadmap (offline, no spend) ---------------------------------
+    print("\nAnalyzing..." + (" [MOCK]" if args.mock_phone else ""))
+    a = analyze.run(paths, cfg, mock=args.mock_phone)
+    r = build_roadmap.run(a["frame"], paths, cfg, mock=args.mock_phone)
+    print(f"\nTiers: {r['tiers']}")
+    print(f"Evidence CSV:  {a['evidence']}")
+    print(f"Roadmap xlsx:  {r['roadmap']}")
+
     # Run summary for the folder (and later, the monthly delta). ------------
     summary = {
         "client": args.client,
@@ -136,14 +149,18 @@ def main() -> None:
         "phone_verify": (
             {k: v for k, v in phone_result.items() if k != "enriched"} if phone_result else None
         ),
+        "verdicts": a["verdicts"],
+        "tiers": r["tiers"],
+        "dnc": a["dnc"],
         "mock_phone": bool(args.mock_phone),
         "zb_balance_before": balance,
     }
     with open(f"{paths['base']}/run_summary.json", "w") as f:
         json.dump(summary, f, indent=2)
 
-    print(f"\nDone. Results in {paths['work']}")
-    print("Next (not built yet): M3 analyze+roadmap -> M4 report draft -> M5 --monthly.")
+    print(f"\nDone. Deliverables in {paths['deliver']}" +
+          (" (MOCK outputs stayed in work/)" if args.mock_phone else ""))
+    print("Next (not built yet): M4 report draft -> M5 --monthly.")
 
 
 if __name__ == "__main__":
