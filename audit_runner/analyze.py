@@ -160,6 +160,9 @@ def run(paths: dict, cfg: dict, mock: bool = False) -> dict:
     evidence_path = os.path.join(dest, f"evidence{suffix}.csv")
     m[evidence_cols].to_csv(evidence_path, index=False)
 
+    # Full analyzed frame (incl. _email/_phone keys) — used by the monthly delta.
+    m.to_csv(os.path.join(workdir, f"analyzed{suffix}.csv"), index=False)
+
     return {
         "frame": m,
         "summary": summary_path,

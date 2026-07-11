@@ -24,13 +24,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import date, datetime
 
 import analyze
 import build_roadmap
 import clientcfg
+import delta
 import ingest
+import report_draft
 import verify_email
 import verify_phone
 
@@ -131,13 +134,25 @@ def main() -> None:
             print(f"    Compliance record -> {phone_result['compliance_record']}")
             print(f"    Next rescrub due: {cfg.get('next_rescrub')}")
 
-    # Analyze + roadmap (offline, no spend) ---------------------------------
+    # Analyze + roadmap + report draft (offline, no spend) ------------------
     print("\nAnalyzing..." + (" [MOCK]" if args.mock_phone else ""))
     a = analyze.run(paths, cfg, mock=args.mock_phone)
     r = build_roadmap.run(a["frame"], paths, cfg, mock=args.mock_phone)
+    list_label = ", ".join(os.path.basename(l) for l in args.lists)
+    rd = report_draft.run(a, paths, cfg, list_label, mock=args.mock_phone)
+    d = delta.run(args.client, stamp, paths, mock=args.mock_phone)
+
     print(f"\nTiers: {r['tiers']}")
     print(f"Evidence CSV:  {a['evidence']}")
     print(f"Roadmap xlsx:  {r['roadmap']}")
+    print(f"Report DRAFT:  {rd['draft']}  (review + edit, then make the PDF)")
+    if rd["estimated_fields"]:
+        print(f"  Estimated inputs flagged in draft: {', '.join(rd['estimated_fields'])}")
+    if d:
+        print(f"Monthly delta vs {d['previous']}: {d['went_dead']} went dead, "
+              f"{d['new_dnc']} new DNC, {d['email_died']} emails died "
+              f"({d['new_contacts']} new / {d['gone_contacts']} gone). Appended to draft.")
+    print(report_draft.CHECKLIST)
 
     # Run summary for the folder (and later, the monthly delta). ------------
     summary = {
