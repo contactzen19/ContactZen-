@@ -1,2 +1,4 @@
 # Client data never goes in git.
 clients/
+# Supabase service-role key for publish.py lives here, never in git.
+.env

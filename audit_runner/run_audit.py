@@ -167,6 +167,11 @@ def main() -> None:
         "verdicts": a["verdicts"],
         "tiers": r["tiers"],
         "dnc": a["dnc"],
+        "delta": (
+            {k: d[k] for k in ("previous", "tracked", "new_contacts", "gone_contacts",
+                               "went_dead", "new_dnc", "email_died") if k in d}
+            if d else None
+        ),
         "mock_phone": bool(args.mock_phone),
         "zb_balance_before": balance,
     }
