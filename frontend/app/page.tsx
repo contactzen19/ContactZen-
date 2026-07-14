@@ -532,7 +532,7 @@ function TrustSection() {
     {
       icon: Lock,
       title: "We never store your list",
-      desc: "Your leads are processed in memory and immediately discarded. We keep only the summary numbers for your report, never your contacts.",
+      desc: "Free tool lists are processed in memory and immediately discarded. We keep only the summary numbers for your report, never your contacts. Paid audit customers keep their reports and compliance records in their portal. Contact lists are never stored beyond delivery.",
     },
     {
       icon: Eye,
@@ -609,7 +609,7 @@ function FAQSection() {
       q: "Do you store my list?",
       a: (
         <p>
-          No. Your contact records are never stored. Your file is processed in memory and discarded the moment the score finishes. We keep only the summary numbers for your report, never the contacts themselves.
+          No. Your contact records are never stored. Your file is processed in memory and discarded the moment the score finishes. We keep only the summary numbers for your report, never the contacts themselves. For paid audits, your reports and compliance records are retained in your customer portal. Your contact lists still are not. Full details on our <Link href="/privacy" className="text-brand-600 underline">privacy page</Link>.
         </p>
       ),
     },
@@ -708,7 +708,11 @@ function Footer() {
           className="hover:text-white transition-colors"
         >
           joey@reachaudit.com
-        </a>
+        </a>{" "}
+        ·{" "}
+        <Link href="/privacy" className="hover:text-white transition-colors">
+          Privacy
+        </Link>
       </p>
     </footer>
   );

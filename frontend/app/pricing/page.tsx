@@ -68,7 +68,7 @@ const STEPS = [
   {
     n: 2,
     title: "We get it ready",
-    desc: "Live email check, phone info, and a Do Not Call scrub. We process your file and discard it. We never keep or sell your data.",
+    desc: "Live email check, phone info, and a Do Not Call scrub. We process your file and discard it within 7 days of delivery. Your reports and compliance records stay in your portal. We never sell your data.",
   },
   {
     n: 3,
@@ -96,7 +96,7 @@ const FAQ = [
   },
   {
     q: "Do you store my data?",
-    a: "No. Your contact records are never stored. Your file is used only to run the score and audit, then discarded. We keep only the summary numbers for your report, never the contacts themselves.",
+    a: "No. Your contact records are never stored. Your file is used only to run the score and audit, then discarded. We keep only the summary numbers for your report, never the contacts themselves. Paid audit reports and compliance records are retained in your customer portal so your history and scrub evidence are always available. Contact lists are purged within 7 days of delivery.",
   },
   {
     q: "What do you need from me?",

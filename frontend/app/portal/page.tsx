@@ -8,8 +8,13 @@ import {
   PortalClient, PortalAudit, PortalDoc,
 } from "@/lib/portal";
 
+// Date-only strings (e.g. "2026-08-11") must parse as LOCAL midnight, not
+// UTC, or they render a day early in US timezones.
+const parseDate = (s: string) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(s) ? new Date(`${s}T00:00:00`) : new Date(s);
+
 const fmtDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  parseDate(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
 const fmtStamp = (stamp: string) => {
   const [y, m] = stamp.split("-").map(Number);
@@ -17,7 +22,7 @@ const fmtStamp = (stamp: string) => {
 };
 
 const daysUntil = (d: string) =>
-  Math.ceil((new Date(d).getTime() - Date.now()) / 86400000);
+  Math.ceil((parseDate(d).getTime() - Date.now()) / 86400000);
 
 const prettyDoc = (name: string) => {
   const n = name.toLowerCase();
