@@ -10,6 +10,8 @@ const CALENDLY = "https://calendly.com/joey-reachaudit/30min";
 
 // Names below are fictional placeholders. Never use real client contacts here,
 // even partially masked — DNC-registered people especially must never appear.
+// Numbers are synthetic too (changed 2026-07-15): real client audit figures may
+// not appear in marketing without explicit written permission from the client.
 const CALL_FIRST = [
   { rank: 1, name: "Marisol R.", city: "Saint Paul", tier: "A", action: "Call + email" },
   { rank: 2, name: "Desmond K.", city: "Saint Paul", tier: "A", action: "Call + email" },
@@ -96,7 +98,7 @@ export default function SamplePage() {
               <span>0</span><span>typical 3-month-old list: 85 to 95</span><span>100</span>
             </div>
             <p className="text-brand-900 mt-5">
-              <strong>3,733 of 4,015 leads are reachable right now.</strong> The list is in good shape for its age. Here&apos;s what&apos;s in it and where to start.
+              <strong>2,647 of 2,840 leads are reachable right now.</strong> The list is in good shape for its age. Here&apos;s what&apos;s in it and where to start.
             </p>
           </div>
 
@@ -104,10 +106,10 @@ export default function SamplePage() {
           <div>
             <h2 className="text-sm text-gray-500 mb-3">What&apos;s in the list</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-green-600">3,733</p><p className="text-xs text-gray-500 mt-0.5">reachable right now</p></div>
-              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">282</p><p className="text-xs text-gray-500 mt-0.5">not reachable right now</p></div>
-              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">8</p><p className="text-xs text-gray-500 mt-0.5">on the Do Not Call list</p></div>
-              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">2,586</p><p className="text-xs text-gray-500 mt-0.5">no cell on file</p></div>
+              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-green-600">2,647</p><p className="text-xs text-gray-500 mt-0.5">reachable right now</p></div>
+              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">193</p><p className="text-xs text-gray-500 mt-0.5">not reachable right now</p></div>
+              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">27</p><p className="text-xs text-gray-500 mt-0.5">on the Do Not Call list</p></div>
+              <div className="rounded-xl p-4 bg-gray-50 border border-gray-100"><p className="text-2xl font-extrabold text-brand-900">1,772</p><p className="text-xs text-gray-500 mt-0.5">no cell on file</p></div>
             </div>
           </div>
 

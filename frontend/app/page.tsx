@@ -215,17 +215,20 @@ function ReachableDefinition() {
 }
 
 function ProductPreview() {
+  // Sample numbers from a demo list. Never real client audit data — client
+  // records and client numbers stay out of marketing unless explicitly
+  // approved in writing (locked rule).
   const metrics = [
-    { label: "Leads scored", value: "4,015", sub: "your uploaded list" },
-    { label: "Reachable now", value: "3,733", sub: "ready to work", highlight: true },
-    { label: "On Do Not Call", value: "8", sub: "flagged to skip" },
-    { label: "No cell on file", value: "2,586", sub: "no number to call" },
+    { label: "Leads scored", value: "2,840", sub: "your uploaded list" },
+    { label: "Reachable now", value: "2,647", sub: "ready to work", highlight: true },
+    { label: "On Do Not Call", value: "27", sub: "flagged to skip" },
+    { label: "No cell on file", value: "1,772", sub: "no number to call" },
   ];
 
   const reachBreakdown = [
-    { label: "Not on Do Not Call", value: "4,007" },
-    { label: "Live email", value: "3,694" },
-    { label: "On Do Not Call (flagged)", value: "8" },
+    { label: "Not on Do Not Call", value: "2,813" },
+    { label: "Live email", value: "2,602" },
+    { label: "On Do Not Call (flagged)", value: "27" },
   ];
 
   // Fictional placeholder names — never real client contacts, even masked.
@@ -243,7 +246,7 @@ function ProductPreview() {
             What your free score shows you.
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            An example from a real audit. Every number here comes from a real client&apos;s list, not a guess. Your score is measured on your own file.
+            An example so you can see exactly what you get. These are sample numbers from a demo list, not client data. We never publish client records or client numbers. Your score is measured on your own file.
           </p>
         </div>
 
@@ -280,7 +283,7 @@ function ProductPreview() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Who to call first */}
               <div className="bg-white rounded-xl border border-gray-100 p-4">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Who to call first</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Who to call first · sample names</p>
                 <div className="space-y-2">
                   {callFirst.map((c) => (
                     <div key={c.rank} className="flex items-center justify-between border-b border-gray-50 last:border-0 pb-2 last:pb-0">
@@ -300,8 +303,8 @@ function ProductPreview() {
               {/* Reachable summary */}
               <div className="rounded-xl p-4 text-white space-y-3" style={{ background: "linear-gradient(135deg, #1E1B4B, #7C3AED)" }}>
                 <p className="text-xs font-bold uppercase tracking-widest text-brand-300">Reachable right now</p>
-                <p className="text-4xl font-extrabold">3,733</p>
-                <p className="text-brand-200 text-xs">of 4,015 leads</p>
+                <p className="text-4xl font-extrabold">2,647</p>
+                <p className="text-brand-200 text-xs">of 2,840 leads</p>
                 <div className="border-t border-white/20 pt-3 space-y-1.5">
                   {reachBreakdown.map((b) => (
                     <div key={b.label} className="flex justify-between text-sm">
@@ -495,7 +498,7 @@ function WhoWeHelp() {
               The owner who buys leads
             </p>
             <p className="text-gray-600 text-sm leading-relaxed flex-1">
-              You run the shop, take care of customers, and buy leads because there&apos;s no time to prospect. There&apos;s definitely no time to figure out which of those leads are callable, who&apos;s on the Do Not Call list, and who you can legally text. We hand you a clean, ranked, compliant list. You just call. One agency owner brought us 4,015 purchased leads; we flagged the 8 Do Not Call numbers hiding in them and handed back 3,733 she could work that same day.
+              You run the shop, take care of customers, and buy leads because there&apos;s no time to prospect. There&apos;s definitely no time to figure out which of those leads are callable, who&apos;s on the Do Not Call list, and who you can legally text. We hand you a clean, ranked, compliant list. You just call. One agency owner brought us her purchased leads; we flagged the Do Not Call numbers hiding in them and handed back a ranked list she could work that same day.
             </p>
           </div>
           <div className="p-8 rounded-2xl bg-gray-50 border border-gray-100 flex flex-col">
