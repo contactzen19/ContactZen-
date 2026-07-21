@@ -90,6 +90,42 @@ def health():
     return {"status": "ok"}
 
 
+# --- Supabase keep-alive ------------------------------------------------------
+# Free-tier Supabase pauses projects after ~a week with no API traffic, which
+# would break scan-event logging and portal auth. This always-on Railway
+# service pings the REST API once a day so the project always counts as
+# active. Reuses the env vars vendor_signals already needs; if they're unset
+# (local dev), nothing starts.
+
+KEEPALIVE_INTERVAL_S = 24 * 3600
+
+
+def _supabase_keepalive_loop(url: str, key: str) -> None:
+    while True:
+        try:
+            http.get(
+                f"{url}/rest/v1/",
+                headers={"apikey": key, "Authorization": f"Bearer {key}"},
+                timeout=10,
+            )
+        except Exception:
+            pass  # transient failure is fine; next ping is tomorrow
+        time.sleep(KEEPALIVE_INTERVAL_S)
+
+
+@app.on_event("startup")
+def _start_supabase_keepalive() -> None:
+    from vendor_signals import SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+
+    if SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY:
+        threading.Thread(
+            target=_supabase_keepalive_loop,
+            args=(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY),
+            daemon=True,
+            name="supabase-keepalive",
+        ).start()
+
+
 # --- Free-tool phone quick check ---------------------------------------------
 # HARD RULE (Joey, 2026-07-08): the free tool must NEVER show, store, or use
 # Do Not Call registry data. This endpoint uses RPV Turbo Standard ONLY
