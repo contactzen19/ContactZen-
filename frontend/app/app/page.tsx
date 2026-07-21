@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { useState, useCallback } from "react";
 import Logo from "@/components/Logo";
 import UploadZone from "@/components/UploadZone";
-import { fetchColumns, runScan, quickPhoneCheck, PhoneQuickResult } from "@/lib/api";
+import { fetchColumns, runScan, quickPhoneCheck, PhoneQuickResult, quickEmailCheck, EmailQuickResult } from "@/lib/api";
 import { ROIInputs, ScanResult } from "@/lib/types";
 import { getSupabase } from "@/lib/supabase";
 
@@ -25,6 +25,26 @@ function logScanEvent(mode: "upload" | "paste", scan: ScanResult) {
     }).then(() => {});
   } catch {
     // Logging must never break the score.
+  }
+}
+
+function logQuickEmailEvent(results: EmailQuickResult[]) {
+  try {
+    const sb = getSupabase();
+    if (!sb) return;
+    const reachable = results.filter((r) => r.verdict === "valid").length;
+    void sb.from("scan_events").insert({
+      mode: "paste",
+      leads: results.length,
+      score: null,
+      reachable,
+      flagged: results.length - reachable,
+      dead_emails: results.filter((r) => r.verdict === "invalid").length,
+      referrer: typeof document !== "undefined" ? document.referrer || null : null,
+      is_mobile: typeof window !== "undefined" ? window.matchMedia("(max-width: 640px)").matches : null,
+    }).then(() => {});
+  } catch {
+    // Logging must never break the check.
   }
 }
 
@@ -116,6 +136,20 @@ const QUICK_CHECK_CAP = 10;
 const QUICK_PHONE_CAP = 5;
 const QUICK_MAX_CONTACTS = 5;
 
+// Plain-English labels for /api/email-quick reason codes.
+const EMAIL_REASON_LABELS: Record<string, string> = {
+  empty: "No address given.",
+  malformed: "Not a valid email address.",
+  syntax: "Not a valid email address.",
+  domain_typo: "Domain looks like a typo.",
+  no_mx_record: "This domain can't receive email at all.",
+  disposable_domain_hint: "Burner / throwaway email domain.",
+  suspicious_structure: "Looks machine-generated.",
+  no_reply_address: "A no-reply address — nobody reads this inbox.",
+  mx_ok: "Domain is live and accepting mail.",
+  syntax_ok: "Format looks good.",
+};
+
 type QuickRow = { email: string; phone: string };
 
 function isPhoneish(p: string): boolean {
@@ -139,11 +173,13 @@ export default function FreeScore() {
     { email: "", phone: "" },
   ]);
   const [scanLabel, setScanLabel] = useState("");
+  const [emailResults, setEmailResults] = useState<EmailQuickResult[]>([]);
   const [phoneResults, setPhoneResults] = useState<PhoneQuickResult[]>([]);
   const [phoneNote, setPhoneNote] = useState<string | null>(null);
   const [unlocked, setUnlocked] = useState(false);
   const [gateEmail, setGateEmail] = useState("");
   const [gateSending, setGateSending] = useState(false);
+  const [resultSent, setResultSent] = useState(false);
   const [demo, setDemo] = useState(false);
 
   // Renders the results view with canned data. No backend call, no scan_events
@@ -198,27 +234,20 @@ export default function FreeScore() {
     if (phones.length) parts.push(`${phones.length} ${phones.length === 1 ? "phone" : "phones"}`);
     setScanLabel(`Quick check · ${parts.join(" · ")}`);
 
-    let newScan: ScanResult | null = null;
+    let newEmails: EmailQuickResult[] = [];
     let newPhones: PhoneQuickResult[] = [];
 
     if (emails.length) {
-      const csv = "email\n" + emails.join("\n");
-      const f = new File([csv], "quick-check.csv", { type: "text/csv" });
-      setFile(f);
       try {
-        const result = await runScan(
-          f,
-          "email",
-          null,
-          null,
-          SILENT_ROI,
-          { lastSendCol: null, lastOpenCol: null, lastReplyCol: null },
-          false,
+        const er = await quickEmailCheck(emails);
+        newEmails = er.results;
+        logQuickEmailEvent(newEmails);
+      } catch (e) {
+        setError(
+          e instanceof Error && e.message === "429"
+            ? "Daily free email-check limit reached. Book a call for a full audit."
+            : "Check failed. Please try again in a moment."
         );
-        newScan = result.scan;
-        logScanEvent("paste", result.scan);
-      } catch {
-        setError("Check failed. Please try again in a moment.");
         setScanning(false);
         return;
       }
@@ -233,7 +262,7 @@ export default function FreeScore() {
         // Phone checking may be off (not configured) or rate limited.
         setPhoneNote(
           emails.length
-            ? "Phone checking isn't available right now, so this score covers the emails only."
+            ? "Phone checking isn't available right now, so this result covers the emails only."
             : null
         );
         if (!emails.length) {
@@ -244,8 +273,12 @@ export default function FreeScore() {
       }
     }
 
-    setScan(newScan);
+    setScan(null);
+    setEmailResults(newEmails);
     setPhoneResults(newPhones);
+    // Quick checks are the hook — never gate them. The email gate applies
+    // only to whole-list uploads (collected up front in handleScan).
+    setUnlocked(true);
     setScanning(false);
   };
 
@@ -317,11 +350,44 @@ export default function FreeScore() {
       { email: "", phone: "" },
     ]);
     setScanLabel("");
+    setEmailResults([]);
     setPhoneResults([]);
     setPhoneNote(null);
     setUnlocked(false);
     setGateEmail("");
+    setResultSent(false);
     setDemo(false);
+  };
+
+  // Optional, never blocking: visitor asks for a copy of their quick-check
+  // result. Posts the result to Formspree so Joey can reply with it — there
+  // is no automated outbound email.
+  const handleEmailResult = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setGateSending(true);
+    try {
+      await fetch("https://formspree.io/f/xykbydze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: gateEmail.trim(),
+          source: "quick_check_email_me",
+          their_score: scan ? Math.max(0, Math.min(100, Math.round(100 - scan.contact_high_risk_rate * 100))) : null,
+          leads_scanned: emailResults.length + phoneResults.length,
+          scan_type: scanLabel,
+          email_verdicts: emailResults
+            .map((r) => `${r.email}: ${r.verdict} (${r.reason}${r.suggestion ? `, did you mean ${r.suggestion}` : ""})`)
+            .join(", "),
+          phone_verdicts: phoneResults
+            .map((r) => `${r.phone}: ${r.verdict}${r.phone_type ? ` (${r.phone_type})` : ""}`)
+            .join(", "),
+        }),
+      });
+    } catch {
+      // Capture is best-effort; don't surface an error for an optional ask.
+    }
+    setResultSent(true);
+    setGateSending(false);
   };
 
   const handleUnlock = async (e: React.FormEvent) => {
@@ -572,7 +638,7 @@ export default function FreeScore() {
           </>
         )}
 
-        {(scan || phoneResults.length > 0) && (
+        {(scan || emailResults.length > 0 || phoneResults.length > 0) && (
           <>
             {demo && (
               <div className="bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-sm text-brand-900">
@@ -590,14 +656,20 @@ export default function FreeScore() {
 
             {scan && (
               <div className="card">
-                <div className="flex items-baseline justify-between mb-2">
-                  <span className="text-sm text-gray-500">Reachability score</span>
-                  <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
-                </div>
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="text-4xl font-extrabold text-brand-900">{health}</span>
-                  <span className="text-gray-400">/ 100</span>
-                </div>
+                {/* A /100 score against 1-3 contacts is noise (it can only be
+                    0/50/100), so quick checks skip it and lead with the verdict. */}
+                {!scanLabel.startsWith("Quick check") && (
+                  <>
+                    <div className="flex items-baseline justify-between mb-2">
+                      <span className="text-sm text-gray-500">Reachability score</span>
+                      <span className={`text-sm font-medium ${healthColor}`}>{healthLabel}</span>
+                    </div>
+                    <div className="flex items-baseline gap-2 mb-3">
+                      <span className="text-4xl font-extrabold text-brand-900">{health}</span>
+                      <span className="text-gray-400">/ 100</span>
+                    </div>
+                  </>
+                )}
                 <p className="text-brand-900">
                   <strong>{reachable.toLocaleString()} of {demo ? "the" : "your"} {total.toLocaleString()} leads {demo ? "in this sample" : ""} are reachable right now.</strong> The breakdown shows which checks passed and failed.
                 </p>
@@ -615,6 +687,42 @@ export default function FreeScore() {
                     <Metric label="reachable right now" value={reachable.toLocaleString()} tone="good" />
                     <Metric label="flagged to skip" value={needAttention.toLocaleString()} />
                     <Metric label="dead emails" value={invalidEmails.toLocaleString()} />
+                  </div>
+                )}
+
+                {emailResults.length > 0 && (
+                  <div className="card">
+                    <h2 className="font-bold text-brand-900 text-lg mb-3">Email check</h2>
+                    <div className="space-y-2">
+                      {emailResults.map((r) => (
+                        <div key={r.email} className="rounded-lg bg-gray-50 border border-gray-100 px-4 py-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="font-mono text-sm text-brand-900 break-all">{r.email}</span>
+                            <span
+                              className={`font-semibold px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${
+                                r.verdict === "valid"
+                                  ? "bg-green-100 text-green-700"
+                                  : r.verdict === "invalid"
+                                  ? "bg-red-100 text-red-700"
+                                  : "bg-amber-100 text-amber-700"
+                              }`}
+                            >
+                              {r.verdict === "valid" ? "Good" : r.verdict === "invalid" ? "Dead" : "Risky"}
+                            </span>
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {r.suggestion
+                              ? <>Looks like a typo. Did you mean <span className="font-mono text-brand-900">{r.suggestion}</span>?</>
+                              : EMAIL_REASON_LABELS[r.reason] ?? r.reason}
+                            {r.role_account && " · Shared inbox (info@, sales@) — a person rarely replies."}
+                            {r.free_mail && !r.suggestion && " · Personal inbox, not a company address."}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-gray-400 mt-3">
+                      Free check: format, typo screen, and whether the domain accepts mail. Mailbox-level verification is part of the full audit.
+                    </p>
                   </div>
                 )}
 
@@ -674,6 +782,29 @@ export default function FreeScore() {
                 </div>
               )}
             </div>
+
+            {!demo && scanLabel.startsWith("Quick check") && (
+              <div className="card">
+                {resultSent ? (
+                  <p className="text-sm text-gray-600">Got it. I&apos;ll send this over shortly.</p>
+                ) : (
+                  <form onSubmit={handleEmailResult} className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                    <p className="text-sm text-gray-600 sm:flex-1">Want a copy of this result in your inbox?</p>
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@agency.com"
+                      value={gateEmail}
+                      onChange={(e) => setGateEmail(e.target.value)}
+                      className="sm:w-56 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                    />
+                    <button type="submit" disabled={gateSending} className="btn-secondary text-sm py-2 px-4 disabled:opacity-50">
+                      {gateSending ? "Sending…" : "Email me this result"}
+                    </button>
+                  </form>
+                )}
+              </div>
+            )}
 
             <div className="card space-y-4">
               <div>

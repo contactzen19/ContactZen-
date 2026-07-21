@@ -217,6 +217,128 @@ async def phone_quick(req: PhoneQuickRequest, request: Request):
     return {"results": results, "checked": len(results)}
 
 
+# --- Free-tool email quick check ---------------------------------------------
+# Per-address verdict + reason for the typed-in quick check. Same estimate
+# framing as the list score (syntax + MX + heuristics, never presented as
+# mailbox-verified — that's the paid audit). Typo screen runs BEFORE the MX
+# check on purpose: typo-squat domains (gamil.com etc.) usually have live MX
+# to harvest strays, so MX alone would wrongly bless them.
+
+from scoring import email_risk  # noqa: E402  (grouped with its endpoint)
+
+EMAIL_QUICK_CAP = 5
+EMAIL_QUICK_DAILY_IP = 30
+_email_rl_lock = threading.Lock()
+_email_rl: dict[str, list[float]] = {}
+
+FREE_MAIL_DOMAINS = {
+    "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com",
+    "icloud.com", "msn.com", "live.com", "me.com", "mac.com", "ymail.com",
+    "rocketmail.com", "protonmail.com", "proton.me", "gmx.com", "mail.com",
+    "comcast.net", "att.net", "verizon.net", "sbcglobal.net", "bellsouth.net",
+    "cox.net", "charter.net", "earthlink.net", "juno.com", "optonline.net",
+}
+
+ROLE_LOCALPARTS = {
+    "info", "sales", "support", "admin", "office", "contact", "hello", "team",
+    "billing", "hr", "jobs", "careers", "help", "marketing", "service",
+    "frontdesk", "reception", "webmaster", "postmaster", "abuse",
+    "enquiries", "inquiries", "accounts",
+}
+
+NO_REPLY_LOCALPARTS = {"noreply", "no-reply", "donotreply", "do-not-reply"}
+
+# Common misspellings of the big consumer domains -> the intended domain.
+DOMAIN_TYPOS = {
+    "gamil.com": "gmail.com", "gmial.com": "gmail.com", "gmal.com": "gmail.com",
+    "gmali.com": "gmail.com", "gnail.com": "gmail.com", "gmaill.com": "gmail.com",
+    "gmai.com": "gmail.com", "gemail.com": "gmail.com", "gmails.com": "gmail.com",
+    "yaho.com": "yahoo.com", "yahooo.com": "yahoo.com", "yhoo.com": "yahoo.com",
+    "yahou.com": "yahoo.com",
+    "hotmial.com": "hotmail.com", "hotmal.com": "hotmail.com",
+    "hotmali.com": "hotmail.com", "hotamil.com": "hotmail.com",
+    "hormail.com": "hotmail.com", "hotmaill.com": "hotmail.com",
+    "outlok.com": "outlook.com", "outloook.com": "outlook.com",
+    "oulook.com": "outlook.com",
+    "icoud.com": "icloud.com", "icluod.com": "icloud.com", "iclould.com": "icloud.com",
+    "aoll.com": "aol.com",
+    "comast.net": "comcast.net", "concast.net": "comcast.net", "comcst.net": "comcast.net",
+}
+
+# TLD-level typos (.con etc). ".cm" is the classic Cameroon typo-squat.
+TLD_TYPOS = {".con": ".com", ".cmo": ".com", ".ocm": ".com", ".cm": ".com"}
+
+
+def _email_rate_ok(ip: str, n: int) -> bool:
+    now = time.time()
+    with _email_rl_lock:
+        stamps = [t for t in _email_rl.get(ip, []) if now - t < 86400]
+        if len(stamps) + n > EMAIL_QUICK_DAILY_IP:
+            _email_rl[ip] = stamps
+            return False
+        stamps.extend([now] * n)
+        _email_rl[ip] = stamps
+        return True
+
+
+def _typo_suggestion(local: str, domain: str) -> Optional[str]:
+    if domain in DOMAIN_TYPOS:
+        return f"{local}@{DOMAIN_TYPOS[domain]}"
+    for bad, good in TLD_TYPOS.items():
+        if domain.endswith(bad):
+            return f"{local}@{domain[: -len(bad)]}{good}"
+    return None
+
+
+class EmailQuickRequest(BaseModel):
+    emails: list[str]
+
+
+@app.post("/api/email-quick")
+async def email_quick(req: EmailQuickRequest, request: Request):
+    seen: set[str] = set()
+    emails: list[str] = []
+    for raw in req.emails:
+        e = str(raw).strip()
+        if e and "@" in e and e.lower() not in seen:
+            seen.add(e.lower())
+            emails.append(e)
+        if len(emails) >= EMAIL_QUICK_CAP:
+            break
+    if not emails:
+        raise HTTPException(status_code=400, detail="No email addresses found.")
+
+    ip = _client_ip(request)
+    if not _email_rate_ok(ip, len(emails)):
+        raise HTTPException(status_code=429, detail="Daily free email-check limit reached. Book a call for a full audit.")
+
+    results = []
+    for e in emails:
+        local, _, domain = e.rpartition("@")
+        local = local.lower()
+        domain = domain.lower()
+
+        suggestion = _typo_suggestion(local, domain) if local and domain else None
+        if suggestion:
+            verdict, reason = "risky", "domain_typo"
+        else:
+            verdict, reason = email_risk(e, check_mx=True)
+
+        if local in NO_REPLY_LOCALPARTS and verdict == "valid":
+            verdict, reason = "risky", "no_reply_address"
+
+        results.append({
+            "email": e,
+            "verdict": verdict,
+            "reason": reason,
+            "suggestion": suggestion,
+            "role_account": local in ROLE_LOCALPARTS,
+            "free_mail": domain in FREE_MAIL_DOMAINS,
+        })
+
+    return {"results": results, "checked": len(results)}
+
+
 @app.post("/api/columns")
 async def get_columns(file: UploadFile = File(...)):
     """Return column names and auto-detected guesses. Used for the column selector UI."""

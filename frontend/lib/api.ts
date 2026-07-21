@@ -51,6 +51,27 @@ export async function quickPhoneCheck(
   return res.json();
 }
 
+export interface EmailQuickResult {
+  email: string;
+  verdict: "valid" | "risky" | "invalid";
+  reason: string;
+  suggestion: string | null;
+  role_account: boolean;
+  free_mail: boolean;
+}
+
+export async function quickEmailCheck(
+  emails: string[]
+): Promise<{ results: EmailQuickResult[]; checked: number }> {
+  const res = await fetch(`${API_URL}/api/email-quick`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ emails }),
+  });
+  if (!res.ok) throw new Error(String(res.status));
+  return res.json();
+}
+
 export async function fetchColumns(file: File): Promise<ColumnsResponse> {
   const form = new FormData();
   form.append("file", file);
