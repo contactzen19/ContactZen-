@@ -30,8 +30,17 @@ const prettyDoc = (name: string) => {
   if (n.includes("compliance")) return "Compliance record";
   if (n.includes("roadmap")) return "Action roadmap";
   if (n.includes("evidence")) return "Evidence CSV";
+  if (n.includes("referral") || n.includes("lead")) return "Lead batch (verified + DNC-cleared)";
+  if (n.includes("dnc_audit")) return "DNC audit (full list)";
   return name;
 };
+
+const isLeadDoc = (name: string) => /referral|lead/.test(name.toLowerCase());
+// Compliance records render as a non-clickable "on file" row. The signed-URL
+// download for portal-docs was serving a broken link (root cause TBD — see
+// BUGS_AND_NEXT_STEPS.md); the record is evidence, customers get the numbers
+// in their delivery email either way.
+const isComplianceDoc = (name: string) => name.toLowerCase().includes("compliance");
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -163,26 +172,61 @@ function AuditRow({ audit }: { audit: PortalAudit }) {
               No files yet for this month. If you expected some, reply to your delivery email.
             </p>
           )}
-          {docs?.map((doc) =>
-            doc.url ? (
-              <a
-                key={doc.bucket + doc.name}
-                href={doc.url}
-                className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors rounded-xl px-4 py-2.5 text-sm"
-              >
-                <span className="font-medium text-brand-900">{prettyDoc(doc.name)}</span>
-                <span className="text-xs text-gray-400">{doc.name}</span>
-              </a>
-            ) : (
-              <div
-                key={doc.bucket + doc.name}
-                className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-2.5 text-sm"
-              >
-                <span className="font-medium text-gray-500">{prettyDoc(doc.name)}</span>
-                <span className="text-xs text-gray-400">request download — reply to your delivery email</span>
-              </div>
-            )
-          )}
+          {docs !== null && docs.length > 0 && (() => {
+            const row = (doc: PortalDoc) => {
+              if (isComplianceDoc(doc.name)) {
+                return (
+                  <div
+                    key={doc.bucket + doc.name}
+                    className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-2.5 text-sm"
+                  >
+                    <span className="font-medium text-brand-900">{prettyDoc(doc.name)}</span>
+                    <span className="text-xs text-green-600 font-medium">✓ on file — dated record kept permanently</span>
+                  </div>
+                );
+              }
+              return doc.url ? (
+                <a
+                  key={doc.bucket + doc.name}
+                  href={doc.url}
+                  className={`flex items-center justify-between transition-colors rounded-xl px-4 py-2.5 text-sm ${
+                    isLeadDoc(doc.name)
+                      ? "bg-brand-50 hover:bg-brand-100 border border-brand-200"
+                      : "bg-gray-50 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="font-medium text-brand-900">{prettyDoc(doc.name)}</span>
+                  <span className="text-xs text-gray-400">{doc.name}</span>
+                </a>
+              ) : (
+                <div
+                  key={doc.bucket + doc.name}
+                  className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-2.5 text-sm"
+                >
+                  <span className="font-medium text-gray-500">{prettyDoc(doc.name)}</span>
+                  <span className="text-xs text-gray-400">request download — reply to your delivery email</span>
+                </div>
+              );
+            };
+            const leads = docs.filter((d) => isLeadDoc(d.name));
+            const rest = docs.filter((d) => !isLeadDoc(d.name));
+            return (
+              <>
+                {leads.length > 0 && (
+                  <p className="text-xs font-bold text-brand-600 uppercase tracking-widest pt-1">
+                    Your leads this month
+                  </p>
+                )}
+                {leads.map(row)}
+                {leads.length > 0 && rest.length > 0 && (
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest pt-2">
+                    Audit files
+                  </p>
+                )}
+                {rest.map(row)}
+              </>
+            );
+          })()}
           <p className="text-xs text-gray-400">
             Contact-level files (evidence, roadmap) are kept for a few days after delivery, then purged.
             Your reports and compliance records stay here permanently.
