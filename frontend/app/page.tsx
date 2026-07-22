@@ -524,6 +524,38 @@ function WhoWeHelp() {
   );
 }
 
+function TestimonialSection() {
+  // Testimonial provided in writing by Elaine on 2026-07-22 with edit
+  // permission ("feel free to edit them however you like"). Full-name
+  // attribution approved by Joey 7/22; confirm with Elaine in his reply
+  // before this ships to production.
+  return (
+    <section className="py-20 px-6 bg-gray-50">
+      <div className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl font-extrabold text-brand-900 mb-10">
+          From a client
+        </h2>
+        <figure className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 md:p-10">
+          <blockquote className="text-lg md:text-xl text-gray-700 leading-relaxed">
+            &ldquo;Joey has built an incredibly valuable service for agencies
+            that rely on lead generation. His attention to detail, proactive
+            communication, and commitment to keeping our data compliant with
+            Do Not Call regulations have given me confidence in our outreach
+            process. I highly recommend ReachAudit to any agency looking to
+            improve lead quality and compliance.&rdquo;
+          </blockquote>
+          <figcaption className="mt-6">
+            <p className="font-bold text-brand-900">Elaine Mullenmaster</p>
+            <p className="text-sm text-gray-500">
+              Owner, ONE Insurance Agency
+            </p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  );
+}
+
 type TrustItem = {
   icon: LucideIcon;
   title: string;
@@ -731,6 +763,7 @@ export default function LandingPage() {
       <MonthlySection />
       <HowItWorks />
       <WhoWeHelp />
+      <TestimonialSection />
       <TrustSection />
       <FAQSection />
       <CTASection />
